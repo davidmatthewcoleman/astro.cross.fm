@@ -15367,7 +15367,7 @@ body::after {
 }
 @media screen and (max-width: 959px) {
     .story__header .summary-cover__image {
-        aspect-ratio: 2/3 !important;
+        aspect-ratio: 16/9 !important;
     }
 }
 .story__header > div h5 {

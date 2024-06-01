@@ -74,26 +74,26 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
         </nav>
         <header class="list__header story__header">
             <Picture
-                    alt={story?.name}
-                    class="summary-cover__image"
-                    source={
-                        {
-                            '(max-width: 959px)': {
-                                media: story?.images[0]?.banner,
-                                params: {
-                                    'width': 1200,
-                                    'height': 600
-                                }
-                            },
-                            '(min-width: 960px)': {
-                                media: story?.images[0]?.cover,
-                                params: {
-                                    'width': 128,
-                                    'height': 192
-                                }
+                alt={story?.name}
+                class="summary-cover__image"
+                source={
+                    {
+                        '(max-width: 959px)': {
+                            media: story?.images[0]?.banner,
+                            params: {
+                                'width': 1200,
+                                'height': 600
+                            }
+                        },
+                        '(min-width: 960px)': {
+                            media: story?.images[0]?.cover,
+                            params: {
+                                'width': 128,
+                                'height': 192
                             }
                         }
                     }
+                }
             />
             <div>
                 <h5 class="list__header--title capitalize h5" set:html={story?.name}></h5>
