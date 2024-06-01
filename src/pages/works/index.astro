@@ -37,7 +37,20 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                 <div class="masonry-grid">
                     {works.map((work, index) => (
                         <Picture
-                            source={work}
+                            alt={``}
+                            class="work__image"
+                            source={
+                                {
+                                    null: {
+                                        media: work,
+                                        params: {
+                                            'width': 1024,
+                                            'height': 1024,
+                                            'fit': 'clip'
+                                        }
+                                    }
+                                }
+                            }
                         />
                     ))}
                 </div>
