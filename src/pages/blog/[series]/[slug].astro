@@ -125,7 +125,81 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                         </div>
                     )
                 }
-                <div set:html={post?.license}></div>
+                <div class="license__block">
+                    <svg class="icon icon-creative-commons" role="img">
+                        <use href="#icon-creative-commons"></use>
+                    </svg>
+                    <div class="top">
+                        <h4 set:html={post?.title}></h4>
+                        <a href={`/blog/${series?.slug}/${post?.slug}`}>https://crossrambles.com/blog/{series?.slug}/{post?.slug}</a>
+                    </div>
+                    <div class="bottom">
+                        <div>
+                            <small>Writer</small>
+                            <span>{post?.author?.node?.name}</span>
+                        </div>
+                        <div>
+                            <small>Published</small>
+                            <span>{format(post?.date, 'MMM. d, yyyy')}</span>
+                        </div>
+                        <div>
+                            <small>License</small>
+                            <span set:html={post?.license}></span>
+                        </div>
+                    </div>
+                    <style is:inline>
+                        .license__block {
+                            position: relative;
+                            padding: 1rem 1.5rem;
+                            display: flex;
+                            flex-direction: column;
+                            gap: 0.5rem;
+                            margin-top: 1.5rem;
+                            background-color: #1b1c1b;
+                            border-radius: 6px;
+                            overflow: hidden;
+                        }
+                        .license__block .icon {
+                            position: absolute;
+                            inset: 0 2.5rem 0 auto;
+                            width: auto;
+                            height: 100%;
+                            aspect-ratio: 1/1;
+                            color: rgba(255,255,255,0.0625);
+                            transform: scale(1.75);
+                        }
+                        .license__block .top {
+                            position: relative;
+                        }
+                        .license__block .top h4 {
+                            color: #fff;
+                            font-size: 0.9rem;
+                            margin: 0;
+                        }
+                        .license__block .top a {
+                            font-size: 0.9rem;
+                            margin: 0;
+                        }
+                        .license__block .bottom {
+                            position: relative;
+                            display: flex;
+                            flex-direction: row;
+                            gap: 1rem;
+                        }
+                        .license__block .bottom div {
+                            display: flex;
+                            flex-direction: column;
+                        }
+                        .license__block .bottom div small {
+                            font-size: 0.75rem;
+                            color: rgba(255,255,255,0.5);
+                        }
+                        .license__block .bottom div span {
+                            font-size: 0.9rem;
+                            color: #fff;
+                        }
+                    </style>
+                </div>
             </footer>
             <nav class="pagination-single">
                 {

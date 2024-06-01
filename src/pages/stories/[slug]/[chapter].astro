@@ -67,9 +67,7 @@ export async function getStaticPaths() {
         <section class="post main">
             <h2 class="single__title" set:html={post?.title}></h2>
             <article class="single__contents" data-dir="ltr" set:html={post?.content}></article>
-            <footer class="single__footer">
-                <div set:html={post?.license}></div>
-            </footer>
+            <footer class="single__footer"></footer>
             <nav class="pagination-single">
                 {
                     post?.previousPost && post?.previousPost?.slug !== post?.slug && (

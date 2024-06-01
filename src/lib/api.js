@@ -863,6 +863,11 @@ export async function singlePostQuery(slug) {
                       series
                       license
                       excerpt
+                      author {
+                        node {
+                          name
+                        }
+                      }
                       previousPost {
                         title
                         slug
