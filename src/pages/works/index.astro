@@ -51,6 +51,7 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                                     }
                                 }
                             }
+                            style={`aspect-ratio:${work.mediaDetails.width}/${work.mediaDetails.height};`}
                         />
                     ))}
                 </div>
@@ -70,7 +71,7 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
     <script is:inline>
         const macyInstance = Macy({
             container: '.masonry-grid',
-            trueOrder: false,
+            trueOrder: true,
             waitForImages: true,
             margin: 16,
             columns: 4,

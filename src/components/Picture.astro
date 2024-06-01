@@ -4,6 +4,7 @@ import { fetchPicture } from "../lib/picture.js";
 const data = Astro.props.source;
 const alt = Astro.props.alt || "";
 const className = Astro.props.class || "";
+const style = Astro.props.style || "";
 const picture = await fetchPicture(data);
 ---
 
@@ -16,5 +17,5 @@ const picture = await fetchPicture(data);
             </>
         );
     })}
-    <img src={Object.values(picture)[0]?.img} alt={alt} class={className} />
+    <img src={Object.values(picture)[0]?.img} alt={alt} class={className} style={style} />
 </picture>
