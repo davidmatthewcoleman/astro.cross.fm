@@ -56,7 +56,16 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
                         Bookshelf
                         <a id="toggleButton" href="javascript:void(0);">Toggle View</a>
                     </h2>
-                    <bookshelf-block></bookshelf-block>
+                    <div class="next-app">
+                        <bookshelf-block></bookshelf-block>
+                    </div>
+
+                    <style is:inline>
+                        .next-app {
+                            margin-left: -1rem !important;
+                            margin-right: -1rem !important;
+                        }
+                    </style>
 
                     <script is:inline>
                         class BookshelfBlock extends HTMLElement {
@@ -71,7 +80,7 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
 
                                 const shadowRoot = this.shadowRoot;
                                 const container = document.createElement('div');
-                                container.id = 'nextjs-app-container';
+                                container.id = 'next-app';
                                 shadowRoot.appendChild(container);
 
                                 try {
@@ -126,7 +135,7 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
                                 bookshelfBlock.setAttribute('view-mode', initialViewMode);
 
                                 // Inject the HTML content into the container based on the initial view mode
-                                bookshelfBlock.shadowRoot.querySelector('#nextjs-app-container').innerHTML = cache[initialViewMode];
+                                bookshelfBlock.shadowRoot.querySelector('#next-app').innerHTML = cache[initialViewMode];
 
                                 // Attach event listener to toggle button after fetching HTML content
                                 toggleButton.addEventListener('click', toggleViewMode);
@@ -144,57 +153,9 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
                             localStorage.setItem('viewMode', newViewMode);
 
                             // Inject the HTML content into the container based on the selected view mode
-                            bookshelfBlock.shadowRoot.querySelector('#nextjs-app-container').innerHTML = cache[newViewMode];
+                            bookshelfBlock.shadowRoot.querySelector('#next-app').innerHTML = cache[newViewMode];
                         }
                     </script>
-                    <!--<div id="bookshelf" style="width:100%;height:auto;"></div>-->
-                    <!--<script>-->
-                    <!--    document.addEventListener("DOMContentLoaded", function() {-->
-                    <!--        // Get the view from localStorage or default to "grid"-->
-                    <!--        var bookshelfView = localStorage.getItem("bookshelfView") || "grid";-->
-
-                    <!--        // Function to load iframe with given view-->
-                    <!--        function loadIframe(view) {-->
-                    <!--            var iframe = document.createElement("iframe");-->
-                    <!--            iframe.src = "https://next-app.cross.fm/bookshelf/" + view; // Replace "your_url_here" with your actual URL-->
-                    <!--            iframe.style.width = "100%";-->
-                    <!--            iframe.style.height = "100%";-->
-                    <!--            document.getElementById("bookshelf").innerHTML = "";-->
-                    <!--            document.getElementById("bookshelf").appendChild(iframe);-->
-                    <!--            updateButtonLabel(view);-->
-                    <!--        }-->
-
-                    <!--        // Load initial view-->
-                    <!--        loadIframe(bookshelfView);-->
-
-                    <!--        // Toggle view function-->
-                    <!--        function toggleView() {-->
-                    <!--            bookshelfView = bookshelfView === "grid" ? "list" : "grid";-->
-                    <!--            localStorage.setItem("bookshelfView", bookshelfView);-->
-                    <!--            loadIframe(bookshelfView);-->
-                    <!--        }-->
-
-                    <!--        // Update button label based on current view-->
-                    <!--        function updateButtonLabel(view) {-->
-                    <!--            var button = document.getElementById("toggleButton");-->
-                    <!--            if (view === "grid") {-->
-                    <!--                button.textContent = "List View";-->
-                    <!--            } else {-->
-                    <!--                button.textContent = "Grid View";-->
-                    <!--            }-->
-                    <!--        }-->
-
-                    <!--        // Add click event listener to the toggle button-->
-                    <!--        document.getElementById("toggleButton").addEventListener("click", toggleView);-->
-                    <!--    });-->
-
-                    <!--    window.addEventListener('message', (event) => {-->
-                    <!--        if (event.data.type === 'resizeIframe') {-->
-                    <!--            const iframe = document.getElementById('bookshelf');-->
-                    <!--            iframe.style.height = event.data.height + 'px';-->
-                    <!--        }-->
-                    <!--    });-->
-                    <!--</script>-->
                 </article>
             </div>
         </section>
