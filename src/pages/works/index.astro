@@ -81,6 +81,9 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                 400: 1
             }
         });
+        macyInstance.runOnImageLoad(function () {
+            macyInstance.recalculate(true);
+        }, true);
     </script>
     <Sidebar show={false} />
 </MainLayout>
