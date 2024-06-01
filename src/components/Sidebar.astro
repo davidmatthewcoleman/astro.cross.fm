@@ -144,7 +144,7 @@ const { show = true, overlap = false } = Astro.props;
     <hr class="hr-fade sidebar-hr">
     <div class="taxo-root">
         {
-            allSeries && (
+            allSeries.length > 0 && (
                 <div class="taxo">
                     <section>
                         <span class="title p2"><a href="/blog/archive/series" class="taxo__title">Series</a></span>
@@ -160,7 +160,7 @@ const { show = true, overlap = false } = Astro.props;
             )
         }
         {
-            categories && (
+            categories.length > 0 && (
                 <div class="taxo">
                     <section>
                         <span class="title p2"><a href="/blog/archive/topics" class="taxo__title">Topics</a></span>
@@ -176,7 +176,7 @@ const { show = true, overlap = false } = Astro.props;
             )
         }
         {
-            tags && (
+            tags.length > 0 && (
                 <div class="taxo">
                     <section>
                         <span class="title p2"><a href="/blog/archive/tags" class="taxo__title">Tags</a></span>
