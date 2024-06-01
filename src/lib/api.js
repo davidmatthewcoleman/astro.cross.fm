@@ -1234,3 +1234,35 @@ export async function allTopicSlugsQuery() {
     const result = await response.json();
     return result.data;
 }
+
+
+export async function portfolioQuery() {
+    const query = `
+        query portfolioQuery {
+          portfolio {
+            nodes {
+              sourceUrl
+              sourceFile
+              mediaDetails {
+                width
+                height
+                x
+                y
+                color
+              }
+            }
+          }
+        }
+      `;
+
+    const response = await fetch(import.meta.env.WORDPRESS_API_URL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ query }),
+    });
+
+    const result = await response.json();
+    return result.data;
+}

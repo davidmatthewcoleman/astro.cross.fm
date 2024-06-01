@@ -1,0 +1,73 @@
+---
+import Picture from "../../components/Picture.astro";
+import Sidebar from "../../components/Sidebar.astro";
+import MainLayout from "../../layouts/MainLayout.astro";
+import { singlePageQuery, portfolioQuery } from "../../lib/api.js";
+
+const { pages } = await singlePageQuery( 'works' );
+const page = pages.nodes[0];
+
+const { portfolio } = await portfolioQuery();
+const works = portfolio.nodes;
+
+Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
+---
+
+<MainLayout title={`${page?.title} – CROSS`}>
+    <style is:inline>
+        .page__wrapper {
+            grid-area: 1/1/2/4 !important;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/macy@2" is:inline></script>
+    <div class="page__wrapper lm">
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+            <ol>
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                <li class="is-active">
+                    <span set:html={page?.title}></span>
+                </li>
+            </ol>
+        </nav>
+        <section class="page main">
+            <h2 class="single__title" set:html={page?.title}></h2>
+            <article class="single__contents" data-dir="ltr">
+                <div class="masonry-grid">
+                    {works.map((work, index) => (
+                        <Picture
+                            source={work}
+                        />
+                    ))}
+                </div>
+            </article>
+            <footer class="single__footer"></footer>
+            <style is:inline>
+                .masonry-grid {
+                    margin: 0 auto;
+                }
+
+                .masonry-item {
+                    max-width: 22.5%;
+                }
+            </style>
+        </section>
+    </div>
+    <script is:inline>
+        const macyInstance = Macy({
+            container: '.masonry-grid',
+            trueOrder: false,
+            waitForImages: true,
+            margin: 16,
+            columns: 4,
+            breakAt: {
+                1200: 4,
+                940: 3,
+                520: 2,
+                400: 1
+            }
+        });
+    </script>
+    <Sidebar show={false} />
+</MainLayout>

@@ -15,6 +15,7 @@
     "@imgix/js-core": "^3.8.0",
     "astro": "4.9.2",
     "date-fns": "^3.6.0",
-    "html-react-parser": "^5.1.10"
+    "html-react-parser": "^5.1.10",
+    "macy": "^2.5.1"
   }
 }
