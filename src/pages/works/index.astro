@@ -14,11 +14,6 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
 ---
 
 <MainLayout title={`${page?.title} – CROSS`}>
-    <style is:inline>
-        .page__wrapper {
-            grid-area: 1/1/2/4 !important;
-        }
-    </style>
     <script src="https://cdn.jsdelivr.net/npm/macy@2" is:inline></script>
     <div class="page__wrapper lm">
         <nav class="breadcrumb" aria-label="breadcrumbs">

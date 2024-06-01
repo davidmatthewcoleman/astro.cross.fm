@@ -18,6 +18,15 @@ const { show = true, overlap = false } = Astro.props;
 ---
 
 <aside class={`list__sidebar ${show === true ? '' : 'hide__sidebar'} r`} data-dir="ltr">
+    {
+        show !== true && (
+            <style is:inline>
+                .page__wrapper {
+                    grid-area: 1/1/2/4 !important;
+                }
+            </style>
+        )
+    }
     { overlap === true && (
         <style>
             .list__sidebar {
