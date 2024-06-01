@@ -1,12 +1,12 @@
 import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
-import vercel from "@astrojs/vercel/serverless";
+import node from "@astrojs/node";
 
 // https://astro.build/config
 export default defineConfig({
   output: 'static',
-  adapter: vercel(),
+  adapter: node(),
   experimental: {
     contentCollectionCache: true,
   },
