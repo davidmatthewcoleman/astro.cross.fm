@@ -131,7 +131,15 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                     </svg>
                     <div class="top">
                         <h4 set:html={post?.title}></h4>
-                        <a href={`https://cross.fm/${post?.slug}`}>cross.fm/{post?.slug}</a>
+                        <div>
+                            <a href={`https://cross.fm/${post?.slug}`}>cross.fm/{post?.slug}</a>
+                            <a href={`https://cross.fm/go/${post?.shortlink}`} id="shortlink" style="display:none;"></a>
+                            <button id="copyShortlink" title="Copy shortlink">
+                                <svg class="icon icon-copy" width="14" height="14" role="img">
+                                    <use href="#icon-copy"></use>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
                     <div class="bottom">
                         <div>
@@ -159,7 +167,7 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                             border-radius: 6px;
                             overflow: hidden;
                         }
-                        .license__block .icon {
+                        .license__block .icon.icon-creative-commons {
                             position: absolute;
                             inset: 0 2.5rem 0 auto;
                             width: auto;
@@ -181,6 +189,27 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                             font-size: 0.9rem;
                             margin: 0;
                         }
+                        .license__block .top button {
+                            position: relative;
+                            top: 2px;
+                            display: inline-block;
+                            background: transparent;
+                            border: none;
+                            box-shadow: none;
+                            margin-left: 0.25rem;
+                            cursor: pointer;
+                            color: rgba(255,255,255,0.5);
+                        }
+                        .license__block .top button:hover {
+                            color: #fff;
+                        }
+                        .license__block .top button:active {
+                            color: rgba(255,255,255,0.25);
+                        }
+                        .license__block .top button .icon {
+                            display: block;
+                            color: inherit;
+                        }
                         .license__block .bottom {
                             position: relative;
                             display: flex;
@@ -200,6 +229,37 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                             color: #fff;
                         }
                     </style>
+                    <script is:inline>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            // Get the hidden anchor element
+                            var hiddenAnchor = document.getElementById('shortlink');
+
+                            // Get the button element
+                            var copyButton = document.getElementById('copyShortlink');
+
+                            // Add click event listener to the button
+                            copyButton.addEventListener('click', function() {
+                                // Create a temporary input element
+                                var tempInput = document.createElement('input');
+
+                                // Set the value of the input to the href of the hidden anchor
+                                tempInput.value = hiddenAnchor.href;
+
+                                // Append the input element to the document body
+                                document.body.appendChild(tempInput);
+
+                                // Select the input element's value
+                                tempInput.select();
+
+                                // Copy the selected text
+                                document.execCommand('copy');
+
+                                // Remove the temporary input element
+                                document.body.removeChild(tempInput);
+                            });
+                        });
+
+                    </script>
                 </div>
             </footer>
             <nav class="pagination-single">

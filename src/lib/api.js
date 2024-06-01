@@ -857,6 +857,7 @@ export async function singlePostQuery(slug) {
                       title
                       subtitle
                       slug
+                      shortlink
                       date
                       dateGmt
                       readingTime
