@@ -1,0 +1,19 @@
+{
+  "name": "cross.fm",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "node ./dist/server/entry.mjs",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/node": "^5.0.0",
+    "@imgix/js-core": "^3.8.0",
+    "astro": "^2.0.1",
+    "date-fns": "^3.6.0",
+    "html-react-parser": "^5.1.10"
+  }
+}

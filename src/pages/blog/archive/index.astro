@@ -1,0 +1,135 @@
+---
+import Sidebar from "../../../components/Sidebar.astro";
+import MainLayout from "../../../layouts/MainLayout.astro";
+import { blogQuery } from "../../../lib/api.js";
+import {format} from "date-fns";
+
+// Define the number of posts per page
+const postsPerPage = 9999;
+
+// Fetch the initial page of posts
+const initialData = await blogQuery(postsPerPage);
+let posts = initialData.posts.edges;
+
+// Function to group posts by year
+function groupPostsByYear(posts) {
+    const groupedPosts = {};
+    posts.forEach(({ node }) => {
+        const year = new Date(node.date).getFullYear();
+        if (!groupedPosts[year]) {
+            groupedPosts[year] = [];
+        }
+        groupedPosts[year].push({ node });
+    });
+    return groupedPosts;
+}
+
+// Separate sticky posts from regular posts
+const stickyPosts = posts.filter(({ node }) => node.isSticky);
+const regularPosts = posts.filter(({ node }) => !node.isSticky);
+
+// Group regular posts by year
+const groupedPosts = groupPostsByYear(regularPosts);
+
+
+Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
+---
+
+<MainLayout title="Blog Archive – CROSS" description="I write quite infrequently, when ideas need expressing. If you want to read some of my ramblings, this is my latest. I’ve also got an RSS feed for those of you it interests.">
+    <style>
+        .archive__year {
+            color: #fff !important;
+            font-family: monospace !important;
+        }
+        .archive__list {
+            margin: 0.25em 0 1em !important;
+            border-top: 1px solid rgba(255,255,255,0.25) !important;
+        }
+        .archive__list li {
+            display: grid !important;
+            grid-template-columns: 1fr auto !important;
+            gap: 1rem !important;
+            padding: 0.125em 0.25em !important;
+            color: #fff !important;
+            border-bottom: 1px solid rgba(255,255,255,0.25) !important;
+        }
+        .archive__list li:nth-child(even) {
+            background-color: rgba(255,255,255,0.05) !important;
+        }
+        .archive__list li a {
+            display: block !important;
+            max-width: max-content !important;
+            text-overflow: ellipsis !important;
+            overflow: hidden !important;
+            white-space: nowrap !important;
+        }
+        .archive__list li .post__date {
+            font-size: 0.85rem !important;
+            opacity: 0.65 !important;
+        }
+        .archive__list li .post__meta {
+            display: inline-flex !important;
+            flex-direction: row !important;
+            align-items: center !important;
+            gap: 0.5em !important;
+            margin-left: auto !important;
+        }
+
+        @media screen and (max-width: 600px) {
+            .archive__list li {
+                grid-template-columns: auto !important;
+                grid-template-rows: repeat(2, auto) !important;
+                gap: 0 !important;
+            }
+            .archive__list li .post__meta {
+                margin-left: 0 !important;
+            }
+        }
+    </style>
+    <div class="archive__container lm">
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+            <ol>
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                <li class="is-active">
+                    <span>Archive</span>
+                </li>
+            </ol>
+        </nav>
+        <header class="list__header">
+            <h5 class="list__header--title capitalize h5">Archive</h5>
+        </header>
+        <section class="archive__inner">
+            {/* Group sticky posts */}
+            <div class="archive__year" key="sticky">
+                <h4 class="archive__year">Pinned</h4>
+                <ul class="archive__list">
+                    {stickyPosts.map(post => (
+                        <li key={post.node.id}>
+                            <a href={`/blog/${post.node.series}/${post.node.slug}`}>{post.node.title}</a>
+                            <span class="post__date">{format(post.node.date, 'MMM. d, yyyy')}</span>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+            {/* Group regular posts by year */}
+            {Object.keys(groupedPosts).reverse().map(year => (
+                <div class="archive__year" key={year}>
+                    <h4 class="archive__year">{year}</h4>
+                    <ul class="archive__list">
+                        {groupedPosts[year].map(post => (
+                            <li key={post.node.id}>
+                                <a href={`/blog/${post.node.series}/${post.node.slug}`}>{post.node.title}</a>
+                                <span class="post__meta">
+                                    <span class="post__date">{format(post.node.date, 'MMM. d')}</span>
+                                </span>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            ))}
+        </section>
+    </div>
+    <Sidebar />
+</MainLayout>

@@ -1,0 +1,45 @@
+---
+const {menu, generalSettings} = Astro.props;
+---
+
+<nav class="navbar scrolling navbar--show" role="navigation" aria-label="main navigation" data-dir="ltr">
+    <div class="navbar__brand">
+        <a href="/" title="Home" rel="home" class="navbar__title-link">
+            <img class="navbar__logo" src="/assets/images/8BIT_logo.png" alt="CROSS" />
+        </a>
+        <style>
+            .navbar__logo {
+                image-rendering: pixelated;
+                display: block;
+            }
+        </style>
+    </div>
+    <a id="menuToggle" role="button" class="navbar__burger" aria-label="menu" aria-expanded="false">
+        <img class="navbar__menu-icon closed" src="/assets/images/menu.png" alt="toggle menu" />
+        <img class="navbar__menu-icon open" src="/assets/images/menu_open.png" alt="toggle menu" />
+    </a>
+    <div class="navbar__menu">
+        {menu.menuItems.nodes.map(menuItem => {
+            return <a href={menuItem.uri || '/'} class="navbar__menu-item navbar__slide-down" dir="ltr">{menuItem.label}</a>;
+        })}
+    </div>
+</nav>
+
+<script client:load is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+        const menuToggle = document.getElementById('menuToggle');
+        const body = document.body;
+
+        if (menuToggle) {
+            console.log('Menu toggle button found'); // Debugging log
+            menuToggle.addEventListener('click', function () {
+                body.classList.toggle('menuOpen');
+                this.classList.toggle('active');
+                console.log('menuOpen class on body:', body.classList.contains('menuOpen'));
+                console.log('active class on menuToggle:', this.classList.contains('active'));
+            });
+        } else {
+            console.log('Menu toggle button not found'); // Debugging log
+        }
+    });
+</script>

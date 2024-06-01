@@ -1,0 +1,122 @@
+---
+import Sidebar from "../../../components/Sidebar.astro";
+import MainLayout from "../../../layouts/MainLayout.astro";
+import { singleStoryQuery, allStorySlugsQuery } from "../../../lib/api.js";
+import { formatInteger } from "../../../lib/utils.js";
+import {format} from "date-fns";
+import Picture from "../../../components/Picture.astro";
+
+const data = await singleStoryQuery(Astro.params.slug);
+const story = data.stories.nodes[0];
+
+export async function getStaticPaths() {
+    const data = await allStorySlugsQuery();
+    const paths = data?.stories.nodes.map(story => ({
+        params: { slug: story.slug }
+    }));
+
+    return paths;
+}
+
+Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
+---
+<MainLayout title={`${story?.name} – CROSS`} description={story?.description}>
+    <style>
+        @media screen and (max-width: 959px) {
+            .story__header {
+                grid-template-columns: 1fr !important;
+            }
+        }
+    </style>
+    {
+        story?.images[0]?.background.sourceUrl && (
+            <div class="banner summary-blur__image-wrapper">
+                <Picture
+                    alt={story?.name}
+                    class="summary-blur__image"
+                    source={
+                        {
+                            '(max-width: 959px)': {
+                                media: story?.images[0]?.background,
+                                params: {
+                                    'width': 360,
+                                    'height': 196,
+                                    'blur': 256,
+                                    'sat': 200
+                                }
+                            },
+                            '(min-width: 960px)': {
+                                media: story?.images[0]?.background,
+                                params: {
+                                    'width': 960,
+                                    'height': 196
+                                }
+                            }
+                        }
+                    }
+                />
+            </div>
+        )
+    }
+    <div class="story__wrapper lm">
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+            <ol>
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                <li>
+                    <a href="/stories">Stories</a>
+                </li>
+                <li class="is-active">
+                    <span set:html={story?.name}></span>
+                </li>
+            </ol>
+        </nav>
+        <header class="list__header story__header">
+            <Picture
+                    alt={story?.name}
+                    class="summary-cover__image"
+                    source={
+                        {
+                            '(max-width: 959px)': {
+                                media: story?.images[0]?.banner,
+                                params: {
+                                    'width': 1200,
+                                    'height': 600
+                                }
+                            },
+                            '(min-width: 960px)': {
+                                media: story?.images[0]?.cover,
+                                params: {
+                                    'width': 128,
+                                    'height': 192
+                                }
+                            }
+                        }
+                    }
+            />
+            <div>
+                <h5 class="list__header--title capitalize h5" set:html={story?.name}></h5>
+                <div set:html={story?.description} style="color:#fff;"></div>
+            </div>
+        </header>
+        <div class="summary__container" data-display="block">
+            <ul class="chapter__list">
+                {
+                    story?.chapters.nodes.map((chapter) => (
+                        <li>
+                            <span class="chapter__title">
+                                <a href={`/stories/${story?.slug}/${chapter?.slug}`} set:html={chapter?.title}></a>
+                            </span>
+                            <span class="chapter__meta">
+                                <span class="chapter__words">{formatInteger(chapter?.wordCount)} words</span>
+                                <span class="chapter__published">{format(chapter?.date, 'MMM. d, yyyy')}</span>
+                            </span>
+                        </li>
+                    ))
+                }
+            </ul>
+        </div>
+    </div>
+    <Sidebar />
+</MainLayout>

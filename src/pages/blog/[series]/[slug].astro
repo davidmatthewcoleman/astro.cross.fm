@@ -1,0 +1,160 @@
+---
+import Sidebar from "../../../components/Sidebar.astro";
+import Picture from "../../../components/Picture.astro";
+import MainLayout from "../../../layouts/MainLayout.astro";
+import { singlePostQuery, singleSeriesQuery, allPostSlugsQuery } from "../../../lib/api.js";
+import { format } from "date-fns";
+import Parse from "html-react-parser";
+
+const { posts } = await singlePostQuery( Astro.params.slug );
+const post = posts.nodes[0];
+const allSeries = await singleSeriesQuery(post?.series);
+const series = allSeries?.allSeries?.nodes[0];
+
+export async function getStaticPaths() {
+    const data = await allPostSlugsQuery();
+    const paths = data?.posts.nodes.map(post => ({
+        params: { series: post.series, slug: post.slug }
+    }));
+
+    return paths;
+}
+
+Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
+---
+
+<MainLayout title={`${post?.title} – CROSS`} description={post?.excerpt}>
+    <div class="banner summary-blur__image-wrapper">
+        <Picture
+            alt={post?.title}
+            class="summary-blur__image"
+            source={
+                {
+                    '(max-width: 959px)': {
+                        media: post?.featuredImage?.node,
+                        params: {
+                            'width': 360,
+                            'height': 196,
+                            'blur': 256,
+                            'sat': 200
+                        }
+                    },
+                    '(min-width: 960px)': {
+                        media: post?.featuredImage?.node,
+                        params: {
+                            'width': 960,
+                            'height': 196,
+                            'blur': 256,
+                            'sat': 200
+                        }
+                    }
+                }
+            }
+        />
+    </div>
+    <div class="post__wrapper lm">
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+            <ol>
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                <li>
+                    <a href="/blog">Blog</a>
+                </li>
+                <li>
+                    <a href={`/blog/${series?.slug}`} set:html={series?.name}></a>
+                </li>
+                <li class="is-active">
+                    <span set:html={post?.title}></span>
+                </li>
+            </ol>
+        </nav>
+        <section class="post main">
+            <h2 class="single__title" set:html={post?.title}></h2>
+            {
+                post?.subtitle && (
+                    <h3 class="single__subtitle" set:html={post?.subtitle}></h3>
+                )
+            }
+            <div class="single__meta">
+                <div class="single__infos">
+                    <time class="single__info">
+                        <svg class="icon" width="15" height="15" role="img">
+                            <use href="#icon-calendar"></use>
+                        </svg>
+                        &nbsp;{post?.date && format(post?.date, 'MMM. d, yyyy')}
+                    </time>
+                    <span class="single__info">
+                        <svg class="icon" width="15" height="15" role="img">
+                            <use href="#icon-coffee"></use>
+                        </svg>&nbsp;
+                        {Parse(post?.readingTime)} min read
+                    </span>
+                </div>
+                    {
+                        post?.categories?.nodes?.length > 0 && (
+                            <ul class="single__tags caption taxo">
+                                {
+                                    post?.categories?.nodes?.map((category) => (
+                                            <li class="tag">
+                                                <a href={`/blog/archive/topics/${category?.slug}`} class="is-categories taxo__link" data-dir="ltr">
+                                                    <span class="taxo__text">{category?.name}</span>&nbsp;<span class="taxo__num" dir="auto">{category?.count}</span>
+                                                </a>
+                                            </li>
+                                    ))
+                                }
+                            </ul>
+                        )
+                    }
+            </div>
+            <article class="single__contents" data-dir="ltr" set:html={post?.content}></article>
+            <footer class="single__footer">
+                {
+                    post?.tags?.nodes?.length > 0 && (
+                        <div class="tags taxo">
+                            <span class="title p2"><a href="/blog/archive/tags" class="taxo__title">Tags</a></span>
+                            {
+                                post?.tags?.nodes?.map((tag) => (
+                                    <span class="tag">
+                                        <a href={`/blog/archive/tags/${tag?.slug}`} class="is-tags taxo__link" data-dir="ltr">
+                                            <span class="taxo__text">{tag?.name}</span>&nbsp;<span class="taxo__num" dir="auto">{tag?.count}</span>
+                                        </a>
+                                    </span>
+                                ))
+                            }
+                        </div>
+                    )
+                }
+                <div set:html={post?.license}></div>
+            </footer>
+            <nav class="pagination-single">
+                {
+                    post?.nextPost && (
+                        <a class="pagination-single__left" href={`/blog/${post?.nextPost?.series}/${post?.nextPost?.slug}`}>
+                            <div class="pagination-single__icon">
+                                <svg class="icon icon-nav-left" width="25" height="25" role="img">
+                                    <use href="#icon-nav-left"></use>
+                                </svg>
+                            </div>
+                            <div class="pagination-single__left-title">Next Entry</div>
+                        </a>
+                    )
+                }
+                <div class="grow"></div>
+                {
+                    post?.previousPost && (
+                        <a class="pagination-single__right" href={`/blog/${post?.previousPost?.series}/${post?.previousPost?.slug}`}>
+                            <div class="pagination-single__right-title">Last Entry</div>
+                            <div class="pagination-single__icon">
+                                <svg class="icon icon-nav-right" width="25" height="25" role="img">
+                                    <use href="#icon-nav-right"></use>
+                                </svg>
+                            </div>
+                        </a>
+                    )
+                }
+            </nav>
+        </section>
+    </div>
+    <Sidebar />
+</MainLayout>

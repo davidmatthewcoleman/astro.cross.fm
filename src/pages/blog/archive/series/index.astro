@@ -1,0 +1,44 @@
+---
+import Sidebar from "../../../../components/Sidebar.astro";
+import MainLayout from "../../../../layouts/MainLayout.astro";
+import { allSeriesQuery } from "../../../../lib/api.js";
+
+const { allSeries } = await allSeriesQuery();
+
+Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
+---
+
+<MainLayout title="Series – CROSS">
+    <div class="terms__wrapper lm">
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+            <ol>
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                <li>
+                    <a href="/blog/archive/">Archive</a>
+                </li>
+                <li class="is-active">
+                    <span>Series</span>
+                </li>
+            </ol>
+        </nav>
+        <header class="list__header">
+            <h5 class="list__header--title capitalize h5">Series</h5>
+        </header>
+        <div class="terms main">
+            <section class="taxo terms__list">
+                {
+                    allSeries.nodes.map((series) => (
+                        <span class="tag">
+                            <a href={`/blog/archive/tags/${series.slug}`} class="is-series taxo__link" data-dir="ltr">
+                                <span class="taxo__text">{series.name}</span>&nbsp;<span class="taxo__num" dir="auto">{series.count}</span>
+                            </a>
+                        </span>
+                    ))
+                }
+            </section>
+        </div>
+    </div>
+    <Sidebar />
+</MainLayout>

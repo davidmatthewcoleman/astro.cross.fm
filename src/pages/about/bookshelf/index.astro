@@ -1,0 +1,112 @@
+---
+import Sidebar from "../../../components/Sidebar.astro";
+import MainLayout from "../../../layouts/MainLayout.astro";
+
+Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
+
+---
+
+<MainLayout title='Bookshelf – CROSS'>
+    <style>
+        body:not(.block-editor-page) .reading__lists h1, body:not(.block-editor-page) .reading__lists h2, body:not(.block-editor-page) .reading__lists h3, body:not(.block-editor-page) .reading__lists h4, body:not(.block-editor-page) .reading__lists h5, body:not(.block-editor-page) .reading__lists h6 {
+            color: #DBDBDB;
+        }
+        @media screen and (max-width: 960px) {
+            h1[style] {
+                font-size: 1.75rem !important;
+                line-height: 2rem !important;
+            }
+        }
+        .book__site {
+            margin-left: auto;
+        }
+        .book__site img {
+            width: 14px;
+            height: 14px;
+            border-radius: 3px;
+        }
+
+        /*.list__main {*/
+        /*    grid-area: 1/1/2/4 !important;*/
+        /*}*/
+
+        #toggleButton {
+            font-size: 1.125rem;
+            float: right;
+        }
+    </style>
+    <div class="page__wrapper lmr">
+        <section class="page main">
+            <nav class="breadcrumb" aria-label="breadcrumbs">
+                <ol>
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    <li>
+                        <a href="/about">About Me</a>
+                    </li>
+                    <li class="is-active">
+                        <span>Bookshelf</span>
+                    </li>
+                </ol>
+            </nav>
+            <div class="summary__container" data-display="block">
+                <article class="page main reading__lists">
+                    <h2 class="single__title">
+                        Bookshelf
+                        <a href="javascript:void(0);" id="toggleButton"></a>
+                    </h2>
+                    <div id="bookshelf" style="width:100%;height:auto;"></div>
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function() {
+                            // Get the view from localStorage or default to "grid"
+                            var bookshelfView = localStorage.getItem("bookshelfView") || "grid";
+
+                            // Function to load iframe with given view
+                            function loadIframe(view) {
+                                var iframe = document.createElement("iframe");
+                                iframe.src = "https://next-app.cross.fm/bookshelf/" + view; // Replace "your_url_here" with your actual URL
+                                iframe.style.width = "100%";
+                                iframe.style.height = "100%";
+                                document.getElementById("bookshelf").innerHTML = "";
+                                document.getElementById("bookshelf").appendChild(iframe);
+                                updateButtonLabel(view);
+                            }
+
+                            // Load initial view
+                            loadIframe(bookshelfView);
+
+                            // Toggle view function
+                            function toggleView() {
+                                bookshelfView = bookshelfView === "grid" ? "list" : "grid";
+                                localStorage.setItem("bookshelfView", bookshelfView);
+                                loadIframe(bookshelfView);
+                            }
+
+                            // Update button label based on current view
+                            function updateButtonLabel(view) {
+                                var button = document.getElementById("toggleButton");
+                                if (view === "grid") {
+                                    button.textContent = "List View";
+                                } else {
+                                    button.textContent = "Grid View";
+                                }
+                            }
+
+                            // Add click event listener to the toggle button
+                            document.getElementById("toggleButton").addEventListener("click", toggleView);
+                        });
+
+                        window.addEventListener('message', (event) => {
+                            if (event.data.type === 'resizeIframe') {
+                                const iframe = document.getElementById('bookshelf');
+                                iframe.style.height = event.data.height + 'px';
+                            }
+                        });
+                    </script>
+                </article>
+            </div>
+        </section>
+    </div>
+    <Sidebar />
+</MainLayout>

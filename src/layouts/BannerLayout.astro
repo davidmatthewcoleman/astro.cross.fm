@@ -1,0 +1,75 @@
+---
+import '../styles/global.css';
+import '../styles/bookmarks.css';
+import SiteNav from "../components/SiteNav.astro";
+import Hero from "../components/Hero.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import Sprite from "../components/Sprite.astro";
+import { navQuery } from "../lib/api.js";
+const { menus, generalSettings } = await navQuery();
+const primaryMenu = menus.nodes[0];
+
+const { title, description } = Astro.props;
+
+---
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description}>
+
+    <script src="/assets/js/fuse.min.js" is:inline></script>
+    <script src="/assets/js/enquire.min.js" is:inline></script>
+    <script src="/assets/js/lazysizes.min.js" is:inline></script>
+    <script src="/assets/js/helper/getParents.min.js" is:inline></script>
+    <script src="/assets/js/helper/fadeinout.min.js" is:inline></script>
+    <script src="/assets/js/helper/closest.min.js" is:inline></script>
+
+    <script src="/assets/js/clipboard.min.js" is:inline></script>
+    <script src="/assets/js/helper/prev.min.js" is:inline></script>
+    <script src="/assets/js/helper/prop.min.js" is:inline></script>
+
+    <script src="/assets/js/swipe.min.js" is:inline></script>
+    <script src="/assets/js/micromodal.min.js" is:inline></script>
+    <script src="/assets/js/smooth-scroll.polyfills.min.js" is:inline></script>
+    <script src="/assets/js/fitty.min.js" is:inline></script>
+
+    <script src="/assets/js/popper.min.js" is:inline></script>
+    <script src="/assets/js/tippy.min.js" is:inline></script>
+
+    <script src="/assets/js/header.min.js" is:inline></script>
+</head>
+<body id="root" class="theme__hacker navbar--show" data-theme="cross">
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const container = document.body;
+
+        // Function to load the theme from localStorage and set the data-theme attribute and active class
+        function loadTheme() {
+            const currentTheme = localStorage.getItem('theme');
+            if (currentTheme) {
+                container.setAttribute('data-theme', currentTheme);
+            }
+        }
+
+        // Load the theme on page load
+        loadTheme();
+    });
+</script>
+<div id="container">
+    <div class="wrapper">
+        <SiteNav menu={primaryMenu} generalSettings={generalSettings}></SiteNav>
+        <Hero></Hero>
+        <main class="main inner hero" data-sidebar-position="right">
+            <slot></slot>
+        </main>
+        <SiteFooter></SiteFooter>
+    </div>
+</div>
+<Sprite></Sprite>
+</body>
+</html>

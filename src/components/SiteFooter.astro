@@ -1,0 +1,203 @@
+---
+import { wpVersionQuery } from "../lib/api.js";
+const data = await wpVersionQuery();
+const wp = data.wp;
+---
+
+<footer class="footer">
+    <div class="footer__social">
+        <div class="social">
+            <a href="mailto:howdy@crossrambles.com" target="_blank" title="Email" aria-label="Email">
+                <svg class="icon" width="32" height="32" role="img">
+                    <use href="#icon-email"></use>
+                </svg>
+            </a>
+            <a href="https://instagram.com/davidmc.io" target="_blank" title="Instagram" aria-label="Instagram">
+                <svg class="icon" width="32" height="32" role="img">
+                    <use href="#icon-instagram"></use>
+                </svg>
+            </a>
+            <a href="https://elk.zone/toot.io/@cross" target="_blank" title="Mastodon via Elk.zone" aria-label="Mastodon">
+                <svg class="icon" width="32" height="32" role="img">
+                    <use href="#icon-mastodon"></use>
+                </svg>
+            </a>
+            <a href="https://twitter.com/crossrambles" target="_blank" title="Twitter" aria-label="Twitter">
+                <svg class="icon" width="32" height="32" role="img">
+                    <use href="#icon-twitter"></use>
+                </svg>
+            </a>
+            <a href="https://bsky.app/profile/davidmc.io" target="_blank" title="Bluesky" aria-label="Bluesky">
+                <svg class="icon" width="32" height="32" role="img">
+                    <use href="#icon-bluesky"></use>
+                </svg>
+            </a>
+            <a href="https://deviantart.com/crossrambles" target="_blank" title="DeviantArt (AI Art)" aria-label="DeviantArt">
+                <svg class="icon" width="32" height="32" role="img">
+                    <use href="#icon-deviantart"></use>
+                </svg>
+            </a>
+            <a href="https://youtube.com/@crossrambles" target="_blank" title="YouTube" aria-label="YouTube">
+                <svg class="icon" width="32" height="32" role="img">
+                    <use href="#icon-youtube"></use>
+                </svg>
+            </a>
+            <a href="<?php echo home_url( '/sponsor' ); ?>" target="_blank" title="Buy me a coffee" aria-label="Buy me a coffee">
+                <svg class="icon" width="32" height="32" role="img">
+                    <use href="#icon-coffee-alt"></use>
+                </svg>
+            </a>
+            <a href="https://toot.io/@cross" rel="me" target="_blank" title="Mastodon" aria-label="Mastodon" style="display:none;"></a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropdown-trigger theme-toggle" aria-label="Select a theme">
+            <svg class="icon icon-theme" width="32" height="32" role="img">
+                <use href="#icon-theme"></use>
+            </svg>
+            <svg class="icon icon-theme-fallout" width="32" height="32" role="img">
+                <use href="#icon-theme-fallout"></use>
+            </svg>
+            <svg class="icon icon-theme-fnv" width="32" height="32" role="img">
+                <use href="#icon-theme-fnv"></use>
+            </svg>
+        </button>
+        <div class="dropdown-content">
+            <small>SELECT A THEME:</small>
+            <span data-theme="cross" class="dropdown-item is-active">CROSS</span>
+            <span data-theme="high-contrast" class="dropdown-item">High Contrast</span>
+            <span data-theme="fallout" class="dropdown-item">Fallout</span>
+            <span data-theme="fnv" class="dropdown-item">New Vegas</span>
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const dropdownItems = document.querySelectorAll('.dropdown-item');
+                const container = document.body;
+
+                // Function to load the theme from localStorage and set the active class
+                function loadTheme() {
+                    const currentTheme = localStorage.getItem('theme');
+                    if (currentTheme) {
+                        dropdownItems.forEach(item => {
+                            if (item.getAttribute('data-theme') === currentTheme) {
+                                item.classList.add('is-active');
+                            } else {
+                                item.classList.remove('is-active');
+                            }
+                        });
+                    }
+                }
+
+                // Load the theme on page load
+                loadTheme();
+
+                // Handle theme selection
+                dropdownItems.forEach(item => {
+                    item.addEventListener('click', function() {
+                        const selectedTheme = this.getAttribute('data-theme');
+                        localStorage.setItem('theme', selectedTheme);
+
+                        // Remove is-active from all items and add to the selected one
+                        dropdownItems.forEach(i => i.classList.remove('is-active'));
+                        this.classList.add('is-active');
+
+                        // Update the data-theme attribute on #container
+                        container.setAttribute('data-theme', selectedTheme);
+                    });
+                });
+            });
+        </script>
+    </div>
+    <div id="gtt" style="display: block;">
+        <div class="gtt" title="Back to top">
+            <svg class="icon" width="32" height="32" role="img">
+                <use href="#icon-chevron-up"></use>
+            </svg>
+        </div>
+    </div>
+    <hr>
+    <div class="basicflex flexwrap"></div>
+    <div class="footer__poweredby">
+        <p class="caption">© 2016 - {new Date().getFullYear()} <a href="/">CROSS</a>. All rights reserved.</p>
+        <p class="caption powers">
+            <a href="https://wordpress.org/" target="_blank" rel="noreferrer"><img src={`https://img.shields.io/badge/wordpress-${wp}-informational?logo=wordpress&style=flat-square`} style="display:block;" /></a>
+            <a href="https://astro.build/" target="_blank" rel="noreferrer"><img src={`https://img.shields.io/badge/astro-${Astro.generator.split('v').at(-1)}-informational?logo=astro&logoColor=white&style=flat-square&color=%23E63BAE`} style="display:block;" /></a>
+        </p>
+    </div>
+</footer>
+
+<style>
+    .mobile-search__btn, .navbar__burger, .mobile-search__top--input, .navbar__menu-item, .navbar__slide-down, .theme__hacker .navbar__menu-item, .theme__hacker .navbar__slide-down {
+        background-color: transparent !important;
+    }
+    .theme__hacker .search,
+    .theme__hacker .breadcrumb {
+        background-color: rgba(37, 37, 38, 0.9) !important;
+        -webkit-backdrop-filter: blur(4px) saturate(1.5) !important;
+        backdrop-filter: blur(4px) saturate(1.5) !important;
+    }
+    .theme__hacker .search .input {
+        background-color: transparent !important;
+    }
+    .theme__hacker .footer {
+        position: relative !important;
+    }
+    .theme__hacker .footer .loona {
+        content: '' !important;
+        position: absolute !important;
+        right: 0 !important;
+        bottom: 100% !important;
+        width: auto !important;
+        height: 72px !important;
+        aspect-ratio: 43/64 !important;
+        z-index: 9 !important;
+        pointer-events: none !important;
+    }
+    .summary-blur__image {
+        -webkit-filter: unset !important;
+        filter: unset !important;
+    }
+    @media screen and (max-width: 720px) {
+        .wp-block-image img {
+            width: 100% !important;
+            height: auto !important;
+        }
+        .alignleft,
+        .alignright {
+            margin-left: auto !important;
+            margin-right: auto !important;
+            float: none !important;
+        }
+    }
+    .dropdown-content {
+        width: max-content;
+    }
+    .dropdown-content span {
+        cursor: pointer;
+    }
+    .dropdown-content small {
+        font-size: 0.75rem;
+        padding: 0 0.5rem;
+    }
+</style>
+
+<script src="/assets/js/footer.min.js" is:inline></script>
+
+<style>
+    .search-open {
+        overflow: hidden !important;
+    }
+    .alignleft {
+        float: left;
+        margin-right: 1rem;
+    }
+    .alignright {
+        float: right;
+        margin-left: 1rem;
+    }
+    .avatar__wrapper .status {
+        display: none !important;
+    }
+
+</style>
+<div class="scanlines"></div>

@@ -1,0 +1,72 @@
+---
+import {format} from "date-fns";
+import Parse from "html-react-parser";
+import Picture from "./Picture.astro";
+const { data } = Astro.props;
+---
+
+<article class="summary-classic">
+    <div class="summary-classic__flex-box">
+        <div class="summary-classic__image-container summary-classic__image-wrapper" data-position="right">
+            <a href={`/blog/${data.series}/${data.slug}`}>
+                <Picture
+                    alt={data?.title}
+                    class="summary-classic__image"
+                    source={
+                        {
+                            '(max-width: 959px)': {
+                                media: data.featuredImage.node,
+                                params: {
+                                    'width': 1200,
+                                    'height': 600
+                                }
+                            },
+                            '(min-width: 960px)': {
+                                media: data.featuredImage.node,
+                                params: {
+                                    'width': 256,
+                                    'height': 256
+                                }
+                            }
+                        }
+                    }
+                />
+            </a>
+        </div>
+        <div class="summary-classic__content">
+            <header>
+                <h5 class="title h5">
+                    <a href={`/blog/${data.series}/${data.slug}`} set:html={data.title}></a>
+                </h5>
+                <h6 class="subtitle caption">
+                    {
+                        data.isSticky && (
+                            <span dir="ltr">
+                                <svg class="icon" width="15" height="15" role="img">
+                                    <use href="#icon-pin"></use>
+                                </svg>
+                                &nbsp;Pinned
+                            </span>
+                        )
+                    }
+                    <time dir="ltr">
+                        <svg class="icon" width="15" height="15" role="img">
+                            <use href="#icon-calendar"></use>
+                        </svg>
+                        &nbsp;{format(data.date, 'MMM. d, yyyy')}
+                    </time>
+                    <span dir="ltr">
+                        <svg class="icon" width="15" height="15" role="img">
+                            <use href="#icon-coffee"></use>
+                        </svg>
+                        &nbsp;{Parse(data.readingTime)} min read
+                    </span>
+                </h6>
+            </header>
+            <div>
+                <div class="summary-classic__text p2" set:html={data.excerpt}></div>
+            </div>
+        </div>
+    </div>
+    <hr>
+</article>

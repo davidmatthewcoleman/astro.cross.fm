@@ -1,0 +1,97 @@
+---
+import Sidebar from "../../../components/Sidebar.astro";
+import MainLayout from "../../../layouts/MainLayout.astro";
+
+const url = new URL(Astro.request.url);
+const collection = url.searchParams.get('collection') || '42687066'; // Default to '42687066'
+
+Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
+
+---
+
+<MainLayout title='Bookmarks – CROSS'>
+    <div class="page__wrapper lmr">
+        <section class="page main">
+            <nav class="breadcrumb" aria-label="breadcrumbs">
+                <ol>
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    <li>
+                        <a href="/about">About Me</a>
+                    </li>
+                    <li class="is-active">
+                        <span>Bookmarks</span>
+                    </li>
+                </ol>
+            </nav>
+            <div class="summary__container" data-display="block">
+                <article class="page main reading__lists">
+                    <h2 class="single__title">
+                        Bookmarks
+                    </h2>
+                    <hr class="hr-slash bio-hr" style="margin:0.75rem 0 1.125rem;"/>
+                    <div class="collections__list">
+                        <span>
+                            <a href="javascript:void(0);" data-collection="42687066" class={`${!collection || collection === '42687066' ? 'active' : ''}`}>Wishlist</a>
+                        </span>
+                        <span>
+                            <a href="javascript:void(0);" data-collection="43686751" class={`${collection === '43686751' ? 'active' : ''}`}>Tweets</a>
+                        </span>
+                    </div>
+                    <div id="bookmarks" style="width:100%;height:auto;"></div>
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function() {
+                            var collections = document.querySelectorAll('.collections__list a');
+                            var active = Array.prototype.find.call(collections, toggle => toggle.classList.contains('active'));
+
+                            var collectionID = active.dataset.collection;
+
+                            // Function to load iframe with given view
+                            function loadIframe(collectionID) {
+                                var iframe = document.createElement("iframe");
+                                iframe.src = "https://next-app.cross.fm/bookmarks/" + collectionID; // Replace with your actual URL
+                                iframe.style.width = "100%";
+                                iframe.style.height = "100%";
+                                document.getElementById("bookmarks").innerHTML = "";
+                                document.getElementById("bookmarks").appendChild(iframe);
+                            }
+
+                            // Load initial view
+                            loadIframe(collectionID);
+
+                            // Add click event listener to the toggle button
+                            collections.forEach((toggle) => {
+                                toggle.addEventListener("click", function() {
+                                    loadIframe(toggle.dataset.collection);
+                                    document.querySelector('.collections__list a.active').classList.remove('active');
+                                    toggle.classList.add('active');
+                                    setUrlParameter('collection', toggle.dataset.collection);
+                                });
+                            });
+                        });
+
+                        window.addEventListener('message', (event) => {
+                            if (event.data.type === 'resizeIframe') {
+                                const iframe = document.getElementById('bookmarks');
+                                iframe.style.height = event.data.height + 'px';
+                            }
+                        });
+
+                        function setUrlParameter(param, value) {
+                            // Get the current URL
+                            let url = new URL(window.location);
+
+                            // Set the new parameter value
+                            url.searchParams.set(param, value);
+
+                            // Update the browser's URL without reloading the page
+                            history.pushState(null, '', url);
+                        }
+                    </script>
+                </article>
+            </div>
+        </section>
+    </div>
+    <Sidebar />
+</MainLayout>
