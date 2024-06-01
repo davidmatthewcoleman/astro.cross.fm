@@ -56,54 +56,95 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
                         Bookshelf
                         <a href="javascript:void(0);" id="toggleButton"></a>
                     </h2>
-                    <div id="bookshelf" style="width:100%;height:auto;"></div>
-                    <script>
-                        document.addEventListener("DOMContentLoaded", function() {
-                            // Get the view from localStorage or default to "grid"
-                            var bookshelfView = localStorage.getItem("bookshelfView") || "grid";
-
-                            // Function to load iframe with given view
-                            function loadIframe(view) {
-                                var iframe = document.createElement("iframe");
-                                iframe.src = "https://next-app.cross.fm/bookshelf/" + view; // Replace "your_url_here" with your actual URL
-                                iframe.style.width = "100%";
-                                iframe.style.height = "100%";
-                                document.getElementById("bookshelf").innerHTML = "";
-                                document.getElementById("bookshelf").appendChild(iframe);
-                                updateButtonLabel(view);
+                    <bookshelf-list></bookshelf-list>
+                    <script is:inline>
+                        class BookshelfList extends HTMLElement {
+                            constructor() {
+                                super();
+                                this.attachShadow({ mode: 'open' });
                             }
 
-                            // Load initial view
-                            loadIframe(bookshelfView);
+                            async connectedCallback() {
+                                const shadowRoot = this.shadowRoot;
+                                const container = document.createElement('div');
+                                container.id = 'nextjs-app-container';
+                                shadowRoot.appendChild(container);
 
-                            // Toggle view function
-                            function toggleView() {
-                                bookshelfView = bookshelfView === "grid" ? "list" : "grid";
-                                localStorage.setItem("bookshelfView", bookshelfView);
-                                loadIframe(bookshelfView);
+                                // Fetch the Next.js app HTML
+                                const response = await fetch('https://next-app.cross.fm/bookshelf/list');
+                                const htmlText = await response.text();
+
+                                // Create an iframe to sandbox the content
+                                const iframe = document.createElement('iframe');
+                                iframe.style.width = '100%';
+                                iframe.style.height = '100%';
+                                iframe.style.border = 'none';
+                                shadowRoot.appendChild(iframe);
+
+                                // Write the fetched HTML into the iframe
+                                const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                                iframeDoc.open();
+                                iframeDoc.write(htmlText);
+                                iframeDoc.close();
+
+                                // Optionally, load styles into the shadow root
+                                const style = document.createElement('link');
+                                style.rel = 'stylesheet';
+                                style.href = 'global.css'; // Adjust this path if needed
+                                shadowRoot.appendChild(style);
                             }
+                        }
 
-                            // Update button label based on current view
-                            function updateButtonLabel(view) {
-                                var button = document.getElementById("toggleButton");
-                                if (view === "grid") {
-                                    button.textContent = "List View";
-                                } else {
-                                    button.textContent = "Grid View";
-                                }
-                            }
-
-                            // Add click event listener to the toggle button
-                            document.getElementById("toggleButton").addEventListener("click", toggleView);
-                        });
-
-                        window.addEventListener('message', (event) => {
-                            if (event.data.type === 'resizeIframe') {
-                                const iframe = document.getElementById('bookshelf');
-                                iframe.style.height = event.data.height + 'px';
-                            }
-                        });
+                        customElements.define('bookshelf-list', BookshelfList);
                     </script>
+                    <!--<div id="bookshelf" style="width:100%;height:auto;"></div>-->
+                    <!--<script>-->
+                    <!--    document.addEventListener("DOMContentLoaded", function() {-->
+                    <!--        // Get the view from localStorage or default to "grid"-->
+                    <!--        var bookshelfView = localStorage.getItem("bookshelfView") || "grid";-->
+
+                    <!--        // Function to load iframe with given view-->
+                    <!--        function loadIframe(view) {-->
+                    <!--            var iframe = document.createElement("iframe");-->
+                    <!--            iframe.src = "https://next-app.cross.fm/bookshelf/" + view; // Replace "your_url_here" with your actual URL-->
+                    <!--            iframe.style.width = "100%";-->
+                    <!--            iframe.style.height = "100%";-->
+                    <!--            document.getElementById("bookshelf").innerHTML = "";-->
+                    <!--            document.getElementById("bookshelf").appendChild(iframe);-->
+                    <!--            updateButtonLabel(view);-->
+                    <!--        }-->
+
+                    <!--        // Load initial view-->
+                    <!--        loadIframe(bookshelfView);-->
+
+                    <!--        // Toggle view function-->
+                    <!--        function toggleView() {-->
+                    <!--            bookshelfView = bookshelfView === "grid" ? "list" : "grid";-->
+                    <!--            localStorage.setItem("bookshelfView", bookshelfView);-->
+                    <!--            loadIframe(bookshelfView);-->
+                    <!--        }-->
+
+                    <!--        // Update button label based on current view-->
+                    <!--        function updateButtonLabel(view) {-->
+                    <!--            var button = document.getElementById("toggleButton");-->
+                    <!--            if (view === "grid") {-->
+                    <!--                button.textContent = "List View";-->
+                    <!--            } else {-->
+                    <!--                button.textContent = "Grid View";-->
+                    <!--            }-->
+                    <!--        }-->
+
+                    <!--        // Add click event listener to the toggle button-->
+                    <!--        document.getElementById("toggleButton").addEventListener("click", toggleView);-->
+                    <!--    });-->
+
+                    <!--    window.addEventListener('message', (event) => {-->
+                    <!--        if (event.data.type === 'resizeIframe') {-->
+                    <!--            const iframe = document.getElementById('bookshelf');-->
+                    <!--            iframe.style.height = event.data.height + 'px';-->
+                    <!--        }-->
+                    <!--    });-->
+                    <!--</script>-->
                 </article>
             </div>
         </section>
