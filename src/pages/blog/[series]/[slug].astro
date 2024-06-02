@@ -91,12 +91,6 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                         </svg>&nbsp;
                         {Parse(post?.readingTime)} min read
                     </span>
-                    <span id="commentsCount" class="single__info" style="display: none;">
-                        <svg class="icon" width="15" height="15" role="img">
-                            <use href="#icon-comments"></use>
-                        </svg>&nbsp;
-                        <span class="number"></span>
-                    </span>
                 </div>
                     {
                         post?.categories?.nodes?.length > 0 && (
@@ -297,6 +291,20 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                 }
             </nav>
             <div class="comments__section">
+                <h3 id="commentsCount" style="display: none;">
+                    <svg class="icon" width="20" height="20" role="img">
+                        <use href="#icon-comments"></use>
+                    </svg>
+                    <span class="number"></span>
+                </h3>
+                <style is:inline>
+                    #commentsCount {
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        color: #fff;
+                    }
+                </style>
                 <script src="https://giscus.app/client.js"
                         data-repo="davidmatthewcoleman/cross.fm-commments"
                         data-repo-id="R_kgDOMD62Mw"
@@ -309,6 +317,7 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                         data-input-position="top"
                         data-theme="https://crossrambles.com/assets/css/comments.css"
                         data-lang="en"
+                        data-loading="lazy"
                         crossorigin="anonymous"
                         async>
                 </script>

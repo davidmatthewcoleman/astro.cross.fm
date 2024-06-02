@@ -115,3 +115,8 @@ a:hover span {
 .gsc-tl-line {
     background-color: rgba(255,255,255,0.0625) !important;
 }
+
+
+.gsc-header {
+    display: none !important;
+}
