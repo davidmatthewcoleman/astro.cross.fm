@@ -291,17 +291,18 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                 }
             </nav>
             <div class="comments__section">
-                <h3 id="commentsCount" style="display: none;">
+                <h4 id="commentsCount" style="display: none;">
                     <svg class="icon" width="20" height="20" role="img">
                         <use href="#icon-comments"></use>
                     </svg>
                     <span class="number"></span>
-                </h3>
+                </h4>
                 <style is:inline>
                     #commentsCount {
                         display: flex;
                         flex-direction: row;
                         align-items: center;
+                        gap: 4px;
                         color: #fff;
                     }
                 </style>
@@ -336,7 +337,7 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
 
                         if (giscus) {
                             const commentCount = giscus.discussion.totalCommentCount;
-                            document.querySelector('#commentsCount').style.display = 'initial';
+                            document.querySelector('#commentsCount').style.display = 'flex';
                             document.querySelector('#commentsCount .number').innerText = `${commentCount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}` + (commentCount === 1 ? ' comment' : ' comments');
                         }
                     });
