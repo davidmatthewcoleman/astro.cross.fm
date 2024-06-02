@@ -1,0 +1,181 @@
+---
+import Sidebar from "../../../components/Sidebar.astro";
+import MainLayout from "../../../layouts/MainLayout.astro";
+
+Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
+
+---
+
+<MainLayout title='Bookshelf – CROSS'>
+    <style is:inline>
+        .book__site {
+            margin-left: auto;
+        }
+        .book__site img {
+            width: 14px;
+            height: 14px;
+            border-radius: 3px;
+        }
+
+        /*.list__main {*/
+        /*    grid-area: 1/1/2/4 !important;*/
+        /*}*/
+
+        #toggleButton {
+            font-size: 1.125rem;
+        }
+
+        .collections__list {
+            display: flex;
+            flex-direction: row;
+            align-items: start;
+            gap: 0.75em;
+            line-height: 1;
+            margin-top: 0.75em;
+            margin-bottom: 1em;
+            font-size: 1.125rem;
+        }
+        .collections__list span + span::before {
+            content: '/';
+            color: #686868;
+            width: 0;
+            height: 100%;
+            margin-right: 0.5em;
+            transform: scale(0.75);
+        }
+        .collections__list a {
+            font-size: 1.125rem;
+            line-height: 1;
+        }
+        .collections__list a.active {
+            color: #c7ba00;
+            text-decoration: underline;
+        }
+    </style>
+    <div class="page__wrapper lmr">
+        <section class="page main">
+            <nav class="breadcrumb" aria-label="breadcrumbs">
+                <ol>
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    <li>
+                        <a href="/about">About Me</a>
+                    </li>
+                    <li class="is-active">
+                        <span>Bookshelf</span>
+                    </li>
+                </ol>
+            </nav>
+            <div class="summary__container" data-display="block">
+                <h2 class="single__title">
+                    Bookmarks
+                </h2>
+                <hr class="hr-slash bio-hr"/>
+                <div class="collections__list">
+                        <span>
+                            <a href="javascript:void(0);" class="toggleButton" data-collection="42687066">Wishlist</a>
+                        </span>
+                    <span>
+                            <a href="javascript:void(0);" class="toggleButton" data-collection="43686751">Tweets</a>
+                        </span>
+                </div>
+                <bookmarks-block></bookmarks-block>
+                <script is:inline>
+                    class BookmarksBlock extends HTMLElement {
+                        constructor() {
+                            super();
+                            this.attachShadow({ mode: 'open' });
+                        }
+
+                        async connectedCallback() {
+                            const urlParams = new URLSearchParams(window.location.search);
+                            const initialViewMode = urlParams.get('collection') || '42687066';
+
+                            const shadowRoot = this.shadowRoot;
+                            const container = document.createElement('div');
+                            container.id = 'next-app';
+                            shadowRoot.appendChild(container);
+
+                            try {
+                                // Fetch only the specific element and its children
+                                const response = await fetch('https://next-app.cross.fm/bookmarks/' + initialViewMode);
+                                const htmlText = await response.text();
+
+                                // Extract the specific element from the fetched HTML
+                                const parser = new DOMParser();
+                                const doc = parser.parseFromString(htmlText, 'text/html');
+                                const specificElement = doc.querySelector('#specific-element');
+
+                                // Append the specific element to the container in the shadow DOM
+                                container.appendChild(specificElement.cloneNode(true));
+                            } catch (error) {
+                                console.error('Error fetching or parsing HTML:', error);
+                            }
+                        }
+                    }
+
+                    customElements.define('bookmarks-block', BookmarksBlock);
+                </script>
+
+                <script is:inline>
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const toggleButtons = document.querySelectorAll('.toggleButton');
+                    const bookmarksBlock = document.querySelector('bookmarks-block');
+                    const cache = {};
+
+                    // Function to fetch HTML content based on the view mode and cache it
+                    async function fetchAndCacheHTML(collection) {
+                        const url = `https://next-app.cross.fm/bookmarks/${collection}`;
+
+                        try {
+                            const response = await fetch(url);
+                            const htmlText = await response.text();
+
+                            // Extract the specific element from the fetched HTML
+                            const parser = new DOMParser();
+                            const doc = parser.parseFromString(htmlText, 'text/html');
+                            const specificElement = doc.querySelector('#specific-element');
+
+                            // Cache the specific element's HTML
+                            cache[collection] = specificElement.outerHTML;
+                        } catch (error) {
+                            console.error(`Error fetching HTML for ${collection} view:`, error);
+                        }
+                    }
+
+                    // Check localStorage for the selected view mode (default to '42687066')
+                    const initialViewMode = urlParams.get('collection') || '42687066';
+
+                    // Fetch and cache HTML content for both view modes
+                    Promise.all(['42687066', '43686751'].map(fetchAndCacheHTML))
+                        .then(() => {
+                            // Set initial view mode
+                            bookmarksBlock.setAttribute('collection', initialViewMode);
+
+                            // Inject the HTML content into the container based on the initial view mode
+                            bookmarksBlock.shadowRoot.querySelector('#next-app').innerHTML = cache[initialViewMode];
+
+                            // Attach event listener to toggle button after fetching HTML content
+                            toggleButtons.forEach((toggleButton) => {
+                                toggleButton.addEventListener('click', function(e) {
+                                    toggleViewMode(toggleButton.dataset.collection);
+                                });
+                            });
+                        });
+
+                    // Function to toggle view mode
+                    function toggleViewMode(collection) {
+                        // Update view mode attribute
+                        bookmarksBlock.setAttribute('collection', collection);
+
+                        // Inject the HTML content into the container based on the selected view mode
+                        bookmarksBlock.shadowRoot.querySelector('#next-app').innerHTML = cache[collection];
+                    }
+                </script>
+
+            </div>
+        </section>
+    </div>
+    <Sidebar />
+</MainLayout>
