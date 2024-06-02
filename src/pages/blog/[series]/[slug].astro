@@ -291,21 +291,6 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                 }
             </nav>
             <div class="comments__section">
-                <h4 id="commentsCount" style="display: none;">
-                    <svg class="icon" width="20" height="20" role="img">
-                        <use href="#icon-comments"></use>
-                    </svg>
-                    <span class="number"></span>
-                </h4>
-                <style is:inline>
-                    #commentsCount {
-                        display: flex;
-                        flex-direction: row;
-                        align-items: center;
-                        gap: 4px;
-                        color: #fff;
-                    }
-                </style>
                 <script src="https://giscus.app/client.js"
                         data-repo="davidmatthewcoleman/cross.fm-commments"
                         data-repo-id="R_kgDOMD62Mw"
@@ -321,26 +306,6 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                         data-loading="lazy"
                         crossorigin="anonymous"
                         async>
-                </script>
-                <script is:inline>
-                    document.addEventListener('giscus-load', function(event) {
-                        const iframe = document.querySelector('iframe.giscus-frame');
-                        if (iframe) {
-                            iframe.contentWindow.postMessage({ giscus: 'comment-count' }, 'https://giscus.app');
-                        }
-                    });
-
-                    window.addEventListener('message', function(event) {
-                        if (event.origin !== 'https://giscus.app') return;
-
-                        const { giscus } = event.data;
-
-                        if (giscus) {
-                            const commentCount = giscus.discussion.totalCommentCount;
-                            document.querySelector('#commentsCount').style.display = 'flex';
-                            document.querySelector('#commentsCount .number').innerText = `${commentCount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}` + (commentCount === 1 ? ' comment' : ' comments');
-                        }
-                    });
                 </script>
             </div>
         </section>
