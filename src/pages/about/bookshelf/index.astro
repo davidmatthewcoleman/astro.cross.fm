@@ -36,20 +36,20 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
         }
     </style>
     <div class="page__wrapper lmr">
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+            <ol>
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                <li>
+                    <a href="/about">About Me</a>
+                </li>
+                <li class="is-active">
+                    <span>Bookshelf</span>
+                </li>
+            </ol>
+        </nav>
         <section class="page main">
-            <nav class="breadcrumb" aria-label="breadcrumbs">
-                <ol>
-                    <li>
-                        <a href="/">Home</a>
-                    </li>
-                    <li>
-                        <a href="/about">About Me</a>
-                    </li>
-                    <li class="is-active">
-                        <span>Bookshelf</span>
-                    </li>
-                </ol>
-            </nav>
             <div class="summary__container" data-display="block">
                 <h2 class="single__title">
                     Bookshelf
