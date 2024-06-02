@@ -2,6 +2,7 @@
 import Sidebar from "../../../components/Sidebar.astro";
 import Picture from "../../../components/Picture.astro";
 import MainLayout from "../../../layouts/MainLayout.astro";
+import { formatInteger } from "../../../lib/utils.js";
 import { singlePostQuery, singleSeriesQuery, allPostSlugsQuery } from "../../../lib/api.js";
 import { format } from "date-fns";
 import Parse from "html-react-parser";
@@ -89,6 +90,12 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                             <use href="#icon-coffee"></use>
                         </svg>&nbsp;
                         {Parse(post?.readingTime)} min read
+                    </span>
+                    <span id="commentsCount" class="single__info" style="display: none;">
+                        <svg class="icon" width="15" height="15" role="img">
+                            <use href="#icon-comments"></use>
+                        </svg>&nbsp;
+                        <span class="number"></span>
                     </span>
                 </div>
                     {
@@ -302,9 +309,28 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                         data-input-position="top"
                         data-theme="https://crossrambles.com/assets/css/comments.css"
                         data-lang="en"
-                        data-loading="lazy"
                         crossorigin="anonymous"
                         async>
+                </script>
+                <script is:inline>
+                    document.addEventListener('giscus-load', function(event) {
+                        const iframe = document.querySelector('iframe.giscus-frame');
+                        if (iframe) {
+                            iframe.contentWindow.postMessage({ giscus: 'comment-count' }, 'https://giscus.app');
+                        }
+                    });
+
+                    window.addEventListener('message', function(event) {
+                        if (event.origin !== 'https://giscus.app') return;
+
+                        const { giscus } = event.data;
+
+                        if (giscus) {
+                            const commentCount = giscus.discussion.totalCommentCount;
+                            document.querySelector('#commentsCount').style.display = 'initial';
+                            document.querySelector('#commentsCount .number').innerText = `${commentCount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}` + (commentCount === 1 ? ' comment' : ' comments');
+                        }
+                    });
                 </script>
             </div>
         </section>

@@ -32,6 +32,9 @@
 .gsc-comment-box-preview {
     border: none !important;
 }
+.gsc-comment-box-markdown-hint {
+    color: #fff !important;
+}
 .gsc-comment-box-markdown-hint:hover {
     color: #D3C300 !important;
 }
