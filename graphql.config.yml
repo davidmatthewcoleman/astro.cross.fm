@@ -1,8 +1,0 @@
-schema: schema.graphql
-extensions:
-  endpoints:
-    default:
-      url: https://cross.fm/api
-      headers:
-        user-agent: WebStorm
-      introspect: true
