@@ -99,7 +99,7 @@ export function BookGrid({ book }) {
                     {
                         description && (
                             <div
-                                className={`absolute inset-0 w-full h-full opacity-0 group-hover:opacity-100 transition-opacity bg-black/50 backdrop-blur`}>
+                                className={`absolute inset-0 w-full h-full opacity-0 group-hover:opacity-100 transition-opacity bg-black/50 backdrop-blur z-50`}>
                                 <div
                                     className={`absolute inset-x-0 top-0 flex flex-row items-center pb-8 pt-1.5 pl-3.5 pr-2 gap-2 z-10 pointer-events-none`}>
                             <span
