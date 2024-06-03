@@ -1,5 +1,5 @@
 ---
-import Picture from "../../components/Picture";
+import Masonry from "../../components/works/Masonry.jsx";
 import Sidebar from "../../components/Sidebar.astro";
 import MainLayout from "../../layouts/MainLayout.astro";
 import { singlePageQuery, portfolioQuery } from "../../lib/api.js";
@@ -14,7 +14,6 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
 ---
 
 <MainLayout title={`${page?.title} – CROSS`}>
-    <script src="https://cdn.jsdelivr.net/npm/macy@2" is:inline></script>
     <div class="page__wrapper lm">
         <nav class="breadcrumb" aria-label="breadcrumbs">
             <ol>
@@ -29,57 +28,14 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
         <section class="page main">
             <h2 class="single__title" set:html={page?.title}></h2>
             <article class="single__contents" data-dir="ltr">
-                <div class="masonry-grid">
-                    {works.map((work, index) => (
-                        <Picture
-                            alt={``}
-                            className="work__image"
-                            source={
-                                {
-                                    null: {
-                                        media: work,
-                                        params: {
-                                            'width': 1024,
-                                            'height': 1024,
-                                            'fit': 'clip'
-                                        }
-                                    }
-                                }
-                            }
-                            style={{ aspectRatio: `${work.mediaDetails.width}/${work.mediaDetails.height}` }}
-                        />
-                    ))}
-                </div>
+                <masonry-grid>
+                    <template shadowrootmode="closed">
+                        <Masonry data={works} client:only="react" />
+                    </template>
+                </masonry-grid>
             </article>
             <footer class="single__footer"></footer>
-            <style is:inline>
-                .masonry-grid {
-                    margin: 0 auto;
-                }
-
-                .masonry-item {
-                    max-width: 22.5%;
-                }
-            </style>
         </section>
     </div>
-    <script is:inline>
-        const macyInstance = Macy({
-            container: '.masonry-grid',
-            trueOrder: true,
-            waitForImages: true,
-            margin: 16,
-            columns: 4,
-            breakAt: {
-                1200: 4,
-                940: 3,
-                520: 2,
-                400: 1
-            }
-        });
-        macyInstance.runOnImageLoad(function () {
-            macyInstance.recalculate(true);
-        }, true);
-    </script>
     <Sidebar show={false} />
 </MainLayout>

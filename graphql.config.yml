@@ -1,2 +1,8 @@
-schema: https://cross.fm/api
-include: src/**/*.graphql
+schema: schema.graphql
+extensions:
+  endpoints:
+    default:
+      url: https://cross.fm/api
+      headers:
+        user-agent: WebStorm
+      introspect: true
