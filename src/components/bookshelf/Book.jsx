@@ -47,6 +47,7 @@ export function BookGrid({ book }) {
                 <div className={`book-cover min-w-full`} width={imageWidth} height={imageHeight}
                      transitionDuration={0.25} style={{'--accent': cover.mediaDetails.color}}>
                     <Picture
+                        remote={true}
                         alt={title}
                         className="cover__img block min-w-full pointer-events-auto"
                         source={
@@ -75,6 +76,7 @@ export function BookGrid({ book }) {
                             <span
                                 className={`text-xs text-white uppercase flex flex-row items-center`}>{Parse(site.domain)}</span>
                                 <Picture
+                                    remote={true}
                                     alt={Parse(site.domain)}
                                     className="w-[18px] h-[18px] rounded"
                                     source={
@@ -107,6 +109,7 @@ export function BookGrid({ book }) {
                             <span
                                 className={`text-xs text-white uppercase flex flex-row items-center`}>{Parse(site.domain)}</span>
                                 <Picture
+                                    remote={true}
                                     alt={Parse(site.domain)}
                                     className="w-[18px] h-[18px] rounded"
                                     source={
@@ -184,6 +187,7 @@ export function BookCard({book}) {
                     <div
                         className="thumb flex items-center justify-center min-w-[100px] w-[100px] min-h-[100px] rounded-[6px] overflow-hidden">
                             <Picture
+                                remote={true}
                                 alt={title}
                                 className="m-auto !max-w-full !max-h-full rounded-[6px]"
                                 source={
@@ -215,6 +219,7 @@ export function BookCard({book}) {
                             <span className={`flex flex-row gap-1.5 items-center`}>
                                     {site.domain}
                                     <Picture
+                                        remote={true}
                                         alt={Parse(site.domain)}
                                         className="w-[18px] h-[18px] rounded"
                                         source={
