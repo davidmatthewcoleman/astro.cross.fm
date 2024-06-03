@@ -1,0 +1,38 @@
+{
+  "name": "cross.fm",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "build:css": "bunx tailwindcss -i src/styles/app.css -o public/assets/css/app.css",
+    "dev": "astro dev && build:css",
+    "start": "node ./dist/server/entry.mjs",
+    "build": "astro build && npm run build:css",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/node": "^5.0.0",
+    "@astrojs/react": "^3.4.0",
+    "@astrojs/tailwind": "^5.1.0",
+    "@astrojs/vercel": "^7.6.0",
+    "@imgix/js-core": "^3.8.0",
+    "@phosphor-icons/react": "^2.1.5",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "astro": "4.9.2",
+    "date-fns": "^3.6.0",
+    "graphql": "^16.8.1",
+    "html-react-parser": "^5.1.10",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tailwindcss": "^3.4.3",
+    "typescript": "^5.4.5"
+  },
+  "devDependencies": {
+    "@graphql-codegen/introspection": "4.0.3",
+    "@graphql-codegen/typescript": "4.0.7",
+    "@graphql-codegen/typescript-document-nodes": "4.0.7",
+    "@graphql-codegen/typescript-mongodb": "3.0.0",
+    "@graphql-codegen/typescript-resolvers": "4.1.0"
+  }
+}

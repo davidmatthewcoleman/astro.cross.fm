@@ -1,0 +1,228 @@
+---
+import Sidebar from "../components/Sidebar.astro";
+import BannerLayout from "../layouts/BannerLayout.astro";
+import { homepageQuery } from "../lib/api.js";
+import { format } from "date-fns";
+
+const data = await homepageQuery();
+const page = data.pageBy;
+const post = data.posts.nodes[0];
+
+Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
+
+---
+
+<BannerLayout title="CROSS – Let's Talk About Sh*t" description="I'm the adventurer of pixels, the architect of code, and the dreamer behind the keyboard.">
+	<style>
+		.social a {
+			text-decoration: none !important;
+			color: #9e9e9e;
+		}
+		.social a:hover {
+			color: #fff !important;
+		}
+		.stk-column {
+			max-width: unset !important;
+		}
+		.posts__loop ul {
+			bordee-top: 1px solid rgba(255,255,255,0.25);
+		}
+		.posts__loop ul > li {
+			border-bottom: 1px solid rgba(255,255,255,0.25);
+		}
+		.posts__loop ul > li:nth-child(even) {
+			background-color: rgba(255,255,255,.05);
+		}
+		.posts__loop ul > li > .wp-block-group {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			gap: 1rem;
+			padding: 0.125em 0.25em;
+			color: #fff;
+		}
+		.posts__loop ul > li .wp-block-post-title {
+			font-size: 1rem;
+			font-weight: normal;
+		}
+		.posts__loop ul > li .wp-block-post-date {
+			font-size: .85rem;
+			opacity: 0.65;
+		}
+		@media screen and (max-width: 959px) {
+			.posts__loop ul > li > .wp-block-group {
+				flex-direction: column;
+				align-items: flex-start;
+				gap: 0;
+			}
+			.desc__links {
+				display: flex;
+				flex-direction: column;
+				align-items: flex-start;
+			}
+		}
+		.book__covers img {
+			aspect-ratio: 2/3;
+		}
+		#jumpin {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			gap: 1em;
+			padding: 1rem;
+			margin: 1em -1rem;
+			background-color: rgba(255,255,255,0.075);
+		}
+		@media screen and (max-width: 959px) {
+			#jumpin {
+				grid-template-columns: 1fr;
+				grid-template-rows: repeat(2, auto);
+			}
+		}
+		#jumpin .card,
+		#jumpin .btn {
+			background-color: #070A07;
+		}
+		.heading {
+			color: #A5B457 !important;
+			margin: 0 0 0.5em !important;
+		}
+		.card {
+			display: block;
+			padding: 0.675em 1em 0.75em;
+			text-decoration: none !important;
+			border: 1px solid currentColor;
+			border-radius: 4px;
+		}
+		.card span {
+			font-size: 0.9rem;
+		}
+		.card strong {
+			color: #A5B457;
+			font-size: 1.25rem;
+			margin-bottom: 0.25em;
+		}
+		.card:hover strong {
+			color: #D1C200;
+			text-decoration: underline;
+		}
+		.card p {
+			color: #fff;
+			font-size: 1rem;
+			margin: 0;
+		}
+		#jumpin .right,
+		#blog .right {
+			display: flex;
+			flex-direction: column;
+			gap: 1em;
+		}
+		#blog {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			gap: 1em;
+		}
+		@media screen and (max-width: 959px) {
+			#blog {
+				grid-template-columns: 1fr;
+				grid-template-rows: repeat(2, auto);
+			}
+			#blog .right {
+				order: -1;
+			}
+		}
+		#blog .card {
+			padding-top: 0.4em;
+		}
+		#blog .card,
+		#blog .btn {
+			background-color: rgba(255,255,255,0.075);
+		}
+		#blog .card div {
+			display: -webkit-box;
+			max-height: 90px;
+			-webkit-line-clamp: 4;
+			line-clamp: 4;
+			overflow: hidden;
+			color: #fff;
+			font-size: 1rem;
+			margin: 0;
+			text-overflow: ellipsis;
+		}
+		.bottom {
+			display: flex;
+			flex-direction: row;
+			gap: 0.75rem;
+			align-items: center;
+		}
+		.btn {
+			padding: 0.25em 0.5em;
+			border: 1px solid currentColor;
+			border-radius: 4px;
+		}
+		.card + .bottom {
+			margin-top: 1em;
+		}
+
+		.main {
+			margin-top: 4rem;
+		}
+
+		h1 {
+			font-size: 2.25rem;
+			font-weight: 700;
+		}
+		h2 {
+			font-size: 1.75rem;
+			font-weight: 700;
+		}
+	</style>
+	<div class="page__wrapper lmr">
+		<section class="page main">
+			<h1 set:html={page.title} style="margin-bottom:1rem;"></h1>
+			<div set:html={page.content}></div>
+			<div id="jumpin">
+				<div class="left">
+					<h2 class="heading">Jump right in&hellip;</h2>
+					<a href="/about" class="card">
+						<strong>Way too much about myself.</strong>
+						<p>Explore the eclectic world of CROSS: an autistic, brony, and furry dreamer crafting digital realms and dreaming of roaming the Americas in a Volkswagen Vanagon Westfalia Syncro.</p>
+					</a>
+					<div class="bottom">
+						<span>+</span>
+						<a href="/about/bookshelf" class="btn">Bookshelf</a>
+					</div>
+				</div>
+				<div class="right">
+					<a href="/stories" class="card">
+						<strong>How about a story?</strong>
+						<p>Dive into a world of imagination with CROSS's eclectic collection of one-shots, original tales, and fanfiction. From thrilling adventures to heartfelt narratives, there's a story for every reader to explore.</p>
+					</a>
+					<a href="/works" class="card">
+						<strong>My Portfolio</strong>
+						<p>Discover the creative tapestry of CROSS's portfolio, showcasing captivating photography, stunning graphic design work, logos, dynamic web design projects, and beyond. Explore a visual journey that embodies passion, innovation, and artistic expression.</p>
+					</a>
+				</div>
+			</div>
+			<h2 class="heading">My thoughts&hellip;</h2>
+			<div id="blog">
+				<div class="left">
+					<a href={`/blog/${post.series}/${post.slug}`} class="card">
+						<span>{format(new Date(post.date_gmt || post.date), 'MMM. d, yyyy')}</span><br/>
+						<strong>{post.title}</strong>
+						<div set:html={post.excerpt}></div>
+					</a>
+				</div>
+				<div class="right">
+					<p>
+						I write quite infrequently, when ideas need expressing. If you want to read some of my ramblings, this is my latest. I’ve also got an RSS feed for those of you it interests.
+					</p>
+					<div class="bottom">
+						<a href="/blog">Visit the blog</a>
+						<a href="/feed" class="btn">RSS Feed</a>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+	<Sidebar show={false}></Sidebar>
+</BannerLayout>

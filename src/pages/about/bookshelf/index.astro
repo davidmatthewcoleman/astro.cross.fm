@@ -1,0 +1,42 @@
+---
+import Bookshelf from "../../../components/bookshelf/Bookshelf.jsx";
+import Sidebar from "../../../components/Sidebar.astro";
+import MainLayout from "../../../layouts/MainLayout.astro";
+import { bookshelfQuery } from "../../../lib/api.js";
+
+const { bookshelf } = await bookshelfQuery();
+
+Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
+
+---
+
+<MainLayout title='Bookshelf – CROSS'>
+    <div class="page__wrapper lmr">
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+            <ol>
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                <li>
+                    <a href="/about">About Me</a>
+                </li>
+                <li class="is-active">
+                    <span>Bookshelf</span>
+                </li>
+            </ol>
+        </nav>
+        <section class="page main">
+            <div class="summary__container" data-display="block">
+                <h2 class="single__title">
+                    Bookshelf
+                </h2>
+                <bookshelf-block>
+                    <template shadowrootmode="closed">
+                        <Bookshelf data={bookshelf} client:only="react" />
+                    </template>
+                </bookshelf-block>
+            </div>
+        </section>
+    </div>
+    <Sidebar />
+</MainLayout>

@@ -1,0 +1,1 @@
+import"./SiteFooter.astro_astro_type_script_index_0_lang.N_5nrn3M.js";document.addEventListener("DOMContentLoaded",function(){const e=document.body;function n(){const t=localStorage.getItem("theme");t&&e.setAttribute("data-theme",t)}n()});

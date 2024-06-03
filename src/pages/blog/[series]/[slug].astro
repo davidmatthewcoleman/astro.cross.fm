@@ -1,0 +1,314 @@
+---
+import Sidebar from "../../../components/Sidebar.astro";
+import Picture from "../../../components/Picture";
+import MainLayout from "../../../layouts/MainLayout.astro";
+import { formatInteger } from "../../../lib/utils.js";
+import { singlePostQuery, singleSeriesQuery, allPostSlugsQuery } from "../../../lib/api.js";
+import { format } from "date-fns";
+import Parse from "html-react-parser";
+
+const { posts } = await singlePostQuery( Astro.params.slug );
+const post = posts.nodes[0];
+const allSeries = await singleSeriesQuery(post?.series);
+const series = allSeries?.allSeries?.nodes[0];
+
+export async function getStaticPaths() {
+    const data = await allPostSlugsQuery();
+    const paths = data?.posts.nodes.map(post => ({
+        params: { series: post.series, slug: post.slug }
+    }));
+
+    return paths;
+}
+
+Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
+---
+
+<MainLayout title={`${post?.title} – CROSS`} description={post?.excerpt}>
+    <div class="banner summary-blur__image-wrapper">
+        <Picture
+            alt={post?.title}
+            className="summary-blur__image"
+            source={
+                {
+                    '(max-width: 959px)': {
+                        media: post?.featuredImage?.node,
+                        params: {
+                            'width': 360,
+                            'height': 196,
+                            'blur': 256,
+                            'sat': 200
+                        }
+                    },
+                    '(min-width: 960px)': {
+                        media: post?.featuredImage?.node,
+                        params: {
+                            'width': 960,
+                            'height': 196,
+                            'blur': 256,
+                            'sat': 200
+                        }
+                    }
+                }
+            }
+        />
+    </div>
+    <div class="post__wrapper lm">
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+            <ol>
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                <li>
+                    <a href="/blog">Blog</a>
+                </li>
+                <li>
+                    <a href={`/blog/${series?.slug}`} set:html={series?.name}></a>
+                </li>
+                <li class="is-active">
+                    <span set:html={post?.title}></span>
+                </li>
+            </ol>
+        </nav>
+        <section class="post main">
+            <h2 class="single__title" set:html={post?.title}></h2>
+            {
+                post?.subtitle && (
+                    <h3 class="single__subtitle" set:html={post?.subtitle}></h3>
+                )
+            }
+            <div class="single__meta">
+                <div class="single__infos">
+                    <time class="single__info">
+                        <svg class="icon" width="15" height="15" role="img">
+                            <use href="#icon-calendar"></use>
+                        </svg>
+                        &nbsp;{post?.date && format(post?.date, 'MMM. d, yyyy')}
+                    </time>
+                    <span class="single__info">
+                        <svg class="icon" width="15" height="15" role="img">
+                            <use href="#icon-coffee"></use>
+                        </svg>&nbsp;
+                        {Parse(post?.readingTime)} min read
+                    </span>
+                </div>
+                    {
+                        post?.categories?.nodes?.length > 0 && (
+                            <ul class="single__tags caption taxo">
+                                {
+                                    post?.categories?.nodes?.map((category) => (
+                                            <li class="tag">
+                                                <a href={`/blog/archive/topics/${category?.slug}`} class="is-categories taxo__link" data-dir="ltr">
+                                                    <span class="taxo__text">{category?.name}</span>&nbsp;<span class="taxo__num" dir="auto">{category?.count}</span>
+                                                </a>
+                                            </li>
+                                    ))
+                                }
+                            </ul>
+                        )
+                    }
+            </div>
+            <article class="single__contents" data-dir="ltr" set:html={post?.content}></article>
+            <footer class="single__footer">
+                {
+                    post?.tags?.nodes?.length > 0 && (
+                        <div class="tags taxo">
+                            <span class="title p2"><a href="/blog/archive/tags" class="taxo__title">Tags</a></span>
+                            {
+                                post?.tags?.nodes?.map((tag) => (
+                                    <span class="tag">
+                                        <a href={`/blog/archive/tags/${tag?.slug}`} class="is-tags taxo__link" data-dir="ltr">
+                                            <span class="taxo__text">{tag?.name}</span>&nbsp;<span class="taxo__num" dir="auto">{tag?.count}</span>
+                                        </a>
+                                    </span>
+                                ))
+                            }
+                        </div>
+                    )
+                }
+                <div class="license__block">
+                    <svg class="icon icon-creative-commons" role="img">
+                        <use href="#icon-creative-commons"></use>
+                    </svg>
+                    <div class="top">
+                        <h4 set:html={post?.title}></h4>
+                        <div>
+                            <a href={`https://cross.fm/${post?.slug}`}>cross.fm/{post?.slug}</a>
+                            <a href={`https://cross.fm/go/${post?.shortlink}`} id="shortlink" style="display:none;"></a>
+                            <!--<button id="copyShortlink" title="Copy shortlink">-->
+                            <!--    <svg class="icon icon-copy" width="14" height="14" role="img">-->
+                            <!--        <use href="#icon-copy"></use>-->
+                            <!--    </svg>-->
+                            <!--</button>-->
+                        </div>
+                    </div>
+                    <div class="bottom">
+                        <div>
+                            <small>Writer</small>
+                            <span>{post?.author?.node?.name}</span>
+                        </div>
+                        <div>
+                            <small>Published</small>
+                            <span>{format(post?.date, 'MMM. d, yyyy')}</span>
+                        </div>
+                        <div>
+                            <small>License</small>
+                            <span set:html={post?.license}></span>
+                        </div>
+                    </div>
+                    <style is:inline>
+                        .license__block {
+                            position: relative;
+                            padding: 1rem 1.5rem;
+                            display: flex;
+                            flex-direction: column;
+                            gap: 0.5rem;
+                            margin-top: 1.5rem;
+                            background-color: #1b1c1b;
+                            border-radius: 6px;
+                            overflow: hidden;
+                        }
+                        .license__block .icon.icon-creative-commons {
+                            position: absolute;
+                            inset: 0 2.5rem 0 auto;
+                            width: auto;
+                            height: 100%;
+                            aspect-ratio: 1/1;
+                            color: rgba(255,255,255,0.0625);
+                            transform: scale(1.75);
+                        }
+                        .license__block .top {
+                            position: relative;
+                            line-height: 1;
+                        }
+                        .license__block .top h4 {
+                            color: #fff;
+                            font-size: 0.9rem;
+                            margin: 0;
+                        }
+                        .license__block .top a {
+                            font-size: 0.9rem;
+                            margin: 0;
+                        }
+                        .license__block .top button {
+                            position: relative;
+                            top: 2px;
+                            display: inline-block;
+                            background: transparent;
+                            border: none;
+                            box-shadow: none;
+                            margin-left: 0.25rem;
+                            cursor: pointer;
+                            color: rgba(255,255,255,0.5);
+                        }
+                        .license__block .top button:hover {
+                            color: #fff;
+                        }
+                        .license__block .top button:active {
+                            color: rgba(255,255,255,0.25);
+                        }
+                        .license__block .top button .icon {
+                            display: block;
+                            color: inherit;
+                        }
+                        .license__block .bottom {
+                            position: relative;
+                            display: flex;
+                            flex-direction: row;
+                            gap: 1rem;
+                        }
+                        .license__block .bottom div {
+                            display: flex;
+                            flex-direction: column;
+                        }
+                        .license__block .bottom div small {
+                            font-size: 0.75rem;
+                            color: rgba(255,255,255,0.5);
+                        }
+                        .license__block .bottom div span {
+                            font-size: 0.9rem;
+                            color: #fff;
+                        }
+                    </style>
+                    <script is:inline>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            // Get the hidden anchor element
+                            var hiddenAnchor = document.getElementById('shortlink');
+
+                            // Get the button element
+                            var copyButton = document.getElementById('copyShortlink');
+
+                            // Add click event listener to the button
+                            copyButton.addEventListener('click', function() {
+                                // Create a temporary input element
+                                var tempInput = document.createElement('input');
+
+                                // Set the value of the input to the href of the hidden anchor
+                                tempInput.value = hiddenAnchor.href;
+
+                                // Append the input element to the document body
+                                document.body.appendChild(tempInput);
+
+                                // Select the input element's value
+                                tempInput.select();
+
+                                // Copy the selected text
+                                document.execCommand('copy');
+
+                                // Remove the temporary input element
+                                document.body.removeChild(tempInput);
+                            });
+                        });
+
+                    </script>
+                </div>
+            </footer>
+            <nav class="pagination-single">
+                {
+                    post?.nextPost && (
+                        <a class="pagination-single__left" href={`/blog/${post?.nextPost?.series}/${post?.nextPost?.slug}`}>
+                            <div class="pagination-single__icon">
+                                <svg class="icon icon-nav-left" width="25" height="25" role="img">
+                                    <use href="#icon-nav-left"></use>
+                                </svg>
+                            </div>
+                            <div class="pagination-single__left-title">Next Entry</div>
+                        </a>
+                    )
+                }
+                <div class="grow"></div>
+                {
+                    post?.previousPost && (
+                        <a class="pagination-single__right" href={`/blog/${post?.previousPost?.series}/${post?.previousPost?.slug}`}>
+                            <div class="pagination-single__right-title">Last Entry</div>
+                            <div class="pagination-single__icon">
+                                <svg class="icon icon-nav-right" width="25" height="25" role="img">
+                                    <use href="#icon-nav-right"></use>
+                                </svg>
+                            </div>
+                        </a>
+                    )
+                }
+            </nav>
+            <div class="comments__section">
+                <script src="https://giscus.app/client.js"
+                        data-repo="davidmatthewcoleman/cross.fm-commments"
+                        data-repo-id="R_kgDOMD62Mw"
+                        data-category="General"
+                        data-category-id="DIC_kwDOMD62M84CfzOQ"
+                        data-mapping="pathname"
+                        data-strict="1"
+                        data-reactions-enabled="0"
+                        data-emit-metadata="1"
+                        data-input-position="top"
+                        data-theme="https://crossrambles.com/assets/css/comments.css"
+                        data-lang="en"
+                        data-loading="lazy"
+                        crossorigin="anonymous"
+                        async>
+                </script>
+            </div>
+        </section>
+    </div>
+    <Sidebar />
+</MainLayout>
