@@ -11,7 +11,7 @@ const { data } = Astro.props;
             <a href={`/blog/${data.series}/${data.slug}`}>
                 <Picture
                     alt={data?.title}
-                    class="summary-classic__image"
+                    className="summary-classic__image"
                     source={
                         {
                             '(max-width: 959px)': {
