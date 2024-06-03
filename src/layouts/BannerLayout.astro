@@ -1,4 +1,6 @@
 ---
+import "../styles/global.css";
+import "../styles/bookmarks.css";
 import SiteNav from "../components/SiteNav.astro";
 import Hero from "../components/Hero.astro";
 import SiteFooter from "../components/SiteFooter.astro";
@@ -19,9 +21,6 @@ const { title, description } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <meta name="description" content={description}>
-
-    <link rel="stylesheet" href="/assets/css/global.css" />
-    <link rel="stylesheet" href="/assets/css/bookmarks.css" />
 
     <script src="/assets/js/fuse.min.js" is:inline></script>
     <script src="/assets/js/enquire.min.js" is:inline></script>

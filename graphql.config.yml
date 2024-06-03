@@ -1,0 +1,2 @@
+schema: https://cross.fm/api
+include: src/**/*.graphql

@@ -1,10 +1,10 @@
 import ImgixClient from "@imgix/js-core";
 import { IMGIX_HOST_DOMAIN, IMGIX_SECURE_TOKEN, IMGIX_REMOTE_HOST_DOMAIN, IMGIX_REMOTE_SECURE_TOKEN } from "../../config.js";
 
-export function fetchPicture(data, isRemote = false) {
+export function fetchPicture(data, remote = false) {
     const opts = {
-        domain: isRemote ? IMGIX_REMOTE_HOST_DOMAIN : IMGIX_HOST_DOMAIN,
-        secureURLToken: isRemote ? IMGIX_REMOTE_SECURE_TOKEN : IMGIX_SECURE_TOKEN,
+        domain: remote ? IMGIX_REMOTE_HOST_DOMAIN : IMGIX_HOST_DOMAIN,
+        secureURLToken: remote ? IMGIX_REMOTE_SECURE_TOKEN : IMGIX_SECURE_TOKEN,
         includeLibraryParam: false,
     };
 
