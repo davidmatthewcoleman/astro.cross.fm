@@ -17,8 +17,6 @@ export async function getStaticPaths() {
     return paths;
 }
 
-export const prerender = false;
-
 Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
 ---
 
