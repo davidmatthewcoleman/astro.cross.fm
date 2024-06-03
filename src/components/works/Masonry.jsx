@@ -5,7 +5,7 @@ export default function Masonry({ data }) {
     return (
         <>
             <link rel="stylesheet" href="/assets/css/app.css"/>
-            <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 xl:columns-5" style={{ columnGap: `0.5rem` }}>
+            <div className="initial-hide hidden columns-1 sm:columns-2 md:columns-3 lg:columns-4 xl:columns-5" style={{ columnGap: `0.5rem` }}>
                 {data.map((work, index) => (
                     <Picture
                         key={index}

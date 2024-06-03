@@ -1246,6 +1246,10 @@ div[class^="book-container-"] {
           mask-image: linear-gradient(to bottom, black 0%, black calc(100% - 24px), transparent 100%);
 }
 
+.initial-hide.hidden {
+  display: block !important;
+}
+
 .hover\:text-\[\#D2C100\]:hover {
   --tw-text-opacity: 1;
   color: rgb(210 193 0 / var(--tw-text-opacity));
