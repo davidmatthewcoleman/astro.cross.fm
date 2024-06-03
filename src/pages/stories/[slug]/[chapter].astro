@@ -3,7 +3,7 @@ import Sidebar from "../../../components/Sidebar.astro";
 import MainLayout from "../../../layouts/MainLayout.astro";
 import { singleChapterQuery, allChapterSlugsQuery } from "../../../lib/api.js";
 import { format } from "date-fns";
-import Picture from "../../../components/Picture.astro";
+import Picture from "../../../components/Picture";
 
 const { chapters } = await singleChapterQuery( Astro.params.chapter );
 const post = chapters.nodes[0];

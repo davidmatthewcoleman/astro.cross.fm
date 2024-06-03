@@ -3,7 +3,7 @@ import { navQuery, sidebarQuery } from "../lib/api.js";
 import {format} from "date-fns";
 const { menus } = await navQuery();
 const primaryMenu = menus.nodes[0];
-import Picture from "./Picture.astro";
+import Picture from "./Picture";
 
 const data = await sidebarQuery();
 const sidebar = data.sidebar;

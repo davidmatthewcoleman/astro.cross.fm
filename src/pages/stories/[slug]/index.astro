@@ -4,7 +4,7 @@ import MainLayout from "../../../layouts/MainLayout.astro";
 import { singleStoryQuery, allStorySlugsQuery } from "../../../lib/api.js";
 import { formatInteger } from "../../../lib/utils.js";
 import {format} from "date-fns";
-import Picture from "../../../components/Picture.astro";
+import Picture from "../../../components/Picture";
 
 const data = await singleStoryQuery(Astro.params.slug);
 const story = data.stories.nodes[0];

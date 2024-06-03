@@ -15643,3 +15643,6 @@ body {
     pointer-events: auto !important;
 }
 
+.summary__container {
+    position: relative;
+}

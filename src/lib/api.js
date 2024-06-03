@@ -1267,3 +1267,57 @@ export async function portfolioQuery() {
     const result = await response.json();
     return result.data;
 }
+
+export async function bookshelfQuery() {
+    const query = `
+        query BookshelfQuery {
+          bookshelf {
+            nodes {
+              title
+              description
+              link
+              url
+              author
+              published
+              status
+              site {
+                domain
+                icon {
+                  sourceFile
+                  sourceUrl
+                  mediaDetails {
+                    width
+                    height
+                    x
+                    y
+                    color
+                  }
+                }
+              }
+              cover {
+                sourceFile
+                sourceUrl
+                mediaDetails {
+                  width
+                  height
+                  x
+                  y
+                  color
+                }
+              }
+            }
+          }
+        }
+      `;
+
+    const response = await fetch(import.meta.env.WORDPRESS_API_URL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ query }),
+    });
+
+    const result = await response.json();
+    return result.data;
+}

@@ -1,11 +1,15 @@
 import ImgixClient from "@imgix/js-core";
+import { IMGIX_HOST_DOMAIN, IMGIX_SECURE_TOKEN, IMGIX_REMOTE_HOST_DOMAIN, IMGIX_REMOTE_SECURE_TOKEN } from "../../config.js";
 
-export async function fetchPicture(data) {
-    const client = new ImgixClient({
-        domain: import.meta.env.IMGIX_HOST_DOMAIN,
-        secureURLToken: import.meta.env.IMGIX_SECURE_TOKEN,
+export function fetchPicture(data) {
+    const isRemote = !data.sourceFile;
+    const opts = {
+        domain: isRemote ? IMGIX_REMOTE_HOST_DOMAIN : IMGIX_HOST_DOMAIN,
+        secureURLToken: isRemote ? IMGIX_REMOTE_SECURE_TOKEN : IMGIX_SECURE_TOKEN,
         includeLibraryParam: false,
-    });
+    };
+
+    const client = new ImgixClient(opts);
 
     const newSrcSets = {};
 
@@ -15,49 +19,44 @@ export async function fetchPicture(data) {
             continue;
         }
 
-        const { sourceFile, mediaDetails } = media;
+        const { sourceFile, sourceUrl, mediaDetails } = media;
 
-        if (!sourceFile || !mediaDetails) {
-            console.error(`Missing 'sourceFile' or 'mediaDetails' property for '${mediaQuery}'`);
+        if (!sourceFile && !sourceUrl) {
+            console.error(`Neither 'sourceFile' nor 'sourceUrl' provided for '${mediaQuery}'`);
             continue;
         }
 
-        // Construct the base URL without format or dpr parameters
-        const baseImgSrc = client.buildURL(sourceFile, {
-            w: params.width.toString(),
-            h: params.height.toString(),
+        const baseImgSrc = client.buildURL(sourceFile || sourceUrl, {
+            w: params.width,
+            h: params.height,
             "fp-x": mediaDetails.x,
             "fp-y": mediaDetails.y,
             ...params
         });
 
-        // Construct srcset values for AVIF format
         const avifSrcset = {};
+        const webpSrcset = {};
+
         for (let i = 1; i <= 3; i++) {
-            const dprSrc = client.buildURL(sourceFile, {
+            const dprSrc = client.buildURL(sourceFile || sourceUrl, {
                 ...params,
                 "fp-x": mediaDetails.x,
                 "fp-y": mediaDetails.y,
                 fm: "avif", // Set format to AVIF
-                dpr: i.toString(), // Set device pixel ratio
+                dpr: i // Set device pixel ratio
             });
-            avifSrcset[i.toString() + "x"] = dprSrc;
-        }
+            avifSrcset[i + "x"] = dprSrc;
 
-        // Construct srcset values for WebP format
-        const webpSrcset = {};
-        for (let i = 1; i <= 3; i++) {
-            const dprSrc = client.buildURL(sourceFile, {
+            const webpDprSrc = client.buildURL(sourceFile || sourceUrl, {
                 ...params,
                 "fp-x": mediaDetails.x,
                 "fp-y": mediaDetails.y,
                 fm: "webp", // Set format to WebP
-                dpr: i.toString(), // Set device pixel ratio
+                dpr: i, // Set device pixel ratio
             });
-            webpSrcset[i.toString() + "x"] = dprSrc;
+            webpSrcset[i + "x"] = webpDprSrc;
         }
 
-        // Construct the desired structure with the signed image URLs and srcset values
         newSrcSets[mediaQuery] = {
             img: baseImgSrc,
             srcset: {

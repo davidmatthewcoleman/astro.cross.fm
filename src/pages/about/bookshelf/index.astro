@@ -1,40 +1,16 @@
 ---
+import Bookshelf from "../../../components/bookshelf/Bookshelf.jsx";
 import Sidebar from "../../../components/Sidebar.astro";
 import MainLayout from "../../../layouts/MainLayout.astro";
+import { bookshelfQuery } from "../../../lib/api.js";
+
+const { bookshelf } = await bookshelfQuery();
 
 Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
 
 ---
 
 <MainLayout title='Bookshelf – CROSS'>
-    <style>
-        body:not(.block-editor-page) .reading__lists h1, body:not(.block-editor-page) .reading__lists h2, body:not(.block-editor-page) .reading__lists h3, body:not(.block-editor-page) .reading__lists h4, body:not(.block-editor-page) .reading__lists h5, body:not(.block-editor-page) .reading__lists h6 {
-            color: #DBDBDB;
-        }
-        @media screen and (max-width: 960px) {
-            h1[style] {
-                font-size: 1.75rem !important;
-                line-height: 2rem !important;
-            }
-        }
-        .book__site {
-            margin-left: auto;
-        }
-        .book__site img {
-            width: 14px;
-            height: 14px;
-            border-radius: 3px;
-        }
-
-        /*.list__main {*/
-        /*    grid-area: 1/1/2/4 !important;*/
-        /*}*/
-
-        #toggleButton {
-            font-size: 1.125rem;
-            float: right;
-        }
-    </style>
     <div class="page__wrapper lmr">
         <nav class="breadcrumb" aria-label="breadcrumbs">
             <ol>
@@ -53,10 +29,13 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
             <div class="summary__container" data-display="block">
                 <h2 class="single__title">
                     Bookshelf
-                    <a id="toggleButton" href="javascript:void(0);">Toggle View</a>
                 </h2>
-                <bookshelf-block></bookshelf-block>
-                <script src="/assets/js/bookshelf.min.js" is:inline></script>
+                <bookshelf-block>
+                    <template shadowrootmode="closed">
+                        <Bookshelf data={bookshelf} client:only="react" />
+                    </template>
+                </bookshelf-block>
+                <!--<script src="/assets/js/bookshelf.min.js" is:inline></script>-->
             </div>
         </section>
     </div>
