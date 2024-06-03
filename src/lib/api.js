@@ -1,7 +1,10 @@
 export async function navQuery(){
     const siteNavQueryRes = await fetch(import.meta.env.WORDPRESS_API_URL, {
         method: 'post', 
-        headers: {'Content-Type':'application/json'},
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
+        },
         body: JSON.stringify({
             query: `{
                 menus(where: {location: PRIMARY}) {
@@ -33,7 +36,10 @@ export async function navQuery(){
 export async function sidebarQuery(){
     const response = await fetch(import.meta.env.WORDPRESS_API_URL, {
         method: 'post',
-        headers: {'Content-Type':'application/json'},
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
+        },
         body: JSON.stringify({
             query: `{
                   sidebar {
@@ -106,7 +112,10 @@ export async function blogQuery(first, after = null) {
     try {
         const response = await fetch(import.meta.env.WORDPRESS_API_URL, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
+            },
             body: JSON.stringify({
                 query: `
                   query GetPaginatedPosts($first: Int!, $after: String) {
@@ -165,7 +174,10 @@ export async function storiesQuery(first, after = null) {
     try {
         const response = await fetch(import.meta.env.WORDPRESS_API_URL, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
+            },
             body: JSON.stringify({
                 query: `
                   query GetPaginatedStories($first: Int!, $after: String) {
@@ -242,7 +254,10 @@ export async function seriesQuery(series = null, first, after = null) {
     try {
         const response = await fetch(import.meta.env.WORDPRESS_API_URL, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
+            },
             body: JSON.stringify({
                 query: `
                   query GetPaginatedPosts($first: Int!, $after: String, $series: String) {
@@ -304,7 +319,10 @@ export async function topicQuery(category = null, first, after = null) {
     try {
         const response = await fetch(import.meta.env.WORDPRESS_API_URL, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
+            },
             body: JSON.stringify({
                 query: `
                   query GetPaginatedPosts($first: Int!, $after: String, $category: String) {
@@ -364,7 +382,10 @@ export async function tagQuery(tag = null, first, after = null) {
     try {
         const response = await fetch(import.meta.env.WORDPRESS_API_URL, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
+            },
             body: JSON.stringify({
                 query: `
                   query GetPaginatedPosts($first: Int!, $after: String, $tag: String) {
@@ -423,7 +444,10 @@ export async function tagQuery(tag = null, first, after = null) {
 export async function homepageQuery(){
     const response = await fetch(import.meta.env.WORDPRESS_API_URL, {
         method: 'post',
-        headers: {'Content-Type':'application/json'},
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
+        },
         body: JSON.stringify({
             query: `{
                   pageBy(uri: "home") {
@@ -451,7 +475,10 @@ export async function homepageQuery(){
 export async function heroQuery(){
     const response = await fetch(import.meta.env.WORDPRESS_API_URL, {
         method: 'post',
-        headers: {'Content-Type':'application/json'},
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
+        },
         body: JSON.stringify({
             query: `{
                   hero {
@@ -496,7 +523,10 @@ export async function singleSeriesQuery(series) {
 
     const response = await fetch(import.meta.env.WORDPRESS_API_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
+        },
         body: JSON.stringify({
             query: `
                 query GetSeries($series: String!) {
@@ -522,7 +552,10 @@ export async function singleTopicQuery(category) {
 
     const response = await fetch(import.meta.env.WORDPRESS_API_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
+        },
         body: JSON.stringify({
             query: `
                 query GetTopics($category: String!) {
@@ -548,7 +581,10 @@ export async function singleTagQuery(tag) {
 
     const response = await fetch(import.meta.env.WORDPRESS_API_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
+        },
         body: JSON.stringify({
             query: `
                 query GetTags($tag: String!) {
@@ -575,7 +611,10 @@ export async function singleStoryQuery(story) {
 
     const response = await fetch(import.meta.env.WORDPRESS_API_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
+        },
         body: JSON.stringify({
             query: `
                 query GetStory($story: String!) {
@@ -645,7 +684,10 @@ export async function singlePageQuery(slug) {
 
     const response = await fetch(import.meta.env.WORDPRESS_API_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
+        },
         body: JSON.stringify({
             query: `
                 query GetPage($slug: String!) {
@@ -681,7 +723,10 @@ export async function singlePostQuery(slug) {
 
     const response = await fetch(import.meta.env.WORDPRESS_API_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
+        },
         body: JSON.stringify({
             query: `
                 query GetPost($slug: String!) {
@@ -766,7 +811,10 @@ export async function singleChapterQuery(slug) {
 
     const response = await fetch(import.meta.env.WORDPRESS_API_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
+        },
         body: JSON.stringify({
             query: `
                 query GetChapter($slug: String!) {
@@ -821,7 +869,10 @@ export async function singleChapterQuery(slug) {
 export async function allTagsQuery(){
     const response = await fetch(import.meta.env.WORDPRESS_API_URL, {
         method: 'post',
-        headers: {'Content-Type':'application/json'},
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
+        },
         body: JSON.stringify({
             query: `
                 query allTags {
@@ -843,7 +894,10 @@ export async function allTagsQuery(){
 export async function allCategoriesQuery(){
     const response = await fetch(import.meta.env.WORDPRESS_API_URL, {
         method: 'post',
-        headers: {'Content-Type':'application/json'},
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
+        },
         body: JSON.stringify({
             query: `
                 query allCategories {
@@ -865,7 +919,10 @@ export async function allCategoriesQuery(){
 export async function allSeriesQuery(){
     const response = await fetch(import.meta.env.WORDPRESS_API_URL, {
         method: 'post',
-        headers: {'Content-Type':'application/json'},
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
+        },
         body: JSON.stringify({
             query: `
                 query allSeries {
@@ -887,7 +944,10 @@ export async function allSeriesQuery(){
 export async function wpVersionQuery(){
     const response = await fetch(import.meta.env.WORDPRESS_API_URL, {
         method: 'post',
-        headers: {'Content-Type':'application/json'},
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
+        },
         body: JSON.stringify({
             query: `{
                 wp
@@ -919,6 +979,7 @@ export async function allStorySlugsQuery() {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
         },
         body: JSON.stringify({ query }),
     });
@@ -945,6 +1006,7 @@ export async function allChapterSlugsQuery() {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
         },
         body: JSON.stringify({ query }),
     });
@@ -968,6 +1030,7 @@ export async function allSeriesSlugsQuery() {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
         },
         body: JSON.stringify({ query }),
     });
@@ -992,6 +1055,7 @@ export async function allPostSlugsQuery() {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
         },
         body: JSON.stringify({ query }),
     });
@@ -1015,6 +1079,7 @@ export async function allPageSlugsQuery() {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
         },
         body: JSON.stringify({ query }),
     });
@@ -1038,6 +1103,7 @@ export async function allTagSlugsQuery() {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
         },
         body: JSON.stringify({ query }),
     });
@@ -1061,6 +1127,7 @@ export async function allTopicSlugsQuery() {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
         },
         body: JSON.stringify({ query }),
     });
@@ -1093,6 +1160,7 @@ export async function portfolioQuery() {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
         },
         body: JSON.stringify({ query }),
     });
@@ -1147,6 +1215,7 @@ export async function bookshelfQuery() {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
         },
         body: JSON.stringify({ query }),
     });
