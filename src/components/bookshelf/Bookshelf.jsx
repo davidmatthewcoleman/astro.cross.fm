@@ -1,13 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BookGrid, BookCard } from "./Book.jsx";
 
 export default function Bookshelf({ data, defaultView = 'list' }) {
     const { nodes } = data;
-    const [view, setView] = useState(defaultView);
 
+    // Check if default view is in localStorage, otherwise fallback to defaultView prop
+    const storedView = localStorage.getItem('view');
+    const [view, setView] = useState(storedView || defaultView);
+
+    // Update local storage when view changes
     const toggleView = () => {
-        setView(prevView => prevView === 'grid' ? 'list' : 'grid');
+        const newView = view === 'grid' ? 'list' : 'grid';
+        setView(newView);
+        localStorage.setItem('view', newView);
     };
+
+    useEffect(() => {
+        // Ensure that view in localStorage stays synced with view state
+        localStorage.setItem('view', view);
+    }, [view]);
 
     return (
         <>
