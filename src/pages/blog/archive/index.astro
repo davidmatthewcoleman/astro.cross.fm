@@ -31,6 +31,7 @@ const regularPosts = posts.filter(({ node }) => !node.isSticky);
 // Group regular posts by year
 const groupedPosts = groupPostsByYear(regularPosts);
 
+export const prerender = false;
 
 Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
 ---

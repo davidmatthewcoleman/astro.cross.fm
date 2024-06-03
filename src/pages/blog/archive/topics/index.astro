@@ -5,6 +5,8 @@ import { allCategoriesQuery } from "../../../../lib/api.js";
 
 const { categories } = await allCategoriesQuery();
 
+export const prerender = false;
+
 Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
 ---
 
