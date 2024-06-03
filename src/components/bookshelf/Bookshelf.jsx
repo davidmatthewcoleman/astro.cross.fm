@@ -23,7 +23,7 @@ export default function Bookshelf({ data, defaultView = 'list' }) {
     return (
         <>
             <link rel="stylesheet" href="/assets/css/app.css"/>
-            <div id={"bookshelf"} className={`initial-hide hidden min-h-max py-1 mx-auto`}>
+            <div id={"bookshelf"} className={`initial-hide hidden min-h-max py-1 mx-auto`} style={{ display: 'none' }}>
                 <div className="flex justify-end absolute inset-x-0 top-0 h-10">
                     <button id="toggleButton" onClick={toggleView} className="text-xl underline font-mono text-[#F68C36] hover:text-[#D3C200] no-underline hover:underline">
                         Toggle View
