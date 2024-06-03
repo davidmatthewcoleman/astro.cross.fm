@@ -99,9 +99,9 @@ export function BookGrid({ book }) {
                     {
                         description && (
                             <div
-                                className={`absolute inset-0 w-full h-full opacity-0 group-hover:opacity-100 transition-opacity bg-black/50 backdrop-blur`} style={{ zIndex: 50 }}>
+                                className={`absolute inset-0 w-full h-full opacity-0 group-hover:opacity-100 transition-opacity bg-black/50 backdrop-blur`}>
                                 <div
-                                    className={`absolute inset-x-0 top-0 flex flex-row items-center pb-8 pt-1.5 pl-3.5 pr-2 gap-2 z-10 pointer-events-none`}>
+                                    className={`absolute inset-x-0 top-0 flex flex-row items-center pb-8 pt-1.5 pl-3.5 pr-2 ml-3 gap-2 z-10 pointer-events-none`}>
                             <span
                                 className={`py-0.5 px-1 text-xs uppercase flex flex-row items-center backdrop-blur rounded pointer-events-none ${status === 'reviewed' ? 'text-black bg-yellow-500' : 'text-white bg-[rgba(37,37,38,0.85)]'}`}>{readStatus(false)}</span>
                                     <span
@@ -126,7 +126,7 @@ export function BookGrid({ book }) {
                                 />
                             </span>
                                 </div>
-                                <div className={`absolute inset-0 w-full h-full pt-10 px-4 pb-3 summary-mask`}>
+                                <div className={`absolute inset-0 w-full h-full pt-10 px-4 pb-3 ml-3 summary-mask`}>
                                     <p className={`text-white text-xs`}>
                                         {Parse(description)}
                                     </p>
