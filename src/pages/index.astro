@@ -1,6 +1,6 @@
 ---
 import Sidebar from "../components/Sidebar.astro";
-import BannerLayout from "../layouts/BannerLayout.astro";
+import HomeLayout from "../layouts/HomeLayout.astro";
 import { homepageQuery } from "../lib/api.js";
 import { format } from "date-fns";
 
@@ -12,7 +12,7 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
 
 ---
 
-<BannerLayout title="CROSS – Let's Talk About Sh*t" description="I'm the adventurer of pixels, the architect of code, and the dreamer behind the keyboard.">
+<HomeLayout title="CROSS – Let's Talk About Sh*t" description="I'm the adventurer of pixels, the architect of code, and the dreamer behind the keyboard.">
 	<style>
 		.social a {
 			text-decoration: none !important;
@@ -164,12 +164,13 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
 		}
 
 		.main {
-			margin-top: 4rem;
+			margin-top: -4rem;
 		}
 
 		h1 {
 			font-size: 2.25rem;
 			font-weight: 700;
+			text-shadow: 0 0 12px #151715, 0 0 12px #151715, 0 0 12px #151715;
 		}
 		h2 {
 			font-size: 1.75rem;
@@ -225,4 +226,4 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
 		</section>
 	</div>
 	<Sidebar show={false}></Sidebar>
-</BannerLayout>
+</HomeLayout>

@@ -1,0 +1,31 @@
+---
+import { heroQuery } from "../lib/api.js";
+import Picture from "./Picture";
+const data = await heroQuery();
+const hero = data.hero;
+---
+
+<header class="header">
+    <div class="site-header">
+        <img src="/assets/images/skyrim.gif" alt="cross banner" class="banner__img" />
+    </div>
+</header>
+<style is:inline>
+    .site-header {
+        overflow: unset !important;
+        margin-top: -50px;
+    }
+    .site-header img.banner__img {
+        display: block;
+        width: 100%;
+        height: auto;
+        max-height: 256px;
+        object-fit: cover;
+        object-position: center -20px;
+        image-rendering: pixelated;
+        image-rendering: -moz-crisp-edges;
+        image-rendering: crisp-edges;
+        -webkit-mask-image: -webkit-linear-gradient(to bottom, #000 0%, #000 75%, transparent 100%);
+        mask-image: linear-gradient(to bottom, #000 0%, #000 75%, transparent 100%);
+    }
+</style>
