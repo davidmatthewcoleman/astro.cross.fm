@@ -13,7 +13,7 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
 ---
 
 <HomeLayout title="CROSS – Let's Talk About Sh*t" description="I'm the adventurer of pixels, the architect of code, and the dreamer behind the keyboard.">
-	<style>
+	<style is:inline>
 		.social a {
 			text-decoration: none !important;
 			color: #9e9e9e;
@@ -163,8 +163,10 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
 			margin-top: 1em;
 		}
 
-		.main {
-			margin-top: -4rem;
+		@media screen and (min-width: 960px) {
+			.main {
+				margin-top: -2rem;
+			}
 		}
 
 		h1 {
