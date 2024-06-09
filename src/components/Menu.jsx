@@ -77,7 +77,7 @@ export default function Menu({ posts, stories, sidebar }) {
                                                     {
                                                         categories.map(category => {
                                                             return (
-                                                                <span className="tag"><a href={`/blog/${category.slug}`}
+                                                                <span className="tag"><a href={`/blog/archive/topics/${category.slug}`}
                                                                                          className="is-categories taxo__link"
                                                                                          data-dir="ltr"><span
                                                                     className="taxo__text">{category.name}</span>&nbsp;<span
