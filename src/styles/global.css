@@ -15695,13 +15695,15 @@ body {
     left: auto;
     right: 0;
     width: 960px;
+    height: max-content !important;
+    max-height: calc(100vh - 50px) !important;
     background-color: rgba(37, 37, 38, 1) !important;
 
-    -webkit-backdrop-filter: blur(16px) saturate(1.5) !important;
-    backdrop-filter: blur(16px) saturate(1.5) !important;
-
-    -webkit-transition: all 0.25s ease;
-    transition: all 0.25s ease;
+    -webkit-transition: all 0.25s ease !important;
+    transition: all 0.25s ease !important;
+}
+#menuWrapper:empty {
+    max-height: 0 !important;
 }
 #menuWrapper > div {
     top: 0;
