@@ -25,34 +25,38 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
 ---
 
 <MainLayout title={`${post?.title} – CROSS`} description={post?.excerpt}>
-    <div class="banner summary-blur__image-wrapper">
-        <Picture
-            alt={post?.title}
-            className="summary-blur__image"
-            source={
-                {
-                    '(max-width: 959px)': {
-                        media: post?.featuredImage?.node,
-                        params: {
-                            'width': 360,
-                            'height': 196,
-                            'blur': 256,
-                            'sat': 200
+    {
+        post?.featuredImage && (
+            <div class="banner summary-blur__image-wrapper">
+                <Picture
+                        alt={post?.title}
+                        className="summary-blur__image"
+                        source={
+                            {
+                                '(max-width: 959px)': {
+                                    media: post?.featuredImage?.node,
+                                    params: {
+                                        'width': 360,
+                                        'height': 196,
+                                        'blur': 256,
+                                        'sat': 200
+                                    }
+                                },
+                                '(min-width: 960px)': {
+                                    media: post?.featuredImage?.node,
+                                    params: {
+                                        'width': 960,
+                                        'height': 196,
+                                        'blur': 256,
+                                        'sat': 200
+                                    }
+                                }
+                            }
                         }
-                    },
-                    '(min-width: 960px)': {
-                        media: post?.featuredImage?.node,
-                        params: {
-                            'width': 960,
-                            'height': 196,
-                            'blur': 256,
-                            'sat': 200
-                        }
-                    }
-                }
-            }
-        />
-    </div>
+                />
+            </div>
+        )
+    }
     <div class="post__wrapper lm">
         <nav class="breadcrumb" aria-label="breadcrumbs">
             <ol>
