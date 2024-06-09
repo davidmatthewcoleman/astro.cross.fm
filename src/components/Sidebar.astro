@@ -1,9 +1,11 @@
 ---
 import { navQuery, sidebarQuery } from "../lib/api.js";
-import {format} from "date-fns";
+import { format } from "date-fns";
+import SearchForm from "./Search.astro";
+import Picture from "./Picture.jsx";
+
 const { menus } = await navQuery();
 const primaryMenu = menus.nodes[0];
-import Picture from "./Picture";
 
 const data = await sidebarQuery();
 const sidebar = data.sidebar;
@@ -13,8 +15,7 @@ const allSeries = data.allSeries.nodes;
 const categories = data.categories.nodes;
 const tags = data.tags.nodes;
 
-const { show = true, overlap = false } = Astro.props;
-
+const { show = true, overlap = false, search = null } = Astro.props;
 ---
 
 <aside class={`list__sidebar ${show === true ? '' : 'hide__sidebar'} r`} data-dir="ltr">
@@ -35,14 +36,7 @@ const { show = true, overlap = false } = Astro.props;
         </style>
     )}
     <div class="sidebar">
-        <!--<form class="search" method="GET" action="/">-->
-		<!--	<span class="icon">-->
-		<!--		<svg class="icon" width="22" height="22" role="img">-->
-        <!--            <use href="#icon-search"></use>-->
-        <!--        </svg>-->
-		<!--	</span>-->
-        <!--    <input id="search" aria-label="Site Search" class="input" type="text" name="s" placeholder="Search&hellip;" autocomplete="off">-->
-        <!--</form>-->
+        <SearchForm search={search} />
         <nav class="sidebar__nav">
             {primaryMenu.menuItems.nodes.map(menuItem => {
                 return <a href={menuItem.uri || '/'} class="navbar__menu-item navbar__slide-down" dir="ltr">{menuItem.label}</a>;
@@ -62,8 +56,8 @@ const { show = true, overlap = false } = Astro.props;
             }
         </style>
         <section class="bio" data-dir="ltr">
-            <!--<hr class="hr-slash bio-hr" style="-webkit-filter:drop-shadow(0 2px 4px rgba(0,0,0,.25));filter:drop-shadow(0 2px 4px rgba(0,0,0,.25));"/>-->
-            <div class="bio__photo-wrapper" style="margin-top:0;">
+            <hr class="hr-slash bio-hr" style="-webkit-filter:drop-shadow(0 2px 4px rgba(0,0,0,.25));filter:drop-shadow(0 2px 4px rgba(0,0,0,.25));"/>
+            <div class="bio__photo-wrapper">
                 <Picture
                     alt={sidebar.profile.name}
                     className="bio__photo"

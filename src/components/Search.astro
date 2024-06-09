@@ -1,0 +1,22 @@
+---
+const search = Astro.props.search;
+---
+
+<form class="search" id="search-form">
+			<span class="icon">
+				<svg class="icon" width="22" height="22" role="img">
+                    <use href="#icon-search"></use>
+                </svg>
+			</span>
+    <input id="search" aria-label="Site Search" class="input" type="text" name="s"
+           placeholder="Search&hellip;" autoComplete="off" value={search} />
+</form>
+
+<script client:load>
+    document.getElementById('search-form').onsubmit = function(event) {
+        event.preventDefault();  // Prevent the default form submission
+        const searchTerm = this.search.value.trim();
+        const formattedTerm = encodeURIComponent(searchTerm).replace(/%20/g, '+');
+        window.location.href = `/search/${formattedTerm}`;
+    }
+</script>

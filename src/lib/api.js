@@ -168,6 +168,68 @@ export async function blogQuery(first, after = null) {
     }
 }
 
+export async function blogSearchQuery(search, first, after = null) {
+    const variables = { search, first, after };
+
+    try {
+        const response = await fetch(import.meta.env.WORDPRESS_API_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
+            },
+            body: JSON.stringify({
+                query: `
+                  query GetPaginatedSearchedPosts($search: String, $first: Int!, $after: String) {
+                    posts(first: $first, after: $after, where: { search: $search }) {
+                      pageInfo {
+                        endCursor
+                        hasNextPage
+                      }
+                      edges {
+                        node {
+                          title
+                          slug
+                          series
+                          excerpt
+                          date
+                          dateGmt
+                          readingTime
+                          isSticky
+                          featuredImage {
+                            node {
+                              sourceUrl
+                              sourceFile
+                              mediaDetails {
+                                width
+                                height
+                                x
+                                y
+                                color
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                `,
+                variables
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const { data } = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error fetching paginated posts:', error);
+        throw error;
+    }
+}
+
 export async function storiesQuery(first, after = null) {
     const variables = { first, after };
 

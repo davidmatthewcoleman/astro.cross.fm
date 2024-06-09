@@ -1,0 +1,36 @@
+---
+import Sidebar from "../../components/Sidebar.astro";
+import MainLayout from "../../layouts/MainLayout.astro";
+import { format } from "date-fns";
+
+Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
+---
+
+<MainLayout title={`Search – CROSS`} description="I write quite infrequently, when ideas need expressing. If you want to read some of my ramblings, this is my latest. I’ve also got an RSS feed for those of you it interests.">
+    <div class="list__main lm">
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+            <ol>
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                <li class="is-active">
+                    <span>Search</span>
+                </li>
+            </ol>
+        </nav>
+        <div class="summary__container" data-display="block">
+            <h1 class="error__title">Sorry, looks like there&apos;s nothing here.</h1>
+            <style is:inline>
+                .error__title {
+                    font-size: 2rem;
+                    font-weight: 700;
+                    text-align: center;
+                    color: #9FAD54;
+                    margin: 1.5rem 0;
+                }
+            </style>
+            <hr class="hr-slash nav-hr">
+        </div>
+    </div>
+    <Sidebar />
+</MainLayout>
