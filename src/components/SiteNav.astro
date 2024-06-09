@@ -1,5 +1,10 @@
 ---
-const {menu, generalSettings} = Astro.props;
+import { sidebarQuery, blogQuery, storiesQuery } from "../lib/api.js";
+import Menu from './Menu.jsx';
+const sidebar = await sidebarQuery();
+const { posts } = await blogQuery(12);
+const { stories } = await storiesQuery(6);
+const { menu, generalSettings } = Astro.props;
 ---
 
 <nav class="navbar scrolling navbar--show" role="navigation" aria-label="main navigation" data-dir="ltr">
@@ -19,9 +24,7 @@ const {menu, generalSettings} = Astro.props;
         <img class="navbar__menu-icon open" src="/assets/images/menu_open.png" alt="toggle menu" />
     </a>
     <div class="navbar__menu">
-        {menu.menuItems.nodes.map(menuItem => {
-            return <a href={menuItem.uri || '/'} class="navbar__menu-item navbar__slide-down" dir="ltr">{menuItem.label}</a>;
-        })}
+        <Menu posts={posts.edges} stories={stories.edges} sidebar={sidebar} client:only="react" />
     </div>
 </nav>
 

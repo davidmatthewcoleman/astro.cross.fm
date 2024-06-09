@@ -7,32 +7,36 @@ const { data } = Astro.props;
 
 <article class="summary-classic">
     <div class="summary-classic__flex-box">
-        <div class="summary-classic__image-container summary-classic__image-wrapper" data-position="right">
-            <a href={`/stories/${data.slug}`}>
-                <Picture
-                    alt={data?.name}
-                    className="summary-classic__image"
-                    source={
-                        {
-                            '(max-width: 959px)': {
-                                media: data.images[0].banner,
-                                params: {
-                                    'width': 1200,
-                                    'height': 600
+        {
+            data.images[0].banner && (
+                <div class="summary-classic__image-container summary-classic__image-wrapper" data-position="right">
+                    <a href={`/stories/${data.slug}`}>
+                        <Picture
+                                alt={data?.name}
+                                className="summary-classic__image"
+                                source={
+                                    {
+                                        '(max-width: 959px)': {
+                                            media: data.images[0].banner,
+                                            params: {
+                                                'width': 1200,
+                                                'height': 600
+                                            }
+                                        },
+                                        '(min-width: 960px)': {
+                                            media: data.images[0].cover,
+                                            params: {
+                                                'width': 256,
+                                                'height': 256
+                                            }
+                                        }
+                                    }
                                 }
-                            },
-                            '(min-width: 960px)': {
-                                media: data.images[0].cover,
-                                params: {
-                                    'width': 256,
-                                    'height': 256
-                                }
-                            }
-                        }
-                    }
-                />
-            </a>
-        </div>
+                        />
+                    </a>
+                </div>
+            )
+        }
         <div class="summary-classic__content">
             <header>
                 <h5 class="title h5">
