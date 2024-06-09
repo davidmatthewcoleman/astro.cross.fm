@@ -43,7 +43,7 @@ export function BookGrid({ book }) {
     return (
         <>
             <a href={url} target={`_blank`} className={`pointer-events-none min-w-full group`}
-               style={{width: `${imageWidth}px`, aspectRatio: `${imageWidth}/${imageHeight || imageWidth}`, display: 'inline flow-root', marginBottom: '0.75rem' }}>
+               style={{width: `${imageWidth}px`, display: 'inline flow-root', marginBottom: '0.75rem' }}>
                 <div className={`book-cover min-w-full`} width={imageWidth} height={imageHeight}
                      transitionDuration={0.25} style={{'--accent': cover.mediaDetails.color}}>
                     <Picture
