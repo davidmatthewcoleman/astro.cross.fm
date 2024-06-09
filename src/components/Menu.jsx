@@ -153,7 +153,7 @@ export default function Menu({ posts, stories, sidebar }) {
                     </NavigationMenuLink>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                    <NavigationMenuLink href={`/archive`} className={`navbar__menu-item navbar__slide-down`}>
+                    <NavigationMenuLink href={`/blog/archive`} className={`navbar__menu-item navbar__slide-down`}>
                         Archive
                     </NavigationMenuLink>
                 </NavigationMenuItem>
