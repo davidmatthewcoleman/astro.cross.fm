@@ -10,7 +10,7 @@ import {
     NavigationMenuLink,
     NavigationMenuList,
     NavigationMenuTrigger
-} from "./ui/navigation-menu.jsx"
+} from "../components/ui/navigation-menu.jsx"
 import Parse from "html-react-parser";
 import Picture from "./Picture.jsx";
 
