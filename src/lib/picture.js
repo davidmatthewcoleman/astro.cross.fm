@@ -1,14 +1,5 @@
-import ImgixClient from "@imgix/js-core";
-import { IMGIX_HOST_DOMAIN, IMGIX_SECURE_TOKEN, IMGIX_REMOTE_HOST_DOMAIN, IMGIX_REMOTE_SECURE_TOKEN } from "../../config.js";
-
 export function fetchPicture(data, remote = false) {
-    const opts = {
-        domain: remote ? IMGIX_REMOTE_HOST_DOMAIN : IMGIX_HOST_DOMAIN,
-        secureURLToken: remote ? IMGIX_REMOTE_SECURE_TOKEN : IMGIX_SECURE_TOKEN,
-        includeLibraryParam: false,
-    };
-
-    const client = new ImgixClient(opts);
+    const baseDomain = remote ? 'images.cross.fm' : 'images.cross.fm';
 
     const newSrcSets = {};
 
@@ -19,41 +10,30 @@ export function fetchPicture(data, remote = false) {
         }
 
         const { sourceFile, sourceUrl, mediaDetails } = media;
-
         if (!sourceFile && !sourceUrl) {
             console.error(`Neither 'sourceFile' nor 'sourceUrl' provided for '${mediaQuery}'`);
             continue;
         }
 
-        const baseImgSrc = client.buildURL(sourceFile || sourceUrl, {
-            w: params.width,
-            h: params.height,
-            "fp-x": mediaDetails.x,
-            "fp-y": mediaDetails.y,
-            ...params
-        });
+        const imageUrl = sourceFile || sourceUrl;
+        const transformParams = {
+            width: params.width,
+            height: params.height || null,
+            gravity: `${mediaDetails.x}x${mediaDetails.y}`,
+            ...params // Include any additional params directly from input, allowing for custom transformations
+        };
+
+        // Construct Cloudflare image transformation parameters string
+        const paramStr = Object.entries(transformParams).map(([key, value]) => `${key}=${value}`).join(',');
+
+        const baseImgSrc = `https://${baseDomain}/${paramStr}/${imageUrl}`;
 
         const avifSrcset = {};
         const webpSrcset = {};
 
         for (let i = 1; i <= 3; i++) {
-            const dprSrc = client.buildURL(sourceFile || sourceUrl, {
-                ...params,
-                "fp-x": mediaDetails.x,
-                "fp-y": mediaDetails.y,
-                fm: "avif", // Set format to AVIF
-                dpr: i // Set device pixel ratio
-            });
-            avifSrcset[i + "x"] = dprSrc;
-
-            const webpDprSrc = client.buildURL(sourceFile || sourceUrl, {
-                ...params,
-                "fp-x": mediaDetails.x,
-                "fp-y": mediaDetails.y,
-                fm: "webp", // Set format to WebP
-                dpr: i, // Set device pixel ratio
-            });
-            webpSrcset[i + "x"] = webpDprSrc;
+            avifSrcset[i + "x"] = `https://${baseDomain}/format=avif,dpr=${i},${paramStr}/${imageUrl}`;
+            webpSrcset[i + "x"] = `https://${baseDomain}/format=webp,dpr=${i},${paramStr}/${imageUrl}`;
         }
 
         newSrcSets[mediaQuery] = {

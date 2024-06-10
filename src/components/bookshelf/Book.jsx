@@ -56,7 +56,7 @@ export function BookGrid({ book }) {
                                     media: cover,
                                     params: {
                                         'width': 196,
-                                        'fit': 'clip'
+                                        'fit': 'scale-down'
                                     }
                                 }
                             }
@@ -196,7 +196,7 @@ export function BookCard({book}) {
                                             media: cover,
                                             params: {
                                                 'width': 196,
-                                                'fit': 'clip'
+                                                'fit': 'scale-down'
                                             }
                                         }
                                     }
