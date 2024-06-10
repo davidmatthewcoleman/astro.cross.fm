@@ -14881,10 +14881,6 @@ table:not(.lntable) td code {
         display: inline-block;
         margin: 0 auto;
     }
-
-    .summary-classic__flex-box {
-        grid-template-columns: calc(85px + 0.5rem) 1fr;
-    }
 }
 
 .wp-block-image figcaption {
@@ -15397,8 +15393,7 @@ body::after {
 }
 @media screen and (max-width: 959px) {
     .summary-classic__flex-box {
-        grid-template-columns: 1fr !important;
-        grid-template-rows: auto max-content !important;
+        flex-direction: column;
     }
     .summary-classic__image-wrapper,
     .lmr .summary-classic__image-wrapper {
