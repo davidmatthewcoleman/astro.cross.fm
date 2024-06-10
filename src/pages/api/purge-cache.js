@@ -1,6 +1,6 @@
 export const GET = async ({ request }) => {
     const { method, headers } = request;
-    const expectedSecret = process.env.WEBHOOK_SECRET;
+    const expectedSecret = import.meta.env.WEBHOOK_SECRET;
     const receivedSecret = headers['x-webhook-secret'];
 
     // Validate the webhook secret
