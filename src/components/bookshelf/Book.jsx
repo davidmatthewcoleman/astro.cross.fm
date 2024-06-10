@@ -201,9 +201,6 @@ export function BookCard({book}) {
                                         }
                                     }
                                 }
-                                style={{
-                                    aspectRatio: `${imageWidth} / ${imageHeight || imageWidth}`
-                                }}
                             />
                     </div>
                     <div className={`flex flex-col gap-2 flex-grow`}>
