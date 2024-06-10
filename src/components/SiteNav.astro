@@ -2,7 +2,7 @@
 import { sidebarQuery, blogQuery, storiesQuery } from "../lib/api.js";
 import Menu from './Menu.jsx';
 const sidebar = await sidebarQuery();
-const { posts } = await blogQuery(12);
+const { posts } = await blogQuery(6);
 const { stories } = await storiesQuery(6);
 const { menu, generalSettings } = Astro.props;
 ---
