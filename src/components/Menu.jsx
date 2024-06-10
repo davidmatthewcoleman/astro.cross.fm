@@ -27,8 +27,8 @@ export default function Menu({ posts, stories, sidebar }) {
                     </NavigationMenuLink>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                    <NavigationMenuTrigger className={`navbar__menu-item navbar__slide-down`} asChild>
-                        <NavigationMenuLink href={`/blog`} className={`navbar__menu-item navbar__slide-down`}>
+                    <NavigationMenuTrigger asChild>
+                        <NavigationMenuLink href={`/blog`} className={`navbar__menu-item navbar__slide-down data-[state=open]:!text-[#f3ff6e]`}>
                             Blog
                         </NavigationMenuLink>
                     </NavigationMenuTrigger>
@@ -96,8 +96,8 @@ export default function Menu({ posts, stories, sidebar }) {
                     </NavigationMenuContent>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                    <NavigationMenuTrigger className={`navbar__menu-item navbar__slide-down`} asChild>
-                        <NavigationMenuLink href={`/stories`} className={`navbar__menu-item navbar__slide-down`}>
+                    <NavigationMenuTrigger asChild>
+                        <NavigationMenuLink href={`/stories`} className={`navbar__menu-item navbar__slide-down data-[state=open]:!text-[#f3ff6e]`}>
                             Stories
                         </NavigationMenuLink>
                     </NavigationMenuTrigger>

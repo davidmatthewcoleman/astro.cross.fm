@@ -15827,3 +15827,55 @@ body {
             rgba(0, 0, 0, 1) 100%
     );
 }
+
+
+
+
+
+
+
+.toc__wrapper {
+    position: fixed;
+    width: 960px;
+    margin: 0 auto;
+}
+.single__toc {
+    position: absolute;
+    display: grid;
+    grid-template-columns: 1fr 1.25rem;
+    top: 0;
+    right: calc(100% + 0.75rem);
+    padding: 0.5rem 0.5rem 0.5rem 0.125rem;
+    margin-left: -2.25rem;
+    color: #d1d1d1;
+    background-color: #282a36;
+    border-radius: 4px;
+}
+.toc__label {
+    text-orientation: sideways;
+    writing-mode: vertical-lr;
+    user-select: none;
+}
+.toc__contents {
+    width: 256px;
+    max-width: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.25s ease;
+    border-right: 0px dashed rgba(209, 209, 209, 0.25);
+}
+.toc__contents > ul {
+    width: 256px;
+}
+.toc__contents > ul ul {
+    padding-left: 1.5rem;
+}
+.single__toc:hover .toc__contents {
+    padding: 0 0.75rem;
+    max-width: 256px;
+    max-height: 50vh;
+    border-right-width: 1px;
+}
+.toc__contents a:not(:hover) {
+    color: #d1d1d1;
+}

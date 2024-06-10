@@ -804,6 +804,7 @@ export async function singlePostQuery(slug) {
                       series
                       license
                       excerpt
+                      toc
                       author {
                         node {
                           name
@@ -847,14 +848,6 @@ export async function singlePostQuery(slug) {
                         }
                       }
                       content
-                      editorBlocks {
-                        name
-                        renderedHtml
-                        innerBlocks {
-                          renderedHtml
-                          name
-                        }
-                      }
                     }
                   }
                 }
