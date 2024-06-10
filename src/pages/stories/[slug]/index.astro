@@ -41,15 +41,17 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                                 params: {
                                     'width': 360,
                                     'height': 196,
-                                    'blur': 256,
-                                    'sat': 200
+                                    'blur': 64,
+                                    'gamma': 0.5,
+                                    'fit': 'crop'
                                 }
                             },
                             '(min-width: 960px)': {
                                 media: story?.images[0]?.background,
                                 params: {
                                     'width': 960,
-                                    'height': 196
+                                    'height': 196,
+                                    'fit': 'crop'
                                 }
                             }
                         }
@@ -82,14 +84,16 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                             media: story?.images[0]?.banner,
                             params: {
                                 'width': 1200,
-                                'height': 600
+                                'height': 600,
+                                'fit': 'crop'
                             }
                         },
                         '(min-width: 960px)': {
                             media: story?.images[0]?.cover,
                             params: {
                                 'width': 128,
-                                'height': 192
+                                'height': 192,
+                                'fit': 'crop'
                             }
                         }
                     }

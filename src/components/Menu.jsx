@@ -122,7 +122,8 @@ export default function Menu({ posts, stories, sidebar }) {
                                                 media: stories[0]?.node.images[0].cover,
                                                 params: {
                                                     'width': 256,
-                                                    'height': 384
+                                                    'height': 384,
+                                                    'fit': 'crop'
                                                 }
                                             }
                                         }

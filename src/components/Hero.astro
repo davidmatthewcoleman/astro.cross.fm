@@ -16,14 +16,16 @@ const hero = data.hero;
                         media: hero.bannerImage,
                         params: {
                             'width': 360,
-                            'height': 196
+                            'height': 196,
+                            'fit': 'crop'
                         }
                     },
                     '(min-width: 960px)': {
                         media: hero.bannerImage,
                         params: {
                             'width': 960,
-                            'height': 196
+                            'height': 196,
+                            'fit': 'crop'
                         }
                     }
                 }
@@ -42,14 +44,16 @@ const hero = data.hero;
                                         media: hero.profileImage,
                                         params: {
                                             'width': 96,
-                                            'height': 96
+                                            'height': 96,
+                                            'fit': 'crop'
                                         }
                                     },
                                     '(min-width: 960px)': {
                                         media: hero.profileImage,
                                         params: {
                                             'width': 128,
-                                            'height': 128
+                                            'height': 128,
+                                            'fit': 'crop'
                                         }
                                     }
                                 }

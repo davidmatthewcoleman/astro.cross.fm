@@ -20,14 +20,16 @@ const { data } = Astro.props;
                                             media: data.images[0].banner,
                                             params: {
                                                 'width': 1200,
-                                                'height': 600
+                                                'height': 600,
+                                                'fit': 'crop'
                                             }
                                         },
                                         '(min-width: 960px)': {
                                             media: data.images[0].cover,
                                             params: {
                                                 'width': 256,
-                                                'height': 256
+                                                'height': 256,
+                                                'fit': 'crop'
                                             }
                                         }
                                     }
