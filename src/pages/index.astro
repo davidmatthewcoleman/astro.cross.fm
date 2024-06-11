@@ -178,11 +178,22 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
 			font-size: 1.75rem;
 			font-weight: 700;
 		}
+		.home__content {
+			display: grid;
+			grid-template-columns: 1fr 128px;
+			gap: 1.25rem;
+			align-items: center;
+		}
 	</style>
 	<div class="page__wrapper lmr">
 		<section class="page main">
-			<h1 set:html={page.title} style="margin-bottom:1rem;"></h1>
-			<div set:html={page.content}></div>
+			<div class="home__content">
+				<div>
+					<h1 set:html={page.title} style="margin-bottom:1rem;"></h1>
+					<div set:html={page.content}></div>
+				</div>
+				<img src="/assets/images/hero__logo.svg" alt="cross logo" />
+			</div>
 			<div id="jumpin">
 				<div class="left">
 					<h2 class="heading">Jump right in&hellip;</h2>

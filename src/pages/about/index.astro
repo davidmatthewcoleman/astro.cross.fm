@@ -11,10 +11,17 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
 ---
 
 <BannerLayout title={`${page?.title} – CROSS`}>
-    <style>
+    <style is:inline>
         .breadcrumb {
             margin-top: calc(-189px + 1rem) !important;
             margin-bottom: calc(189px - 1rem - 36px + 78px) !important;
+            pointer-events: auto;
+        }
+        .header {
+            pointer-events: none;
+        }
+        .header .site-header__contents > div {
+            pointer-events: auto;
         }
     </style>
     <div class="post__wrapper lm">
