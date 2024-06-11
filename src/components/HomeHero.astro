@@ -8,6 +8,9 @@ const hero = data.hero;
 <header class="header">
     <div class="site-header">
         <img src="/assets/images/skyrim.gif" alt="cross banner" class="banner__img" />
+        <div class="hero__logo">
+            <img src="/assets/images/hero__logo.svg" alt="cross logo" class="hero__logo-img" />
+        </div>
     </div>
 </header>
 <style is:inline>
@@ -27,6 +30,23 @@ const hero = data.hero;
         image-rendering: crisp-edges;
         -webkit-mask-image: -webkit-linear-gradient(to bottom, #000 0%, #000 75%, transparent 100%);
         mask-image: linear-gradient(to bottom, #000 0%, #000 75%, transparent 100%);
+    }
+    .site-header .hero__logo {
+        position: absolute;
+        inset: 50px 0 0;
+        width: 100%;
+        height: calc(100% - 50px);
+        display: grid;
+        grid-template-columns: 1fr 200px;
+    }
+    .site-header .hero__logo::before {
+        content: '';
+        display: block;
+    }
+    .site-header .hero__logo .hero__logo-img {
+        display: block;
+        padding: 16px 16px 16px 64px;
+        background-image: linear-gradient(to right, transparent 0%, #151715 100%);
     }
     @media screen and (max-width: 959px) {
         .site-header {
