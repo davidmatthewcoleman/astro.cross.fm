@@ -4,7 +4,8 @@ import "../styles/bookmarks.css";
 import SiteNav from "../components/SiteNav.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import Sprite from "../components/Sprite.astro";
-import { navQuery } from "../lib/api.js";
+import { headQuery, navQuery } from "../lib/api.js";
+const { head } = await headQuery('https://crossrambles.com' + Astro.url.pathname);
 const { menus, generalSettings } = await navQuery();
 const primaryMenu = menus.nodes[0];
 
@@ -18,8 +19,8 @@ const { title, description } = Astro.props;
 	<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<meta name="generator" content={Astro.generator} />
-	<title>{title}</title>
-	<meta name="description" content={description}>
+
+	<Fragment set:html={head} />
 
 	<script src="/assets/js/fuse.min.js" is:inline></script>
 	<script src="/assets/js/enquire.min.js" is:inline></script>

@@ -136,6 +136,7 @@ export async function blogQuery(first, after = null) {
                           isSticky
                           featuredImage {
                             node {
+                              mimeType
                               sourceUrl
                               sourceFile
                               mediaDetails {
@@ -1277,4 +1278,28 @@ export async function bookshelfQuery() {
 
     const result = await response.json();
     return result.data;
+}
+
+export async function headQuery(url) {
+    const variables = { url };
+
+    const response = await fetch(import.meta.env.WORDPRESS_API_URL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
+        },
+        body: JSON.stringify({
+            query: `
+                query GetHead($url: String!) {
+                  head(url: $url)
+                }
+            `,
+            variables
+        })
+    });
+
+    const { data } = await response.json();
+
+    return data;
 }
