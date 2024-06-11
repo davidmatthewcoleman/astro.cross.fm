@@ -49,13 +49,34 @@ export function BookGrid({ book }) {
                     <Picture
                         remote={true}
                         alt={title}
-                        className="cover__img block min-w-full pointer-events-auto"
+                        className="cover__img block !w-full !max-w-max pointer-events-auto"
                         source={
                             {
-                                null: {
+                                '(min-width: 960px)': {
                                     media: cover,
                                     params: {
                                         'width': 196,
+                                        'fit': 'scale-down'
+                                    }
+                                },
+                                '(max-width: 959px) and (min-width: 768px)': {
+                                    media: cover,
+                                    params: {
+                                        'width': 298,
+                                        'fit': 'scale-down'
+                                    }
+                                },
+                                '(max-width: 767px) and (min-width: 640px)': {
+                                    media: cover,
+                                    params: {
+                                        'width': 350,
+                                        'fit': 'scale-down'
+                                    }
+                                },
+                                '(max-width: 639px)': {
+                                    media: cover,
+                                    params: {
+                                        'width': 600,
                                         'fit': 'scale-down'
                                     }
                                 }

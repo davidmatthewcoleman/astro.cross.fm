@@ -148,11 +148,11 @@ export default function Menu({ posts, stories, sidebar }) {
                         </ul>
                     </NavigationMenuContent>
                 </NavigationMenuItem>
-                <NavigationMenuItem>
-                    <NavigationMenuLink href={`/works`} className={`navbar__menu-item navbar__slide-down`}>
-                        Works
-                    </NavigationMenuLink>
-                </NavigationMenuItem>
+                {/*<NavigationMenuItem>*/}
+                {/*    <NavigationMenuLink href={`/works`} className={`navbar__menu-item navbar__slide-down`}>*/}
+                {/*        Works*/}
+                {/*    </NavigationMenuLink>*/}
+                {/*</NavigationMenuItem>*/}
                 <NavigationMenuItem>
                     <NavigationMenuLink href={`/blog/archive`} className={`navbar__menu-item navbar__slide-down`}>
                         Archive

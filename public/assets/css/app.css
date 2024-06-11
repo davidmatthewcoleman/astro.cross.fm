@@ -446,6 +446,38 @@ video {
   display: none;
 }
 
+:root {
+  --background: 0 0% 100%;
+  --foreground: 20 14.3% 4.1%;
+  --card: 0 0% 100%;
+  --card-foreground: 20 14.3% 4.1%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 20 14.3% 4.1%;
+  --primary: 24 9.8% 10%;
+  --primary-foreground: 60 9.1% 97.8%;
+  --secondary: 60 4.8% 95.9%;
+  --secondary-foreground: 24 9.8% 10%;
+  --muted: 60 4.8% 95.9%;
+  --muted-foreground: 25 5.3% 44.7%;
+  --accent: 60 4.8% 95.9%;
+  --accent-foreground: 24 9.8% 10%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 60 9.1% 97.8%;
+  --border: 20 5.9% 90%;
+  --input: 20 5.9% 90%;
+  --ring: 20 14.3% 4.1%;
+  --radius: 0.5rem;
+}
+
+* {
+  border-color: hsl(var(--border));
+}
+
+body {
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+}
+
 *, ::before, ::after {
   --tw-border-spacing-x: 0;
   --tw-border-spacing-y: 0;
@@ -779,6 +811,10 @@ video {
   min-height: max-content;
 }
 
+.\!w-full {
+  width: 100% !important;
+}
+
 .w-2 {
   width: 0.5rem;
 }
@@ -810,6 +846,11 @@ video {
 
 .\!max-w-full {
   max-width: 100% !important;
+}
+
+.\!max-w-max {
+  max-width: -moz-max-content !important;
+  max-width: max-content !important;
 }
 
 .max-w-max {
@@ -1142,6 +1183,10 @@ video {
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
+}
+
+.text-xxs {
+  font-size: 0.675rem;
 }
 
 .font-medium {
@@ -1512,6 +1557,11 @@ div[class^="book-container-"] {
   background-color: hsl(var(--accent) / 0.5);
 }
 
+.data-\[state\=open\]\:\!text-\[\#f3ff6e\][data-state=open] {
+  --tw-text-opacity: 1 !important;
+  color: rgb(243 255 110 / var(--tw-text-opacity)) !important;
+}
+
 .data-\[motion\^\=from-\]\:animate-in[data-motion^=from-] {
   animation-name: enter;
   animation-duration: 150ms;
@@ -1656,6 +1706,11 @@ div[class^="book-container-"] {
 }
 
 @media (min-width: 1024px) {
+  .lg\:columns-3 {
+    -moz-columns: 3;
+         columns: 3;
+  }
+
   .lg\:columns-4 {
     -moz-columns: 4;
          columns: 4;
@@ -1663,11 +1718,6 @@ div[class^="book-container-"] {
 }
 
 @media (min-width: 1280px) {
-  .xl\:columns-3 {
-    -moz-columns: 3;
-         columns: 3;
-  }
-
   .xl\:columns-5 {
     -moz-columns: 5;
          columns: 5;
