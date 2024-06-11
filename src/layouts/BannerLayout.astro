@@ -21,6 +21,12 @@ const { title, description } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="generator" content={Astro.generator} />
+    <link
+        rel="alternate"
+        type="application/rss+xml"
+        title="CROSS’s Blog"
+        href={`${Astro.site}feed.xml`}
+    />
 
     <Fragment set:html={head} />
 
