@@ -184,6 +184,14 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
 			gap: 1.25rem;
 			align-items: center;
 		}
+		@media screen and (max-width: 959px) {
+			.home__content {
+				display: block;
+			}
+			.home__content .description__logo {
+				display: none;
+			}
+		}
 	</style>
 	<div class="page__wrapper lmr">
 		<section class="page main">
@@ -192,7 +200,7 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
 					<h1 set:html={page.title} style="margin-bottom:1rem;"></h1>
 					<div set:html={page.content}></div>
 				</div>
-				<img src="/assets/images/hero__logo.svg" alt="cross logo" />
+				<img src="/assets/images/hero__logo.svg" alt="cross logo" class="description__logo" />
 			</div>
 			<div id="jumpin">
 				<div class="left">
