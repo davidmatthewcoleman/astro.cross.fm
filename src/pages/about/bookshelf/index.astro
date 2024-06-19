@@ -6,7 +6,7 @@ import { bookshelfQuery } from "../../../lib/api.js";
 
 const { bookshelf } = await bookshelfQuery();
 
-export const prerender = false;
+// export const prerender = false;
 
 Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
 
