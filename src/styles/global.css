@@ -15916,3 +15916,7 @@ body {
     mix-blend-mode: soft-light;
     z-index: 0;
 }
+
+.bookmark {
+    @apply my-4;
+}
