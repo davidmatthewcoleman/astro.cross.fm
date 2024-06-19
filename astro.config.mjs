@@ -13,5 +13,6 @@ export default defineConfig({
   experimental: {
     contentCollectionCache: true
   },
-  integrations: [react(), tailwind()]
+  integrations: [react(), tailwind()],
+  site: 'https://crossrambles.com'
 });
