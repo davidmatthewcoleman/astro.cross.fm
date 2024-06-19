@@ -3934,10 +3934,10 @@ li.sidebar-recent::before {
     content: "\2022";
 }
 .alert {
-    padding: 0.75rem;
+    padding: 0 0.75rem;
     margin-bottom: 1rem;
-    border: 1px solid transparent;
-    border-radius: 0.125rem;
+    border-left: 3px solid var(--color);
+    /*border-radius: 0.125rem;*/
 }
 .theme__dark .alert-info {
     background-color: rgba(215, 238, 249, 0.4);
