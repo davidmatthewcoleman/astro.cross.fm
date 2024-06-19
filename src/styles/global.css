@@ -11339,7 +11339,7 @@ input:checked + .slider:before {
 .single__subtitle {
     margin-bottom: 1.75rem;
     font-family: montserrat, sans-serif;
-    font-size: 1.675rem;
+    font-size: 1.5rem;
 }
 .theme__dark .single__subtitle {
     color: #90a4ae;
@@ -14964,6 +14964,7 @@ table:not(.lntable) td code {
 
 .single__title,
 .single__subtitle {
+    color: #fff !important;
     font-family: BigNoodleTitling;
     font-style: italic;
     line-height: 1;
