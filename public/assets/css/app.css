@@ -908,6 +908,10 @@ body {
   grid-template-columns: 3fr 1fr;
 }
 
+.grid-cols-\[auto_1fr\] {
+  grid-template-columns: auto 1fr;
+}
+
 .grid-cols-\[repeat\(3\2c _1fr\)\] {
   grid-template-columns: repeat(3, 1fr);
 }
@@ -968,6 +972,12 @@ body {
   --tw-space-y-reverse: 0;
   margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(0.25rem * var(--tw-space-y-reverse));
+}
+
+.space-y-2 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
 }
 
 .overflow-hidden {
@@ -1141,6 +1151,14 @@ body {
   padding-right: 0.5rem;
 }
 
+.pt-0 {
+  padding-top: 0px;
+}
+
+.pt-0\.5 {
+  padding-top: 0.125rem;
+}
+
 .pt-1 {
   padding-top: 0.25rem;
 }
@@ -1163,6 +1181,11 @@ body {
 
 .font-mono {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+.text-base {
+  font-size: 1rem;
+  line-height: 1.5rem;
 }
 
 .text-lg {
@@ -1246,6 +1269,10 @@ body {
 
 .text-white\/60 {
   color: rgb(255 255 255 / 0.6);
+}
+
+.text-white\/75 {
+  color: rgb(255 255 255 / 0.75);
 }
 
 .underline {
@@ -1516,6 +1543,11 @@ div[class^="book-container-"] {
   color: hsl(var(--accent-foreground));
 }
 
+.hover\:text-white:hover {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
 .hover\:underline:hover {
   text-decoration-line: underline;
 }
@@ -1722,4 +1754,8 @@ div[class^="book-container-"] {
     -moz-columns: 5;
          columns: 5;
   }
+}
+
+.\[\&_ul_ul\]\:pl-3 ul ul {
+  padding-left: 0.75rem;
 }

@@ -1,6 +1,7 @@
 ---
 import Sidebar from "../../../components/Sidebar.astro";
 import Picture from "../../../components/Picture";
+import Contents from "../../../components/Contents";
 import MainLayout from "../../../layouts/MainLayout.astro";
 import { formatInteger } from "../../../lib/utils.js";
 import { singlePostQuery, singleSeriesQuery, allPostSlugsQuery } from "../../../lib/api.js";
@@ -78,16 +79,6 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
             </ol>
         </nav>
         <section class="post main">
-            {
-                post?.toc.trim().length > 0 && (
-                    <!--<div class="toc__wrapper">-->
-                    <!--    <div class="single__toc">-->
-                    <!--        <div class="toc__contents" set:html={post?.toc}></div>-->
-                    <!--        <span class="toc__label">Contents</span>-->
-                    <!--    </div>-->
-                    <!--</div>-->
-                )
-            }
             <h2 class="single__title" set:html={post?.title}></h2>
             {
                 post?.subtitle && (
@@ -125,6 +116,17 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                         )
                     }
             </div>
+            {
+                post?.toc.trim().length > 0 && (
+                    <>
+                        <table-contents>
+                            <template shadowrootmode="closed">
+                                <Contents toc={post?.toc} client:only="react" />
+                            </template>
+                        </table-contents>
+                    </>
+                )
+            }
             <article class="single__contents" data-dir="ltr" set:html={post?.content}></article>
             <footer class="single__footer">
                 {
