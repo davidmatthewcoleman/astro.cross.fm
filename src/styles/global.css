@@ -15921,3 +15921,7 @@ body {
     margin-top: -2rem;
     margin-bottom: 1rem;
 }
+
+html, body {
+    scroll-behavior: smooth;
+}
