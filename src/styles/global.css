@@ -15916,3 +15916,8 @@ body {
     mix-blend-mode: soft-light;
     z-index: 0;
 }
+
+#toc {
+    margin-top: -2rem;
+    margin-bottom: 1rem;
+}

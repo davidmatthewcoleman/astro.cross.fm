@@ -118,13 +118,13 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
             </div>
             {
                 post?.toc.trim().length > 0 && (
-                    <>
+                    <div id="toc">
                         <table-contents>
                             <template shadowrootmode="closed">
                                 <Contents toc={post?.toc} client:only="react" />
                             </template>
                         </table-contents>
-                    </>
+                    </div>
                 )
             }
             <article class="single__contents" data-dir="ltr" set:html={post?.content}></article>
