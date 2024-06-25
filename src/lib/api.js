@@ -760,10 +760,6 @@ export async function singlePageQuery(slug) {
                       slug
                       license
                       content
-                      editorBlocks {
-                        name
-                        renderedHtml
-                      }
                     }
                   }
                 }
