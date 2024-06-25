@@ -763,10 +763,6 @@ export async function singlePageQuery(slug) {
                       editorBlocks {
                         name
                         renderedHtml
-                        innerBlocks {
-                          renderedHtml
-                          name
-                        }
                       }
                     }
                   }
