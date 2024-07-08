@@ -31,7 +31,7 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                 {
                     allSeries.nodes.map((series) => (
                         <span class="tag">
-                            <a href={`/archive/tags/${series.slug}`} class="is-series taxo__link" data-dir="ltr">
+                            <a href={`/blog/${series.slug}`} class="is-series taxo__link" data-dir="ltr">
                                 <span class="taxo__text">{series.name}</span>&nbsp;<span class="taxo__num" dir="auto">{series.count}</span>
                             </a>
                         </span>
