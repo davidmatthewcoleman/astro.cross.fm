@@ -6,7 +6,7 @@
     "build:css": "bunx tailwindcss -i src/styles/app.css -o public/assets/css/app.css",
     "dev": "bunx --bun astro dev && build:css",
     "start": "node ./dist/server/entry.mjs",
-    "build": "bunx --bun astro build && build:css",
+    "build": "bunx --bun astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
