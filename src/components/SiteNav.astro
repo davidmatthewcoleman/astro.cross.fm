@@ -31,15 +31,10 @@ const { menu, generalSettings } = Astro.props;
         const body = document.body;
 
         if (menuToggle) {
-            console.log('Menu toggle button found'); // Debugging log
             menuToggle.addEventListener('click', function () {
                 body.classList.toggle('menuOpen');
                 this.classList.toggle('active');
-                console.log('menuOpen class on body:', body.classList.contains('menuOpen'));
-                console.log('active class on menuToggle:', this.classList.contains('active'));
             });
-        } else {
-            console.log('Menu toggle button not found'); // Debugging log
         }
     });
 </script>
