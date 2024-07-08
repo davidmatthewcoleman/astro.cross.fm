@@ -597,6 +597,7 @@ export async function singleSeriesQuery(series) {
                         nodes {
                             name
                             slug
+                            description
                         }
                     }
                 }

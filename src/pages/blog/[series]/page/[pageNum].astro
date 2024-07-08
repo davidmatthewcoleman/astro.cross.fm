@@ -4,6 +4,7 @@ import MainLayout from "../../../../layouts/MainLayout.astro";
 import PostSummary from "../../../../components/PostSummary.astro";
 import { seriesQuery, singleSeriesQuery, allSeriesSlugsQuery } from "../../../../lib/api.js";
 import { format } from "date-fns";
+import Parse from "html-react-parser";
 
 const { allSeries } = await singleSeriesQuery(Astro.params.series);
 const series = allSeries.nodes[0];
@@ -66,6 +67,16 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                 </li>
             </ol>
         </nav>
+        <h5 class="list__header--title capitalize h5">{Parse(series.name)}</h5>
+        {
+            series.description && (
+                <>
+                    <div class="list__header--desc p2">
+                        {Parse(series.description)}
+                    </div>
+                </>
+            )
+        }
         <div class="summary__container" data-display="block">
             {posts.map(({ node }) => (
                 <PostSummary data={node}></PostSummary>

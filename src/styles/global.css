@@ -11280,6 +11280,10 @@ input:checked + .slider:before {
     margin: 1.25rem 0;
     font-family: montserrat, sans-serif;
 }
+.list__header--title {
+    padding-top: 1rem;
+    text-align: center;
+}
 .theme__dark .list__header--title {
     color: #fcfcfa;
 }
@@ -11296,8 +11300,9 @@ input:checked + .slider:before {
     color: #889b4a;
 }
 .list__header--desc {
-    padding: 1rem;
+    padding: 0 1rem 1rem;
     line-height: 1.7rem;
+    text-align: center;
 }
 .single {
     padding: 1rem;
@@ -14836,8 +14841,8 @@ table:not(.lntable) td code {
     margin-bottom: 0;
 }
 .list__header--desc {
-    padding-top: 0;
-    padding-bottom: 0;
+    /*padding-top: 0;*/
+    /*padding-bottom: 0;*/
     color: #fff;
 }
 
