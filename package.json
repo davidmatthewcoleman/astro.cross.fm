@@ -3,10 +3,10 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "build:css": "bunx tailwindcss -i src/styles/app.css -o public/assets/css/app.css",
-    "dev": "bunx --bun astro dev && build:css",
+    "build:css": "npx tailwindcss -i src/styles/app.css -o public/assets/css/app.css",
+    "dev": "astro dev && build:css",
     "start": "node ./dist/server/entry.mjs",
-    "build": "bunx --bun astro build",
+    "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
