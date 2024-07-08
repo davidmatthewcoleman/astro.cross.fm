@@ -4,9 +4,9 @@
   "version": "0.0.1",
   "scripts": {
     "build:css": "bunx tailwindcss -i src/styles/app.css -o public/assets/css/app.css",
-    "dev": "--bun astro dev && build:css",
+    "dev": "bunx --bun astro dev && build:css",
     "start": "node ./dist/server/entry.mjs",
-    "build": "--bun astro build && build:css",
+    "build": "bunx --bun astro build && build:css",
     "preview": "astro preview",
     "astro": "astro"
   },
