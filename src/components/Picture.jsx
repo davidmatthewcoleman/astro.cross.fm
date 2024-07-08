@@ -22,7 +22,7 @@ export default function Picture( { remote = false, source, alt, className, style
                     </>
                 )
             ))}
-            <img src={Object.values(picture)[0]?.img} alt={alt} className={className} loading={`lazy`} style={style}/>
+            <img src={Object.values(picture)[0]?.img} alt={alt} className={className} style={style}/>
         </picture>
     );
 }
