@@ -1,14 +1,14 @@
 ---
-import Sidebar from "../../../../components/Sidebar.astro";
-import MainLayout from "../../../../layouts/MainLayout.astro";
-import { allTagsQuery } from "../../../../lib/api.js";
+import Sidebar from "../../../components/Sidebar.astro";
+import MainLayout from "../../../layouts/MainLayout.astro";
+import { allSeriesQuery } from "../../../lib/api.js";
 
-const { tags } = await allTagsQuery();
+const { allSeries } = await allSeriesQuery();
 
 Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
 ---
 
-<MainLayout title="Tags – CROSS">
+<MainLayout title="Series – CROSS">
     <div class="terms__wrapper lm">
         <nav class="breadcrumb" aria-label="breadcrumbs">
             <ol>
@@ -16,23 +16,23 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                     <a href="/">Home</a>
                 </li>
                 <li>
-                    <a href="/blog/archive/">Archive</a>
+                    <a href="/archive/">Archive</a>
                 </li>
                 <li class="is-active">
-                    <span>Tags</span>
+                    <span>Series</span>
                 </li>
             </ol>
         </nav>
         <header class="list__header">
-            <h5 class="list__header--title capitalize h5">Tags</h5>
+            <h5 class="list__header--title capitalize h5">Series</h5>
         </header>
         <div class="terms main">
             <section class="taxo terms__list">
                 {
-                    tags.nodes.map((tag) => (
+                    allSeries.nodes.map((series) => (
                         <span class="tag">
-                            <a href={`/blog/archive/tags/${tag.slug}`} class="is-tags taxo__link" data-dir="ltr">
-                                <span class="taxo__text">{tag.name}</span>&nbsp;<span class="taxo__num" dir="auto">{tag.count}</span>
+                            <a href={`/archive/tags/${series.slug}`} class="is-series taxo__link" data-dir="ltr">
+                                <span class="taxo__text">{series.name}</span>&nbsp;<span class="taxo__num" dir="auto">{series.count}</span>
                             </a>
                         </span>
                     ))

@@ -151,7 +151,7 @@ const { show = true, overlap = false, search = null } = Astro.props;
             allSeries.length > 0 && (
                 <div class="taxo">
                     <section>
-                        <span class="title p2"><a href="/blog/archive/series" class="taxo__title">Series</a></span>
+                        <span class="title p2"><a href="/archive/series" class="taxo__title">Series</a></span>
                         {
                             allSeries.map(series => {
                                 return (
@@ -167,11 +167,11 @@ const { show = true, overlap = false, search = null } = Astro.props;
             categories.length > 0 && (
                 <div class="taxo">
                     <section>
-                        <span class="title p2"><a href="/blog/archive/topics" class="taxo__title">Topics</a></span>
+                        <span class="title p2"><a href="/archive/topics" class="taxo__title">Topics</a></span>
                         {
                             categories.map(category => {
                                 return (
-                                    <span class="tag"><a href={`/blog/archive/topics/${category.slug}`} class="is-categories taxo__link" data-dir="ltr"><span class="taxo__text">{category.name}</span>&nbsp;<span class="taxo__num" dir="auto">{category.count}</span></a></span>
+                                    <span class="tag"><a href={`/archive/topics/${category.slug}`} class="is-categories taxo__link" data-dir="ltr"><span class="taxo__text">{category.name}</span>&nbsp;<span class="taxo__num" dir="auto">{category.count}</span></a></span>
                                 )
                             })
                         }
@@ -183,11 +183,11 @@ const { show = true, overlap = false, search = null } = Astro.props;
             tags.length > 0 && (
                 <div class="taxo">
                     <section>
-                        <span class="title p2"><a href="/blog/archive/tags" class="taxo__title">Tags</a></span>
+                        <span class="title p2"><a href="/archive/tags" class="taxo__title">Tags</a></span>
                         {
                             tags.map(tag => {
                                 return (
-                                    <span class="tag"><a href={`/blog/archive/tags/${tag.slug}`} class="is-tags taxo__link" data-dir="ltr"><span class="taxo__text">{tag.name}</span>&nbsp;<span class="taxo__num" dir="auto">{tag.count}</span></a></span>
+                                    <span class="tag"><a href={`/archive/tags/${tag.slug}`} class="is-tags taxo__link" data-dir="ltr"><span class="taxo__text">{tag.name}</span>&nbsp;<span class="taxo__num" dir="auto">{tag.count}</span></a></span>
                                 )
                             })
                         }

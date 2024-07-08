@@ -32,9 +32,18 @@ if (pageNum > 1) {
 
 export async function getStaticPaths() {
     const data = await allTopicSlugsQuery();
-    const paths = data?.categories.nodes.map(category => ({
-        params: { topic: category.slug }
-    }));
+    const totalTags = data?.categories.nodes.length;
+    const defaultPages = 5; // Define a default number of pages for pagination
+
+    let paths = [];
+
+    data?.categories.nodes.forEach(category => {
+        for (let i = 0; i < defaultPages; i++) {
+                paths.push({
+                    params: { topic: category.slug, pageNum: `${i + 1}` }
+                });
+            }
+        });
 
     return paths;
 }
@@ -59,12 +68,12 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
         </nav>
         <div class="summary__container" data-display="block">
             {posts.map(({ node }) => (
-                    <PostSummary data={node}></PostSummary>
+                <PostSummary data={node}></PostSummary>
             ))}
             <hr class="hr-slash nav-hr">
             <nav class="pagination-single">
                 {pageNum > 1 && (
-                    <a href={pageNum - 1 === 1 ? `/blog/archive/topics/${topic?.slug}` : `/blog/archive/topics/${topic?.slug}/page/${pageNum - 1}`} class="pagination-single__left">
+                    <a href={pageNum - 1 === 1 ? `/archive/topics/${topic?.slug}` : `/archive/topics/${topic?.slug}/page/${pageNum - 1}`} class="pagination-single__left">
                         <div class="pagination-single__icon">
                             <svg class="icon" width="25" height="25" role="img">
                                 <use href="#icon-nav-left"></use>
@@ -75,7 +84,7 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                 )}
                 <div class="grow"></div>
                 {hasNextPage && (
-                    <a href={`/blog/archive/topics/${topic?.slug}/page/${pageNum + 1}`} class="pagination-single__right">
+                    <a href={`/archive/topics/${topic?.slug}/page/${pageNum + 1}`} class="pagination-single__right">
                         <div class="pagination-single__right-title">Older Entries</div>
                         <div class="pagination-single__icon">
                             <svg class="icon" width="25" height="25" role="img">

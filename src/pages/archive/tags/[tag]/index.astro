@@ -1,19 +1,19 @@
 ---
-import Sidebar from "../../../../../../components/Sidebar.astro";
-import MainLayout from "../../../../../../layouts/MainLayout.astro";
-import PostSummary from "../../../../../../components/PostSummary.astro";
-import { topicQuery, singleTopicQuery, allTopicSlugsQuery } from "../../../../../../lib/api.js";
+import Sidebar from "../../../../components/Sidebar.astro";
+import MainLayout from "../../../../layouts/MainLayout.astro";
+import PostSummary from "../../../../components/PostSummary.astro";
+import { tagQuery, singleTagQuery, allTagSlugsQuery } from "../../../../lib/api.js";
 import { format } from "date-fns";
 
-const { categories } = await singleTopicQuery(Astro.params.topic);
-const topic = categories.nodes[0];
+const { tags } = await singleTagQuery(Astro.params.tag);
+const tag = tags.nodes[0];
 
 // Define the number of posts per page
 const postsPerPage = 10;
 const pageNum = parseInt(Astro.params.pageNum) || 1;
 
 // Fetch the initial page of posts
-const initialData = await topicQuery(Astro.params.topic, postsPerPage);
+const initialData = await tagQuery(Astro.params.tag, postsPerPage);
 let posts = initialData.posts.edges;
 let endCursor = initialData.posts.pageInfo.endCursor;
 let hasNextPage = initialData.posts.pageInfo.hasNextPage;
@@ -22,7 +22,7 @@ let hasNextPage = initialData.posts.pageInfo.hasNextPage;
 if (pageNum > 1) {
     for (let i = 1; i < pageNum; i++) {
         if (hasNextPage) {
-            const data = await topicQuery(Astro.params.topic, postsPerPage, endCursor);
+            const data = await tagQuery(Astro.params.tag, postsPerPage, endCursor);
             posts = data.posts.edges;
             endCursor = data.posts.pageInfo.endCursor;
             hasNextPage = data.posts.pageInfo.hasNextPage;
@@ -31,19 +31,10 @@ if (pageNum > 1) {
 }
 
 export async function getStaticPaths() {
-    const data = await allTopicSlugsQuery();
-    const totalTags = data?.categories.nodes.length;
-    const defaultPages = 5; // Define a default number of pages for pagination
-
-    let paths = [];
-
-    data?.categories.nodes.forEach(category => {
-        for (let i = 0; i < defaultPages; i++) {
-                paths.push({
-                    params: { topic: category.slug, pageNum: `${i + 1}` }
-                });
-            }
-        });
+    const data = await allTagSlugsQuery();
+    const paths = data?.tags.nodes.map(tag => ({
+        params: { tag: tag.slug }
+    }));
 
     return paths;
 }
@@ -51,7 +42,7 @@ export async function getStaticPaths() {
 Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
 ---
 
-<MainLayout title={`${topic?.name} – CROSS`} description={topic?.description}>
+<MainLayout title={`${tag?.name} – CROSS`} description={tag?.description}>
     <div class="list__main lm">
         <nav class="breadcrumb" aria-label="breadcrumbs">
             <ol>
@@ -62,18 +53,18 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                     <a href="/archive">Archive</a>
                 </li>
                 <li class="is-active">
-                    <span>{topic?.name}</span>
+                    <span>{tag?.name}</span>
                 </li>
             </ol>
         </nav>
         <div class="summary__container" data-display="block">
             {posts.map(({ node }) => (
-                <PostSummary data={node}></PostSummary>
+                    <PostSummary data={node}></PostSummary>
             ))}
             <hr class="hr-slash nav-hr">
             <nav class="pagination-single">
                 {pageNum > 1 && (
-                    <a href={pageNum - 1 === 1 ? `/blog/archive/topics/${topic?.slug}` : `/blog/archive/topics/${topic?.slug}/page/${pageNum - 1}`} class="pagination-single__left">
+                    <a href={pageNum - 1 === 1 ? `/archive/tags/${tag?.slug}` : `/archive/tags/${tag?.slug}/page/${pageNum - 1}`} class="pagination-single__left">
                         <div class="pagination-single__icon">
                             <svg class="icon" width="25" height="25" role="img">
                                 <use href="#icon-nav-left"></use>
@@ -84,7 +75,7 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                 )}
                 <div class="grow"></div>
                 {hasNextPage && (
-                    <a href={`/blog/archive/topics/${topic?.slug}/page/${pageNum + 1}`} class="pagination-single__right">
+                    <a href={`/archive/tags/${tag?.slug}/page/${pageNum + 1}`} class="pagination-single__right">
                         <div class="pagination-single__right-title">Older Entries</div>
                         <div class="pagination-single__icon">
                             <svg class="icon" width="25" height="25" role="img">

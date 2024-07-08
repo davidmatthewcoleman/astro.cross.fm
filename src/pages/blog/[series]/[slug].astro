@@ -106,7 +106,7 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                                 {
                                     post?.categories?.nodes?.map((category) => (
                                             <li class="tag">
-                                                <a href={`/blog/archive/topics/${category?.slug}`} class="is-categories taxo__link" data-dir="ltr">
+                                                <a href={`/archive/topics/${category?.slug}`} class="is-categories taxo__link" data-dir="ltr">
                                                     <span class="taxo__text">{category?.name}</span>&nbsp;<span class="taxo__num" dir="auto">{category?.count}</span>
                                                 </a>
                                             </li>
@@ -132,11 +132,11 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                 {
                     post?.tags?.nodes?.length > 0 && (
                         <div class="tags taxo">
-                            <span class="title p2"><a href="/blog/archive/tags" class="taxo__title">Tags</a></span>
+                            <span class="title p2"><a href="/archive/tags" class="taxo__title">Tags</a></span>
                             {
                                 post?.tags?.nodes?.map((tag) => (
                                     <span class="tag">
-                                        <a href={`/blog/archive/tags/${tag?.slug}`} class="is-tags taxo__link" data-dir="ltr">
+                                        <a href={`/archive/tags/${tag?.slug}`} class="is-tags taxo__link" data-dir="ltr">
                                             <span class="taxo__text">{tag?.name}</span>&nbsp;<span class="taxo__num" dir="auto">{tag?.count}</span>
                                         </a>
                                     </span>
