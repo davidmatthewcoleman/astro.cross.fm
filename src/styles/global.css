@@ -15926,3 +15926,10 @@ body {
     margin-top: -2rem;
     margin-bottom: 1rem;
 }
+
+.wp-block-table {
+    @apply w-full max-w-full mb-7;
+}
+.wp-block-table table {
+    @apply table-auto w-full;
+}
