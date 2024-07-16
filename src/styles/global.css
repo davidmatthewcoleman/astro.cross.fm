@@ -15931,5 +15931,9 @@ body {
     @apply w-full max-w-full mb-7;
 }
 .wp-block-table table {
-    @apply table-auto w-full;
+    @apply table-auto w-full border-separate border-spacing-x-2.5;
+}
+
+.has-text-align-right {
+    @apply !text-right;
 }
