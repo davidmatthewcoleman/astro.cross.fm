@@ -8,11 +8,8 @@ import tailwind from "@astrojs/tailwind";
 
 // https://astro.build/config
 export default defineConfig({
-  output: 'hybrid',
+  output: 'static',
   adapter: vercel(),
-  experimental: {
-    contentCollectionCache: true
-  },
   integrations: [react(), tailwind()],
   site: 'https://crossrambles.com'
 });

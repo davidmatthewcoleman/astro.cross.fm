@@ -34,7 +34,7 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
                 </h2>
                 <bookshelf-block>
                     <template shadowrootmode="closed">
-                        <Bookshelf data={bookshelf} client:only="react" />
+                        <Bookshelf data={bookshelf} client:only="react" server:defer="react" />
                     </template>
                 </bookshelf-block>
             </div>
