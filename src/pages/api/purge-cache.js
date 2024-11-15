@@ -1,3 +1,5 @@
+export const prerender = false;
+
 export const GET = async ({ request }) => {
     const { method, headers } = request;
     const expectedSecret = import.meta.env.WEBHOOK_SECRET;

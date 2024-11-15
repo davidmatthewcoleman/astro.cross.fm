@@ -4222,6 +4222,11 @@ li.sidebar-recent::before {
     font-size: 26px;
     line-height: 1;
     margin-top: 0.8rem;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
 }
 .bio__desc {
     margin: 0.5rem 0;

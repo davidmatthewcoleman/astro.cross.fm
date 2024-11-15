@@ -1,3 +1,6 @@
+import NodeCache from "node-cache";
+import fetch from "node-fetch";
+
 export async function navQuery(){
     const siteNavQueryRes = await fetch(import.meta.env.WORDPRESS_API_URL, {
         method: 'post', 
@@ -1293,4 +1296,38 @@ export async function headQuery(url) {
     const { data } = await response.json();
 
     return data;
+}
+
+export async function fetchTwitchToken() {
+    const cache = new NodeCache({ stdTTL: 2592000 }); // Cache for 1 month
+    const cacheKey = `twitch_token`;
+    const cachedData = cache.get(cacheKey);
+
+    if (cachedData) {
+        return JSON.parse(cachedData);
+    }
+
+    const body = {
+        client_id: import.meta.env.TWITCH_CLIENT_ID,
+        client_secret: import.meta.env.TWITCH_CLIENT_SECRET,
+        grant_type: 'client_credentials'
+    };
+    const urlEncodedData = new URLSearchParams(body).toString();
+
+    const response = await fetch(`https://id.twitch.tv/oauth2/token`, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: urlEncodedData
+    });
+
+    if (!response.ok) {
+        throw new Error(`Failed to fetch data: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    cache.set(cacheKey, JSON.stringify(data));
+
+    return data.access_token;
 }

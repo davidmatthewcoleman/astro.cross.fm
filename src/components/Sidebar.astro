@@ -3,6 +3,7 @@ import { navQuery, sidebarQuery } from "../lib/api.js";
 import { format } from "date-fns";
 import SearchForm from "./Search.astro";
 import Picture from "./Picture.jsx";
+import Status from "./Status.jsx";
 
 const { menus } = await navQuery();
 const primaryMenu = menus.nodes[0];
@@ -76,7 +77,10 @@ const { show = true, overlap = false, search = null } = Astro.props;
                 />
             </div>
             <hr class="hr-slash bio-hr"/>
-            <div class="bio__name">{sidebar.name}</div>
+            <div class="bio__name">
+                <span>{sidebar.name}</span>
+                <Status client:load/>
+            </div>
             <div class="bio__desc">{sidebar.bio}</div>
             <div class="bio__info" title="When was I born?">
                 <div class="bio__info--icon">

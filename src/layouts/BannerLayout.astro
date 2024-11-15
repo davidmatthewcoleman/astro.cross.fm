@@ -38,26 +38,26 @@ const { title, description } = Astro.props;
 
     <Fragment set:html={head} />
 
-    <script src="/assets/js/fuse.min.js" defer is:inline></script>
-    <script src="/assets/js/enquire.min.js" defer is:inline></script>
-    <script src="/assets/js/lazysizes.min.js" defer is:inline></script>
-    <script src="/assets/js/helper/getParents.min.js" defer is:inline></script>
-    <script src="/assets/js/helper/fadeinout.min.js" defer is:inline></script>
-    <script src="/assets/js/helper/closest.min.js" defer is:inline></script>
+    <script src="/assets/js/fuse.min.js" defer is:inline/>
+    <script src="/assets/js/enquire.min.js" defer is:inline/>
+    <script src="/assets/js/lazysizes.min.js" defer is:inline/>
+    <script src="/assets/js/helper/getParents.min.js" defer is:inline/>
+    <script src="/assets/js/helper/fadeinout.min.js" defer is:inline/>
+    <script src="/assets/js/helper/closest.min.js" defer is:inline/>
 
-    <script src="/assets/js/clipboard.min.js" defer is:inline></script>
-    <script src="/assets/js/helper/prev.min.js" defer is:inline></script>
-    <script src="/assets/js/helper/prop.min.js" defer is:inline></script>
+    <script src="/assets/js/clipboard.min.js" defer is:inline/>
+    <script src="/assets/js/helper/prev.min.js" defer is:inline/>
+    <script src="/assets/js/helper/prop.min.js" defer is:inline/>
 
-    <script src="/assets/js/swipe.min.js" defer is:inline></script>
-    <script src="/assets/js/micromodal.min.js" defer is:inline></script>
-    <script src="/assets/js/smooth-scroll.polyfills.min.js" defer is:inline></script>
-    <script src="/assets/js/fitty.min.js" defer is:inline></script>
+    <script src="/assets/js/swipe.min.js" defer is:inline/>
+    <script src="/assets/js/micromodal.min.js" defer is:inline/>
+    <script src="/assets/js/smooth-scroll.polyfills.min.js" defer is:inline/>
+    <script src="/assets/js/fitty.min.js" defer is:inline/>
 
-    <script src="/assets/js/popper.min.js" defer is:inline></script>
-    <script src="/assets/js/tippy.min.js" defer is:inline></script>
+    <script src="/assets/js/popper.min.js" defer is:inline/>
+    <script src="/assets/js/tippy.min.js" defer is:inline/>
 
-    <script src="/assets/js/header.min.js" defer is:inline></script>
+    <script src="/assets/js/header.min.js" defer is:inline/>
 </head>
 <body id="root" class="theme__hacker navbar--show" data-theme="cross">
 <script>
@@ -78,14 +78,14 @@ const { title, description } = Astro.props;
 </script>
 <div id="container">
     <div class="wrapper">
-        <SiteNav menu={primaryMenu} generalSettings={generalSettings}></SiteNav>
-        <Hero></Hero>
+        <SiteNav menu={primaryMenu} generalSettings={generalSettings}/>
+        <Hero/>
         <main class="main inner hero" data-sidebar-position="right">
-            <slot></slot>
+            <slot/>
         </main>
-        <SiteFooter></SiteFooter>
+        <SiteFooter/>
     </div>
 </div>
-<Sprite></Sprite>
+<Sprite/>
 </body>
 </html>
