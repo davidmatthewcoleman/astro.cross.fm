@@ -94,6 +94,7 @@ export default function Status() {
                     padding: 3px 5px;
                     border-radius: 25px;
                     border: 1px solid var(--color, #fff);
+                    background-color: #1b1c1b;
                     
                     -webkit-user-select: none;
                     -moz-user-select: none;
