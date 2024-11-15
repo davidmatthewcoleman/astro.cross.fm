@@ -85,7 +85,7 @@ const { show = true, overlap = false, search = null } = Astro.props;
             <div class="bio__info" title="When was I born?">
                 <div class="bio__info--icon">
                     <svg class="icon" width="20" height="20" role="img">
-                        <use href="#icon-candle"></use>
+                        <use href="#icon-candle"/>
                     </svg>
                 </div>
                 <time datetime={sidebar.birthdate} itemprop="birthday">{format(new Date(sidebar.birthdate), 'MMM. d, yyyy')}</time>
