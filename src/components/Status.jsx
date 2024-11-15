@@ -7,13 +7,13 @@ export default function Status() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const getDiscordData = await fetch(`api/discord?id=198169754215645185`, {
+                const getDiscordData = await fetch(`/api/discord?id=198169754215645185`, {
                     method: 'GET'
                 });
                 const discordResponse = await getDiscordData.json();
                 setDiscordData(discordResponse);
 
-                const getTwitchData = await fetch(`api/twitch?channel=crossrambles`, {
+                const getTwitchData = await fetch(`/api/twitch?channel=crossrambles`, {
                     method: 'GET'
                 });
                 const twitchResponse = await getTwitchData.json();
