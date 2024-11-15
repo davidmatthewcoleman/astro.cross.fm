@@ -38,6 +38,7 @@ export default function Status() {
 
     let label, status, link, show = false;
     const discordStatus = ( twitchData && twitchData.type === "live" ) ? "live" : discordData.discord_status;
+    const discordState = discordData.activities.length && discordData.activities[0].state || false;
 
     switch (discordStatus) {
         case "online":
@@ -66,20 +67,31 @@ export default function Status() {
     return (
         <>
             {show && !link && (
-                <Tippy
-                    content={discordData.activities[0].state}
-                    arrow={false}
-                    placement="left"
-                    offset={[-1,3]}
-                    theme={'wolfhead'}
-                >
-                    <span
-                        className="online-status"
-                        data-status={status}
-                    >
-                        {label}
-                    </span>
-                </Tippy>
+                <>
+                    {discordState ? (
+                        <Tippy
+                            content={discordState}
+                            arrow={false}
+                            placement="left"
+                            offset={[-1,3]}
+                            theme={'wolfhead'}
+                        >
+                            <span
+                                className="online-status"
+                                data-status={status}
+                            >
+                                {label}
+                            </span>
+                        </Tippy>
+                    ) : (
+                        <span
+                            className="online-status"
+                            data-status={status}
+                        >
+                            {label}
+                        </span>
+                    )}
+                </>
             )}
             {show && link && (
                 <a
