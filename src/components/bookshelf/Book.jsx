@@ -211,7 +211,7 @@ export function BookCard({book}) {
                             <Picture
                                 remote={true}
                                 alt={Parse(title)}
-                                className="m-auto h-full !max-w-full !max-h-full rounded-[6px]"
+                                className="m-auto !max-w-full !max-h-full rounded-[6px]"
                                 source={
                                     {
                                         null: {
