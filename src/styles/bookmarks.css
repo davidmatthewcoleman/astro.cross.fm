@@ -1,9 +1,11 @@
 .kg-bookmark-card {
     margin: 1em auto;
+    max-width: 100%;
 }
 
 .kg-bookmark-container {
     display: flex;
+    width: 100%;
     font-size: 1rem;
     text-decoration: none !important;
     border-radius: 5px;
@@ -33,17 +35,13 @@
 }
 
 .kg-bookmark-content {
-    flex-grow: 1;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
+    flex-grow: 1;
     padding: 1em 1.35em;
     width: 100%;
-}
-
-.kg-bookmark-content.has-thumb {
-    width: calc(100% - 196px);
 }
 
 .kg-bookmark-title {
