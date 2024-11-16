@@ -28,7 +28,7 @@ export default function Status() {
 
         fetchData();
 
-        const interval = setInterval(fetchData, 15000);
+        const interval = setInterval(fetchData, 5000);
         return () => clearInterval(interval);
     }, []);
 
@@ -36,7 +36,7 @@ export default function Status() {
         return null; // Or a loading spinner
     }
 
-    let label, status, link, show = false;
+    let label, icon = {}, link, show = false;
     const discordStatus = ( twitchData && twitchData.type === "live" ) ? "live" : discordData.discord_status;
     const discordState = discordData.activities.length && discordData.activities[0].state || false;
 
@@ -44,23 +44,35 @@ export default function Status() {
         case "online":
             show = true;
             label = "Online";
-            status = "online";
+            icon = {
+                name: "circle",
+                color: "#88af82",
+            };
             break;
         case "dnd":
             show = true;
             label = "Unavailable";
-            status = "unavailable";
+            icon = {
+                name: "prohibit",
+                color: "#af8282",
+            };
             break;
         case "live":
             show = true;
             label = "LIVE";
-            status = "live";
+            icon = {
+                name: "circle",
+                color: "#9a82af",
+            };
             link = `https://twitch.tv/${twitchData.user_login || "crossrambles"}`;
             break;
         default:
             show = true;
             label = "Away";
-            status = "away";
+            icon = {
+                name: "moon",
+                color: "#afa882",
+            };
             break;
     }
 
@@ -76,74 +88,47 @@ export default function Status() {
                             offset={[0,3]}
                             theme={'wolfhead'}
                         >
-                            <span
-                                className="online-status"
-                                data-status={status}
-                            >
+                            <div className="bio__info">
+                                <div className="bio__info--icon">
+                                    <svg class="icon" width="20" height="20" role="img">
+                                        <use href={`#icon-${icon.name}`}/>
+                                    </svg>
+                                </div>
                                 {label}
-                            </span>
+                            </div>
                         </Tippy>
                     ) : (
-                        <span
-                            className="online-status"
-                            data-status={status}
-                        >
+                        <div className="bio__info">
+                            <div className="bio__info--icon">
+                                <svg class="icon" width="20" height="20" role="img">
+                                    <use href={`#icon-${icon.name}`}/>
+                                </svg>
+                            </div>
                             {label}
-                        </span>
+                        </div>
                     )}
                 </>
             )}
             {show && link && (
-                <a
-                    href={link}
-                    target="_blank"
-                    rel="noopener noreferrer noindex"
-                    className="online-status"
-                    data-status={status}
+                <Tippy
+                    content={twitchData.game_name}
+                    arrow={false}
+                    placement="left"
+                    offset={[0,3]}
+                    theme={'wolfhead'}
                 >
-                    {label}
-                </a>
+                    <div className="bio__info">
+                        <div className="bio__info--icon">
+                            <svg class="icon" width="20" height="20" role="img">
+                                <use href={`#icon-${icon.name}`}/>
+                            </svg>
+                        </div>
+                        <a href={link} target={'_blank'}>{label}</a>
+                    </div>
+                </Tippy>
             )}
-            <style dangerouslySetInnerHTML={{ __html: `
-                .online-status {
-                    color: #fff !important;
-                    font-family: sans-serif;
-                    font-size: 12px;
-                    text-decoration: none !important;
-                    display: inline-flex;
-                    flex-direction: row;
-                    align-items: center;
-                    gap: 3px;
-                    padding: 3px 5px;
-                    border-radius: 25px;
-                    border: 1px solid var(--color, #fff);
-                    background-color: #1b1c1b;
-                    
-                    -webkit-user-select: none;
-                    -moz-user-select: none;
-                    user-select: none;
-                }
-                .online-status::before {
-                    content: '';
-                    display: inline-block;
-                    width: 8px;
-                    height: 8px;
-                    border-radius: 25px;
-                    background-color: var(--color, #fff);
-                }
-                .online-status[data-status="online"] {
-                    --color: #059c00;
-                }
-                .online-status[data-status="unavailable"] {
-                    --color: #db0000;
-                }
-                .online-status[data-status="away"] {
-                    --color: #ffbb00;
-                }
-                .online-status[data-status="live"] {
-                    --color: #aa00ff;
-                }
-                
+            <style dangerouslySetInnerHTML={{
+                __html: `
                 .tippy-box[data-theme~="wolfhead"] {
                     font-size: 0.85rem;
                     color: #bdbdbd;
