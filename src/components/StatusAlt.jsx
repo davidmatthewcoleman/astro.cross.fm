@@ -79,35 +79,22 @@ export default function Status() {
     return (
         <>
             {show && !link && (
-                <>
-                    {discordState ? (
-                        <Tippy
-                            content={discordState}
-                            arrow={false}
-                            placement="left"
-                            offset={[0,3]}
-                            theme={'wolfhead'}
-                        >
-                            <div className="bio__info">
-                                <div className="bio__info--icon">
-                                    <svg class="icon" width="20" height="20" role="img">
-                                        <use href={`#icon-${icon.name}`}/>
-                                    </svg>
-                                </div>
-                                {label}
-                            </div>
-                        </Tippy>
-                    ) : (
-                        <div className="bio__info">
-                            <div className="bio__info--icon">
-                                <svg class="icon" width="20" height="20" role="img">
-                                    <use href={`#icon-${icon.name}`}/>
-                                </svg>
-                            </div>
-                            {label}
+                <Tippy
+                    content={discordState ? discordState : "What's my status?"}
+                    arrow={false}
+                    placement="left"
+                    offset={[0,3]}
+                    theme={'wolfhead'}
+                >
+                    <div className="bio__info">
+                        <div className="bio__info--icon">
+                            <svg class="icon" width="20" height="20" role="img">
+                                <use href={`#icon-${icon.name}`}/>
+                            </svg>
                         </div>
-                    )}
-                </>
+                        {label}
+                    </div>
+                </Tippy>
             )}
             {show && link && (
                 <Tippy
