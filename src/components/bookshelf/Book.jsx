@@ -1,6 +1,7 @@
 import Picture from "../Picture.jsx";
 import Parse from "html-react-parser";
 import { Check, Bookmark, BookmarkSimple, Star } from "@phosphor-icons/react/dist/ssr";
+import { format } from "date-fns";
 
 export function BookGrid({ book }) {
     const { title, description, url, author, published, status, site, cover } = book;
@@ -163,7 +164,7 @@ export function BookGrid({ book }) {
 
 
 export function BookCard({book}) {
-    const { title, description, url, author, published, status, site, cover } = book;
+    const { title, description, url, author, published, added, status, site, cover } = book;
 
     const width = cover.mediaDetails.width;
     const height = cover.mediaDetails.height;
@@ -172,7 +173,7 @@ export function BookCard({book}) {
     const imageWidth = 196;
     const imageHeight = Math.round(imageWidth / ratio);
 
-    const readStatus = () => {
+    const ReadStatus = () => {
         switch (status) {
             case 'reading':
                 return (
@@ -209,7 +210,7 @@ export function BookCard({book}) {
                         className="thumb flex items-center justify-center min-w-[100px] w-[100px] min-h-[100px] rounded-[6px] overflow-hidden">
                             <Picture
                                 remote={true}
-                                alt={title}
+                                alt={Parse(title)}
                                 className="m-auto !max-w-full !max-h-full rounded-[6px]"
                                 source={
                                     {
@@ -226,33 +227,36 @@ export function BookCard({book}) {
                     </div>
                     <div className={`flex flex-col gap-2 flex-grow`}>
                         <div className="flex flex-row items-center gap-2">
-                        <strong className={`text-inherit text-sm md:text-base`}>{Parse(title)}</strong>
-                            {readStatus() && <span
-                                className={`py-0.5 px-1 text-xs uppercase flex flex-row items-center backdrop-blur rounded pointer-events-none ${status === 'reviewed' ? 'text-black bg-yellow-500' : 'text-black bg-white'}`}>{readStatus()}</span>}
+                        <strong className={`text-inherit line-clamp-1 text-sm md:text-base`}>{Parse(title)}</strong>
+                            {status && <span
+                                className={`py-0.5 px-1 text-xs uppercase flex flex-row items-center backdrop-blur rounded pointer-events-none ${status === 'reviewed' ? 'text-black bg-yellow-500' : 'text-black bg-white'}`}><ReadStatus /></span>}
                         </div>
                         <div className={`text-white text-sm line-clamp-4 md:text-base md:line-clamp-3`}>{Parse(description)}</div>
-                        <div className={`flex flex-row gap-2.5 text-white/50 text-xxs md:text-xs items-center mt-auto`}>
-                            <span>{published}</span>
-                            <span className={`ml-auto`}>{author}</span>
-                            <span className={`flex flex-row gap-1.5 items-center`}>
-                                    {site.domain}
-                                    <Picture
-                                        remote={true}
-                                        alt={Parse(site.domain)}
-                                        className="w-[18px] h-[18px] rounded"
-                                        source={
-                                            {
-                                                null: {
-                                                    media: site.icon,
-                                                    params: {
-                                                        'width': 18,
-                                                        'height': 18
-                                                    }
+                        <div className={`flex flex-row gap-1.5 text-white/50 text-xxs md:text-xs items-center mt-auto`}>
+                            <span>Published {published}</span>
+                            <span className={"-translate-y-px opacity-50 max-md:hidden"}>|</span>
+                            <span className="max-md:hidden">Added {format(new Date(added), 'MMM. d, yyyy')}</span>
+                            <span className={`ml-auto`}>{Parse(author)}</span>
+                            <span className={"-translate-y-px opacity-50 max-md:hidden"}>|</span>
+                            <span className={`flex flex-row gap-1.5 items-center max-md:hidden`}>
+                                {site.domain}
+                                <Picture
+                                    remote={true}
+                                    alt={Parse(site.domain)}
+                                    className="w-[18px] h-[18px] rounded"
+                                    source={
+                                        {
+                                            null: {
+                                                media: site.icon,
+                                                params: {
+                                                    'width': 18,
+                                                    'height': 18
                                                 }
                                             }
                                         }
-                                    />
-                                </span>
+                                    }
+                                />
+                            </span>
                         </div>
                     </div>
                 </div>

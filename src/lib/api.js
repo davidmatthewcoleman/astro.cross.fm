@@ -1229,6 +1229,7 @@ export async function bookshelfQuery() {
               link
               url
               author
+              added
               published
               status
               site {
