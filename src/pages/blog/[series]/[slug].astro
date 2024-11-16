@@ -104,11 +104,11 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                             <ul class="single__tags caption taxo">
                                 {
                                     post?.categories?.nodes?.map((category) => (
-                                            <li class="tag">
-                                                <a href={`/archive/topics/${category?.slug}`} class="is-categories taxo__link" data-dir="ltr">
-                                                    <span class="taxo__text">{category?.name}</span>&nbsp;<span class="taxo__num" dir="auto">{category?.count}</span>
-                                                </a>
-                                            </li>
+                                        <li class="tag">
+                                            <a href={`/archive/topics/${category?.slug}`} class="is-categories taxo__link" data-dir="ltr">
+                                                <span class="taxo__text">{category?.name}</span>&nbsp;<span class="taxo__num" dir="auto">{category?.count}</span>
+                                            </a>
+                                        </li>
                                     ))
                                 }
                             </ul>

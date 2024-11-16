@@ -4,6 +4,9 @@ const data = await wpVersionQuery();
 const wp = data.wp;
 
 let ver = Astro.generator.replace('Astro v', '').split('-')[0];
+if ( Astro.generator.toLowerCase().includes('rc') || Astro.generator.toLowerCase().includes('release candidate') ) {
+    ver = ver + ' (rc)';
+}
 if ( Astro.generator.toLowerCase().includes('beta') ) {
     ver = ver + ' (beta)';
 }
