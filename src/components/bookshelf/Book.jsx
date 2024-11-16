@@ -211,7 +211,7 @@ export function BookCard({book}) {
                             <Picture
                                 remote={true}
                                 alt={Parse(title)}
-                                className="m-auto !max-w-full !max-h-full rounded-[6px]"
+                                className="m-auto h-full !max-w-full !max-h-full rounded-[6px]"
                                 source={
                                     {
                                         null: {
@@ -227,7 +227,7 @@ export function BookCard({book}) {
                     </div>
                     <div className={`flex flex-col gap-2 flex-grow`}>
                         <div className="flex flex-row items-center gap-2">
-                        <strong className={`text-inherit line-clamp-1 text-sm md:text-base`}>{Parse(title)}</strong>
+                        <strong className={`text-inherit line-clamp-2 md:line-clamp-1 text-sm md:text-base`}>{Parse(title)}</strong>
                             {status && <span
                                 className={`py-0.5 px-1 text-xs uppercase flex flex-row items-center backdrop-blur rounded pointer-events-none ${status === 'reviewed' ? 'text-black bg-yellow-500' : 'text-black bg-white'}`}><ReadStatus /></span>}
                         </div>
