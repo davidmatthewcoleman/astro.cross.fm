@@ -2,9 +2,6 @@
 import Bookshelf from "../../../components/bookshelf/Bookshelf.jsx";
 import Sidebar from "../../../components/Sidebar.astro";
 import MainLayout from "../../../layouts/MainLayout.astro";
-import { bookshelfQuery } from "../../../lib/api.js";
-
-const { bookshelf } = await bookshelfQuery();
 
 // export const prerender = false;
 
@@ -34,7 +31,7 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
                 </h2>
                 <bookshelf-block>
                     <template shadowrootmode="closed">
-                        <Bookshelf data={bookshelf} client:load server:defer />
+                        <Bookshelf client:load server:defer />
                     </template>
                 </bookshelf-block>
             </div>
