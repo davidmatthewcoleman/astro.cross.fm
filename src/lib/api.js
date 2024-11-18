@@ -3,7 +3,7 @@ import fetch from "node-fetch";
 
 export async function navQuery(){
     const siteNavQueryRes = await fetch(import.meta.env.WORDPRESS_API_URL, {
-        method: 'post', 
+        method: 'post',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`

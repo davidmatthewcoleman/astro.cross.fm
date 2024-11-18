@@ -1443,7 +1443,7 @@
     estree-walker "^2.0.1"
     picomatch "^2.2.2"
 
-"@rollup/pluginutils@^5.1.2":
+"@rollup/pluginutils@^5.1.3":
   version "5.1.3"
   resolved "https://registry.yarnpkg.com/@rollup/pluginutils/-/pluginutils-5.1.3.tgz#3001bf1a03f3ad24457591f2c259c8e514e0dbdf"
   integrity sha512-Pnsb6f32CD2W3uCaLZIzDmeFyQ2b8UWMFI7xtwUezpcGBDVDW6y9XgAWIlARiGAo6eNF5FK5aQTr0LFyNyqq5A==
@@ -1746,7 +1746,7 @@ acorn-import-attributes@^1.9.5:
   resolved "https://registry.yarnpkg.com/acorn-import-attributes/-/acorn-import-attributes-1.9.5.tgz#7eb1557b1ba05ef18b5ed0ec67591bfab04688ef"
   integrity sha512-n02Vykv5uA3eHGM/Z2dQrcD56kL8TyDb2p1+0P83PClMnC/nc+anbQRhIOWnSq4Ke/KvDPrY3C9hDtC/A3eHnQ==
 
-acorn@^8.12.1, acorn@^8.6.0:
+acorn@^8.14.0, acorn@^8.6.0:
   version "8.14.0"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-8.14.0.tgz#063e2c70cac5fb4f6467f0b11152e04c682795b0"
   integrity sha512-cl669nCJTZBsL97OF4kUQm5g5hC2uihk0NxY3WENAC0TYdILVkAyHymAntgxGkl7K+t0cXIrH5siy5S4XkFycA==
@@ -1845,19 +1845,19 @@ asap@~2.0.3:
   resolved "https://registry.yarnpkg.com/asap/-/asap-2.0.6.tgz#e50347611d7e690943208bbdafebcbc2fb866d46"
   integrity sha512-BSHWgDSAiKs50o2Re8ppvp3seVHXSRM44cdSsT9FfNEUUZLOGWVCsiWaRPWM1Znn+mqZ1OfVZ3z3DWEzSp7hRA==
 
-astro@5.0.0-beta.5:
-  version "5.0.0-beta.5"
-  resolved "https://registry.yarnpkg.com/astro/-/astro-5.0.0-beta.5.tgz#299d3a15b3d2970122607618ac8dcf0cbbd0c1ad"
-  integrity sha512-ONR2ngPbmi0CX1aCjvjLqvkcqakqYhHXTtTQAooADOxopyXS/l0WajHGsED75K4c7LMR0blDzBC9PPcfn0Oo0w==
+astro@5.0.0-beta.6:
+  version "5.0.0-beta.6"
+  resolved "https://registry.yarnpkg.com/astro/-/astro-5.0.0-beta.6.tgz#799b6f72caee0de664c9d8c2382daa9c84e7e624"
+  integrity sha512-QDKX+0SV5qGTHJy0ltv+1jKwVDv18m2DmGYdyT1hGsSuMSyISvXumiURJF1h8xJRUDjhiXjHSqMEL5/fpDAF9g==
   dependencies:
     "@astrojs/compiler" "^2.10.3"
     "@astrojs/internal-helpers" "0.4.1"
     "@astrojs/markdown-remark" "6.0.0-beta.2"
     "@astrojs/telemetry" "3.1.0"
     "@oslojs/encoding" "^1.1.0"
-    "@rollup/pluginutils" "^5.1.2"
+    "@rollup/pluginutils" "^5.1.3"
     "@types/cookie" "^0.6.0"
-    acorn "^8.12.1"
+    acorn "^8.14.0"
     aria-query "^5.3.2"
     axobject-query "^4.1.0"
     boxen "8.0.1"
@@ -1893,8 +1893,8 @@ astro@5.0.0-beta.5:
     prompts "^2.4.2"
     rehype "^13.0.2"
     semver "^7.6.3"
-    shiki "^1.22.0"
-    tinyexec "^0.3.0"
+    shiki "^1.22.2"
+    tinyexec "^0.3.1"
     tsconfck "^3.1.4"
     unist-util-visit "^5.0.0"
     vfile "^6.0.3"
@@ -1905,7 +1905,7 @@ astro@5.0.0-beta.5:
     yargs-parser "^21.1.1"
     yocto-spinner "^0.1.0"
     zod "^3.23.8"
-    zod-to-json-schema "^3.23.3"
+    zod-to-json-schema "^3.23.5"
     zod-to-ts "^1.2.0"
   optionalDependencies:
     sharp "^0.33.3"
@@ -4747,7 +4747,7 @@ shebang-regex@^3.0.0:
   resolved "https://registry.yarnpkg.com/shebang-regex/-/shebang-regex-3.0.0.tgz#ae16f1644d873ecad843b0307b143362d4c42172"
   integrity sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==
 
-shiki@^1.21.0, shiki@^1.22.0:
+shiki@^1.21.0, shiki@^1.22.2:
   version "1.23.0"
   resolved "https://registry.yarnpkg.com/shiki/-/shiki-1.23.0.tgz#83e6a2b71d0faf9fa1679b045266ba5de711b4c6"
   integrity sha512-xfdu9DqPkIpExH29cmiTlgo0/jBki5la1Tkfhsv+Wu5TT3APLNHslR1acxuKJOCWqVdSc+pIbs/2ozjVRGppdg==
@@ -4997,7 +4997,7 @@ thenify-all@^1.0.0:
   dependencies:
     any-promise "^1.0.0"
 
-tinyexec@^0.3.0:
+tinyexec@^0.3.1:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/tinyexec/-/tinyexec-0.3.1.tgz#0ab0daf93b43e2c211212396bdb836b468c97c98"
   integrity sha512-WiCJLEECkO18gwqIp6+hJg0//p23HXp4S+gGtAKu3mI2F2/sXC4FvHvXvB0zJVVaTPhx1/tOwdbRsa1sOBIKqQ==
@@ -5439,7 +5439,7 @@ yoctocolors@^2.1.1:
   resolved "https://registry.yarnpkg.com/yoctocolors/-/yoctocolors-2.1.1.tgz#e0167474e9fbb9e8b3ecca738deaa61dd12e56fc"
   integrity sha512-GQHQqAopRhwU8Kt1DDM8NjibDXHC8eoh1erhGAJPEyveY9qqVeXvVikNKrDz69sHowPMorbPUrH/mx8c50eiBQ==
 
-zod-to-json-schema@^3.23.3:
+zod-to-json-schema@^3.23.5:
   version "3.23.5"
   resolved "https://registry.yarnpkg.com/zod-to-json-schema/-/zod-to-json-schema-3.23.5.tgz#ec23def47dcafe3a4d640eba6a346b34f9a693a5"
   integrity sha512-5wlSS0bXfF/BrL4jPAbz9da5hDlDptdEppYfe+x4eIJ7jioqKG9uUxOwPzqof09u/XeVdrgFu29lZi+8XNDJtA==
