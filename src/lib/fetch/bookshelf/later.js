@@ -157,7 +157,7 @@ async function fetchAllLaterBooks() {
     // @ts-ignore
     output.sort((b, a) => new Date(a.added) - new Date(b.added));
 
-    return output;
+    return output.slice(0,12);
 }
 
 export { fetchAllLaterBooks };
