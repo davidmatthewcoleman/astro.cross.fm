@@ -1,5 +1,5 @@
 ---
-import Bookshelf from "../../../components/bookshelf/Bookshelf.jsx";
+import Bookshelf from "../../../components/bookshelf/Bookshelf.astro";
 import Sidebar from "../../../components/Sidebar.astro";
 import MainLayout from "../../../layouts/MainLayout.astro";
 
@@ -29,11 +29,7 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
                 <h2 class="single__title">
                     Bookshelf
                 </h2>
-                <bookshelf-block>
-                    <template shadowrootmode="closed">
-                        <Bookshelf client:load server:defer />
-                    </template>
-                </bookshelf-block>
+                <Bookshelf server:defer />
             </div>
         </section>
     </div>

@@ -204,7 +204,7 @@ export function BookCard({book}) {
     return (
         <>
             <a href={url} target={`_blank`}
-               className={`block bg-[#1D1F2E] text-white hover:text-[#D2C100] rounded-[6px] !no-underline overflow-hidden px-5 py-3`}>
+               className={`block bg-[#1D1F2E] !text-white hover:!text-[#D2C100] rounded-[6px] !no-underline overflow-hidden px-5 py-3`}>
                 <div className={`flex flex-row gap-4`}>
                     <div
                         className="thumb flex items-center justify-center min-w-[100px] w-[100px] min-h-[100px] rounded-[6px] overflow-hidden">

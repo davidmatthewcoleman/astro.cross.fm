@@ -1272,7 +1272,7 @@ export async function bookshelfQuery() {
     });
 
     const result = await response.json();
-    return result.data;
+    return result.data.bookshelf.nodes;
 }
 
 export async function headQuery(url) {

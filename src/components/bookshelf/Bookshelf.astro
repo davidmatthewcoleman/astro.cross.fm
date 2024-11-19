@@ -1,0 +1,21 @@
+---
+import { BookCard } from "./Book.jsx";
+import { bookshelfQuery } from "../../lib/api.js";
+
+const bookshelf = await bookshelfQuery();
+
+export const prerender = false;
+
+Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
+
+---
+
+<div class="tw-app">
+    <div id={"bookshelf"} class={`min-h-max py-1 mx-auto`}>
+        <div class="book-list flex flex-col gap-4">
+            {bookshelf.map((book) => (
+                <BookCard book={book}/>
+            ))}
+        </div>
+    </div>
+</div>

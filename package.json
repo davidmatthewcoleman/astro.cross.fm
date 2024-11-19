@@ -45,6 +45,7 @@
     "@graphql-codegen/typescript": "4.0.7",
     "@graphql-codegen/typescript-document-nodes": "4.0.7",
     "@graphql-codegen/typescript-mongodb": "3.0.0",
-    "@graphql-codegen/typescript-resolvers": "4.1.0"
+    "@graphql-codegen/typescript-resolvers": "4.1.0",
+    "tailwindcss-scoped-preflight": "^3.4.9"
   }
 }

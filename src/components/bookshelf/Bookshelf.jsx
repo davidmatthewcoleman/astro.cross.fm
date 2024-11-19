@@ -1,30 +1,8 @@
-import React, { useEffect, useState } from 'react';
 import { BookCard } from "./Book.jsx";
+import { bookshelfQuery } from "../../lib/api.js";
 
-export default function Bookshelf() {
-    const [bookshelf, setBookshelf] = useState(null);
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch(`/api/bookshelf`, {
-                    method: 'GET'
-                });
-                const data = await response.json();
-                setBookshelf(data);
-            } catch (error) {
-                console.error("Error fetching data:", error);
-            }
-        };
-
-        fetchData();
-    }, []);
-
-    console.log('bookshelfData?:', bookshelf);
-
-    if (!bookshelf) {
-        return null; // Or a loading spinner
-    }
+export default async function Bookshelf() {
+    const bookshelf = await bookshelfQuery();
 
     return (
         <>
