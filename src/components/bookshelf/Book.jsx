@@ -235,7 +235,7 @@ export function BookCard({book}) {
                         </div>
                         <div className={`text-white text-sm line-clamp-4 md:text-base md:line-clamp-3`}>{Parse(description)}</div>
                         <div className={`flex flex-row gap-1.5 text-white/50 text-xxs md:text-xs items-center mt-auto`}>
-                            <span>Published {published}</span>
+                            <span>Published {format(new Date(published), 'yyyy')}</span>
                             <span className={"-translate-y-px opacity-50 max-md:hidden"}>|</span>
                             <span className="max-md:hidden">Added {format(new Date(added), 'MMM. d, yyyy')}</span>
                             <span className={`ml-auto`}>{Parse(author)}</span>
@@ -287,7 +287,7 @@ export function BookCardLoader() {
                                 <Skeleton className={'!w-full h-3 rounded-sm'} inline={true} count={1} />
                                 <Skeleton className={'!w-1/2 h-3 rounded-sm'} inline={true} count={1} />
                             </div>
-                            <div className={`flex flex-row gap-1.5 text-white/50 text-xxs md:text-xs items-center mt-auto [&_span]:w-auto`}>
+                            <div className={`flex flex-row gap-1.5 text-white/50 text-xxs md:text-xs items-center mt-auto [&_span:nth-child(2)]:!w-32 [&_span:nth-child(3)]:!w-3`}>
                                 <span className={`flex-grow`}>
                                     <Skeleton className={'!w-24 h-2.5 rounded-sm'} inline={true} count={1} />
                                 </span>
