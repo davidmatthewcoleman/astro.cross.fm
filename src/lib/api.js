@@ -133,6 +133,7 @@ export async function blogQuery(first, after = null) {
                           slug
                           series
                           excerpt
+                          content
                           date
                           dateGmt
                           readingTime
@@ -149,6 +150,11 @@ export async function blogQuery(first, after = null) {
                                 y
                                 color
                               }
+                            }
+                          }
+                          categories {
+                            nodes {
+                              name
                             }
                           }
                         }

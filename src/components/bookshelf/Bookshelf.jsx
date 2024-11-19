@@ -1,12 +1,46 @@
-import { BookCard } from "./Book.jsx";
-import { bookshelfQuery } from "../../lib/api.js";
+import { BookCard, BookCardLoader } from "./Book.jsx";
+import { useEffect, useState } from "react";
 
-export default async function Bookshelf() {
-    const bookshelf = await bookshelfQuery();
+export default function Bookshelf() {
+    const [bookshelf, setBookshelf] = useState(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch('/api/bookshelf', {
+                    method: "GET"
+                });
+                const data = await response.json();
+                setBookshelf(data);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    if (!bookshelf) {
+        return (
+            <div className={"tw-app"}>
+                <div id={"bookshelf"} className={`min-h-max py-1 mx-auto`}>
+                    <div className="book-list flex flex-col gap-4">
+                        <BookCardLoader />
+                        <BookCardLoader />
+                        <BookCardLoader />
+                        <BookCardLoader />
+                        <BookCardLoader />
+                        <BookCardLoader />
+                        <BookCardLoader />
+                        <BookCardLoader />
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     return (
-        <>
-            <link rel="stylesheet" href="/assets/css/app.css"/>
+        <div className={"tw-app"}>
             <div id={"bookshelf"} className={`min-h-max py-1 mx-auto`}>
                 <div className="book-list flex flex-col gap-4">
                     {bookshelf.map((book, index) => (
@@ -14,6 +48,6 @@ export default async function Bookshelf() {
                     ))}
                 </div>
             </div>
-        </>
+        </div>
     );
 }
