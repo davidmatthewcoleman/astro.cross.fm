@@ -2,6 +2,8 @@ import Picture from "../Picture.jsx";
 import Parse from "html-react-parser";
 import { Check, Bookmark, BookmarkSimple, Star } from "@phosphor-icons/react/dist/ssr";
 import { format } from "date-fns";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 export function BookGrid({ book }) {
     const { title, description, url, author, published, status, site, cover } = book;
@@ -268,29 +270,34 @@ export function BookCard({book}) {
 export function BookCardLoader() {
     return (
         <>
-            <div
-               className={`block bg-[#1D1F2E] !text-white rounded-[6px] !no-underline overflow-hidden px-5 py-3`}>
-                <div className={`flex flex-row gap-4`}>
-                    <div
-                        className="thumb flex items-center justify-center min-w-[100px] w-[100px] min-h-[100px] rounded-[6px] loader-line overflow-hidden">
-                    </div>
-                    <div className={`flex flex-col gap-2 flex-grow`}>
-                        <div className="flex flex-row items-center gap-2">
-                            <strong className={`w-2/3 h-4 rounded-sm loader-line`} style={{ '--corner': 'calc(var(--radius) - 4px)' }}></strong>
+            <SkeletonTheme baseColor="transparent" highlightColor="rgba(255,255,255,0.25)">
+                <div
+                   className={`block bg-[#1D1F2E] !text-white rounded-[6px] !no-underline overflow-hidden px-5 py-3 [&_span]:block [&_span]:w-full`}>
+                    <div className={`flex flex-row gap-4`}>
+                        <div
+                            className="thumb flex items-center justify-center min-w-[100px] w-[100px] min-h-[100px] rounded-[6px] [&_span]:h-full">
+                            <Skeleton className={'w-full h-full rounded-[6px]'} inline={true} count={1} />
                         </div>
-                        <div className={`flex flex-col gap-y-2`}>
-                            <p className={'w-full h-3 !m-0 rounded-sm loader-line'} style={{ '--corner': 'calc(var(--radius) - 4px)' }}></p>
-                            <p className={'w-full h-3 !m-0 rounded-sm loader-line'} style={{ '--corner': 'calc(var(--radius) - 4px)' }}></p>
-                            <p className={'w-1/2 h-3 !m-0 rounded-sm loader-line'} style={{ '--corner': 'calc(var(--radius) - 4px)' }}></p>
-                        </div>
-                        <div className={`flex flex-row gap-1.5 text-white/50 text-xxs md:text-xs items-center mt-auto`}>
-                            <span className={'w-24 h-2.5 rounded-sm loader-line'} style={{ '--corner': 'calc(var(--radius) - 4px)' }}></span>
-                            <span className={'ml-auto w-32 h-2.5 rounded-sm loader-line'} style={{ '--corner': 'calc(var(--radius) - 4px)' }}></span>
-                            <span className={'w-3 h-3 rounded-sm loader-line'} style={{ '--corner': 'calc(var(--radius) - 4px)' }}></span>
+                        <div className={`flex flex-col gap-2 flex-grow`}>
+                            <div className="flex flex-row items-center gap-2">
+                                <Skeleton className={'!w-2/3 h-4 rounded-sm'} inline={true} count={1} />
+                            </div>
+                            <div className={`flex flex-col gap-y-2`}>
+                                <Skeleton className={'!w-full h-3 rounded-sm'} inline={true} count={1} />
+                                <Skeleton className={'!w-full h-3 rounded-sm'} inline={true} count={1} />
+                                <Skeleton className={'!w-1/2 h-3 rounded-sm'} inline={true} count={1} />
+                            </div>
+                            <div className={`flex flex-row gap-1.5 text-white/50 text-xxs md:text-xs items-center mt-auto [&_span]:w-auto`}>
+                                <span className={`flex-grow`}>
+                                    <Skeleton className={'!w-24 h-2.5 rounded-sm'} inline={true} count={1} />
+                                </span>
+                                <Skeleton className={'!w-32 h-2.5 rounded-sm'} inline={true} count={1} />
+                                <Skeleton className={'!w-3 h-3 rounded-sm'} inline={true} count={1} />
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </SkeletonTheme>
         </>
     );
 }

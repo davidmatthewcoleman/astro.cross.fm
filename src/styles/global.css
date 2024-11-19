@@ -15944,7 +15944,6 @@ body {
     @apply !text-right;
 }
 
-.loader-line {
-    @apply relative bg-white/10 before:content-[""] before:fixed before:inset-0 before:bg-gradient-skeleton before:animate-shimmer before:blur-2xl before:opacity-25;
-    clip-path: inset(0px round var(--corner, 6px));
+.react-loading-skeleton {
+    @apply bg-white/5;
 }
