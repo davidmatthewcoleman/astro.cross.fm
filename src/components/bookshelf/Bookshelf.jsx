@@ -33,6 +33,10 @@ export default function Bookshelf() {
                         <BookCardLoader />
                         <BookCardLoader />
                         <BookCardLoader />
+                        <BookCardLoader />
+                        <BookCardLoader />
+                        <BookCardLoader />
+                        <BookCardLoader />
                     </div>
                 </div>
             </div>
