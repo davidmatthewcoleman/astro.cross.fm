@@ -18,7 +18,7 @@ async function fetchAllBooks() {
 
     output = output.map(obj => ({
         ...obj,
-        status: reviewedBooks.some(item => item === obj.url) ? 'reviwed' : obj.status
+        status: reviewedBooks.some(item => item === obj.url) ? 'reviewed' : obj.status
     }));
 
     // Sort books by title
