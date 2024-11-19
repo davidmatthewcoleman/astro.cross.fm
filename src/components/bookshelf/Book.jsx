@@ -243,14 +243,14 @@ export function BookCard({book}) {
                                 <Picture
                                     remote={true}
                                     alt={Parse(site.domain)}
-                                    className="w-[18px] h-[18px] rounded"
+                                    className="block w-[14px] h-[14px] rounded"
                                     source={
                                         {
                                             null: {
                                                 media: site.icon,
                                                 params: {
-                                                    'width': 18,
-                                                    'height': 18
+                                                    'width': 14,
+                                                    'height': 14
                                                 }
                                             }
                                         }
