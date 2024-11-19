@@ -142,23 +142,16 @@ async function fetchCurrentFimfictionBooks() {
 }
 
 async function fetchAllCurrentBooks() {
-    // const hardcoverBooks = await fetchCurrentHardcoverBooks();
-    const goodreadsBooks = await fetchCurrentGoodreadsBooks();
-    const fanfictionBooks = await fetchCurrentFanfictionBooks();
-    const fimfictionBooks = await fetchCurrentFimfictionBooks();
+    const [goodreadsBooks, fanfictionBooks, fimfictionBooks] = await Promise.all([
+        fetchCurrentGoodreadsBooks(),
+        fetchCurrentFanfictionBooks(),
+        fetchCurrentFimfictionBooks()
+    ]);
 
-    // Combine all books into a single array
-    let output = [
-        ...goodreadsBooks,
-        ...fanfictionBooks,
-        ...fimfictionBooks
-    ];
-
-    // Sort books by .added date
-    // @ts-ignore
+    let output = [...goodreadsBooks, ...fanfictionBooks, ...fimfictionBooks];
     output.sort((b, a) => new Date(a.added) - new Date(b.added));
 
-    return output.slice(0,12);
+    return output;
 }
 
 export { fetchAllCurrentBooks };

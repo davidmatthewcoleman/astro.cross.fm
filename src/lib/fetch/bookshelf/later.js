@@ -141,10 +141,12 @@ async function fetchLaterFimfictionBooks() {
 }
 
 async function fetchAllLaterBooks() {
-    // const hardcoverBooks = await fetchCurrentHardcoverBooks();
-    const goodreadsBooks = await fetchLaterGoodreadsBooks();
-    const fanfictionBooks = await fetchLaterFanfictionBooks();
-    const fimfictionBooks = await fetchLaterFimfictionBooks();
+    // Fetch all book data in parallel
+    const [goodreadsBooks, fanfictionBooks, fimfictionBooks] = await Promise.all([
+        fetchLaterGoodreadsBooks(),
+        fetchLaterFanfictionBooks(),
+        fetchLaterFimfictionBooks()
+    ]);
 
     // Combine all books into a single array
     let output = [
@@ -154,10 +156,10 @@ async function fetchAllLaterBooks() {
     ];
 
     // Sort books by .added date
-    // @ts-ignore
     output.sort((b, a) => new Date(a.added) - new Date(b.added));
 
-    return output.slice(0,12);
+    // Return the top 12 books
+    return output;
 }
 
 export { fetchAllLaterBooks };

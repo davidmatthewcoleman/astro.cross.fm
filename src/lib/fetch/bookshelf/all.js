@@ -4,10 +4,13 @@ import { fetchAllFinishedBooks } from "./finished"
 import { fetchAllLaterBooks } from "./later"
 
 async function fetchAllBooks() {
-    const reviewedBooks = await fetchReviewedBooks()
-    const currentBooks = await fetchAllCurrentBooks();
-    const finishedBooks = await fetchAllFinishedBooks();
-    const laterBooks = await fetchAllLaterBooks();
+    // Fetch all book data in parallel
+    const [reviewedBooks, currentBooks, finishedBooks, laterBooks] = await Promise.all([
+        fetchReviewedBooks(),
+        fetchAllCurrentBooks(),
+        fetchAllFinishedBooks(),
+        fetchAllLaterBooks()
+    ]);
 
     // Combine all books into a single array
     let output = [
@@ -16,12 +19,13 @@ async function fetchAllBooks() {
         ...laterBooks
     ];
 
+    // Update status for reviewed books
     output = output.map(obj => ({
         ...obj,
-        status: reviewedBooks.some(item => item === obj.url) ? 'reviewed' : obj.status
+        status: reviewedBooks.includes(obj.url) ? 'reviewed' : obj.status
     }));
 
-    // Sort books by title
+    // Sort books by the .added date
     output.sort((b, a) => new Date(a.added) - new Date(b.added));
 
     return output;
