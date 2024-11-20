@@ -154,4 +154,4 @@ async function fetchAllCurrentBooks() {
     return output;
 }
 
-export { fetchAllCurrentBooks };
+export { fetchCurrentGoodreadsBooks, fetchCurrentFimfictionBooks, fetchCurrentFanfictionBooks, fetchAllCurrentBooks };

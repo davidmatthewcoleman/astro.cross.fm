@@ -1,9 +1,9 @@
 import { fetchRaindropData } from '../raindrop';
 import { fetchFanfictionData } from '../fanfiction';
 import {fetchFimfictionUserData, fetchFimfictionBookshelfData, fetchFimfictionStoryData} from '../fimfiction';
-import {fetchGoodreads} from "../goodreads";
+import { fetchGoodreads } from "../goodreads";
 
-async function fetchGoodreadsBooks() {
+async function fetchFinishedGoodreadsBooks() {
     const books = await fetchGoodreads('read');
     const output = [];
 
@@ -47,7 +47,7 @@ async function fetchGoodreadsBooks() {
     return output;
 }
 
-async function fetchFanfictionBooks() {
+async function fetchFinishedFanfictionBooks() {
     const data = await fetchRaindropData('45127387');
     const output = [];
 
@@ -93,7 +93,7 @@ async function fetchFanfictionBooks() {
     return output;
 }
 
-async function fetchFimfictionBooks() {
+async function fetchFinishedFimfictionBooks() {
     const { data } = await fetchFimfictionBookshelfData('https://www.fimfiction.net/bookshelf/2438093/read-for-blog');
     const output = [];
 
@@ -143,9 +143,9 @@ async function fetchFimfictionBooks() {
 async function fetchAllFinishedBooks() {
     // Fetch all book data in parallel
     const [goodreadsBooks, fanfictionBooks, fimfictionBooks] = await Promise.all([
-        fetchGoodreadsBooks(),
-        fetchFanfictionBooks(),
-        fetchFimfictionBooks()
+        fetchFinishedGoodreadsBooks(),
+        fetchFinishedFanfictionBooks(),
+        fetchFinishedFimfictionBooks()
     ]);
 
     // Combine all books into a single array
@@ -162,4 +162,4 @@ async function fetchAllFinishedBooks() {
     return output;
 }
 
-export { fetchAllFinishedBooks };
+export { fetchFinishedGoodreadsBooks, fetchFinishedFanfictionBooks, fetchFinishedFimfictionBooks, fetchAllFinishedBooks };

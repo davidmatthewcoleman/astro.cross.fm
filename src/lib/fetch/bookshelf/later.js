@@ -162,4 +162,4 @@ async function fetchAllLaterBooks() {
     return output;
 }
 
-export { fetchAllLaterBooks };
+export { fetchLaterGoodreadsBooks, fetchLaterFimfictionBooks, fetchLaterFanfictionBooks, fetchAllLaterBooks };

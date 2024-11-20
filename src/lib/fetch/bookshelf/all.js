@@ -1,32 +1,34 @@
 import { fetchReviewedBooks } from "./reviewed"
-import { fetchAllCurrentBooks } from "./current"
-import { fetchAllFinishedBooks } from "./finished"
-import { fetchAllLaterBooks } from "./later"
+import { fetchCurrentGoodreadsBooks, fetchCurrentFanfictionBooks, fetchCurrentFimfictionBooks } from "./current"
+import { fetchFinishedGoodreadsBooks, fetchFinishedFanfictionBooks, fetchFinishedFimfictionBooks } from "./finished"
+import { fetchLaterGoodreadsBooks, fetchLaterFanfictionBooks, fetchLaterFimfictionBooks } from "./later"
 
 async function fetchAllBooks() {
-    // Fetch all book data in parallel
-    const [reviewedBooks, currentBooks, finishedBooks, laterBooks] = await Promise.all([
-        fetchReviewedBooks(),
-        fetchAllCurrentBooks(),
-        fetchAllFinishedBooks(),
-        fetchAllLaterBooks()
-    ]);
+    const reviewedBooksPromise = fetchReviewedBooks();
 
-    // Combine all books into a single array
-    let output = [
-        ...currentBooks,
-        ...finishedBooks,
-        ...laterBooks
-    ];
+    // Consolidate all book-fetching operations into one
+    const allBooksPromise = Promise.all([
+        fetchCurrentGoodreadsBooks(),
+        fetchCurrentFanfictionBooks(),
+        fetchCurrentFimfictionBooks(),
+        fetchFinishedGoodreadsBooks(),
+        fetchFinishedFanfictionBooks(),
+        fetchFinishedFimfictionBooks(),
+        fetchLaterGoodreadsBooks(),
+        fetchLaterFanfictionBooks(),
+        fetchLaterFimfictionBooks()
+    ]).then(results => results.flat());
 
-    // Update status for reviewed books
-    output = output.map(obj => ({
-        ...obj,
-        status: reviewedBooks.includes(obj.url) ? 'reviewed' : obj.status
-    }));
+    // Wait for all data to resolve
+    const [reviewedBooks, allBooks] = await Promise.all([reviewedBooksPromise, allBooksPromise]);
 
-    // Sort books by the .added date
-    output.sort((b, a) => new Date(a.added) - new Date(b.added));
+    // Update statuses and sort
+    const output = allBooks
+        .map(obj => ({
+            ...obj,
+            status: reviewedBooks.includes(obj.url) ? 'reviewed' : obj.status
+        }))
+        .sort((b, a) => new Date(a.added) - new Date(b.added));
 
     return output;
 }
