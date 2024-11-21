@@ -1,6 +1,4 @@
 ---
-import {format} from "date-fns";
-import Parse from "html-react-parser";
 import Picture from "./Picture";
 const { data } = Astro.props;
 ---
@@ -8,16 +6,16 @@ const { data } = Astro.props;
 <article class="summary-classic">
     <div class="summary-classic__flex-box">
         {
-            data.images[0].banner && (
+            data.content.images.banner && (
                 <div class="summary-classic__image-container summary-classic__image-wrapper" data-position="right">
-                    <a href={`/stories/${data.slug}`}>
+                    <a href={data.path}>
                         <Picture
-                                alt={data?.name}
+                                alt={data?.title}
                                 className="summary-classic__image"
                                 source={
                                     {
                                         '(max-width: 959px)': {
-                                            media: data.images[0].banner,
+                                            media: data.content.images.banner,
                                             params: {
                                                 'width': 1200,
                                                 'height': 600,
@@ -25,7 +23,7 @@ const { data } = Astro.props;
                                             }
                                         },
                                         '(min-width: 960px)': {
-                                            media: data.images[0].cover,
+                                            media: data.content.images.cover,
                                             params: {
                                                 'width': 256,
                                                 'height': 256,
@@ -42,11 +40,11 @@ const { data } = Astro.props;
         <div class="summary-classic__content">
             <header>
                 <h5 class="title h5">
-                    <a href={`/stories/${data.slug}`} set:html={data.name}></a>
+                    <a href={data.path} set:html={data.title}></a>
                 </h5>
             </header>
             <div>
-                <div class="summary-classic__text p2" set:html={data.description}></div>
+                <div class="summary-classic__text p2" set:html={data.content.summary}></div>
             </div>
         </div>
     </div>

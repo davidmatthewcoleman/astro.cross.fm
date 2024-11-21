@@ -3,37 +3,45 @@ import Sidebar from "../../../components/Sidebar.astro";
 import MainLayout from "../../../layouts/MainLayout.astro";
 import PostSummary from "../../../components/PostSummary.astro";
 import { seriesQuery, singleSeriesQuery, allSeriesSlugsQuery } from "../../../lib/api.js";
-import { format } from "date-fns";
+import { getCollection } from "cross:content";
 import Parse from "html-react-parser";
 
-const { allSeries } = await singleSeriesQuery(Astro.params.series);
-const series = allSeries.nodes[0];
+const series = await getCollection('series', {
+    slug: Astro.params.series
+});
 
 // Define the number of posts per page
 const postsPerPage = 10;
 const pageNum = parseInt(Astro.params.pageNum) || 1;
 
 // Fetch the initial page of posts
-const initialData = await seriesQuery(Astro.params.series, postsPerPage);
-let posts = initialData.posts.edges;
-let endCursor = initialData.posts.pageInfo.endCursor;
-let hasNextPage = initialData.posts.pageInfo.hasNextPage;
+const initialData = await getCollection('posts', {
+    first: postsPerPage,
+    series: Astro.params.series
+});
+let posts = initialData.posts;
+let endCursor = initialData.paginate.cursor;
+let hasNextPage = initialData.paginate.nextPage;
 
 // If there are more pages, fetch additional posts using the endCursor
 if (pageNum > 1) {
     for (let i = 1; i < pageNum; i++) {
         if (hasNextPage) {
-            const data = await seriesQuery(Astro.params.series, postsPerPage, endCursor);
-            posts = data.posts.edges;
-            endCursor = data.posts.pageInfo.endCursor;
-            hasNextPage = data.posts.pageInfo.hasNextPage;
+            const data = await getCollection('posts', {
+                first: postsPerPage,
+                after: endCursor,
+                series: Astro.params.series
+            });
+            posts = data.posts;
+            endCursor = data.paginate.cursor;
+            hasNextPage = data.paginate.nextPage;
         }
     }
 }
 
 export async function getStaticPaths() {
-    const data = await allSeriesSlugsQuery();
-    const paths = data?.allSeries.nodes.map(series => ({
+    const data = await getCollection('series');
+    const paths = data.map(series => ({
         params: { series: series.slug }
     }));
 
@@ -43,7 +51,7 @@ export async function getStaticPaths() {
 Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
 ---
 
-<MainLayout title={`${series?.name} – CROSS`} description={series?.description}>
+<MainLayout title={`${series?.label} – CROSS`} description={series?.content.summary}>
     <div class="list__main lm">
         <nav class="breadcrumb" aria-label="breadcrumbs">
             <ol>
@@ -54,23 +62,23 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                     <a href="/blog">Blog</a>
                 </li>
                 <li class="is-active">
-                    <span>{series?.name}</span>
+                    <span>{series?.label}</span>
                 </li>
             </ol>
         </nav>
-        <h5 class="list__header--title capitalize h5">{Parse(series.name)}</h5>
+        <h5 class="list__header--title capitalize h5">{Parse(series.label)}</h5>
         {
-            series.description && (
+            series.content.summary && (
                 <>
                     <div class="list__header--desc p2">
-                        {Parse(series.description)}
+                        {Parse(series.content.summary)}
                     </div>
                 </>
             )
         }
         <div class="summary__container" data-display="block">
-            {posts.map(({ node }) => (
-                <PostSummary data={node}></PostSummary>
+            {posts.map((post) => (
+                <PostSummary data={post}></PostSummary>
             ))}
             <hr class="hr-slash nav-hr">
             <nav class="pagination-single">

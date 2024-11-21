@@ -9,17 +9,17 @@ export function fetchPicture(data, remote = false) {
             continue;
         }
 
-        const { sourceFile, sourceUrl, mediaDetails } = media;
-        if (!sourceFile && !sourceUrl) {
+        const { filename, source, dimensions, focalPoint } = media;
+        if (!filename && !source) {
             console.error(`Neither 'sourceFile' nor 'sourceUrl' provided for '${mediaQuery}'`);
             continue;
         }
 
-        const imageUrl = sourceFile || sourceUrl;
+        const imageUrl = filename || source;
         const transformParams = {
             width: params.width,
             height: params.height || null,
-            gravity: `${mediaDetails.x}x${mediaDetails.y}`,
+            gravity: `${focalPoint.x}x${focalPoint.y}`,
             ...params // Include any additional params directly from input, allowing for custom transformations
         };
 

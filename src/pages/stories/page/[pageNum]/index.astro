@@ -2,34 +2,38 @@
 import Sidebar from "../../../../components/Sidebar.astro";
 import MainLayout from "../../../../layouts/MainLayout.astro";
 import StorySummary from "../../../../components/StorySummary.astro";
-import { storiesQuery, allStorySlugsQuery } from "../../../../lib/api.js";
-import { format } from "date-fns";
+import { getCollection } from "cross:content";
 
 // Define the number of posts per page
 const postsPerPage = 10;
 const pageNum = parseInt(Astro.params.pageNum) || 1;
 
 // Fetch the initial page of posts
-const initialData = await storiesQuery(postsPerPage);
-let posts = initialData.stories.edges;
-let endCursor = initialData.stories.pageInfo.endCursor;
-let hasNextPage = initialData.stories.pageInfo.hasNextPage;
+const initialData = await getCollection('stories', {
+    first: postsPerPage
+});
+let posts = initialData.stories;
+let endCursor = initialData.paginate.cursor;
+let hasNextPage = initialData.paginate.nextPage;
 
 // If there are more pages, fetch additional posts using the endCursor
 if (pageNum > 1) {
     for (let i = 1; i < pageNum; i++) {
         if (hasNextPage) {
-            const data = await storiesQuery(postsPerPage, endCursor);
-            posts = data.stories.edges;
-            endCursor = data.stories.pageInfo.endCursor;
-            hasNextPage = data.stories.pageInfo.hasNextPage;
+            const data = await getCollection('stories', {
+                first: postsPerPage,
+                after: endCursor
+            });
+            posts = data.stories;
+            endCursor = data.paginate.cursor;
+            hasNextPage = data.paginate.nextPage;
         }
     }
 }
 
 export async function getStaticPaths() {
-    const data = await allStorySlugsQuery();
-    const totalStories = data?.stories.nodes.length;
+    const data = await getCollection('stories');
+    const totalStories = data?.paginate.totalPosts;
     const totalPages = Math.ceil(totalStories / 10);
 
     const paths = Array.from({ length: totalPages }, (_, i) => ({

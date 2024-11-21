@@ -3,30 +3,27 @@ import Sidebar from "../../components/Sidebar.astro";
 import MainLayout from "../../layouts/MainLayout.astro";
 import { blogQuery } from "../../lib/api.js";
 import { format } from "date-fns";
-
-// Define the number of posts per page
-const postsPerPage = 9999;
+import { getCollection } from "cross:content";
 
 // Fetch the initial page of posts
-const initialData = await blogQuery(postsPerPage);
-let posts = initialData.posts.edges;
+const { posts } = await getCollection('posts');
 
 // Function to group posts by year
 function groupPostsByYear(posts) {
     const groupedPosts = {};
-    posts.forEach(({ node }) => {
-        const year = new Date(node.date).getFullYear();
+    posts.forEach((post) => {
+        const year = new Date(post.date.raw).getFullYear();
         if (!groupedPosts[year]) {
             groupedPosts[year] = [];
         }
-        groupedPosts[year].push({ node });
+        groupedPosts[year].push(post);
     });
     return groupedPosts;
 }
 
 // Separate sticky posts from regular posts
-const stickyPosts = posts.filter(({ node }) => node.isSticky);
-const regularPosts = posts.filter(({ node }) => !node.isSticky);
+const stickyPosts = posts.filter((post) => post.pinned);
+const regularPosts = posts.filter((post) => !post.pinned);
 
 // Group regular posts by year
 const groupedPosts = groupPostsByYear(regularPosts);
@@ -105,9 +102,9 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                 <h4 class="archive__year">Pinned</h4>
                 <ul class="archive__list">
                     {stickyPosts.map(post => (
-                        <li key={post.node.id}>
-                            <a href={`/blog/${post.node.series}/${post.node.slug}`}>{post.node.title}</a>
-                            <span class="post__date">{format(post.node.date, 'MMM. d, yyyy')}</span>
+                        <li key={post.slug}>
+                            <a href={post.path}>{post.title}</a>
+                            <span class="post__date">{post.date.formatted}</span>
                         </li>
                     ))}
                 </ul>
@@ -118,10 +115,10 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                     <h4 class="archive__year">{year}</h4>
                     <ul class="archive__list">
                         {groupedPosts[year].map(post => (
-                            <li key={post.node.id}>
-                                <a href={`/blog/${post.node.series}/${post.node.slug}`}>{post.node.title}</a>
+                            <li key={post.slug}>
+                                <a href={post.path}>{post.title}</a>
                                 <span class="post__meta">
-                                    <span class="post__date">{format(post.node.date, 'MMM. d')}</span>
+                                    <span class="post__date">{post.date.formatted}</span>
                                 </span>
                             </li>
                         ))}

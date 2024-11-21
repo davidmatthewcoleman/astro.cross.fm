@@ -6,10 +6,10 @@ import SiteNav from "../components/SiteNav.astro";
 import HomeHero from "../components/HomeHero.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import Sprite from "../components/Sprite.astro";
-import { headQuery, navQuery } from "../lib/api.js";
+import { headQuery } from "../lib/api.js";
+import { getCollection } from "cross:content";
 const { head } = await headQuery('https://crossrambles.com' + Astro.url.pathname);
-const { menus, generalSettings } = await navQuery();
-const primaryMenu = menus.nodes[0];
+const primaryMenu = await getCollection('navigation');
 
 const { title, description } = Astro.props;
 
@@ -78,7 +78,7 @@ const { title, description } = Astro.props;
 </script>
 <div id="container">
     <div class="wrapper">
-        <SiteNav menu={primaryMenu} generalSettings={generalSettings}/>
+        <SiteNav menu={primaryMenu}/>
         <HomeHero/>
         <main class="main inner hero" data-sidebar-position="right">
             <slot/>

@@ -23,11 +23,6 @@ export async function navQuery(){
                     }
                   }
                 }
-                generalSettings {
-                    title
-                    url
-                    description
-                }
             }
             `
         })
@@ -109,8 +104,9 @@ export async function sidebarQuery(){
     return data;
 }
 
-export async function blogQuery(first, after = null) {
-    const variables = { first, after };
+export async function blogQuery(first = null, after = null, slug = null, series = null, topic = null, tag = null, search = null) {
+    first = first || 9999;
+    const variables = { first, after, slug, series, topic, tag, search };
 
     try {
         const response = await fetch(import.meta.env.WORDPRESS_API_URL, {
@@ -121,8 +117,8 @@ export async function blogQuery(first, after = null) {
             },
             body: JSON.stringify({
                 query: `
-                  query GetPaginatedPosts($first: Int!, $after: String) {
-                    posts(first: $first, after: $after, where: { stickyPosts: true }) {
+                  query GetPaginatedPosts($first: Int!, $after: String, $slug: String, $series: String, $topic: String, $tag: [String], $search: String) {
+                    posts(first: $first, after: $after, where: { stickyPosts: true, name: $slug, seriesSlugIn: $series, categoryName: $topic, tagSlugIn: $tag, search: $search }) {
                       pageInfo {
                         endCursor
                         hasNextPage
@@ -130,14 +126,33 @@ export async function blogQuery(first, after = null) {
                       edges {
                         node {
                           title
+                          subtitle
                           slug
                           series
+                          shortlink
                           excerpt
                           content
                           date
                           dateGmt
                           readingTime
                           isSticky
+                          license
+                          toc
+                          author {
+                            node {
+                              name                            
+                            }
+                          }
+                          previousPost {
+                            title
+                            slug
+                            series
+                          }
+                          nextPost {
+                            title
+                            slug
+                            series
+                          }
                           featuredImage {
                             node {
                               mimeType
@@ -152,11 +167,74 @@ export async function blogQuery(first, after = null) {
                               }
                             }
                           }
+                          allSeries {
+                            nodes {
+                              name
+                              slug
+                              count
+                            }
+                          }
                           categories {
                             nodes {
                               name
+                              slug
+                              count
                             }
                           }
+                          tags {
+                            nodes {
+                              name
+                              slug
+                              count
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                `,
+                variables
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const { data } = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error fetching paginated posts:', error);
+        throw error;
+    }
+}
+
+export async function pagesQuery(first = null, after = null, slug = null) {
+    first = first || 9999;
+    const variables = { first, after, slug };
+
+    try {
+        const response = await fetch(import.meta.env.WORDPRESS_API_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
+            },
+            body: JSON.stringify({
+                query: `
+                  query GetPaginatedPosts($first: Int!, $after: String, $slug: String) {
+                    pages(first: $first, after: $after, where: { name: $slug }) {
+                      pageInfo {
+                        endCursor
+                        hasNextPage
+                      }
+                      edges {
+                        node {
+                          title
+                          slug
+                          content
+                          date
+                          dateGmt
                         }
                       }
                     }
@@ -240,8 +318,8 @@ export async function blogSearchQuery(search, first, after = null) {
     }
 }
 
-export async function storiesQuery(first, after = null) {
-    const variables = { first, after };
+export async function storiesQuery(first, after = null, slug = null) {
+    const variables = { first, after, slug };
 
     try {
         const response = await fetch(import.meta.env.WORDPRESS_API_URL, {
@@ -252,8 +330,8 @@ export async function storiesQuery(first, after = null) {
             },
             body: JSON.stringify({
                 query: `
-                  query GetPaginatedStories($first: Int!, $after: String) {
-                      stories(first: $first, after: $after) {
+                  query GetPaginatedStories($first: Int!, $after: String, $slug: [String]) {
+                      stories(first: $first, after: $after, where: { slug: $slug }) {
                         pageInfo {
                           endCursor
                           hasNextPage
@@ -297,6 +375,14 @@ export async function storiesQuery(first, after = null) {
                                   y
                                   color
                                 }
+                              }
+                            }
+                            chapters(where: {orderby: {field: MENU_ORDER, order: ASC}}) {
+                              nodes {
+                                title
+                                slug
+                                date
+                                wordCount
                               }
                             }
                           }
@@ -590,8 +676,9 @@ export async function heroQuery(){
     return data;
 }
 
-export async function singleSeriesQuery(series) {
-    const variables = { series };
+export async function singleSeriesQuery(series = null) {
+    const first = ( series && series === typeof "string") ? 1 : 9999;
+    const variables = { first, series };
 
     const response = await fetch(import.meta.env.WORDPRESS_API_URL, {
         method: 'POST',
@@ -601,11 +688,12 @@ export async function singleSeriesQuery(series) {
         },
         body: JSON.stringify({
             query: `
-                query GetSeries($series: String!) {
-                    allSeries(where: { slug: [$series] }) {
+                query GetSeries($first: Int!, $series: [String]) {
+                    allSeries(first: $first, where: {hideEmpty: true, orderby: COUNT, slug: $series}) {
                         nodes {
                             name
                             slug
+                            count
                             description
                         }
                     }
@@ -621,7 +709,8 @@ export async function singleSeriesQuery(series) {
 }
 
 export async function singleTopicQuery(category) {
-    const variables = { category };
+    const first = ( category && category === typeof "string") ? 1 : 9999;
+    const variables = { first, category };
 
     const response = await fetch(import.meta.env.WORDPRESS_API_URL, {
         method: 'POST',
@@ -631,11 +720,13 @@ export async function singleTopicQuery(category) {
         },
         body: JSON.stringify({
             query: `
-                query GetTopics($category: String!) {
-                  categories(where: {slug: [$category]}) {
+                query GetTopics($first: Int!, $category: [String]) {
+                  categories(first: $first, where: { hideEmpty: true, orderby: COUNT, slug: $category }) {
                     nodes {
                       name
                       slug
+                      count
+                      description
                     }
                   }
                 }
@@ -650,7 +741,8 @@ export async function singleTopicQuery(category) {
 }
 
 export async function singleTagQuery(tag) {
-    const variables = { tag };
+    const first = ( tag && tag === typeof "string") ? 1 : 9999;
+    const variables = { first, tag };
 
     const response = await fetch(import.meta.env.WORDPRESS_API_URL, {
         method: 'POST',
@@ -660,11 +752,13 @@ export async function singleTagQuery(tag) {
         },
         body: JSON.stringify({
             query: `
-                query GetTags($tag: String!) {
-                  tags(where: {slug: [$tag]}) {
+                query GetTags($first: Int!, $tag: [String]) {
+                  tags(first: $first, where: {hideEmpty: true, orderby: COUNT, slug: $tag}) {
                     nodes {
                       name
                       slug
+                      count
+                      description
                     }
                   }
                 }
@@ -875,7 +969,7 @@ export async function singleChapterQuery(slug) {
         },
         body: JSON.stringify({
             query: `
-                query GetChapter($slug: String!) {
+                query GetChapter($slug: String) {
                   chapters(where: {name: $slug}) {
                     nodes {
                       title
@@ -896,6 +990,28 @@ export async function singleChapterQuery(slug) {
                         name
                         slug
                         images {
+                          cover {
+                            sourceUrl
+                            sourceFile
+                            mediaDetails {
+                              width
+                              height
+                              x
+                              y
+                              color
+                            }
+                          }
+                          banner {
+                            sourceUrl
+                            sourceFile
+                            mediaDetails {
+                              width
+                              height
+                              x
+                              y
+                              color
+                            }
+                          }
                           background {
                             sourceUrl
                             sourceFile

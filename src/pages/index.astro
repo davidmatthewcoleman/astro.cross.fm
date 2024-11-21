@@ -1,12 +1,16 @@
 ---
 import Sidebar from "../components/Sidebar.astro";
 import HomeLayout from "../layouts/HomeLayout.astro";
-import { homepageQuery } from "../lib/api.js";
+import { getCollection } from "cross:content";
 import { format } from "date-fns";
 
-const data = await homepageQuery();
-const page = data.pageBy;
-const post = data.posts.nodes[0];
+const page = await getCollection('pages', {
+	first: 1,
+	slug: 'home'
+});
+const post = await getCollection('posts', {
+	first: 1
+});
 
 Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
 
@@ -206,7 +210,7 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
 			<div class="home__content">
 				<div>
 					<h1 set:html={page.title} style="margin-bottom:1rem;"></h1>
-					<div set:html={page.content}></div>
+					<div set:html={page.content.full}></div>
 				</div>
 				<img src="/assets/images/hero__logo.svg" alt="cross logo" class="description__logo" />
 			</div>
@@ -239,10 +243,10 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
 			<h2 class="heading">My thoughts&hellip;</h2>
 			<div id="blog">
 				<div class="left">
-					<a href={`/blog/${post.series}/${post.slug}`} class="card">
-						<span>{format(new Date(post.date_gmt || post.date), 'MMM. d, yyyy')}</span><br/>
+					<a href={post.path} class="card">
+						<span>{post.date.formatted}</span><br/>
 						<strong>{post.title}</strong>
-						<div set:html={post.excerpt}></div>
+						<div set:html={post.content.excerpt}></div>
 					</a>
 				</div>
 				<div class="right">

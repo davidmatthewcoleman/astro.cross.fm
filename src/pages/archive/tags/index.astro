@@ -2,8 +2,9 @@
 import Sidebar from "../../../components/Sidebar.astro";
 import MainLayout from "../../../layouts/MainLayout.astro";
 import { allTagsQuery } from "../../../lib/api.js";
+import { getCollection } from "cross:content";
 
-const { tags } = await allTagsQuery();
+const tags = await getCollection('tags');
 
 Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
 ---
@@ -29,10 +30,10 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
         <div class="terms main">
             <section class="taxo terms__list">
                 {
-                    tags.nodes.map((tag) => (
+                    tags.map((tag) => (
                         <span class="tag">
-                            <a href={`/archive/tags/${tag.slug}`} class="is-tags taxo__link" data-dir="ltr">
-                                <span class="taxo__text">{tag.name}</span>&nbsp;<span class="taxo__num" dir="auto">{tag.count}</span>
+                            <a href={tag.path} class="is-tags taxo__link" data-dir="ltr">
+                                <span class="taxo__text">{tag.label}</span>&nbsp;<span class="taxo__num" dir="auto">{tag.count}</span>
                             </a>
                         </span>
                     ))

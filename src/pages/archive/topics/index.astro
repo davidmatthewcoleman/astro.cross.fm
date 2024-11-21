@@ -2,8 +2,9 @@
 import Sidebar from "../../../components/Sidebar.astro";
 import MainLayout from "../../../layouts/MainLayout.astro";
 import { allCategoriesQuery } from "../../../lib/api.js";
+import { getCollection } from "cross:content";
 
-const { categories } = await allCategoriesQuery();
+const categories = await getCollection('topics');
 
 Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
 ---
@@ -29,10 +30,10 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
         <div class="terms main">
             <section class="taxo terms__list">
                 {
-                    categories.nodes.map((topic) => (
+                    categories.map((topic) => (
                             <span class="tag">
-                            <a href={`/archive/topics/${topic.slug}`} class="is-categories taxo__link" data-dir="ltr">
-                                <span class="taxo__text">{topic.name}</span>&nbsp;<span class="taxo__num" dir="auto">{topic.count}</span>
+                            <a href={topic.path} class="is-categories taxo__link" data-dir="ltr">
+                                <span class="taxo__text">{topic.label}</span>&nbsp;<span class="taxo__num" dir="auto">{topic.count}</span>
                             </a>
                         </span>
                     ))

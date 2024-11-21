@@ -1,5 +1,5 @@
 ---
-const { menu, generalSettings } = Astro.props;
+const { menu } = Astro.props;
 ---
 
 <nav class="navbar scrolling navbar--show" role="navigation" aria-label="main navigation" data-dir="ltr">
@@ -19,8 +19,8 @@ const { menu, generalSettings } = Astro.props;
         <img class="navbar__menu-icon open" src="/assets/images/menu_open.png" alt="toggle menu" />
     </a>
     <div class="navbar__menu">
-        {menu.menuItems.nodes.map(menuItem => {
-            return <a href={menuItem.uri || '/'} class={`navbar__menu-item navbar__slide-down${Astro.url.pathname.startsWith(menuItem.uri) && menuItem.uri !== '/' ? ' active' : ''}`} dir="ltr">{menuItem.label}</a>;
+        {menu.map(menuItem => {
+            return <a href={menuItem.path || '/'} class={`navbar__menu-item navbar__slide-down${Astro.url.pathname.startsWith(menuItem.uri) && menuItem.uri !== '/' ? ' active' : ''}`} dir="ltr">{menuItem.label}</a>;
         })}
     </div>
 </nav>

@@ -2,27 +2,31 @@
 import Sidebar from "../../components/Sidebar.astro";
 import MainLayout from "../../layouts/MainLayout.astro";
 import PostSummary from "../../components/PostSummary.astro";
-import { blogQuery } from "../../lib/api.js";
-import { format } from "date-fns";
+import { getCollection } from "cross:content";
 
 // Define the number of posts per page
 const postsPerPage = 10;
 const pageNum = parseInt(Astro.params.pageNum) || 1;
 
 // Fetch the initial page of posts
-const initialData = await blogQuery(postsPerPage);
-let posts = initialData.posts.edges;
-let endCursor = initialData.posts.pageInfo.endCursor;
-let hasNextPage = initialData.posts.pageInfo.hasNextPage;
+const initialData = await getCollection('posts', {
+    first: postsPerPage
+});
+let posts = initialData.posts;
+let endCursor = initialData.paginate.cursor;
+let hasNextPage = initialData.paginate.nextPage;
 
 // If there are more pages, fetch additional posts using the endCursor
 if (pageNum > 1) {
     for (let i = 1; i < pageNum; i++) {
         if (hasNextPage) {
-            const data = await blogQuery(postsPerPage, endCursor);
-            posts = data.posts.edges;
-            endCursor = data.posts.pageInfo.endCursor;
-            hasNextPage = data.posts.pageInfo.hasNextPage;
+            const data = await getCollection('posts', {
+                first: postsPerPage,
+                after: endCursor
+            });
+            posts = data.posts;
+            endCursor = data.paginate.cursor;
+            hasNextPage = data.paginate.nextPage;
         }
     }
 }
@@ -43,8 +47,8 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
             </ol>
         </nav>
         <div class="summary__container" data-display="block">
-            {posts.map(({ node }) => (
-                <PostSummary data={node}></PostSummary>
+            {posts.map((post) => (
+                <PostSummary data={post}></PostSummary>
             ))}
             <hr class="hr-slash nav-hr">
             <nav class="pagination-single">

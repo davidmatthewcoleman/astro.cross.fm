@@ -4,17 +4,11 @@ import { format } from "date-fns";
 import SearchForm from "./Search.astro";
 import Picture from "./Picture.jsx";
 import Status from "./StatusAlt.jsx";
+import { getCollection } from "cross:content";
 
-const { menus } = await navQuery();
-const primaryMenu = menus.nodes[0];
+const primaryMenu = await getCollection('navigation');
 
-const data = await sidebarQuery();
-const sidebar = data.sidebar;
-const posts = data.posts.nodes;
-const chapters = data.chapters.nodes;
-const allSeries = data.allSeries.nodes;
-const categories = data.categories.nodes;
-const tags = data.tags.nodes;
+const { profile, content, taxonomies } = await getCollection('sidebar');
 
 const { show = true, overlap = false, search = null } = Astro.props;
 ---
@@ -39,7 +33,7 @@ const { show = true, overlap = false, search = null } = Astro.props;
     <div class="sidebar">
         <SearchForm search={search} />
         <nav class="sidebar__nav">
-            {primaryMenu.menuItems.nodes.map(menuItem => {
+            {primaryMenu.map(menuItem => {
                 return <a href={menuItem.uri || '/'} class="navbar__menu-item navbar__slide-down" dir="ltr">{menuItem.label}</a>;
             })}
         </nav>
@@ -60,12 +54,12 @@ const { show = true, overlap = false, search = null } = Astro.props;
             <hr class="hr-slash bio-hr" style="-webkit-filter:drop-shadow(0 2px 4px rgba(0,0,0,.25));filter:drop-shadow(0 2px 4px rgba(0,0,0,.25));"/>
             <div class="bio__photo-wrapper">
                 <Picture
-                    alt={sidebar.profile.name}
+                    alt={profile.name}
                     className="bio__photo"
                     source={
                         {
                             null: {
-                                media: sidebar.profile,
+                                media: profile.photo,
                                 params: {
                                     'width': 225,
                                     'height': 150,
@@ -78,16 +72,16 @@ const { show = true, overlap = false, search = null } = Astro.props;
             </div>
             <hr class="hr-slash bio-hr"/>
             <div class="bio__name">
-                <span>{sidebar.name}</span>
+                <span>{profile.name}</span>
             </div>
-            <div class="bio__desc">{sidebar.bio}</div>
+            <div class="bio__desc">{profile.bio}</div>
             <div class="bio__info" title="When was I born?">
                 <div class="bio__info--icon">
                     <svg class="icon" width="20" height="20" role="img">
                         <use href="#icon-candle"/>
                     </svg>
                 </div>
-                <time datetime={sidebar.birthdate} itemprop="birthday">{format(new Date(sidebar.birthdate), 'MMM. d, yyyy')}</time>
+                <time datetime={profile.birthdate.raw} itemprop="birthday">{profile.birthdate.formatted}</time>
             </div>
             <Status client:load/>
             <!--<div class="bio__info" title="Who am I?">-->
@@ -100,7 +94,7 @@ const { show = true, overlap = false, search = null } = Astro.props;
                         <use href="#icon-marker"></use>
                     </svg>
                 </div>
-                <a href={`https://www.google.com/maps/place/${encodeURIComponent(sidebar.location)}/`} target="_blank">{sidebar.location}</a>
+                <a href={profile.location.url} target="_blank">{profile.location.string}</a>
             </div>
             <div class="bio__info" title="Email me">
                 <div class="bio__info--icon">
@@ -108,7 +102,7 @@ const { show = true, overlap = false, search = null } = Astro.props;
                         <use href="#icon-mailbox"></use>
                     </svg>
                 </div>
-                <a href={`mailto:${sidebar.email}`} target="_blank">{sidebar.email}</a>
+                <a href={profile.email.url} target="_blank">{profile.email.string}</a>
             </div>
         </section>
     </div>
@@ -117,10 +111,10 @@ const { show = true, overlap = false, search = null } = Astro.props;
         <a href="/blog" class="sidebar-recent__title p2">Entries</a>
         <ul class="sidebar-recent__ul">
             {
-                posts.map(post => {
+                content.posts.map(post => {
                     return (
                         <li>
-                            <a href={`/blog/${post.series}/${post.slug}`} class="sidebar-recent__a p2">{post.title}</a>
+                            <a href={post.path} class="sidebar-recent__a p2">{post.title}</a>
                         </li>
                     )
                 })
@@ -128,17 +122,17 @@ const { show = true, overlap = false, search = null } = Astro.props;
         </ul>
     </section>
     {
-        chapters && (
+        content.chapters && (
             <hr class="hr-fade sidebar-hr">
             <section class="sidebar-recent">
                 <a href="/stories" class="sidebar-recent__title p2">Chapters</a>
                 <ul class="sidebar-recent__ul">
                     {
-                        chapters.map(chapter => {
+                        content.chapters.map(({chapter, story}) => {
                             return (
                                 <li>
-                                    <a href={`/stories/${chapter.story[0].slug}/${chapter.slug}`} class="sidebar-recent__a p2" style="display:inline-flex;flex-direction:column;">
-                                        <small style="line-height:1;text-indent:0;">{chapter.story[0].name}</small>
+                                    <a href={chapter.path} class="sidebar-recent__a p2" style="display:inline-flex;flex-direction:column;">
+                                        <small style="line-height:1;text-indent:0;">{story.title}</small>
                                         <span style="line-height:1;text-indent:0;">{chapter.title}</span>
                                     </a>
                                 </li>
@@ -152,14 +146,14 @@ const { show = true, overlap = false, search = null } = Astro.props;
     <hr class="hr-fade sidebar-hr">
     <div class="taxo-root">
         {
-            allSeries.length > 0 && (
+            taxonomies.series.length > 0 && (
                 <div class="taxo">
                     <section>
                         <span class="title p2"><a href="/archive/series" class="taxo__title">Series</a></span>
                         {
-                            allSeries.map(series => {
+                            taxonomies.series.map(series => {
                                 return (
-                                    <span class="tag"><a href={`/blog/${series.slug}`} class="is-series taxo__link" data-dir="ltr"><span class="taxo__text">{series.name}</span>&nbsp;<span class="taxo__num" dir="auto">{series.count}</span></a></span>
+                                    <span class="tag"><a href={series.path} class="is-series taxo__link" data-dir="ltr"><span class="taxo__text">{series.label}</span>&nbsp;<span class="taxo__num" dir="auto">{series.count}</span></a></span>
                                 )
                             })
                         }
@@ -168,14 +162,14 @@ const { show = true, overlap = false, search = null } = Astro.props;
             )
         }
         {
-            categories.length > 0 && (
+            taxonomies.topics.length > 0 && (
                 <div class="taxo">
                     <section>
                         <span class="title p2"><a href="/archive/topics" class="taxo__title">Topics</a></span>
                         {
-                            categories.map(category => {
+                            taxonomies.topics.map(category => {
                                 return (
-                                    <span class="tag"><a href={`/archive/topics/${category.slug}`} class="is-categories taxo__link" data-dir="ltr"><span class="taxo__text">{category.name}</span>&nbsp;<span class="taxo__num" dir="auto">{category.count}</span></a></span>
+                                    <span class="tag"><a href={category.path} class="is-categories taxo__link" data-dir="ltr"><span class="taxo__text">{category.label}</span>&nbsp;<span class="taxo__num" dir="auto">{category.count}</span></a></span>
                                 )
                             })
                         }
@@ -184,14 +178,14 @@ const { show = true, overlap = false, search = null } = Astro.props;
             )
         }
         {
-            tags.length > 0 && (
+            taxonomies.tags.length > 0 && (
                 <div class="taxo">
                     <section>
                         <span class="title p2"><a href="/archive/tags" class="taxo__title">Tags</a></span>
                         {
-                            tags.map(tag => {
+                            taxonomies.tags.map(tag => {
                                 return (
-                                    <span class="tag"><a href={`/archive/tags/${tag.slug}`} class="is-tags taxo__link" data-dir="ltr"><span class="taxo__text">{tag.name}</span>&nbsp;<span class="taxo__num" dir="auto">{tag.count}</span></a></span>
+                                    <span class="tag"><a href={tag.path} class="is-tags taxo__link" data-dir="ltr"><span class="taxo__text">{tag.label}</span>&nbsp;<span class="taxo__num" dir="auto">{tag.count}</span></a></span>
                                 )
                             })
                         }

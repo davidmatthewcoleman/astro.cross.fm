@@ -2,10 +2,12 @@
 import Sidebar from "../../components/Sidebar.astro";
 import BannerLayout from "../../layouts/BannerLayout.astro";
 import { singlePageQuery } from "../../lib/api.js";
-import { format } from "date-fns";
+import { getCollection } from "cross:content";
 
-const { pages } = await singlePageQuery( 'about' );
-const page = pages.nodes[0];
+const page = await getCollection('pages', {
+    first: 1,
+    slug: 'about'
+});
 
 Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
 ---
@@ -37,7 +39,7 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
         </nav>
         <section class="page main">
             <h2 class="single__title" set:html={page?.title}></h2>
-            <article class="single__contents" data-dir="ltr" set:html={page?.content}></article>
+            <article class="single__contents" data-dir="ltr" set:html={page?.content.full}></article>
             <footer class="single__footer"></footer>
         </section>
     </div>

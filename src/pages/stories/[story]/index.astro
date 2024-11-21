@@ -2,17 +2,22 @@
 import Sidebar from "../../../components/Sidebar.astro";
 import MainLayout from "../../../layouts/MainLayout.astro";
 import { singleStoryQuery, allStorySlugsQuery } from "../../../lib/api.js";
+import { getCollection } from "cross:content";
 import { formatInteger } from "../../../lib/utils.js";
 import {format} from "date-fns";
 import Picture from "../../../components/Picture";
 
-const data = await singleStoryQuery(Astro.params.slug);
-const story = data.stories.nodes[0];
+const story = await getCollection('stories', {
+    first: 1,
+    slug: Astro.params.story
+});
+
+console.log('storyData?:', Astro.params.story);
 
 export async function getStaticPaths() {
-    const data = await allStorySlugsQuery();
-    const paths = data?.stories.nodes.map(story => ({
-        params: { slug: story.slug }
+    const data = await getCollection('stories');
+    const paths = data?.stories.map(story => ({
+        params: { story: story.slug }
     }));
 
     return paths;
@@ -20,7 +25,7 @@ export async function getStaticPaths() {
 
 Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
 ---
-<MainLayout title={`${story?.name} – CROSS`} description={story?.description}>
+<MainLayout title={`${story?.title} – CROSS`} description={story?.content.summary}>
     <style>
         @media screen and (max-width: 959px) {
             .story__header {
@@ -29,15 +34,15 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
         }
     </style>
     {
-        story?.images[0]?.background.sourceUrl && (
+        story?.content.images.background && (
             <div class="banner summary-blur__image-wrapper">
                 <Picture
-                    alt={story?.name}
+                    alt={story?.title}
                     className="summary-blur__image"
                     source={
                         {
                             '(max-width: 959px)': {
-                                media: story?.images[0]?.background,
+                                media: story?.content.images.background,
                                 params: {
                                     'width': 360,
                                     'height': 196,
@@ -47,7 +52,7 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                                 }
                             },
                             '(min-width: 960px)': {
-                                media: story?.images[0]?.background,
+                                media: story?.content.images.background,
                                 params: {
                                     'width': 960,
                                     'height': 196,
@@ -70,18 +75,18 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                     <a href="/stories">Stories</a>
                 </li>
                 <li class="is-active">
-                    <span set:html={story?.name}></span>
+                    <span set:html={story?.title}></span>
                 </li>
             </ol>
         </nav>
         <header class="list__header story__header">
             <Picture
-                alt={story?.name}
+                alt={story?.title}
                 className="summary-cover__image"
                 source={
                     {
                         '(max-width: 959px)': {
-                            media: story?.images[0]?.banner,
+                            media: story?.content.images.banner,
                             params: {
                                 'width': 1200,
                                 'height': 600,
@@ -89,7 +94,7 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                             }
                         },
                         '(min-width: 960px)': {
-                            media: story?.images[0]?.cover,
+                            media: story?.content.images.cover,
                             params: {
                                 'width': 128,
                                 'height': 192,
@@ -100,21 +105,21 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                 }
             />
             <div>
-                <h5 class="list__header--title capitalize h5" set:html={story?.name}></h5>
-                <div set:html={story?.description} style="color:#fff;"></div>
+                <h5 class="list__header--title capitalize h5" set:html={story?.title}></h5>
+                <div set:html={story?.content.summary} style="color:#fff;"></div>
             </div>
         </header>
         <div class="summary__container" data-display="block">
             <ul class="chapter__list">
                 {
-                    story?.chapters.nodes.map((chapter) => (
+                    story?.content.chapters.list.map((chapter) => (
                         <li>
                             <span class="chapter__title">
-                                <a href={`/stories/${story?.slug}/${chapter?.slug}`} set:html={chapter?.title}></a>
+                                <a href={chapter?.path} set:html={chapter?.title}></a>
                             </span>
                             <span class="chapter__meta">
-                                <span class="chapter__words">{formatInteger(chapter?.wordCount)} words</span>
-                                <span class="chapter__published">{format(chapter?.date, 'MMM. d, yyyy')}</span>
+                                <span class="chapter__words">{chapter?.wordCount.formatted} words</span>
+                                <span class="chapter__published">{chapter?.date.formatted}</span>
                             </span>
                         </li>
                     ))

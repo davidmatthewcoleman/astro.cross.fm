@@ -1,8 +1,8 @@
 ---
 import { heroQuery } from "../lib/api.js";
 import Picture from "./Picture";
-const data = await heroQuery();
-const hero = data.hero;
+import { getCollection } from "cross:content";
+const hero = await getCollection('hero');
 ---
 
 <header class="header">
@@ -13,7 +13,7 @@ const hero = data.hero;
             source={
                 {
                     '(max-width: 959px)': {
-                        media: hero.bannerImage,
+                        media: hero.banner,
                         params: {
                             'width': 360,
                             'height': 196,
@@ -21,7 +21,7 @@ const hero = data.hero;
                         }
                     },
                     '(min-width: 960px)': {
-                        media: hero.bannerImage,
+                        media: hero.banner,
                         params: {
                             'width': 960,
                             'height': 196,
@@ -41,7 +41,7 @@ const hero = data.hero;
                             source={
                                 {
                                     '(max-width: 959px)': {
-                                        media: hero.profileImage,
+                                        media: hero.profile.photo,
                                         params: {
                                             'width': 96,
                                             'height': 96,
@@ -49,7 +49,7 @@ const hero = data.hero;
                                         }
                                     },
                                     '(min-width: 960px)': {
-                                        media: hero.profileImage,
+                                        media: hero.profile.photo,
                                         params: {
                                             'width': 128,
                                             'height': 128,
@@ -62,7 +62,7 @@ const hero = data.hero;
                     </div>
                 </div>
                 <div>
-                    <strong>{hero.name}</strong>
+                    <strong>{hero.profile.name}</strong>
                     <span>
                         <svg class="icon" width="16" height="16" role="img">
                             <use href="#icon-bluesky-alt"/>
