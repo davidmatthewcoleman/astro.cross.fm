@@ -168,8 +168,8 @@ export function BookGrid({ book }) {
 export function BookCard({book}) {
     const { title, description, url, author, published, added, status, site, cover } = book;
 
-    const width = cover.mediaDetails.width;
-    const height = cover.mediaDetails.height;
+    const width = cover.dimensions.width;
+    const height = cover.dimensions.height;
     const ratio = width / height;
 
     const imageWidth = 196;

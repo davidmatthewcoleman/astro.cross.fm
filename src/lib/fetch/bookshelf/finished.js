@@ -16,28 +16,34 @@ async function fetchFinishedGoodreadsBooks() {
             url: `https://www.goodreads.com/book/show/${book.id}`,
             author: book.author,
             cover: {
-                sourceUrl: book.imageURL,
-                mediaDetails: {
+                filename: new URL(book.imageURL).pathname.split('/').at(-1),
+                source: book.imageURL,
+                dominantColor: null,
+                dimensions: {
                     width: 128,
-                    height: 128,
-                    x: 0.5,
-                    y: 0.5,
-                    color: null
+                    height: 128
                 },
+                focalPoint: {
+                    x: 0.5,
+                    y: 0.5
+                }
             },
             added: new Date(book.dateAdded).toISOString(),
             published: new Date(book.datePublished).toISOString(),
             site: {
                 domain: 'goodreads.com',
                 icon: {
-                    sourceUrl: 'https://www.goodreads.com/favicon.ico',
-                    mediaDetails: {
+                    filename: 'favicon.ico',
+                    source: 'https://www.goodreads.com/favicon.ico',
+                    dominantColor: null,
+                    dimensions: {
                         width: 18,
-                        height: 18,
-                        x: 0.5,
-                        y: 0.5,
-                        color: null
+                        height: 18
                     },
+                    focalPoint: {
+                        x: 0.5,
+                        y: 0.5
+                    }
                 }
             },
             status: 'read'
@@ -63,28 +69,34 @@ async function fetchFinishedFanfictionBooks() {
             url: bookData.source,
             author: bookData.author,
             cover: {
-                sourceUrl: cover,
-                mediaDetails: {
+                filename: new URL(cover).pathname.split('/').at(-1),
+                source: cover,
+                dominantColor: null,
+                dimensions: {
                     width: 128,
-                    height: 128,
-                    x: 0.5,
-                    y: 0.5,
-                    color: null
+                    height: 128
                 },
+                focalPoint: {
+                    x: 0.5,
+                    y: 0.5
+                }
             },
             added: new Date(book.created).toISOString(),
             published: new Date(bookData.date * 1000).toISOString(),
             site: {
                 domain: 'fanfiction.net',
                 icon: {
-                    sourceUrl: 'https://i.ibb.co/w0ZLW8s/ff-icon-180.png',
-                    mediaDetails: {
+                    filename: 'ff-icon-180.png',
+                    source: 'https://i.ibb.co/w0ZLW8s/ff-icon-180.png',
+                    dominantColor: null,
+                    dimensions: {
                         width: 18,
-                        height: 18,
-                        x: 0.5,
-                        y: 0.5,
-                        color: null
+                        height: 18
                     },
+                    focalPoint: {
+                        x: 0.5,
+                        y: 0.5
+                    }
                 }
             },
             status: 'read'
@@ -110,28 +122,34 @@ async function fetchFinishedFimfictionBooks() {
             url: story.meta.url,
             author: author.attributes.name,
             cover: {
-                sourceUrl: cover,
-                mediaDetails: {
+                filename: new URL(cover).pathname.split('/').at(-1),
+                source: cover,
+                dominantColor: null,
+                dimensions: {
                     width: 128,
-                    height: 128,
-                    x: 0.5,
-                    y: 0.5,
-                    color: null
+                    height: 128
                 },
+                focalPoint: {
+                    x: 0.5,
+                    y: 0.5
+                }
             },
             added: new Date(book.attributes.date_added).toISOString(),
             published: new Date(story.attributes.date_published).toISOString(),
             site: {
                 domain: 'fimfiction.net',
                 icon: {
-                    sourceUrl: 'https://static.fimfiction.net/images/favicon.png',
-                    mediaDetails: {
+                    filename: 'favicon.png',
+                    source: 'https://static.fimfiction.net/images/favicon.png',
+                    dominantColor: null,
+                    dimensions: {
                         width: 18,
-                        height: 18,
-                        x: 0.5,
-                        y: 0.5,
-                        color: null
+                        height: 18
                     },
+                    focalPoint: {
+                        x: 0.5,
+                        y: 0.5
+                    }
                 }
             },
             status: 'read'

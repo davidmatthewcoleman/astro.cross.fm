@@ -15,7 +15,7 @@ export function fetchPicture(data, remote = false) {
             continue;
         }
 
-        const imageUrl = filename || source;
+        const imageUrl = source;
         const transformParams = {
             width: params.width,
             height: params.height || null,
