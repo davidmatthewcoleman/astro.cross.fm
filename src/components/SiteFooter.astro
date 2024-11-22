@@ -1,7 +1,6 @@
 ---
-import { wpVersionQuery } from "../lib/api.js";
-const data = await wpVersionQuery();
-const wp = data.wp;
+import { getFooter } from "cross:content";
+const { wp } = await getFooter();
 
 let ver = Astro.generator.replace('Astro v', '').split('-')[0];
 if ( Astro.generator.toLowerCase().includes('rc') || Astro.generator.toLowerCase().includes('release candidate') ) {

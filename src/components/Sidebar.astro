@@ -1,15 +1,11 @@
 ---
-import { navQuery, sidebarQuery } from "../lib/api.js";
-import { format } from "date-fns";
 import SearchForm from "./Search.astro";
 import Picture from "./Picture.jsx";
 import Status from "./StatusAlt.jsx";
 import { getContent } from "cross:content";
 
 const primaryMenu = await getContent('navigation');
-
 const { profile, content, taxonomies } = await getContent('sidebar');
-
 const { show = true, overlap = false, search = null } = Astro.props;
 ---
 

@@ -1,7 +1,6 @@
 ---
 import Sidebar from "../../../components/Sidebar.astro";
 import MainLayout from "../../../layouts/MainLayout.astro";
-import { allTagsQuery } from "../../../lib/api.js";
 import { getContent } from "cross:content";
 
 const tags = await getContent('tags');

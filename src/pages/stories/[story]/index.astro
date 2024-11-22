@@ -3,8 +3,6 @@ import Sidebar from "../../../components/Sidebar.astro";
 import MainLayout from "../../../layouts/MainLayout.astro";
 import { singleStoryQuery, allStorySlugsQuery } from "../../../lib/api.js";
 import { getContent } from "cross:content";
-import { formatInteger } from "../../../lib/utils.js";
-import {format} from "date-fns";
 import Picture from "../../../components/Picture";
 
 const story = await getContent('stories', {

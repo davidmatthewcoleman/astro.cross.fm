@@ -1,7 +1,6 @@
 ---
 import Sidebar from "../../../components/Sidebar.astro";
 import MainLayout from "../../../layouts/MainLayout.astro";
-import { allSeriesQuery } from "../../../lib/api.js";
 import { getContent } from "cross:content";
 
 const allSeries = await getContent('series');

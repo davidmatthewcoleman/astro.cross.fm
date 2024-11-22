@@ -9,7 +9,8 @@ import {
     singleTopicQuery,
     singleTagQuery,
     singleChapterQuery,
-    headQuery
+    headQuery,
+    wpVersionQuery
 } from './api';
 import HTMLReactParser from "html-react-parser";
 import { format } from "date-fns";
@@ -176,6 +177,7 @@ const posts = async (first = null, after = null, slug = null, series = null, top
                 full: post.content ? Parse(post.content) : null,
                 toc: post.toc ? Parse(post.toc) : false,
                 thumbnail: post.featuredImage && post.featuredImage.node ? {
+                    mimeType: String(post.featuredImage.node.mimeType),
                     filename: post.featuredImage.node.sourceUrl ? String(new URL(post.featuredImage.node.sourceUrl).pathname.split('/').at(-1)) : null,
                     source: post.featuredImage.node.sourceUrl ? String(post.featuredImage.node.sourceUrl) : null,
                     dominantColor: post.featuredImage.node.mediaDetails.color ? String(post.featuredImage.node.mediaDetails.color) : null,
@@ -504,6 +506,11 @@ const head = async (path) => {
     return data.head;
 }
 
+const footer = async () => {
+    const data = await wpVersionQuery();
+    return data;
+}
+
 /**
  * @param {string} collection
  * @param {{
@@ -563,4 +570,8 @@ const getHead = async (path) => {
     return await head(path);
 }
 
-export { getContent, getHead }
+const getFooter = async () => {
+    return await footer();
+}
+
+export { getContent, getHead, getFooter }

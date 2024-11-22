@@ -1,33 +1,32 @@
 import rss from '@astrojs/rss';
-import { blogQuery } from '../lib/api.js';
+import { getContent } from 'cross:content';
 
 export async function GET(context) {
-    const data = await blogQuery(9999);
-    const posts = data.posts.edges;
+    const { posts } = await getContent('posts');
 
     return rss({
         title: 'CROSS’s Blog',
         description: "I'm the adventurer of pixels, the architect of code, and the dreamer behind the keyboard.",
         site: 'https://crossrambles.com',
         xmlns: {
-            media: "http://search.yahoo.com/mrss/",
+            media: "https://search.yahoo.com/mrss/",
         },
-        items: posts.map(({ node: post }) => {
+        items: posts.map((post) => {
             const item = {
                 title: post.title,
-                pubDate: post.date,
+                pubDate: post.date.raw,
                 author: 'howdy@crossrambles.com (CROSS)',
-                description: post.excerpt,
-                link: `/blog/${post.series}/${post.slug}/`,
+                description: post.content.excerpt,
+                link: post.path,
             };
 
-            if (post.featuredImage) {
+            if (post.content.thumbnail) {
                 item.customData = `<media:content
-                    type="${post.featuredImage.node.mimeType}"
-                    width="${post.featuredImage.node.mediaDetails.width}"
-                    height="${post.featuredImage.node.mediaDetails.height}"
+                    type="${post.content.thumbnail.mimeType}"
+                    width="${post.content.thumbnail.dimensions.width}"
+                    height="${post.content.thumbnail.dimensions.height}"
                     medium="image"
-                    url="${post.featuredImage.node.sourceUrl}" />`;
+                    url="${post.content.thumbnail.source}" />`;
             }
 
             return item;

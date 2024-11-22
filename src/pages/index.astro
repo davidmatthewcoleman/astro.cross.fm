@@ -2,7 +2,6 @@
 import Sidebar from "../components/Sidebar.astro";
 import HomeLayout from "../layouts/HomeLayout.astro";
 import { getContent } from "cross:content";
-import { format } from "date-fns";
 
 const page = await getContent('pages', {
 	first: 1,

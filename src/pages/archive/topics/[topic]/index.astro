@@ -2,7 +2,6 @@
 import Sidebar from "../../../../components/Sidebar.astro";
 import MainLayout from "../../../../layouts/MainLayout.astro";
 import PostSummary from "../../../../components/PostSummary.astro";
-import { topicQuery, singleTopicQuery, allTopicSlugsQuery } from "../../../../lib/api.js";
 import { getContent } from "cross:content";
 
 const topic = await getContent('topics', {
