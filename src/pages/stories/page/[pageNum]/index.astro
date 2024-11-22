@@ -59,8 +59,8 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
             </ol>
         </nav>
         <div class="summary__container" data-display="block">
-            {posts.map(({ node }) => (
-                <StorySummary data={node}></StorySummary>
+            {posts.map((post) => (
+                <StorySummary data={post}></StorySummary>
             ))}
             <hr class="hr-slash nav-hr">
             <nav class="pagination-single">
