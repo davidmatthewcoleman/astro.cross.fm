@@ -12,8 +12,6 @@ const story = await getCollection('stories', {
     slug: Astro.params.story
 });
 
-console.log('storyData?:', Astro.params.story);
-
 export async function getStaticPaths() {
     const data = await getCollection('stories');
     const paths = data?.stories.map(story => ({

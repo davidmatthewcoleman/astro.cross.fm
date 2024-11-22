@@ -4,11 +4,10 @@ import MainLayout from "../../layouts/MainLayout.astro";
 import { singlePageQuery, allPageSlugsQuery } from "../../lib/api.js";
 import { getCollection } from "cross:content";
 
-const { pages } = await getCollection('pages', {
+const page = await getCollection('pages', {
     first: 1,
     slug: Astro.params.slug
 });
-const page = pages.nodes[0];
 
 export async function getStaticPaths() {
     const data = await getCollection('pages');
