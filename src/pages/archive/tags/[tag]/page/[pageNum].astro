@@ -39,7 +39,7 @@ if (pageNum > 1) {
 
 export async function getStaticPaths() {
     const data = await getContent('tags');
-    const defaultPages = 5; // Define a default number of pages for pagination
+    const defaultPages = Math.ceil( data.length / 10 );
 
     let paths = [];
 
