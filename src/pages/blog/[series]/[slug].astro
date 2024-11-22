@@ -27,7 +27,7 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
 
 <MainLayout title={`${post?.title} – CROSS`} description={post?.content.excerpt}>
     {
-        post?.featuredImage && (
+        post?.content.thumbnail && (
             <div class="banner summary-blur__image-wrapper">
                 <Picture
                         alt={post?.title}

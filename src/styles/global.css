@@ -15436,6 +15436,15 @@ body::after {
     font-size: 14px !important;
 }
 
+@media screen and (max-width: 959px) {
+    .story__header {
+        margin: 0 1rem !important;
+    }
+    .chapter__list:not(.chapter__list--single) {
+        display: none !important;
+    }
+}
+
 .has-text-align-center {
     text-align: center !important;
 }
@@ -15967,9 +15976,10 @@ body {
     @apply bg-white/5;
 }
 
-
-.summary-classic__image-wrapper--story {
-    aspect-ratio: 2/3 !important;
+@media screen and (min-width: 960px) {
+    .summary-classic__image-wrapper--story {
+        aspect-ratio: 2/3 !important;
+    }
 }
 
 .list__header--story {
