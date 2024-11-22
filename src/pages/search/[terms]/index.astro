@@ -2,12 +2,13 @@
 import Sidebar from "../../../components/Sidebar.astro";
 import MainLayout from "../../../layouts/MainLayout.astro";
 import PostSummary from "../../../components/PostSummary.astro";
-import { getContent } from "cross:content";
+import { getContent } from "../../../lib/content-layer";
 
 // Define the number of posts per page
 const postsPerPage = 10;
 const pageNum = parseInt(Astro.params.pageNum) || 1;
-const search = Astro.params.search.replace('+', ' ') || "";
+const terms = Astro.params.terms;
+const search = terms.replace('+', ' ') || "";
 
 // Fetch the initial page of posts
 const initialData = await getContent('posts', {
@@ -44,7 +45,7 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
         <nav class="breadcrumb" aria-label="breadcrumbs">
             <ol>
                 <li>
-                    <a href="/">Home</a>
+                    <a href="/public">Home</a>
                 </li>
                 <li>
                     <a href="/search">Search</a>
@@ -55,13 +56,28 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
             </ol>
         </nav>
         <div class="summary__container" data-display="block">
-            {posts.map(({ node }) => (
-                    <PostSummary data={node}></PostSummary>
-            ))}
+            {posts.length > 0 ? (
+                posts.map((post) => (
+                    <PostSummary data={post}></PostSummary>
+                ))
+            ) : (
+                <>
+                    <h1 class="error__title">Sorry, looks like there&apos;s nothing here.</h1>
+                    <style is:inline>
+                        .error__title {
+                            font-size: 2rem;
+                            font-weight: 700;
+                            text-align: center;
+                            color: #9FAD54;
+                            margin: 1.5rem 0;
+                        }
+                    </style>
+                </>
+            )}
             <hr class="hr-slash nav-hr">
             <nav class="pagination-single">
                 {pageNum > 1 && (
-                        <a href={pageNum - 1 === 1 ? '/blog' : `/blog/page/${pageNum - 1}`} class="pagination-single__left">
+                        <a href={pageNum - 1 === 1 ? `/search/${terms}` : `/search/${terms}/page/${pageNum - 1}`} class="pagination-single__left">
                             <div class="pagination-single__icon">
                                 <svg class="icon" width="25" height="25" role="img">
                                     <use href="#icon-nav-left"></use>
@@ -72,7 +88,7 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                 )}
                 <div class="grow"></div>
                 {hasNextPage && (
-                        <a href={`/blog/page/${pageNum + 1}`} class="pagination-single__right">
+                        <a href={`/search/${terms}/page/${pageNum + 1}`} class="pagination-single__right">
                             <div class="pagination-single__right-title">Older Entries</div>
                             <div class="pagination-single__icon">
                                 <svg class="icon" width="25" height="25" role="img">
@@ -84,5 +100,5 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
             </nav>
         </div>
     </div>
-    <Sidebar />
+    <Sidebar search={search} />
 </MainLayout>
