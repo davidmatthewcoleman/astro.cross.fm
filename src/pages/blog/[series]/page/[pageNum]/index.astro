@@ -52,7 +52,7 @@ export async function getStaticPaths() {
             }
         });
 
-    return paths;
+    return paths.filter((path) => path.params.pageNum !== '1');
 }
 
 Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
