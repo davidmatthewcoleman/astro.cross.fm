@@ -10,7 +10,7 @@ const topic = await getContent('topics', {
 
 // Define the number of posts per page
 const postsPerPage = 10;
-const pageNum = parseInt(Astro.params.pageNum) || 1;
+const pageNum = parseInt(Astro.params.pageNum || 1);
 
 // Fetch the initial page of posts
 const initialData = await getContent('posts', {
@@ -38,19 +38,29 @@ if (pageNum > 1) {
 }
 
 export async function getStaticPaths() {
-    const data = await getContent('topics');
-    const totalTags = data.length;
-    const defaultPages = Math.ceil( totalTags / 10 );
-
+    const topics = await getContent('topics'); // Assuming this fetches all topics
+    const postsPerPage = 10; // Set your posts per page
     let paths = [];
 
-    data.forEach(category => {
-        for (let i = 0; i < defaultPages; i++) {
-                paths.push({
-                    params: { topic: category.slug, pageNum: `${i + 1}` }
-                });
-            }
-        });
+    // Loop through each topic
+    for (const topic of topics) {
+        // Fetch posts for this specific topic
+        const { posts } = await getContent('posts', { topic: topic.slug });
+
+        // Calculate the number of pages based on the number of posts
+        const totalPages = Math.ceil(posts.length / postsPerPage);
+
+        // Generate paths for each page
+        for (let page = 1; page <= totalPages; page++) {
+            const path = {
+                params: {
+                    topic: topic.slug,
+                    pageNum: `${page}`, // Only add pageNum if it's greater than 1
+                },
+            };
+            paths.push(path);
+        }
+    }
 
     return paths.filter((path) => path.params.pageNum !== '1');
 }

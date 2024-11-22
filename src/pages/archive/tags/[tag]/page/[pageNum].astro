@@ -38,18 +38,29 @@ if (pageNum > 1) {
 }
 
 export async function getStaticPaths() {
-    const data = await getContent('tags');
-    const defaultPages = Math.ceil( data.length / 10 );
-
+    const tags = await getContent('tags'); // Assuming this fetches all topics
+    const postsPerPage = 10; // Set your posts per page
     let paths = [];
 
-    data.forEach(tag => {
-        for (let i = 0; i < defaultPages; i++) {
-            paths.push({
-                params: { tag: tag.slug, pageNum: `${i + 1}` }
-            });
+    // Loop through each topic
+    for (const tag of tags) {
+        // Fetch posts for this specific topic
+        const { posts } = await getContent('posts', { tag: tag.slug });
+
+        // Calculate the number of pages based on the number of posts
+        const totalPages = Math.ceil(posts.length / postsPerPage);
+
+        // Generate paths for each page
+        for (let page = 1; page <= totalPages; page++) {
+            const path = {
+                params: {
+                    tag: tag.slug,
+                    pageNum: `${page}`, // Only add pageNum if it's greater than 1
+                },
+            };
+            paths.push(path);
         }
-    });
+    }
 
     return paths.filter((path) => path.params.pageNum !== '1');
 }
