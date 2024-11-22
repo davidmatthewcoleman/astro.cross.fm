@@ -3,14 +3,14 @@ import Sidebar from "../../../../components/Sidebar.astro";
 import MainLayout from "../../../../layouts/MainLayout.astro";
 import PostSummary from "../../../../components/PostSummary.astro";
 import { blogQuery, allPostSlugsQuery } from "../../../../lib/api.js";
-import { getCollection } from "../../../../lib/content-layer";
+import { getContent } from "../../../../lib/content-layer";
 
 // Define the number of posts per page
 const postsPerPage = 10;
 const pageNum = parseInt(Astro.params.pageNum) || 1;
 
 // Fetch the initial page of posts
-const initialData = await getCollection('posts', {
+const initialData = await getContent('posts', {
     first: postsPerPage
 });
 let posts = initialData.posts;
@@ -21,7 +21,7 @@ let hasNextPage = initialData.paginate.nextPage;
 if (pageNum > 1) {
     for (let i = 1; i < pageNum; i++) {
         if (hasNextPage) {
-            const data = await getCollection('posts', {
+            const data = await getContent('posts', {
                 first: postsPerPage,
                 after: endCursor
             });
@@ -33,7 +33,7 @@ if (pageNum > 1) {
 }
 
 export async function getStaticPaths() {
-    const data = await getCollection('posts');
+    const data = await getContent('posts');
     const totalPosts = data?.paginate.totalPosts;
     const totalPages = Math.ceil(totalPosts / 10);
 

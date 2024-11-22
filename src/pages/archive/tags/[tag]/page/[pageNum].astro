@@ -3,9 +3,9 @@ import Sidebar from "../../../../../components/Sidebar.astro";
 import MainLayout from "../../../../../layouts/MainLayout.astro";
 import PostSummary from "../../../../../components/PostSummary.astro";
 import { tagQuery, singleTagQuery, allTagSlugsQuery } from "../../../../../lib/api.js";
-import { getCollection } from "cross:content";
+import { getContent } from "cross:content";
 
-const tag = await getCollection('tags', {
+const tag = await getContent('tags', {
     slug: Astro.params.tag
 });
 
@@ -14,7 +14,7 @@ const postsPerPage = 10;
 const pageNum = parseInt(Astro.params.pageNum) || 1;
 
 // Fetch the initial page of posts
-const initialData = await getCollection('posts', {
+const initialData = await getContent('posts', {
     first: postsPerPage,
     tag: Astro.params.tag
 });
@@ -26,7 +26,7 @@ let hasNextPage = initialData.paginate.nextPage;
 if (pageNum > 1) {
     for (let i = 1; i < pageNum; i++) {
         if (hasNextPage) {
-            const data = await getCollection('posts', {
+            const data = await getContent('posts', {
                 first: postsPerPage,
                 after: endCursor,
                 tag: Astro.params.tag
@@ -39,7 +39,7 @@ if (pageNum > 1) {
 }
 
 export async function getStaticPaths() {
-    const data = await getCollection('tags');
+    const data = await getContent('tags');
     const defaultPages = 5; // Define a default number of pages for pagination
 
     let paths = [];

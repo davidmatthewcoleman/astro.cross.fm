@@ -1,14 +1,14 @@
 ---
 import Sidebar from "../components/Sidebar.astro";
 import HomeLayout from "../layouts/HomeLayout.astro";
-import { getCollection } from "cross:content";
+import { getContent } from "cross:content";
 import { format } from "date-fns";
 
-const page = await getCollection('pages', {
+const page = await getContent('pages', {
 	first: 1,
 	slug: 'home'
 });
-const post = await getCollection('posts', {
+const post = await getContent('posts', {
 	first: 1
 });
 

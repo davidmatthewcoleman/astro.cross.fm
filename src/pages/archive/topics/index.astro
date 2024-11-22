@@ -2,9 +2,9 @@
 import Sidebar from "../../../components/Sidebar.astro";
 import MainLayout from "../../../layouts/MainLayout.astro";
 import { allCategoriesQuery } from "../../../lib/api.js";
-import { getCollection } from "cross:content";
+import { getContent } from "cross:content";
 
-const categories = await getCollection('topics');
+const categories = await getContent('topics');
 
 Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
 ---

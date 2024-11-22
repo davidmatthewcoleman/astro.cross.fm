@@ -1,15 +1,15 @@
 ---
 import Sidebar from "../../../components/Sidebar.astro";
 import MainLayout from "../../../layouts/MainLayout.astro";
-import { getCollection } from "cross:content";
+import { getContent } from "cross:content";
 import Picture from "../../../components/Picture";
 
-const post = await getCollection('chapters', {
+const post = await getContent('chapters', {
     slug: Astro.params.chapter
 });
 
 export async function getStaticPaths() {
-    const data = await getCollection('chapters');
+    const data = await getContent('chapters');
     const paths = data.map(chapter => ({
         params: { story: chapter.story.slug, chapter: chapter.slug }
     }));

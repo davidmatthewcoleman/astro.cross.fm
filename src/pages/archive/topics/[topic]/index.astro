@@ -3,9 +3,9 @@ import Sidebar from "../../../../components/Sidebar.astro";
 import MainLayout from "../../../../layouts/MainLayout.astro";
 import PostSummary from "../../../../components/PostSummary.astro";
 import { topicQuery, singleTopicQuery, allTopicSlugsQuery } from "../../../../lib/api.js";
-import { getCollection } from "cross:content";
+import { getContent } from "cross:content";
 
-const topic = await getCollection('topics', {
+const topic = await getContent('topics', {
     slug: Astro.params.topic
 });
 
@@ -14,7 +14,7 @@ const postsPerPage = 10;
 const pageNum = parseInt(Astro.params.pageNum) || 1;
 
 // Fetch the initial page of posts
-const initialData = await getCollection('posts', {
+const initialData = await getContent('posts', {
     first: postsPerPage,
     topic: Astro.params.topic
 });
@@ -26,7 +26,7 @@ let hasNextPage = initialData.paginate.nextPage;
 if (pageNum > 1) {
     for (let i = 1; i < pageNum; i++) {
         if (hasNextPage) {
-            const data = await getCollection('posts', {
+            const data = await getContent('posts', {
                 first: postsPerPage,
                 after: endCursor,
                 topic: Astro.params.topic
@@ -39,7 +39,7 @@ if (pageNum > 1) {
 }
 
 export async function getStaticPaths() {
-    const data = await getCollection('topics');
+    const data = await getContent('topics');
     const paths = data.map(category => ({
         params: { topic: category.slug }
     }));

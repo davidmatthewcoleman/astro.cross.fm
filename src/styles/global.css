@@ -15416,6 +15416,25 @@ body::after {
     gap: 0.5em;
     margin-left: auto;
 }
+.chapter__list li .chapter__more {
+    flex-grow: 1;
+    padding: 0.1rem 0 !important;
+}
+.chapter__list li .chapter__more a {
+    display: block;
+    font-size: 16px !important;
+    text-align: center;
+}
+
+.chapter__list:not(.chapter__list--single) {
+    margin: 0.5rem 0 1.5rem !important;
+}
+.chapter__list:not(.chapter__list--single) li a {
+    font-size: 18px;
+}
+.chapter__list:not(.chapter__list--single) li .chapter__meta {
+    font-size: 14px !important;
+}
 
 .has-text-align-center {
     text-align: center !important;
@@ -15946,4 +15965,13 @@ body {
 
 .react-loading-skeleton {
     @apply bg-white/5;
+}
+
+
+.summary-classic__image-wrapper--story {
+    aspect-ratio: 2/3 !important;
+}
+
+.list__header--story {
+    text-align: left;
 }

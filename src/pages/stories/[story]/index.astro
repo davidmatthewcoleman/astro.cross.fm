@@ -2,18 +2,18 @@
 import Sidebar from "../../../components/Sidebar.astro";
 import MainLayout from "../../../layouts/MainLayout.astro";
 import { singleStoryQuery, allStorySlugsQuery } from "../../../lib/api.js";
-import { getCollection } from "cross:content";
+import { getContent } from "cross:content";
 import { formatInteger } from "../../../lib/utils.js";
 import {format} from "date-fns";
 import Picture from "../../../components/Picture";
 
-const story = await getCollection('stories', {
+const story = await getContent('stories', {
     first: 1,
     slug: Astro.params.story
 });
 
 export async function getStaticPaths() {
-    const data = await getCollection('stories');
+    const data = await getContent('stories');
     const paths = data?.stories.map(story => ({
         params: { story: story.slug }
     }));
@@ -103,12 +103,12 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                 }
             />
             <div>
-                <h5 class="list__header--title capitalize h5" set:html={story?.title}></h5>
+                <h5 class="list__header--title list__header--story capitalize h5" set:html={story?.title}></h5>
                 <div set:html={story?.content.summary} style="color:#fff;"></div>
             </div>
         </header>
         <div class="summary__container" data-display="block">
-            <ul class="chapter__list">
+            <ul class="chapter__list chapter__list--single">
                 {
                     story?.content.chapters.list.map((chapter) => (
                         <li>

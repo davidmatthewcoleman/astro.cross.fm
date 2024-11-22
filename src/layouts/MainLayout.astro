@@ -5,13 +5,10 @@ import "../styles/bookmarks.css";
 import SiteNav from "../components/SiteNav.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import Sprite from "../components/Sprite.astro";
-import { headQuery } from "../lib/api.js";
-import { getCollection } from "cross:content";
-const { head } = await headQuery('https://crossrambles.com' + Astro.url.pathname);
-const primaryMenu = await getCollection('navigation');
+import { getContent, getHead } from "cross:content";
 
-const { title, description } = Astro.props;
-
+const head = await getHead(Astro.url.pathname);
+const primaryMenu = await getContent('navigation');
 ---
 
 <html lang="en">

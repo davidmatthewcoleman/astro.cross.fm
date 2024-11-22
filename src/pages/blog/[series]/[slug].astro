@@ -5,18 +5,18 @@ import MainLayout from "../../../layouts/MainLayout.astro";
 import { singlePostQuery, singleSeriesQuery, allPostSlugsQuery } from "../../../lib/api.js";
 import { format } from "date-fns";
 import Parse from "html-react-parser";
-import { getCollection } from "cross:content";
+import { getContent } from "cross:content";
 
-const post = await getCollection('posts', {
+const post = await getContent('posts', {
     first: 1,
     slug: Astro.params.slug
 });
-const series = await getCollection('series', {
+const series = await getContent('series', {
     slug: Astro.params.series
 });
 
 export async function getStaticPaths() {
-    const data = await getCollection('posts');
+    const data = await getContent('posts');
     const paths = data.posts.map(post => ({
         params: { series: post.taxonomies.series.slug, slug: post.slug }
     }));

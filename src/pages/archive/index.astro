@@ -3,10 +3,10 @@ import Sidebar from "../../components/Sidebar.astro";
 import MainLayout from "../../layouts/MainLayout.astro";
 import { blogQuery } from "../../lib/api.js";
 import { format } from "date-fns";
-import { getCollection } from "cross:content";
+import { getContent } from "cross:content";
 
 // Fetch the initial page of posts
-const { posts } = await getCollection('posts');
+const { posts } = await getContent('posts');
 
 // Function to group posts by year
 function groupPostsByYear(posts) {

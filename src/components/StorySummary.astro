@@ -1,5 +1,6 @@
 ---
 import Picture from "./Picture";
+import Parse from "html-react-parser";
 const { data } = Astro.props;
 ---
 
@@ -7,7 +8,7 @@ const { data } = Astro.props;
     <div class="summary-classic__flex-box">
         {
             data.content.images.cover && (
-                <div class="summary-classic__image-container summary-classic__image-wrapper" data-position="right">
+                <div class="summary-classic__image-container summary-classic__image-wrapper summary-classic__image-wrapper--story" data-position="right">
                     <a href={data.path}>
                         <Picture
                                 alt={data?.title}
@@ -26,7 +27,7 @@ const { data } = Astro.props;
                                             media: data.content.images.cover,
                                             params: {
                                                 'width': 256,
-                                                'height': 256,
+                                                'height': 384,
                                                 'fit': 'crop'
                                             }
                                         }
@@ -48,5 +49,96 @@ const { data } = Astro.props;
             </div>
         </div>
     </div>
-    <hr>
+    {data.content.chapters.count > 2 && (
+            <ul class="chapter__list">
+                {
+                    data?.content.chapters.list.slice(0, 2).map((chapter) => (
+                            <li>
+                                    <span class="chapter__title">
+                                        <a href={chapter?.path} set:html={chapter?.title}></a>
+                                    </span>
+                                <span class="chapter__meta">
+                                        <span class="chapter__words">{chapter?.wordCount.formatted} words</span>
+                                        <span class="chapter__published">{chapter?.date.formatted}</span>
+                                    </span>
+                            </li>
+                    ))
+                }
+                {(
+                        <li>
+                                <span class="chapter__more">
+                                    <a href={data.path}>{Parse(`${(data.content.chapters.count - 2) ? `${(data.content.chapters.count - 2)} ` : ''}more chapters&hellip;`)}</a>
+                                </span>
+                        </li>
+                )}
+                {
+                    data?.content.chapters.list.slice(-1).map((chapter) => (
+                            <li>
+                                    <span class="chapter__title">
+                                        <a href={chapter?.path} set:html={chapter?.title}></a>
+                                    </span>
+                                <span class="chapter__meta">
+                                        <span class="chapter__words">{chapter?.wordCount.formatted} words</span>
+                                        <span class="chapter__published">{chapter?.date.formatted}</span>
+                                    </span>
+                            </li>
+                    ))
+                }
+            </ul>
+    )}
+    {data.content.chapters.count === 2 && (
+            <ul class="chapter__list">
+                {
+                    data?.content.chapters.list.slice(0, 1).map((chapter) => (
+                            <li>
+                                    <span class="chapter__title">
+                                        <a href={chapter?.path} set:html={chapter?.title}></a>
+                                    </span>
+                                <span class="chapter__meta">
+                                        <span class="chapter__words">{chapter?.wordCount.formatted} words</span>
+                                        <span class="chapter__published">{chapter?.date.formatted}</span>
+                                    </span>
+                            </li>
+                    ))
+                }
+                {/*(
+                    <li>
+                        <span class="chapter__more">
+                            <a href={data.path}>{Parse(`${(data.content.chapters.count - 2) ? `${(data.content.chapters.count - 2)} ` : ''}more chapters&hellip;`)}</a>
+                        </span>
+                    </li>
+                )*/}
+                {
+                    data?.content.chapters.list.slice(-1).map((chapter) => (
+                            <li>
+                                    <span class="chapter__title">
+                                        <a href={chapter?.path} set:html={chapter?.title}></a>
+                                    </span>
+                                <span class="chapter__meta">
+                                        <span class="chapter__words">{chapter?.wordCount.formatted} words</span>
+                                        <span class="chapter__published">{chapter?.date.formatted}</span>
+                                    </span>
+                            </li>
+                    ))
+                }
+            </ul>
+    )}
+    {data.content.chapters.count === 1 && (
+            <ul class="chapter__list">
+                {
+                    data?.content.chapters.list.map((chapter) => (
+                            <li>
+                                        <span class="chapter__title">
+                                            <a href={chapter?.path} set:html={chapter?.title}></a>
+                                        </span>
+                                <span class="chapter__meta">
+                                            <span class="chapter__words">{chapter?.wordCount.formatted} words</span>
+                                            <span class="chapter__published">{chapter?.date.formatted}</span>
+                                        </span>
+                            </li>
+                    ))
+                }
+            </ul>
+    )}
+    <!--<hr>-->
 </article>

@@ -8,7 +8,8 @@ import {
     singleSeriesQuery,
     singleTopicQuery,
     singleTagQuery,
-    singleChapterQuery
+    singleChapterQuery,
+    headQuery
 } from './api';
 import HTMLReactParser from "html-react-parser";
 import { format } from "date-fns";
@@ -241,7 +242,7 @@ const stories = async (first = 10, after = null, slug = null) => {
             content: {
                 summary: story.description ? Parse(story.description) : null,
                 chapters: {
-                    count: (story.count === typeof "number") ? Number(story.count) : 0,
+                    count: Number(story.count),
                     list: story.chapters.nodes.length > 0 ? story.chapters.nodes.map((chapter) => ({
                         title: chapter.title ? Parse(chapter.title) : null,
                         slug: chapter.slug ? String(chapter.slug) : null,
@@ -498,6 +499,11 @@ const tags = async (tag = null) => {
     return tag ? output[0] : output;
 }
 
+const head = async (path) => {
+    const data = await headQuery(`https://crossrambles.com${path}`);
+    return data.head;
+}
+
 /**
  * @param {string} collection
  * @param {{
@@ -510,7 +516,7 @@ const tags = async (tag = null) => {
  *   search?: string | null
  * }} [query]
  */
-const getCollection = async (collection, query = {
+const getContent = async (collection, query = {
     first: null,
     after: null,
     slug: null,
@@ -553,4 +559,8 @@ const getCollection = async (collection, query = {
     return result;
 }
 
-export { getCollection }
+const getHead = async (path) => {
+    return await head(path);
+}
+
+export { getContent, getHead }
