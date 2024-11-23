@@ -209,7 +209,7 @@ export function BookCard({book}) {
                className={`block bg-[#1D1F2E] !text-white hover:!text-[#D2C100] rounded-[6px] !no-underline overflow-hidden px-5 py-3`}>
                 <div className={`flex flex-row gap-4`}>
                     <div
-                        className="thumb flex items-center justify-center min-w-[100px] w-[100px] min-h-[100px] rounded-[6px] overflow-hidden">
+                        className="thumb flex items-center justify-center min-w-[72px] w-[72px] break:min-w-[100px] break:w-[100px] min-h-[100px] rounded-[6px] overflow-hidden">
                             <Picture
                                 remote={true}
                                 alt={Parse(title)}
@@ -275,24 +275,24 @@ export function BookCardLoader() {
                    className={`block bg-[#1D1F2E] !text-white rounded-[6px] !no-underline overflow-hidden px-5 py-3 [&_span]:block [&_span]:w-full`}>
                     <div className={`flex flex-row gap-4`}>
                         <div
-                            className="thumb flex items-center justify-center min-w-[100px] w-[100px] min-h-[100px] rounded-[6px] [&_span]:h-full">
-                            <Skeleton className={'w-full h-full rounded-[6px]'} inline={true} count={1} />
+                            className="thumb flex items-center justify-center min-w-[72px] break:min-w-[100px] min-h-[100px] rounded-[6px] [&_span]:h-full">
+                            <Skeleton className={'w-full h-full rounded-[6px] bg-white/10'} inline={true} count={1} />
                         </div>
                         <div className={`flex flex-col gap-2 flex-grow`}>
                             <div className="flex flex-row items-center gap-2">
-                                <Skeleton className={'!w-2/3 h-4 rounded-sm'} inline={true} count={1} />
+                                <Skeleton className={'!w-2/3 h-4 rounded-sm bg-white/10'} inline={true} count={1} />
                             </div>
                             <div className={`flex flex-col gap-y-2`}>
-                                <Skeleton className={'!w-full h-3 rounded-sm'} inline={true} count={1} />
-                                <Skeleton className={'!w-full h-3 rounded-sm'} inline={true} count={1} />
-                                <Skeleton className={'!w-1/2 h-3 rounded-sm'} inline={true} count={1} />
+                                <Skeleton className={'!w-full h-3 rounded-sm bg-white/10'} inline={true} count={1} />
+                                <Skeleton className={'!w-full h-3 rounded-sm bg-white/10'} inline={true} count={1} />
+                                <Skeleton className={'!w-1/2 h-3 rounded-sm bg-white/10'} inline={true} count={1} />
                             </div>
-                            <div className={`flex flex-row gap-1.5 text-white/50 text-xxs md:text-xs items-center mt-auto [&_span:nth-child(2)]:!w-32 [&_span:nth-child(3)]:!w-3`}>
+                            <div className={`flex flex-row gap-1.5 text-white/50 text-xxs md:text-xs items-center mt-auto [&_span:nth-child(2)]:!w-32 [&_span:nth-child(3)]:!w-3 [&_span:has(.favicon)]:hidden break:[&_span:has(.favicon)]:inline-flex`}>
                                 <span className={`flex-grow`}>
-                                    <Skeleton className={'!w-24 h-2.5 rounded-sm'} inline={true} count={1} />
+                                    <Skeleton className={'!w-16 break:!w-24 h-2.5 rounded-sm bg-white/10'} inline={true} count={1} />
                                 </span>
-                                <Skeleton className={'!w-32 h-2.5 rounded-sm'} inline={true} count={1} />
-                                <Skeleton className={'!w-3 h-3 rounded-sm'} inline={true} count={1} />
+                                <Skeleton className={'!w-20 break:!w-32 h-2.5 rounded-sm bg-white/10'} inline={true} count={1} />
+                                <Skeleton className={'favicon !w-3 h-3 rounded-sm bg-white/10'} inline={true} count={1} />
                             </div>
                         </div>
                     </div>

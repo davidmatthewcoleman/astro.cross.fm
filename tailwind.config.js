@@ -84,6 +84,9 @@ module.exports = {
       },
       backgroundImage: {
         'gradient-skeleton': `linear-gradient(90deg, transparent 600px, white 50%, transparent calc(100% - 600px))`
+      },
+      screens: {
+        break: '960px'
       }
     },
   },
