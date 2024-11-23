@@ -11461,6 +11461,7 @@ input:checked + .slider:before {
     -moz-flex-wrap: wrap;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
+    gap: 6px;
 }
 .single__info {
     display: -ms-flexbox !important;
@@ -14574,7 +14575,7 @@ table:not(.lntable) td code {
 .single__infos > * + *:before {
     content: "\00b7";
     position: relative;
-    bottom: 2px;
+    bottom: 1px;
     margin: 0 0.65em 0 0.35em;
     float: left;
 }
