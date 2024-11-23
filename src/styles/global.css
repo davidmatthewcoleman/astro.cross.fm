@@ -11286,8 +11286,12 @@ input:checked + .slider:before {
     font-family: montserrat, sans-serif;
 }
 .list__header--title {
-    padding-top: 1rem;
     text-align: center;
+}
+@media screen and (min-width: 960px) {
+    .list__header--title {
+        padding-top: 1rem;
+    }
 }
 .theme__dark .list__header--title {
     color: #fcfcfa;
@@ -15392,6 +15396,7 @@ body::after {
 @media screen and (max-width: 959px) {
     .story__header .summary-cover__image {
         aspect-ratio: 16/9 !important;
+        margin-bottom: -0.75rem;
     }
 }
 .story__header > div h5 {
@@ -15455,7 +15460,7 @@ body::after {
 
 @media screen and (max-width: 959px) {
     .story__header {
-        margin: 0 1rem !important;
+        margin: 1rem 0 0 !important;
     }
     .chapter__list:not(.chapter__list--single) {
         display: none !important;

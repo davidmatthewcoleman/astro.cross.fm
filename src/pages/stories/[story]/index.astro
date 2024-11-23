@@ -1,7 +1,6 @@
 ---
 import Sidebar from "../../../components/Sidebar.astro";
 import MainLayout from "../../../layouts/MainLayout.astro";
-import { singleStoryQuery, allStorySlugsQuery } from "../../../lib/api.js";
 import { getContent } from "cross:content";
 import Picture from "../../../components/Picture";
 
@@ -86,7 +85,7 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                             params: {
                                 'width': 1200,
                                 'height': 600,
-                                'fit': 'crop'
+                                'fit': 'cover'
                             }
                         },
                         '(min-width: 960px)': {
@@ -94,7 +93,7 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                             params: {
                                 'width': 128,
                                 'height': 192,
-                                'fit': 'crop'
+                                'fit': 'cover'
                             }
                         }
                     }
