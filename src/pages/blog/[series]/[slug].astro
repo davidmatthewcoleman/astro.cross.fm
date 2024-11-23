@@ -91,12 +91,12 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                         <svg class="icon" width="15" height="15" role="img">
                             <use href="#icon-calendar"></use>
                         </svg>
-                        &nbsp;{post?.date.formatted}
+                        {post?.date.formatted}
                     </time>
                     <span class="single__info">
                         <svg class="icon" width="15" height="15" role="img">
                             <use href="#icon-coffee"></use>
-                        </svg>&nbsp;
+                        </svg>
                         {Parse(post?.readingTime.formatted)}
                     </span>
                 </div>

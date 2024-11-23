@@ -11463,6 +11463,11 @@ input:checked + .slider:before {
     flex-wrap: wrap;
 }
 .single__info {
+    display: -ms-flexbox !important;
+    display: -webkit-flex !important;
+    display: flex !important;
+    align-items: center;
+    gap: 4px;
     word-break: keep-all;
     padding: 0 0.125rem;
 }
@@ -14562,7 +14567,7 @@ table:not(.lntable) td code {
 .summary-classic .subtitle > * + *:before {
     content: "\00b7";
     position: relative;
-    bottom: 2px;
+    bottom: 1px;
     margin: 0 0.5em;
     float: left;
 }
@@ -14630,8 +14635,19 @@ table:not(.lntable) td code {
 .summary-classic .subtitle time,
 .single__infos span,
 .single__infos time {
-    display: inline-block;
     line-height: 1.2;
+}
+.summary-classic .subtitle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+}
+.summary-classic .subtitle span,
+.summary-classic .subtitle time {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
 }
 .theme__hacker .summary-classic .subtitle svg,
 .single__infos svg,

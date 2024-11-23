@@ -50,7 +50,7 @@ const { data } = Astro.props;
                                 <svg class="icon" width="15" height="15" role="img">
                                     <use href="#icon-pin"></use>
                                 </svg>
-                                &nbsp;Pinned
+                                Pinned
                             </span>
                         )
                     }
@@ -58,13 +58,13 @@ const { data } = Astro.props;
                         <svg class="icon" width="15" height="15" role="img">
                             <use href="#icon-calendar"></use>
                         </svg>
-                        &nbsp;{data.date.formatted}
+                        {data.date.formatted}
                     </time>
                     <span dir="ltr">
                         <svg class="icon" width="15" height="15" role="img">
                             <use href="#icon-coffee"></use>
                         </svg>
-                        &nbsp;{Parse(data.readingTime.formatted)}
+                        {Parse(data.readingTime.formatted)}
                     </span>
                 </h6>
             </header>
