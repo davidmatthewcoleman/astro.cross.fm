@@ -96,17 +96,19 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
         </header>
         <section class="archive__inner">
             {/* Group sticky posts */}
-            <div class="archive__year" key="sticky">
-                <h4 class="archive__year">Pinned</h4>
-                <ul class="archive__list">
-                    {stickyPosts.map(post => (
-                        <li key={post.slug}>
-                            <a href={post.path}>{post.title}</a>
-                            <span class="post__date">{post.date.formatted}</span>
-                        </li>
-                    ))}
-                </ul>
-            </div>
+            {stickyPosts.length > 0 && (
+                <div class="archive__year" key="sticky">
+                    <h4 class="archive__year">Pinned</h4>
+                    <ul class="archive__list">
+                        {stickyPosts.map(post => (
+                                <li key={post.slug}>
+                                    <a href={post.path}>{post.title}</a>
+                                    <span class="post__date">{post.date.formatted}</span>
+                                </li>
+                        ))}
+                    </ul>
+                </div>
+            )}
             {/* Group regular posts by year */}
             {Object.keys(groupedPosts).reverse().map(year => (
                 <div class="archive__year" key={year}>
