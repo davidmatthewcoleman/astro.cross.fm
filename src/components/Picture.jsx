@@ -1,6 +1,6 @@
 import { fetchPicture } from "../lib/picture.js";
 
-export default function Picture( { remote = false, source, alt, className, style } ) {
+export default function Picture( { remote = false, source, alt, className, style = null } ) {
     const picture = fetchPicture(source, remote);
 
     return (

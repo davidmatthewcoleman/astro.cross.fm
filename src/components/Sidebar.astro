@@ -19,13 +19,6 @@ const { show = true, overlap = false, search = null } = Astro.props;
             </style>
         )
     }
-    { overlap === true && (
-        <style>
-            .list__sidebar {
-                margin-top: -189px;
-            }
-        </style>
-    )}
     <div class="sidebar">
         <SearchForm search={search} />
         <nav class="sidebar__nav">
@@ -34,6 +27,10 @@ const { show = true, overlap = false, search = null } = Astro.props;
             })}
         </nav>
         <style>
+            .list__sidebar {
+                -webkit-filter: drop-shadow(0 2px 4px rgba(0,0,0,.25));
+                filter: drop-shadow(0 2px 4px rgba(0,0,0,.25));
+            }
             .sidebar__nav {
                 margin: 12px 0 16px;
             }
@@ -47,7 +44,7 @@ const { show = true, overlap = false, search = null } = Astro.props;
             }
         </style>
         <section class="bio" data-dir="ltr">
-            <hr class="hr-slash bio-hr" style="-webkit-filter:drop-shadow(0 2px 4px rgba(0,0,0,.25));filter:drop-shadow(0 2px 4px rgba(0,0,0,.25));"/>
+            <hr class="hr-slash bio-hr"/>
             <div class="bio__photo-wrapper">
                 <Picture
                     alt={profile.name}

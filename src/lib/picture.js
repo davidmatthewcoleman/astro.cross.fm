@@ -15,11 +15,19 @@ export function fetchPicture(data, remote = false) {
             continue;
         }
 
+        const fpx = +focalPoint.x; // Coerce to number
+        const fpy = +focalPoint.y;
+        const offx = params.offset ? +params.offset[0] : 0;
+        const offy = params.offset ? +params.offset[1] : 0;
+        const offset = {
+            x: Math.min(Math.max(fpx + offx, 0), 1), // Ensure the result stays between 0 and 1
+            y: Math.min(Math.max(fpy + offy, 0), 1)
+        };
         const imageUrl = source;
         const transformParams = {
             width: params.width,
             height: params.height || null,
-            gravity: `${focalPoint.x}x${focalPoint.y}`,
+            gravity: `${offset.x.toFixed(2)}x${offset.y.toFixed(2)}`,
             ...params // Include any additional params directly from input, allowing for custom transformations
         };
 

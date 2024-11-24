@@ -5665,6 +5665,8 @@ code.has-jax {
 }
 .theme__hacker .search .icon {
     color: #727072;
+    -webkit-transform: scale(1.125) translateX(0.75px);
+    transform: scale(1.125) translateX(0.75px);
 }
 .theme__solarized .search .icon {
     color: #b58900;
@@ -15712,15 +15714,6 @@ figure {
 
 body {
     background-color: #000 !important;
-}
-
-
-.main.inner.hero {
-    pointer-events: none !important;
-}
-.main.inner.hero .page.main,
-.main.inner.hero .list__sidebar {
-    pointer-events: auto !important;
 }
 
 
