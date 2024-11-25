@@ -2,6 +2,7 @@
 import SearchForm from "./Search.astro";
 import Picture from "./Picture.jsx";
 import Status from "./StatusAlt.jsx";
+import Location from "./Location.jsx";
 import { getContent } from "cross:content";
 
 const primaryMenu = await getContent('navigation');
@@ -81,14 +82,15 @@ const { show = true, overlap = false, search = null } = Astro.props;
             <!--    <div class="bio__info&#45;&#45;icon"><?php wolfhead_icon( 'about', 20 ); ?></div>-->
             <!--    <a href="<?php echo get_the_permalink( get_field( 'page', 'wp_settings' )->ID ); ?>"><?php echo get_the_title( get_field( 'page', 'wp_settings' )->ID ); ?></a>-->
             <!--</div>-->
-            <div class="bio__info" title="Where am I?">
-                <div class="bio__info--icon">
-                    <svg class="icon" width="20" height="20" role="img">
-                        <use href="#icon-marker"></use>
-                    </svg>
-                </div>
-                <a href={profile.location.url} target="_blank">{profile.location.string}</a>
-            </div>
+            <Location client:load/>
+            <!--<div class="bio__info" title="Where am I?">-->
+            <!--    <div class="bio__info&#45;&#45;icon">-->
+            <!--        <svg class="icon" width="20" height="20" role="img">-->
+            <!--            <use href="#icon-marker"></use>-->
+            <!--        </svg>-->
+            <!--    </div>-->
+            <!--    <a href={profile.location.url} target="_blank">{profile.location.string}</a>-->
+            <!--</div>-->
             <div class="bio__info" title="Email me">
                 <div class="bio__info--icon">
                     <svg class="icon" width="20" height="20" role="img">
