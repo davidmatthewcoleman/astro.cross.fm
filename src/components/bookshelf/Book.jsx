@@ -3,7 +3,6 @@ import Parse from "html-react-parser";
 import { Check, Bookmark, BookmarkSimple, Star } from "@phosphor-icons/react/dist/ssr";
 import { format } from "date-fns";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
 
 export function BookGrid({ book }) {
     const { title, description, url, author, published, status, site, cover } = book;

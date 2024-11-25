@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import React from 'react';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
+import Skeleton from "react-loading-skeleton";
 
 export default function Status() {
     const [discordData, setDiscordData] = useState(null);
@@ -33,7 +34,39 @@ export default function Status() {
     }, []);
 
     if (!discordData || typeof discordData !== "object") {
-        return null; // Or a loading spinner
+        return (
+            <>
+                <div className="bio__info">
+                    <div className="bio__info--icon">
+                        <svg className="icon" width="20" height="20" role="img">
+                            <use href={`#icon-moon`}/>
+                        </svg>
+                    </div>
+                    <span
+                        className={'bio__info--skeleton'}
+                    >
+                        <Skeleton borderRadius={'3px'} width={'100%'} height={'100%'} baseColor={'transparent'}
+                                  highlightColor={'rgba(255,255,255,0.25)'} inline={true}/>
+                    </span>
+                </div>
+                <style dangerouslySetInnerHTML={{
+                    __html: `
+                        .bio__info--skeleton {
+                            display: inline-block;
+                            width: 5rem;
+                            height: 100%;
+                            border-radius: 3px;
+                            background-color: rgba(255,255,255,0.1);
+                        }
+                        .bio__info--skeleton span {
+                            display: block;
+                            width: 100%;
+                            height: 100%;
+                        }
+                    `
+                }} />
+            </>
+        );
     }
 
     let label, icon = {}, link, show = false;
