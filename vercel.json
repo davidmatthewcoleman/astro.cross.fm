@@ -4,6 +4,11 @@
       "source": "/:path*/page/1",
       "destination": "/:path*",
       "permanent": true
+    },
+    {
+      "source": "/:path*/index.html",
+      "destination": "/:path*",
+      "permanent": true
     }
   ]
 }

@@ -3881,6 +3881,11 @@ html {
 .sidebar-recent__ul li {
     text-indent: -0.4em;
     padding-left: 0.5em;
+    line-height: 1;
+    margin-bottom: 0.375rem;
+}
+.sidebar-recent__ul li:has(small) {
+    margin-bottom: 0.25rem;
 }
 .sidebar-recent__ul li::before {
     padding-right: 0.125rem;
