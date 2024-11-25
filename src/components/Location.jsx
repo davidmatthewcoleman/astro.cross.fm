@@ -62,7 +62,7 @@ export default function Location() {
         );
     }
 
-    const location = `${data.city},${data.state ? ` ${data.state}` : ''}${data.country === 'United States' ? '' : ` ${data.country}`}`;
+    const location = `${data.city}${data.state ? `, ${data.state}` : ''}${data.country === 'US' ? '' : `, ${data.country}`}`;
 
     return (
         <>
