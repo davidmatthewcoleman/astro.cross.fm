@@ -62,7 +62,13 @@ export default function Location() {
         );
     }
 
-    const location = `${data.city}${data.state ? `, ${data.state}` : ''}${data.country === 'US' ? '' : `, ${data.country}`}`;
+    const countries = [
+        "United States",
+        "United Kingdom"
+    ];
+
+    const country = countries.includes(data.country.name) ? data.country.code : `, ${data.country}`;
+    const location = `${data.city}${data.state ? `, ${data.state}` : ''}${country === 'US' ? '' : country}`;
 
     return (
         <>

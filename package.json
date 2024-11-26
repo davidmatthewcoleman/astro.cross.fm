@@ -34,6 +34,7 @@
     "node-fetch": "^3.3.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-flagkit": "^2.0.4",
     "react-loading-skeleton": "^3.5.0",
     "rss-parser": "^3.13.0",
     "tailwind-merge": "^2.5.4",
