@@ -38,8 +38,8 @@ export default function Status() {
             <>
                 <div className="bio__info">
                     <div className="bio__info--icon">
-                        <svg className="icon" width="20" height="20" role="img">
-                            <use href={`#icon-moon`}/>
+                        <svg className="icon loading" width="20" height="20" role="img">
+                            <use href={`#icon-spinner`}/>
                         </svg>
                     </div>
                     <span

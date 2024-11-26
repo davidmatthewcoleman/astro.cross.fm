@@ -3,8 +3,8 @@ import React from 'react';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import Skeleton from "react-loading-skeleton";
-import Flag from "react-flagkit";
-import {format} from "date-fns";
+import Flag from "./Flag.jsx";
+import { format } from "date-fns";
 
 export default function Location() {
     const [data, setData] = useState(null);
@@ -23,9 +23,6 @@ export default function Location() {
         };
 
         fetchData();
-
-        const interval = setInterval(fetchData, 15000);
-        return () => clearInterval(interval);
     }, []);
 
     if (!data || typeof data !== "object") {
@@ -83,7 +80,11 @@ export default function Location() {
             >
                 <div className="bio__info">
                     <div className="bio__info--icon">
-                        <Flag country={data.country.code} className={'icon'} width={20} height={20} role="img" style={{ width: 16, height: 16, padding: '1px' }} />
+                        <Flag region={data.country.code} size={16}>
+                            <svg className="icon loading" width="20" height="20" role="img">
+                                <use href={`#icon-spinner`}/>
+                            </svg>
+                        </Flag>
                     </div>
                     <a href={`https://www.google.com/maps/place/${encodeURIComponent(location)}`}
                        rel={'noindex nofollower'} target={'_blank'}>{location}</a>

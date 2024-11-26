@@ -11,5 +11,12 @@ export default defineConfig({
   output: 'static',
   adapter: vercel(),
   integrations: [react(), tailwind()],
-  site: 'https://crossrambles.com'
+  site: 'https://crossrambles.com',
+  vite: {
+    resolve: {
+      alias: {
+        '@assets': '/src/assets',
+      },
+    },
+  },
 });
