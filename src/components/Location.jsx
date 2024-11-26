@@ -3,6 +3,8 @@ import React from 'react';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import Skeleton from "react-loading-skeleton";
+import Flag from "react-flagkit";
+import {format} from "date-fns";
 
 export default function Location() {
     const [data, setData] = useState(null);
@@ -73,7 +75,7 @@ export default function Location() {
     return (
         <>
             <Tippy
-                content={"Where am I?"}
+                content={`My location as of ${format(new Date(data.timestamp), 'MMM. d, yyyy')}`}
                 arrow={false}
                 placement="left"
                 offset={[0, 3]}
@@ -81,9 +83,7 @@ export default function Location() {
             >
                 <div className="bio__info">
                     <div className="bio__info--icon">
-                        <svg class="icon" width="20" height="20" role="img">
-                            <use href={`#icon-marker`}/>
-                        </svg>
+                        <Flag country={data.country.code} className={'icon'} width={20} height={20} role="img" style={{ width: 16, height: 16, padding: '1px' }} />
                     </div>
                     <a href={`https://www.google.com/maps/place/${encodeURIComponent(location)}`}
                        rel={'noindex nofollower'} target={'_blank'}>{location}</a>
