@@ -4,7 +4,7 @@ import MainLayout from "../../../../../layouts/MainLayout.astro";
 import PostSummary from "../../../../../components/PostSummary.astro";
 import { getContent } from "../../../../../lib/content-layer";
 import Parse from "html-react-parser";
-import Icon from "../../../components/Icon.astro";
+import Icon from "../../components/Icon.astro";
 
 const series = await getContent('series', {
     slug: Astro.params.series
