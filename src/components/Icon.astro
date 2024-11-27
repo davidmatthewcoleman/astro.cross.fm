@@ -4,6 +4,14 @@ const { default: innerHTML } = await import(`../assets/icons/${name}.svg?raw`);
 
 const spinner = name === 'spinner' ? 'svg {\n' +
     '                animation: spin 1s linear infinite;\n' +
+    '            }\n\n' +
+    '            @keyframes spin {\n' +
+    '                0% {\n' +
+    '                    transform: rotate(0deg);\n' +
+    '                }\n' +
+    '                100% {\n' +
+    '                    transform: rotate(360deg);\n' +
+    '                }\n' +
     '            }\n' : '';
 ---
 
@@ -24,14 +32,6 @@ const spinner = name === 'spinner' ? 'svg {\n' +
                 aspect-ratio: 1/1;
             }
             ${spinner}
-            @keyframes spin {
-                0% {
-                    transform: rotate(0deg);
-                }
-                100% {
-                    transform: rotate(360deg);
-                }
-            }
         `/>
     </template>
 </inline-icon>

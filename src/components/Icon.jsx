@@ -50,18 +50,17 @@ export default function Icon({ name, size = 24, className = '' }) {
                     max-width: 100%;
                     aspect-ratio: 1/1;
                 }
-                ${name === 'spinner' ? 'svg {' +
-                    'animation: spin 1s linear infinite;' +
-                '}' : ''}
-                
-                @keyframes spin {
-                    0% {
-                        transform: rotate(0deg);
-                    }
-                    100% {
-                        transform: rotate(360deg);
-                    }
-                }
+                ${name === 'spinner' ? 'svg {\n' +
+                    '                    animation: spin 1s linear infinite;\n' +
+                '                }\n\n' +
+                '                @keyframes spin {\n' +
+                '                    0% {\n' +
+                '                        transform: rotate(0deg);\n' +
+                '                    }\n' +
+                '                    100% {\n' +
+                '                        transform: rotate(360deg);\n' +
+                '                    }\n' +
+                '                }\n' : ''}
             `;
             shadowRoot.appendChild(styles);
         }
