@@ -3,6 +3,7 @@ import React from 'react';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import Skeleton from "react-loading-skeleton";
+import Icon from "./Icon.jsx";
 
 export default function Status() {
     const [discordData, setDiscordData] = useState(null);
@@ -38,9 +39,7 @@ export default function Status() {
             <>
                 <div className="bio__info">
                     <div className="bio__info--icon">
-                        <svg className="icon loading" width="20" height="20" role="img">
-                            <use href={`#icon-spinner`}/>
-                        </svg>
+                        <Icon name={'spinner'} size={16}/>
                     </div>
                     <span
                         className={'bio__info--skeleton'}
@@ -121,9 +120,7 @@ export default function Status() {
                 >
                     <div className="bio__info">
                         <div className="bio__info--icon">
-                            <svg class="icon" width="20" height="20" role="img">
-                                <use href={`#icon-${icon.name}`}/>
-                            </svg>
+                            <Icon name={icon.name} size={16}/>
                         </div>
                         {label}
                     </div>
@@ -139,9 +136,7 @@ export default function Status() {
                 >
                     <div className="bio__info">
                         <div className="bio__info--icon">
-                            <svg class="icon" width="20" height="20" role="img">
-                                <use href={`#icon-${icon.name}`}/>
-                            </svg>
+                            <Icon name={icon.name} size={16}/>
                         </div>
                         <a href={link} target={'_blank'}>{label}</a>
                     </div>

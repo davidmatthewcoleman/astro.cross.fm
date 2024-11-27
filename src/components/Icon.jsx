@@ -37,10 +37,29 @@ export default function Icon({ name, size = 24, className = '' }) {
 
             const styles = document.createElement('style');
             styles.innerHTML = `
+                :host {
+                    --icon-size: ${size}px;
+            
+                    display: inline-block;
+                    width: var(--icon-size, 24px);
+                    height: var(--icon-size, 24px);
+                }
                 i, svg {
                     display: block;
                     max-width: 100%;
                     aspect-ratio: 1/1;
+                }
+                ${name === 'spinner' ? 'svg {' +
+                    'animation: spin 1s linear infinite;' +
+                '}' : ''}
+                
+                @keyframes spin {
+                    0% {
+                        transform: rotate(0deg);
+                    }
+                    100% {
+                        transform: rotate(360deg);
+                    }
                 }
             `;
             shadowRoot.appendChild(styles);
@@ -52,7 +71,7 @@ export default function Icon({ name, size = 24, className = '' }) {
     }
 
     return (
-        <inline-icon ref={iconRef} className={`icon icon__normal ${className}`} width={size} height={size} style={{ width: `${size}px`, height: `${size}px` }} role="img" />
+        <inline-icon ref={iconRef} className={`icon icon__normal ${className}`} width={size} height={size} role="img" />
     );
 };
 
@@ -93,10 +112,21 @@ export function Flag({ region, size = 24, className = '', children = null }) {
 
             const styles = document.createElement('style');
             styles.innerHTML = `
+                :host {
+                    --icon-size: ${size}px;
+            
+                    display: inline-flex;
+                    align-items: center;
+                    width: var(--icon-size, 24px);
+                    height: var(--icon-size, 24px);
+                }
                 i, svg {
                     display: block;
-                    max-width: 100%;
+                    width: 100%;
+                    height: min-content;
                     aspect-ratio: 3/2;
+                    border-radius: 3px;
+                    overflow: hidden;
                 }
             `;
             shadowRoot.appendChild(styles);
@@ -108,6 +138,6 @@ export function Flag({ region, size = 24, className = '', children = null }) {
     }
 
     return (
-        <inline-flag ref={flagRef} className={`icon icon__flag ${className}`} width={size} height={size} style={{ width: `${size}px`, height: `${size}px` }} role="img" />
+        <inline-flag ref={flagRef} className={`icon icon__flag ${className}`} width={size} height={size} role="img" />
     );
 };

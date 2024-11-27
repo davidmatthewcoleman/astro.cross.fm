@@ -4285,7 +4285,7 @@ li.sidebar-recent::before {
     color: #ccc;
 }
 .bio[data-dir="ltr"] .bio__info a {
-    padding-right: 1rem;
+    /*padding-right: 1rem;*/
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -16013,11 +16013,6 @@ body {
     text-align: left;
 }
 
-
-.icon.loading {
-    animation: spin 1s linear infinite;
-}
-
 @keyframes spin {
     0% {
         transform: rotate(0deg);
@@ -16025,11 +16020,4 @@ body {
     100% {
         transform: rotate(360deg);
     }
-}
-
-
-
-.icon.icon__normal,
-.icon.icon__flag {
-    display: inline-block;
 }

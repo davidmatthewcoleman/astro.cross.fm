@@ -30,7 +30,7 @@ export default function Location() {
             <>
                 <div className="bio__info">
                     <div className="bio__info--icon">
-                        <Icon name={'spinner'} size={16} className={'loading'} />
+                        <Icon name={'spinner'} size={16}/>
                     </div>
                     <span
                         className={'bio__info--skeleton'}
@@ -75,12 +75,23 @@ export default function Location() {
                 placement="left"
                 offset={[0, 3]}
                 theme={'wolfhead'}
+                allowHTML={true}
             >
                 <div className="bio__info">
                     <div className="bio__info--icon">
-                        <Flag region={data.country.code} size={16}>
-                            <Icon name="spinner" size={16} />
-                        </Flag>
+                        {/*{data.country.code === 'US' ? (
+                            <Icon name="marker" size={16} />
+                        ) : (
+                            <Flag region={data.country.code} size={16}>
+                                <Icon name="spinner" size={16}/>
+                            </Flag>
+                        )}*/}
+                        <i>
+                            <Icon name="marker" size={16}/>
+                        </i>
+                        <i>
+                            <Flag region={data.country.code} size={16}/>
+                        </i>
                     </div>
                     <a href={`https://www.google.com/maps/place/${encodeURIComponent(location)}`}
                        rel={'noindex nofollower'} target={'_blank'}>{location}</a>
@@ -88,6 +99,28 @@ export default function Location() {
             </Tippy>
             <style dangerouslySetInnerHTML={{
                 __html: `
+                .bio__info .bio__info--icon {
+                    position: relative;
+                    width: 16px;
+                    height: 16px;
+                }
+                .bio__info .bio__info--icon > i {
+                    position: absolute;
+                    inset: 0;
+                    width: 100%;
+                    height: 100%;
+                }
+                .bio__info .bio__info--icon > i:last-of-type {
+                    transform: translateY(-1px);
+                }
+                .bio__info .bio__info--icon > i:first-of-type,
+                .bio__info:hover .bio__info--icon > i:last-of-type {
+                    opacity: 100;
+                }
+                .bio__info:hover .bio__info--icon > i:first-of-type,
+                .bio__info .bio__info--icon > i:last-of-type {
+                    opacity: 0;
+                }
                 .tippy-box[data-theme~="wolfhead"] {
                     font-size: 0.85rem;
                     color: #bdbdbd;
@@ -98,6 +131,12 @@ export default function Location() {
                     padding: 0 0.5em;
                     font-size: 0.8rem;
                     line-height: 2;
+                }
+                .tippy-box[data-theme~="wolfhead"] .tippy-content:has(inline-flag) > div {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    gap: 0.375rem;
                 }
                 .tippy-box[data-theme~="license"] .tippy-content {
                     padding: 0.25em 0.5em;
