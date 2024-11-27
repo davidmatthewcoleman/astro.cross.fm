@@ -7,10 +7,31 @@ const { default: innerHTML } = await import(`../assets/icons/${name}.svg?raw`);
     <template shadowrootmode="open">
         <i set:html={innerHTML}/>
         <style is:inline>
+            :host {
+                --icon-size: ${size}px;
+
+                display: inline-block;
+                width: var(--icon-size, 24px);
+                height: var(--icon-size, 24px);
+            }
             i, svg {
                 display: block;
                 max-width: 100%;
                 aspect-ratio: 1/1;
+            }
+        {(name === 'spinner') && (
+            svg {
+                animation: spin 1s linear infinite;
+            }
+        )}
+
+            @keyframes spin {
+                0% {
+                    transform: rotate(0deg);
+                }
+                100% {
+                    transform: rotate(360deg);
+                }
             }
         </style>
     </template>
