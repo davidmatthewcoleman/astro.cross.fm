@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 export default function Icon({ name, size = 24, className = '' }) {
     const iconRef = useRef(null);
     const [svgContent, setSvgContent] = useState(null);
+    const [forceRender, setForceRender] = useState(0); // State for forcing re-renders
 
     useEffect(() => {
         const loadSvg = async () => {
@@ -64,20 +65,21 @@ export default function Icon({ name, size = 24, className = '' }) {
             `;
             shadowRoot.appendChild(styles);
         }
-    }, [svgContent]);
+    }, [svgContent, forceRender]);
 
     if (!svgContent) {
         return null;
     }
 
     return (
-        <inline-icon ref={iconRef} className={`icon icon__normal ${className}`} width={size} height={size} role="img" />
+        <inline-icon key={name} ref={iconRef} className={`icon icon__normal ${className}`} width={size} height={size} role="img" />
     );
 };
 
 export function Flag({ region, size = 24, className = '', children = null }) {
     const flagRef = useRef(null);
     const [svgContent, setSvgContent] = useState(null);
+    const [forceRender, setForceRender] = useState(0); // State for forcing re-renders
 
     useEffect(() => {
         const loadSvg = async () => {
@@ -131,13 +133,13 @@ export function Flag({ region, size = 24, className = '', children = null }) {
             `;
             shadowRoot.appendChild(styles);
         }
-    }, [svgContent]);
+    }, [svgContent, forceRender]);
 
     if (!svgContent) {
         return <>{children}</>;
     }
 
     return (
-        <inline-flag ref={flagRef} className={`icon icon__flag ${className}`} width={size} height={size} role="img" />
+        <inline-flag key={region} ref={flagRef} className={`icon icon__flag ${className}`} width={size} height={size} role="img" />
     );
 };
