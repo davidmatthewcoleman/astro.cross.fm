@@ -1,12 +1,16 @@
 ---
 const { name, size, className } = Astro.props;
 const { default: innerHTML } = await import(`../assets/icons/${name}.svg?raw`);
+
+const spinner = name === 'spinner' ? 'svg {\n' +
+    '                animation: spin 1s linear infinite;\n' +
+    '            }\n' : '';
 ---
 
 <inline-icon class={`icon icon__normal ${className || ''}`} width={size || '100%'} height={size || '100%'} style={`width: ${size ? `${size}px` : '100%'}; height: ${size ? `${size}px` : '100%'};`} role="img">
     <template shadowrootmode="open">
         <i set:html={innerHTML}/>
-        <style is:inline>
+        <style is:inline set:html=`
             :host {
                 --icon-size: ${size}px;
 
@@ -19,12 +23,7 @@ const { default: innerHTML } = await import(`../assets/icons/${name}.svg?raw`);
                 max-width: 100%;
                 aspect-ratio: 1/1;
             }
-        {(name === 'spinner') && (
-            svg {
-                animation: spin 1s linear infinite;
-            }
-        )}
-
+            ${spinner}
             @keyframes spin {
                 0% {
                     transform: rotate(0deg);
@@ -33,6 +32,6 @@ const { default: innerHTML } = await import(`../assets/icons/${name}.svg?raw`);
                     transform: rotate(360deg);
                 }
             }
-        </style>
+        `/>
     </template>
 </inline-icon>
