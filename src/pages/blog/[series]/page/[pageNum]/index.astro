@@ -4,6 +4,7 @@ import MainLayout from "../../../../../layouts/MainLayout.astro";
 import PostSummary from "../../../../../components/PostSummary.astro";
 import { getContent } from "../../../../../lib/content-layer";
 import Parse from "html-react-parser";
+import Icon from "../../../components/Icon.astro";
 
 const series = await getContent('series', {
     slug: Astro.params.series
@@ -103,9 +104,7 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                 {pageNum > 1 && (
                     <a href={pageNum - 1 === 1 ? `/blog/${series?.slug}` : `/blog/${series?.slug}/page/${pageNum - 1}`} class="pagination-single__left">
                         <div class="pagination-single__icon">
-                            <svg class="icon" width="25" height="25" role="img">
-                                <use href="#icon-nav-left"></use>
-                            </svg>
+                            <Icon name={'nav-left'} size={25} />
                         </div>
                         <div class="pagination-single__left-title">Newer Entries</div>
                     </a>
@@ -115,9 +114,7 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                     <a href={`/blog/${series?.slug}/page/${pageNum + 1}`} class="pagination-single__right">
                         <div class="pagination-single__right-title">Older Entries</div>
                         <div class="pagination-single__icon">
-                            <svg class="icon" width="25" height="25" role="img">
-                                <use href="#icon-nav-right"></use>
-                            </svg>
+                            <Icon name={'nav-right'} size={25} />
                         </div>
                     </a>
                 )}

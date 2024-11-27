@@ -1,6 +1,7 @@
 ---
 import Parse from "html-react-parser";
 import Picture from "./Picture";
+import Icon from "./Icon.astro";
 const { data } = Astro.props;
 ---
 
@@ -47,23 +48,17 @@ const { data } = Astro.props;
                     {
                         data.pinned && (
                             <span dir="ltr">
-                                <svg class="icon" width="15" height="15" role="img">
-                                    <use href="#icon-pin"></use>
-                                </svg>
+                                <Icon name={'pin'} size={15} />
                                 Pinned
                             </span>
                         )
                     }
                     <time dir="ltr">
-                        <svg class="icon" width="15" height="15" role="img">
-                            <use href="#icon-calendar"></use>
-                        </svg>
+                        <Icon name={'calendar'} size={15} />
                         {data.date.formatted}
                     </time>
                     <span dir="ltr">
-                        <svg class="icon" width="15" height="15" role="img">
-                            <use href="#icon-coffee"></use>
-                        </svg>
+                        <Icon name={'coffee'} size={15} />
                         {Parse(data.readingTime.formatted)}
                     </span>
                 </h6>

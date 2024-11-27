@@ -11483,6 +11483,9 @@ input:checked + .slider:before {
     word-break: keep-all;
     padding: 0 0.125rem;
 }
+.single__info .icon {
+    color: #fff;
+}
 .single__nojs {
     width: 100%;
     color: red;
@@ -14591,6 +14594,10 @@ table:not(.lntable) td code {
     float: left;
 }
 
+.summary-classic .subtitle .icon {
+    color: #fff;
+}
+
 .sticky-wrapper {
     position: relative;
 }
@@ -15610,21 +15617,21 @@ figure {
 
 
 
-.theme-toggle svg {
-    display: none;
+.theme-toggle .icon {
+    display: none !important;
     -webkit-transform: scale(0.825);
     transform: scale(0.825);
     -webkit-transform-origin: center;
     transform-origin: center;
     margin: 0 !important;
 }
-[data-theme="cross"] .theme-toggle svg.icon-theme,
-[data-theme="high-contrast"] .theme-toggle svg.icon-theme {
-    display: inline;
+[data-theme="cross"] .theme-toggle .icon-theme,
+[data-theme="high-contrast"] .theme-toggle .icon-theme {
+    display: inline-block !important;
 }
-[data-theme="fallout"] .theme-toggle svg.icon-theme-fallout,
-[data-theme="fnv"] .theme-toggle svg.icon-theme-fnv {
-    display: inline;
+[data-theme="fallout"] .theme-toggle .icon-theme-fallout,
+[data-theme="fnv"] .theme-toggle .icon-theme-fnv {
+    display: inline-block !important;
 }
 
 [data-theme]::after {
@@ -16018,4 +16025,11 @@ body {
     100% {
         transform: rotate(360deg);
     }
+}
+
+
+
+.icon.icon__normal,
+.icon.icon__flag {
+    display: inline-block;
 }

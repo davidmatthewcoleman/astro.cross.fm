@@ -4,6 +4,7 @@ import Picture from "../../../components/Picture";
 import MainLayout from "../../../layouts/MainLayout.astro";
 import Parse from "html-react-parser";
 import { getContent } from "cross:content";
+import Icon from "../../../components/Icon.astro";
 
 const post = await getContent('posts', {
     first: 1,
@@ -88,15 +89,11 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
             <div class="single__meta">
                 <div class="single__infos">
                     <time class="single__info">
-                        <svg class="icon" width="15" height="15" role="img">
-                            <use href="#icon-calendar"></use>
-                        </svg>
+                        <Icon name={'calendar'} size={15} />
                         {post?.date.formatted}
                     </time>
                     <span class="single__info">
-                        <svg class="icon" width="15" height="15" role="img">
-                            <use href="#icon-coffee"></use>
-                        </svg>
+                        <Icon name={'coffee'} size={15} />
                         {Parse(post?.readingTime.formatted)}
                     </span>
                 </div>
@@ -135,18 +132,14 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                     )
                 }
                 <div class="license__block">
-                    <svg class="icon icon-creative-commons" role="img">
-                        <use href="#icon-creative-commons"></use>
-                    </svg>
+                    <Icon name={'creative-commons'} className="icon-creative-commons" />
                     <div class="top">
                         <h4 set:html={post?.title}></h4>
                         <div>
                             <a href={`https://${post?.shortlink.slug}`}>{post?.shortlink.slug}</a>
                             <a href={`https://${post?.shortlink.slug}`} id="shortlink" style="display:none;"></a>
                             <button id="copyShortlink" title="Copy shortlink">
-                                <svg class="icon icon-copy" width="14" height="14" role="img">
-                                    <use href="#icon-copy"></use>
-                                </svg>
+                                <Icon name={'copy'} className="icon-copy" size={14} />
                             </button>
                         </div>
                     </div>
@@ -179,7 +172,7 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                         .license__block .icon.icon-creative-commons {
                             position: absolute;
                             inset: 0 2.5rem 0 auto;
-                            width: auto;
+                            width: min-content !important;
                             height: 100%;
                             aspect-ratio: 1/1;
                             color: rgba(255,255,255,0.0625);
@@ -276,9 +269,7 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                     post?.adjacentPosts.next && (
                         <a class="pagination-single__left" href={post?.adjacentPosts.next.path}>
                             <div class="pagination-single__icon">
-                                <svg class="icon icon-nav-left" width="25" height="25" role="img">
-                                    <use href="#icon-nav-left"></use>
-                                </svg>
+                                <Icon name={'nav-left'} size={25} />
                             </div>
                             <div class="pagination-single__left-title">Next Entry</div>
                         </a>
@@ -290,9 +281,7 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                         <a class="pagination-single__right" href={post?.adjacentPosts.previous.path}>
                             <div class="pagination-single__right-title">Last Entry</div>
                             <div class="pagination-single__icon">
-                                <svg class="icon icon-nav-right" width="25" height="25" role="img">
-                                    <use href="#icon-nav-right"></use>
-                                </svg>
+                                <Icon name={'nav-right'} size={25} />
                             </div>
                         </a>
                     )

@@ -3,6 +3,7 @@ import Sidebar from "../../../components/Sidebar.astro";
 import MainLayout from "../../../layouts/MainLayout.astro";
 import { getContent } from "cross:content";
 import Picture from "../../../components/Picture";
+import Icon from "../../../components/Icon.astro";
 
 const post = await getContent('chapters', {
     slug: Astro.params.chapter
@@ -79,9 +80,7 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                     post?.adjacentPosts.previous && post?.adjacentPosts.previous.slug !== post?.slug && (
                         <a class="pagination-single__left" href={post.adjacentPosts.previous.path}>
                             <div class="pagination-single__icon">
-                                <svg class="icon icon-nav-left" width="25" height="25" role="img">
-                                    <use href="#icon-nav-left"></use>
-                                </svg>
+                                <Icon name={'nav-left'} size={25} />
                             </div>
                             <div class="pagination-single__left-title">Previous Chapter</div>
                         </a>
@@ -93,9 +92,7 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                         <a class="pagination-single__right" href={post.adjacentPosts.next.path}>
                             <div class="pagination-single__right-title">Next Chapter</div>
                             <div class="pagination-single__icon">
-                                <svg class="icon icon-nav-right" width="25" height="25" role="img">
-                                    <use href="#icon-nav-right"></use>
-                                </svg>
+                                <Icon name={'nav-right'} size={25} />
                             </div>
                         </a>
                     )

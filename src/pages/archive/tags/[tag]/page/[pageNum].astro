@@ -3,6 +3,7 @@ import Sidebar from "../../../../../components/Sidebar.astro";
 import MainLayout from "../../../../../layouts/MainLayout.astro";
 import PostSummary from "../../../../../components/PostSummary.astro";
 import { getContent } from "cross:content";
+import Icon from "../../../../../components/Icon.astro";
 
 const tag = await getContent('tags', {
     slug: Astro.params.tag
@@ -95,9 +96,7 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                 {pageNum > 1 && (
                         <a href={pageNum - 1 === 1 ? `/archive/tags/${tag?.slug}` : `/archive/tags/${tag?.slug}/page/${pageNum - 1}`} class="pagination-single__left">
                             <div class="pagination-single__icon">
-                                <svg class="icon" width="25" height="25" role="img">
-                                    <use href="#icon-nav-left"></use>
-                                </svg>
+                                <Icon name={'nav-left'} size={25} />
                             </div>
                             <div class="pagination-single__left-title">Newer Entries</div>
                         </a>
@@ -107,9 +106,7 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                         <a href={`/archive/tags/${tag?.slug}/page/${pageNum + 1}`} class="pagination-single__right">
                             <div class="pagination-single__right-title">Older Entries</div>
                             <div class="pagination-single__icon">
-                                <svg class="icon" width="25" height="25" role="img">
-                                    <use href="#icon-nav-right"></use>
-                                </svg>
+                                <Icon name={'nav-right'} size={25} />
                             </div>
                         </a>
                 )}

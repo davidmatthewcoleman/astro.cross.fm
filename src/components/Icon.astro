@@ -1,0 +1,17 @@
+---
+const { name, size, className } = Astro.props;
+const { default: innerHTML } = await import(`../assets/icons/${name}.svg?raw`);
+---
+
+<inline-icon class={`icon icon__normal ${className || ''}`} width={size || '100%'} height={size || '100%'} style={`width: ${size ? `${size}px` : '100%'}; height: ${size ? `${size}px` : '100%'};`} role="img">
+    <template shadowrootmode="open">
+        <i set:html={innerHTML}/>
+        <style is:inline>
+            i, svg {
+                display: block;
+                max-width: 100%;
+                aspect-ratio: 1/1;
+            }
+        </style>
+    </template>
+</inline-icon>

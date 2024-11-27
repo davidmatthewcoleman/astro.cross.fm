@@ -1,5 +1,6 @@
 ---
 import { getFooter } from "cross:content";
+import Icon from "./Icon.astro";
 const { wp } = await getFooter();
 
 let ver = Astro.generator.replace('Astro v', '').split('-')[0];
@@ -18,59 +19,37 @@ if ( Astro.generator.toLowerCase().includes('alpha') ) {
     <div class="footer__social">
         <div class="social">
             <a href="mailto:howdy@crossrambles.com" target="_blank" title="Email" aria-label="Email">
-                <svg class="icon" width="32" height="32" role="img">
-                    <use href="#icon-email"></use>
-                </svg>
+                <Icon name={'email'} size={32} />
             </a>
             <a href="https://instagram.com/davidmc.io" target="_blank" title="Instagram" aria-label="Instagram">
-                <svg class="icon" width="32" height="32" role="img">
-                    <use href="#icon-instagram"></use>
-                </svg>
+                <Icon name={'instagram'} size={32} />
             </a>
             <a href="https://elk.zone/toot.io/@cross" target="_blank" title="Mastodon via Elk.zone" aria-label="Mastodon">
-                <svg class="icon" width="32" height="32" role="img">
-                    <use href="#icon-mastodon"></use>
-                </svg>
+                <Icon name={'mastodon'} size={32} />
             </a>
             <a href="https://twitter.com/crossrambles" target="_blank" title="Twitter" aria-label="Twitter">
-                <svg class="icon" width="32" height="32" role="img">
-                    <use href="#icon-twitter"></use>
-                </svg>
+                <Icon name={'twitter'} size={32} />
             </a>
             <a href="https://bsky.app/profile/crossrambles.com" target="_blank" title="Bluesky" aria-label="Bluesky">
-                <svg class="icon" width="32" height="32" role="img">
-                    <use href="#icon-bluesky"></use>
-                </svg>
+                <Icon name={'bluesky'} size={32} />
             </a>
             <a href="https://deviantart.com/crossrambles" target="_blank" title="DeviantArt (AI Art)" aria-label="DeviantArt">
-                <svg class="icon" width="32" height="32" role="img">
-                    <use href="#icon-deviantart"></use>
-                </svg>
+                <Icon name={'deviantart'} size={32} />
             </a>
             <a href="https://youtube.com/@crossrambles" target="_blank" title="YouTube" aria-label="YouTube">
-                <svg class="icon" width="32" height="32" role="img">
-                    <use href="#icon-youtube"></use>
-                </svg>
+                <Icon name={'youtube'} size={32} />
             </a>
             <a href="https://buymeacoffee.com/crossrambles" target="_blank" title="Buy me a coffee" aria-label="Buy me a coffee">
-                <svg class="icon" width="32" height="32" role="img">
-                    <use href="#icon-coffee-alt"></use>
-                </svg>
+                <Icon name={'coffee-alt'} size={32} />
             </a>
             <a href="https://toot.io/@cross" rel="me" target="_blank" title="Mastodon" aria-label="Mastodon" style="display:none;"></a>
         </div>
     </div>
     <div class="dropdown">
         <button class="dropdown-trigger theme-toggle" aria-label="Select a theme">
-            <svg class="icon icon-theme" width="32" height="32" role="img">
-                <use href="#icon-theme"></use>
-            </svg>
-            <svg class="icon icon-theme-fallout" width="32" height="32" role="img">
-                <use href="#icon-theme-fallout"></use>
-            </svg>
-            <svg class="icon icon-theme-fnv" width="32" height="32" role="img">
-                <use href="#icon-theme-fnv"></use>
-            </svg>
+            <Icon name={'theme'} className="icon-theme" size={32} />
+            <Icon name={'theme-fallout'} className="icon-theme-fallout" size={32} />
+            <Icon name={'theme-fnv'} className="icon-theme-fnv" size={32} />
         </button>
         <div class="dropdown-content">
             <small>SELECT A THEME:</small>
@@ -120,9 +99,7 @@ if ( Astro.generator.toLowerCase().includes('alpha') ) {
     </div>
     <div id="gtt" style="display: block;">
         <div class="gtt" title="Back to top">
-            <svg class="icon" width="32" height="32" role="img">
-                <use href="#icon-chevron-up"></use>
-            </svg>
+            <Icon name={'chevron-up'} size={32} />
         </div>
     </div>
     <hr>

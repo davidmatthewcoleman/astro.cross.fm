@@ -3,7 +3,7 @@ import React from 'react';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import Skeleton from "react-loading-skeleton";
-import Flag from "./Flag.jsx";
+import Icon, { Flag } from "./Icon.jsx";
 import { format } from "date-fns";
 
 export default function Location() {
@@ -30,9 +30,7 @@ export default function Location() {
             <>
                 <div className="bio__info">
                     <div className="bio__info--icon">
-                        <svg className="icon" width="20" height="20" role="img">
-                            <use href={`#icon-marker`}/>
-                        </svg>
+                        <Icon name={'spinner'} size={16} className={'loading'} />
                     </div>
                     <span
                         className={'bio__info--skeleton'}
@@ -81,9 +79,7 @@ export default function Location() {
                 <div className="bio__info">
                     <div className="bio__info--icon">
                         <Flag region={data.country.code} size={16}>
-                            <svg className="icon loading" width="20" height="20" role="img">
-                                <use href={`#icon-spinner`}/>
-                            </svg>
+                            <Icon name="spinner" size={16} />
                         </Flag>
                     </div>
                     <a href={`https://www.google.com/maps/place/${encodeURIComponent(location)}`}
