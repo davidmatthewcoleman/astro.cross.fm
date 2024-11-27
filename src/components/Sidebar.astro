@@ -90,13 +90,13 @@ const { show = true, overlap = false, search = null } = Astro.props;
             <!--    </div>-->
             <!--    <a href={profile.location.url} target="_blank">{profile.location.string}</a>-->
             <!--</div>-->
+            <Location client:load/>
             <div class="bio__info" title="Email me">
                 <div class="bio__info--icon">
                     <Icon name={'mailbox'} size={16} />
                 </div>
                 <a href={profile.email.url} target="_blank">{profile.email.string}</a>
             </div>
-            <Location client:load/>
         </section>
     </div>
     <hr class="hr-fade sidebar-hr">
