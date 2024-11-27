@@ -67,6 +67,8 @@ export default function Icon({ name, size = 24, className = '' }) {
         }
     }, [svgContent, forceRender]);
 
+    const triggerRerender = () => setForceRender(prev => prev + 1);
+
     if (!svgContent) {
         return null;
     }
@@ -134,6 +136,8 @@ export function Flag({ region, size = 24, className = '', children = null }) {
             shadowRoot.appendChild(styles);
         }
     }, [svgContent, forceRender]);
+
+    const triggerRerender = () => setForceRender(prev => prev + 1);
 
     if (!svgContent) {
         return <>{children}</>;
