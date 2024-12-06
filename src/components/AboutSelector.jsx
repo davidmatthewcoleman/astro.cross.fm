@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
-export default function AboutSelector() {
-    const [currentPage, setCurrentPage] = useState('/about');
+export default function AboutSelector({about}) {
+    const [currentPage, setCurrentPage] = useState(about ? '/about' : '/about/bookmarks');
     const [currentWidth, setCurrentWidth] = useState(0);
     const [initialized, setInitialized] = useState(false);
 
@@ -52,9 +52,11 @@ export default function AboutSelector() {
     return (
         <select id="select-page" value={currentPage} onChange={handleChange}
                 style={{'--width': `${currentWidth}px`}}>
-            <option key={0} value={'/about'}>
-                About Me
-            </option>
+            {about && (
+                <option key={0} value={'/about'}>
+                    About Me
+                </option>
+            )}
             <option key={1} value={'/about/bookmarks'}>
                 Bookmarks
             </option>

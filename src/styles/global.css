@@ -16029,6 +16029,7 @@ body {
     width: var(--width, 96px);
     padding-inline: 0;
     font-size: inherit;
+    font-family: inherit;
     color: #bdbdbd;
     text-align: right;
     background: transparent;
@@ -16054,4 +16055,8 @@ body {
 }
 .breadcrumb li:not(:last-of-type) .icon {
     display: none;
+}
+
+.breadcrumb li.hash::before {
+    content: '#';
 }

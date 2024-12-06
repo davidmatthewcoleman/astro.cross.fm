@@ -18,6 +18,7 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
             width: var(--width, 96px);
             padding-inline: 0;
             font-size: inherit;
+            font-family: inherit;
             color: #bdbdbd;
             text-align: right;
             background: transparent;
@@ -45,12 +46,19 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
                     <a href="/">Home</a>
                 </li>
                 <li>
-                    <AboutSelector server:defer client:load />
-                    <Icon name="caret-down" size={12} />
+                    <a href="/about">About Me</a>
                 </li>
-                <li class="is-active">
-                    <CollectionSelector server:defer client:load />
-                    <Icon name="caret-down" size={12} />
+                <li>
+                    <span>
+                        <AboutSelector about={false} server:defer client:load />
+                        <Icon name="caret-down" size={12} />
+                    </span>
+                </li>
+                <li class="is-active hash">
+                    <span>
+                        <CollectionSelector server:defer client:load />
+                        <Icon name="caret-down" size={12} />
+                    </span>
                 </li>
             </ol>
         </nav>

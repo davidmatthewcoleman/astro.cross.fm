@@ -32,8 +32,10 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                     <a href="/">Home</a>
                 </li>
                 <li class="is-active">
-                    <AboutSelector server:defer client:load />
-                    <Icon name="caret-down" size={12} />
+                    <span>
+                        <AboutSelector about={true} server:defer client:load />
+                        <Icon name="caret-down" size={12} />
+                    </span>
                 </li>
             </ol>
         </nav>
