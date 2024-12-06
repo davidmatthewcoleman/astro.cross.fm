@@ -34,7 +34,7 @@ export default function Bookmarks() {
 
     return (
         <div id={'tw-app'}>
-            <div className="grid grid-cols-2 gap-4 mt-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-8">
                 {bookmarks.map((item) => {
                     if ( item.link.includes("twitter.com") || item.link.includes("x.com") ) {
                         const id = item.link.match(/status\/(\d+)/);
