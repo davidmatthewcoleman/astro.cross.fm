@@ -5,7 +5,8 @@ export default function CollectionSelector() {
     const [collections, setCollections] = useState([]);
     const [defaultCollection, setDefaultCollection] = useState(null);
     const [currentCollection, setCurrentCollection] = useState(null);
-    const [initialized, setInitialized] = useState(false); // Added flag
+    const [currentWidth, setCurrentWidth] = useState(0);
+    const [initialized, setInitialized] = useState(false);
 
     useEffect(() => {
         if (window.location.hash && window.location.hash.length) {
@@ -75,6 +76,39 @@ export default function CollectionSelector() {
         window.dispatchEvent(customEvent);
     }, [initialized]);
 
+    useEffect(() => {
+        // Create the function to update the width
+        const updateWidth = () => {
+            const select = document.getElementById("select-collection");
+            const o = select.options[select.selectedIndex];
+            const s = document.createElement('span');
+
+            s.textContent = o.textContent;
+
+            const ostyles = getComputedStyle(select);
+            s.style.fontFamily = ostyles.fontFamily;
+            s.style.fontStyle = ostyles.fontStyle;
+            s.style.fontWeight = ostyles.fontWeight;
+            s.style.fontSize = ostyles.fontSize;
+
+
+            document.body.appendChild(s);
+
+            setCurrentWidth(s.offsetWidth + 0);
+
+
+            document.body.removeChild(s);
+        };
+
+        // Use setTimeout to delay the execution of the width calculation
+        const timeoutId = setTimeout(updateWidth, 0);
+
+        // Return a cleanup function to clear the timeout when the component is unmounted or the effect reruns
+        return () => {
+            clearTimeout(timeoutId);
+        };
+    }, [currentCollection]); // Dependency on currentCollection ensures it runs whenever it changes
+
     if (!collections.length) {
         return null;
     }
@@ -85,7 +119,7 @@ export default function CollectionSelector() {
     };
 
     return (
-        <select id="select-collection" value={currentCollection || ''} onChange={handleChange}>
+        <select id="select-collection" value={currentCollection || ''} onChange={handleChange} style={{ '--width': `${currentWidth}px` }}>
             {collections.map(({ id, title, slug }) => (
                 <option key={id} value={id}>
                     {Parse(title)}
