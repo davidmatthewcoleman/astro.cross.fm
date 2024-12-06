@@ -1,0 +1,70 @@
+---
+import CollectionSelector from "../../../components/bookmarks/Selector.jsx";
+import Bookmarks from "../../../components/bookmarks/Bookmarks.jsx";
+import Sidebar from "../../../components/Sidebar.astro";
+import MainLayout from "../../../layouts/MainLayout.astro";
+
+// export const prerender = false;
+
+Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
+
+---
+
+<MainLayout title='Bookshelf – CROSS'>
+    <style is:inline>
+        .single__title {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        #select-collection {
+            font-size: 1.5rem;
+            color: #e08c48;
+            text-align: right;
+            background: transparent;
+            border: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            cursor: pointer;
+        }
+        #select-collection:hover {
+            color: #c7ba00;
+            text-decoration: underline;
+        }
+        #select-collection option {
+            font-size: initial !important;
+        }
+
+        .react-tweet-theme {
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+    </style>
+    <div class="page__wrapper lmr">
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+            <ol>
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                <li>
+                    <a href="/about">About Me</a>
+                </li>
+                <li class="is-active">
+                    <span>Bookmarks</span>
+                </li>
+            </ol>
+        </nav>
+        <section class="page main">
+            <div class="summary__container" data-display="block">
+                <h2 class="single__title">
+                    <span>Bookmarks</span>
+                    <CollectionSelector server:defer client:load />
+                </h2>
+                <Bookmarks server:defer client:load />
+            </div>
+        </section>
+    </div>
+    <Sidebar />
+</MainLayout>

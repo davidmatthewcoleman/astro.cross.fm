@@ -18,5 +18,10 @@ export default defineConfig({
         '@assets': '/src/assets',
       },
     },
+    ssr: {
+      noExternal: [
+        'react-tweet',
+      ]
+    },
   },
 });
