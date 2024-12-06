@@ -1,7 +1,6 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Tweet } from "react-tweet";
 import Picture from "../Picture.jsx";
-import Favicon from "../Favicon.jsx";
 import Parse from "html-react-parser";
 import { format } from "date-fns";
 
@@ -85,7 +84,34 @@ export default function Bookmarks() {
                                         <span>Added {format(new Date(item.created), 'MMM. d, yyyy')}</span>
                                         <span className={`flex flex-row gap-1.5 items-center`}>
                                             {Parse(getDomainAndTLD(item.link))}
-                                            <Favicon url={item.link} className="block w-[14px] h-[14px] rounded" />
+                                            <Picture
+                                                remote={true}
+                                                alt={Parse(new URL(item.link).hostname)}
+                                                className="block w-[14px] h-[14px] rounded"
+                                                source={
+                                                    {
+                                                        null: {
+                                                            media: {
+                                                                filename: new URL(`https://s2.googleusercontent.com/s2/favicons?domain_url=${item.link}`).pathname,
+                                                                source: `https://s2.googleusercontent.com/s2/favicons?domain_url=${item.link}`,
+                                                                dominantColor: null,
+                                                                dimensions: {
+                                                                    width: 32,
+                                                                    height: 32
+                                                                },
+                                                                focalPoint: {
+                                                                    x: 0.5,
+                                                                    y: 0.5
+                                                                }
+                                                            },
+                                                            params: {
+                                                                'width': 14,
+                                                                'height': 14
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            />
                                         </span>
                                     </div>
                                 </a>
