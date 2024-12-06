@@ -23,9 +23,9 @@ export default function Bookmarks() {
             }
         };
 
-        fetchData();
+        // fetchData();
         window.addEventListener("collectionChanged", fetchData);
-        window.addEventListener("collectionInit", fetchData);
+        // window.addEventListener("collectionInit", fetchData);
     }, []);
 
     if (!bookmarks) {
