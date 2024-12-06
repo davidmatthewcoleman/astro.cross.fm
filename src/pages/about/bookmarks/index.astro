@@ -1,5 +1,6 @@
 ---
 import CollectionSelector from "../../../components/bookmarks/Selector.jsx";
+import AboutSelector from "../../../components/AboutSelector.jsx";
 import Bookmarks from "../../../components/bookmarks/Bookmarks.jsx";
 import Sidebar from "../../../components/Sidebar.astro";
 import MainLayout from "../../../layouts/MainLayout.astro";
@@ -28,6 +29,7 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
         }
 
         .is-active .icon {
+            color: #bdbdbd;
             margin-left: 2px;
         }
 
@@ -43,7 +45,8 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
                     <a href="/">Home</a>
                 </li>
                 <li>
-                    <a href="/about">About Me</a>
+                    <AboutSelector server:defer client:load />
+                    <Icon name="caret-down" size={12} />
                 </li>
                 <li class="is-active">
                     <CollectionSelector server:defer client:load />

@@ -16021,3 +16021,37 @@ body {
         transform: rotate(360deg);
     }
 }
+
+
+
+
+#select-page {
+    width: var(--width, 96px);
+    padding-inline: 0;
+    font-size: inherit;
+    color: #bdbdbd;
+    text-align: right;
+    background: transparent;
+    border: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor: text;
+}
+
+.breadcrumb li:not(:last-of-type) select {
+    color: #e08c48 !important;
+    cursor: pointer !important;
+}
+.breadcrumb li:not(:last-of-type) select:hover {
+    color: #c7ba00 !important;
+    text-decoration: underline;
+}
+
+.breadcrumb .icon {
+    color: #bdbdbd;
+    margin-left: 2px;
+}
+.breadcrumb li:not(:last-of-type) .icon {
+    display: none;
+}
