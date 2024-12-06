@@ -3,6 +3,7 @@ import CollectionSelector from "../../../components/bookmarks/Selector.jsx";
 import Bookmarks from "../../../components/bookmarks/Bookmarks.jsx";
 import Sidebar from "../../../components/Sidebar.astro";
 import MainLayout from "../../../layouts/MainLayout.astro";
+import Icon from "../../../components/Icon.astro";
 
 // export const prerender = false;
 
@@ -12,31 +13,22 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
 
 <MainLayout title='Bookshelf – CROSS'>
     <style is:inline>
-        .single__title {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            align-items: center;
-        }
         #select-collection {
             width: var(--width, 96px);
             padding-inline: 0;
-            font-size: 1.5rem;
-            color: #e08c48;
+            font-size: inherit;
+            color: #bdbdbd;
             text-align: right;
             background: transparent;
             border: none;
             -webkit-appearance: none;
             -moz-appearance: none;
             appearance: none;
-            cursor: pointer;
+            cursor: text;
         }
-        #select-collection:hover {
-            color: #c7ba00;
-            text-decoration: underline;
-        }
-        #select-collection option {
-            font-size: initial !important;
+
+        .is-active .icon {
+            margin-left: 2px;
         }
 
         .react-tweet-theme {
@@ -54,15 +46,15 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
                     <a href="/about">About Me</a>
                 </li>
                 <li class="is-active">
-                    <span>Bookmarks</span>
+                    <CollectionSelector server:defer client:load />
+                    <Icon name="caret-down" size={12} />
                 </li>
             </ol>
         </nav>
         <section class="page main">
             <div class="summary__container" data-display="block">
                 <h2 class="single__title">
-                    <span>Bookmarks</span>
-                    <CollectionSelector server:defer client:load />
+                    Bookmarks
                 </h2>
                 <Bookmarks server:defer client:load />
             </div>
