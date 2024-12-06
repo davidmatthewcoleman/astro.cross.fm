@@ -65,6 +65,16 @@ export default function CollectionSelector() {
         window.dispatchEvent(customEvent);
     }, [currentCollection]);
 
+    useEffect(() => {
+        // Define your custom event
+        const customEvent = new CustomEvent('collectionInit', {
+            detail: { message: 'Set Collection!', timestamp: Date.now() },
+        });
+
+        // Dispatch the custom event
+        window.dispatchEvent(customEvent);
+    }, [initialized]);
+
     if (!collections.length) {
         return null;
     }

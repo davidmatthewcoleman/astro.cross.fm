@@ -25,9 +25,10 @@ export default function Bookmarks() {
 
         fetchData();
         window.addEventListener("collectionChanged", fetchData);
+        window.addEventListener("collectionInit", fetchData);
     }, []);
 
-    if (!bookmarks && !bookmarks.length) {
+    if (!bookmarks) {
         return null;
     }
 
