@@ -83,7 +83,7 @@ export default function Bookmarks() {
                                     <div className="!text-white/50 text-xs flex items-center justify-between gap-2 mt-auto">
                                         <span>Added {format(new Date(item.created), 'MMM. d, yyyy')}</span>
                                         <span className={`flex flex-row gap-1.5 items-center`}>
-                                            {Parse(new URL(item.link).hostname)}
+                                            {Parse(getDomainAndTLD(item.link))}
                                             <Favicon url={item.link} className="block w-[14px] h-[14px] rounded" />
                                         </span>
                                     </div>
@@ -95,4 +95,22 @@ export default function Bookmarks() {
             </div>
         </div>
     );
+}
+
+function getDomainAndTLD(url) {
+    try {
+        const parsedUrl = new URL(url); // Parse the URL
+        const hostname = parsedUrl.hostname; // Extract the hostname
+
+        // Split the hostname into parts (e.g., "www.example.com" => ["www", "example", "com"])
+        const parts = hostname.split('.');
+
+        // Get the last two parts (domain and TLD)
+        const domainAndTLD = parts.slice(-2).join('.');
+
+        return domainAndTLD;
+    } catch (error) {
+        console.error('Invalid URL:', error);
+        return null;
+    }
 }
