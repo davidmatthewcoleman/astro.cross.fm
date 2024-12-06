@@ -16046,7 +16046,14 @@ body {
 }
 .breadcrumb li:not(:last-of-type) select:hover {
     color: #c7ba00 !important;
-    text-decoration: underline;
+    text-decoration: underline !important;
+}
+
+.breadcrumb li.is-active select,
+.breadcrumb li.is-active select:hover {
+    color: #bdbdbd !important;
+    cursor: text !important;
+    text-decoration: none !important;
 }
 
 .breadcrumb .icon {
