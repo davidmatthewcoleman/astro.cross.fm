@@ -92,8 +92,8 @@ export default function Bookmarks() {
                                                     {
                                                         null: {
                                                             media: {
-                                                                filename: new URL(`https://s2.googleusercontent.com/s2/favicons?domain_url=${item.link}`).pathname,
-                                                                source: `https://s2.googleusercontent.com/s2/favicons?domain_url=${item.link}`,
+                                                                filename: new URL(`https://s2.googleusercontent.com/s2/favicons?domain_url=${encodeURIComponent(item.link)}`).pathname,
+                                                                source: `https://s2.googleusercontent.com/s2/favicons?domain_url=${encodeURIComponent(item.link)}`,
                                                                 dominantColor: null,
                                                                 dimensions: {
                                                                     width: 32,

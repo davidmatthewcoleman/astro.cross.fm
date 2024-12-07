@@ -3,7 +3,9 @@ import Sidebar from "../../../components/Sidebar.astro";
 import MainLayout from "../../../layouts/MainLayout.astro";
 import { getContent } from "cross:content";
 import Picture from "../../../components/Picture";
+import ChapterSelector from "../../../components/ChapterSelector.jsx";
 import Icon from "../../../components/Icon.astro";
+import Parse from "html-react-parser";
 
 const post = await getContent('chapters', {
     slug: Astro.params.chapter
@@ -54,6 +56,27 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                 />
             </div>
     )}
+    <style is:inline>
+        #select-chapter {
+            width: var(--width, 96px);
+            padding-inline: 0;
+            font-size: inherit;
+            font-family: inherit;
+            color: #bdbdbd;
+            text-align: right;
+            background: transparent;
+            border: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            cursor: text;
+        }
+
+        .is-active .icon {
+            color: #bdbdbd;
+            margin-left: 2px;
+        }
+    </style>
     <div class="post__wrapper lm">
         <nav class="breadcrumb" aria-label="breadcrumbs">
             <ol>
@@ -67,7 +90,12 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                     <a href={post?.story.path} set:html={post?.story.title}></a>
                 </li>
                 <li class="is-active">
-                    <span set:html={post?.title}></span>
+                    <span>
+                        <ChapterSelector story={post.story.slug} defaultChapter={post.path} server:defer client:load>
+                            {Parse(post.title)}
+                        </ChapterSelector>
+                        <Icon name="caret-down" size={12} />
+                    </span>
                 </li>
             </ol>
         </nav>
