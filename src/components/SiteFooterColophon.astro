@@ -1,0 +1,23 @@
+---
+import { getFooter } from "cross:content";
+const { wp } = await getFooter();
+
+let ver = Astro.generator.replace('Astro v', '').split('-')[0];
+if ( Astro.generator.toLowerCase().includes('rc') || Astro.generator.toLowerCase().includes('release candidate') ) {
+    ver = ver + ' (rc)';
+}
+if ( Astro.generator.toLowerCase().includes('beta') ) {
+    ver = ver + ' (beta)';
+}
+if ( Astro.generator.toLowerCase().includes('alpha') ) {
+    ver = ver + ' (alpha)';
+}
+---
+
+<div class="footer__poweredby">
+    <p class="caption">© 2016 - {new Date().getFullYear()} <a href="/">CROSS</a>. All rights reserved.</p>
+    <p class="caption powers">
+        <a href="https://wordpress.org/" target="_blank" rel="noreferrer"><img src={`https://img.shields.io/badge/wordpress-${wp}-informational?logo=wordpress&style=flat-square`} style="display:block;" /></a>
+        <a href="https://astro.build/" target="_blank" rel="noreferrer"><img src={`https://img.shields.io/badge/astro-${ver}-informational?logo=astro&logoColor=white&style=flat-square&color=%23E63BAE`} style="display:block;" /></a>
+    </p>
+</div>
