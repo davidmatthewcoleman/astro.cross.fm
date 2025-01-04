@@ -15399,6 +15399,7 @@ body::after {
     }
 }
 
+
 .story__header {
     display: grid;
     grid-template-columns: 128px 1fr;
