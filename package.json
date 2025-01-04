@@ -17,6 +17,8 @@
     "@astrojs/tailwind": "5.1.4",
     "@astrojs/vercel": "8.0.1",
     "@imgix/js-core": "^3.8.0",
+    "@nextui-org/avatar": "^2.2.5",
+    "@nextui-org/react": "^2.6.10",
     "@phosphor-icons/react": "^2.1.7",
     "@radix-ui/react-collapsible": "^1.1.1",
     "@radix-ui/react-icons": "^1.3.2",

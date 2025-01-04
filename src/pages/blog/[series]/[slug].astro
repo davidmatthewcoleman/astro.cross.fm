@@ -5,6 +5,7 @@ import MainLayout from "../../../layouts/MainLayout.astro";
 import Parse from "html-react-parser";
 import { getContent } from "cross:content";
 import Icon from "../../../components/Icon.astro";
+import Mentions from "../../../components/Mentions.jsx";
 
 const post = await getContent('posts', {
     first: 1,
@@ -263,6 +264,7 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
 
                     </script>
                 </div>
+                <Mentions path={post?.path} client:load />
             </footer>
             <nav class="pagination-single">
                 {
