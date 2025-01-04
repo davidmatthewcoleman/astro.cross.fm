@@ -16074,3 +16074,8 @@ body {
 .breadcrumb li.hash::before {
     content: '#';
 }
+
+
+.theme__hacker .taxo-root {
+    background: transparent !important;
+}
