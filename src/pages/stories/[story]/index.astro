@@ -21,16 +21,6 @@ export async function getStaticPaths() {
 Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
 ---
 <MainLayout title={`${story?.title} – CROSS`} description={story?.content.summary}>
-    <style>
-        @media screen and (max-width: 959px) {
-            .story__header {
-                grid-template-columns: 1fr !important;
-            }
-            .summary-blur__image {
-                filter: blur(64px) saturate(2) contrast(2);
-            }
-        }
-    </style>
     {
         story?.content.images.background && (
             <div class="banner summary-blur__image-wrapper">
@@ -61,6 +51,16 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
             </div>
         )
     }
+    <style is:inline>
+        @media screen and (max-width: 959px) {
+            .story__header {
+                grid-template-columns: 1fr !important;
+            }
+            .summary-blur__image {
+                filter: blur(64px) saturate(2) contrast(2) !important;
+            }
+        }
+    </style>
     <div class="story__wrapper lm">
         <nav class="breadcrumb" aria-label="breadcrumbs">
             <ol>
