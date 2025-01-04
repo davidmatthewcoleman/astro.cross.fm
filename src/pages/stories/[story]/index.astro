@@ -26,6 +26,9 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
             .story__header {
                 grid-template-columns: 1fr !important;
             }
+            .summary-blur__image {
+                filter: blur(64px) saturate(2) contrast(2);
+            }
         }
     </style>
     {
@@ -41,8 +44,6 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                                 params: {
                                     'width': 360,
                                     'height': 196,
-                                    'blur': 64,
-                                    'gamma': 0.5,
                                     'fit': 'cover'
                                 }
                             },
