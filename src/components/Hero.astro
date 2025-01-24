@@ -1,5 +1,5 @@
 ---
-import Picture from "./Picture";
+import Picture from "./Picture.astro";
 import { getContent } from "cross:content";
 import Icon from "./Icon.astro";
 const hero = await getContent('hero');
@@ -8,58 +8,50 @@ const hero = await getContent('hero');
 <header class="header">
     <div class="site-header">
         <Picture
-            alt={`about me`}
-            className="banner__img"
-            source={
+            alt="banner"
+            className={'banner__img'}
+            source={[
                 {
-                    '(max-width: 959px)': {
-                        media: hero.banner,
-                        params: {
-                            'width': 360,
-                            'height': 246,
-                            'fit': 'cover',
-                            'offset': [0,-0.25]
-                        }
-                    },
-                    '(min-width: 960px)': {
-                        media: hero.banner,
-                        params: {
-                            'width': 960,
-                            'height': 246,
-                            'fit': 'cover',
-                            'offset': [0,-0.025]
-                        }
+                    media: '(max-width: 959px)',
+                    url: hero.banner.source,
+                    params: {
+                        cover: [360, 246],
+                        focus: [0.5, (0.5 - 0.025)]
+                    }
+                },
+                {
+                    media: '(min-width: 960px)',
+                    url: hero.banner.source,
+                    params: {
+                        cover: [960, 246],
+                        focus: [0.5, (0.5 - 0.025)]
                     }
                 }
-            }
+            ]}
         />
         <div class="site-header__inner">
             <div class="site-header__contents">
                 <div class="avatar__wrapper">
                     <div class="avatar">
                         <Picture
-                            alt={`about me`}
-                            className="about_banner_profile"
-                            source={
-                                {
-                                    '(max-width: 959px)': {
-                                        media: hero.profile.photo,
+                                alt="banner"
+                                className={'banner__img'}
+                                source={[
+                                    {
+                                        media: '(max-width: 959px)',
+                                        url: hero.profile.photo.source,
                                         params: {
-                                            'width': 96,
-                                            'height': 96,
-                                            'fit': 'crop'
+                                            cover: [96, 96]
                                         }
                                     },
-                                    '(min-width: 960px)': {
-                                        media: hero.profile.photo,
+                                    {
+                                        media: '(min-width: 960px)',
+                                        url: hero.profile.photo.source,
                                         params: {
-                                            'width': 128,
-                                            'height': 128,
-                                            'fit': 'crop'
+                                            cover: [128, 198]
                                         }
-                                    }
-                                }
-                            }
+                                    },
+                                ]}
                         />
                     </div>
                 </div>

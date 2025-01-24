@@ -1,4 +1,5 @@
 import { Avatar, AvatarGroup } from "@nextui-org/react";
+import Picture from "./picture/Remote.jsx";
 
 export default function Avatars({data: authors, max, prefix = null, suffix = null}) {
     const displayCount = Math.min(authors.length, max);
@@ -53,14 +54,16 @@ export default function Avatars({data: authors, max, prefix = null, suffix = nul
                 <a href={author.url} target="_blank" rel="noopener noreferrer"
                    title={removeEncodedEmojis(author.name)}
                 >
-                    <Avatar
-                        src={`${author.photo.length > 0 ? `https://images.cross.fm/format=webp,width=108,height=108,fit=crop/${author.photo}` : `https://ui-avatars.com/api/?name=${encodeURIComponent(author.name)}&background=1b1c1b&color=fff`}`}
-                        className={'block w-[36px] h-[36px] m-0 !transform-none'}
-                        imgProps={{
-                            className: 'block opacity-100 bg-[#1b1c1b]',
-                            width: '36px',
-                            height: '36px'
-                        }}
+                    <Picture
+                        className={'block w-[36px] h-[36px] m-0 !transform-none bg-[#1b1c1b]'}
+                        source={[
+                            {
+                                url: `${author.photo.length > 0 ? `https://images.cross.fm/format=webp,width=108,height=108,fit=crop/${author.photo}` : `https://ui-avatars.com/api/?name=${encodeURIComponent(author.name)}&background=1b1c1b&color=fff`}`,
+                                params: {
+                                    cover: [36, 36]
+                                }
+                            }
+                        ]}
                     />
                 </a>
             ))}

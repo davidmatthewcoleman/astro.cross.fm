@@ -174,7 +174,10 @@ const posts = async (first = null, after = null, slug = null, series = null, top
             },
             content: {
                 excerpt: post.excerpt ? Parse(post.excerpt) : null,
-                full: post.content ? Parse(post.content) : null,
+                full: {
+                    raw: post.content ? Parse(post.content) : null,
+                    blocks: post.editorBlocks || null
+                },
                 toc: post.toc ? Parse(post.toc) : false,
                 thumbnail: post.featuredImage && post.featuredImage.node ? {
                     mimeType: String(post.featuredImage.node.mimeType),
@@ -215,7 +218,10 @@ const pages = async (first = null, after = null, slug = null) => {
                 formatted: format(new Date(post.date), 'MMM. d, yyyy')
             },
             content: {
-                full: post.content ? Parse(post.content) : null
+                full: {
+                    raw: post.content ? Parse(post.content) : null,
+                    blocks: post.editorBlocks || null
+                }
             }
         })),
         paginate: {
@@ -388,7 +394,10 @@ const chapters = async (slug = null) => {
                 } : false
             },
             content: {
-                full: chapter.content ? Parse(chapter.content) : null,
+                full: {
+                    raw: chapter.content ? Parse(chapter.content) : null,
+                    blocks: chapter.editorBlocks || null
+                }
             }
         })
     }

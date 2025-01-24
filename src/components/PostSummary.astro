@@ -1,6 +1,6 @@
 ---
 import Parse from "html-react-parser";
-import Picture from "./Picture";
+import Picture from "./Picture.astro";
 import Icon from "./Icon.astro";
 const { data } = Astro.props;
 ---
@@ -12,28 +12,26 @@ const { data } = Astro.props;
                 <div class="summary-classic__image-container summary-classic__image-wrapper" data-position="right">
                     <a href={data.path}>
                         <Picture
-                                alt={data?.title}
-                                className="summary-classic__image"
-                                source={
-                                    {
-                                        '(max-width: 959px)': {
-                                            media: data.content.thumbnail,
-                                            params: {
-                                                'width': 1200,
-                                                'height': 600,
-                                                'fit': 'crop'
-                                            }
-                                        },
-                                        '(min-width: 960px)': {
-                                            media: data.content.thumbnail,
-                                            params: {
-                                                'width': 256,
-                                                'height': 256,
-                                                'fit': 'crop'
-                                            }
-                                        }
+                            alt={data?.title}
+                            className="summary-classic__image"
+                            source={[
+                                {
+                                    media: '(max-width: 959px)',
+                                    url: data.content.thumbnail.source,
+                                    params: {
+                                        cover: [1200, 600],
+                                        focus: data.content.thumbnail.focalPoint
+                                    }
+                                },
+                                {
+                                    media: '(min-width: 960px)',
+                                    url: data.content.thumbnail.source,
+                                    params: {
+                                        cover: [256, 256],
+                                        focus: data.content.thumbnail.focalPoint
                                     }
                                 }
+                            ]}
                         />
                     </a>
                 </div>

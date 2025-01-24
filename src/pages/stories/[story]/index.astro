@@ -2,7 +2,7 @@
 import Sidebar from "../../../components/Sidebar.astro";
 import MainLayout from "../../../layouts/MainLayout.astro";
 import { getContent } from "cross:content";
-import Picture from "../../../components/Picture";
+import Picture from "../../../components/Picture.astro";
 
 const story = await getContent('stories', {
     first: 1,
@@ -27,26 +27,24 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                 <Picture
                     alt={story?.title}
                     className="summary-blur__image"
-                    source={
+                    source={[
                         {
-                            '(max-width: 959px)': {
-                                media: story?.content.images.background,
-                                params: {
-                                    'width': 360,
-                                    'height': 196,
-                                    'fit': 'cover'
-                                }
-                            },
-                            '(min-width: 960px)': {
-                                media: story?.content.images.background,
-                                params: {
-                                    'width': 960,
-                                    'height': 196,
-                                    'fit': 'cover'
-                                }
+                            media: '(max-width: 959px)',
+                            url: story.content.images.background.source,
+                            params: {
+                                cover: [360, 196],
+                                focus: story.content.images.background.focalPoint
+                            }
+                        },
+                        {
+                            media: '(min-width: 960px)',
+                            url: story.content.images.background.source,
+                            params: {
+                                cover: [960, 196],
+                                focus: story.content.images.background.focalPoint
                             }
                         }
-                    }
+                    ]}
                 />
             </div>
         )
@@ -79,26 +77,24 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
             <Picture
                 alt={story?.title}
                 className="summary-cover__image"
-                source={
+                source={[
                     {
-                        '(max-width: 959px)': {
-                            media: story?.content.images.banner,
-                            params: {
-                                'width': 1200,
-                                'height': 600,
-                                'fit': 'cover'
-                            }
-                        },
-                        '(min-width: 960px)': {
-                            media: story?.content.images.cover,
-                            params: {
-                                'width': 128,
-                                'height': 192,
-                                'fit': 'cover'
-                            }
+                        media: '(max-width: 959px)',
+                        url: story.content.images.banner.source,
+                        params: {
+                            cover: [1200, 600],
+                            focus: story.content.images.banner.focalPoint
+                        }
+                    },
+                    {
+                        media: '(min-width: 960px)',
+                        url: story.content.images.cover.source,
+                        params: {
+                            cover: [128, 192],
+                            focus: story.content.images.cover.focalPoint
                         }
                     }
-                }
+                ]}
             />
             <div>
                 <h5 class="list__header--title list__header--story capitalize h5" set:html={story?.title}></h5>

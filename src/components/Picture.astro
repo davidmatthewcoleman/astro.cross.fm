@@ -1,0 +1,43 @@
+---
+import { BuildURL, convertValue } from '../lib/encrypt.js';
+
+const { source, alt, className, classNamePicture, color, ...rest } = Astro.props;
+const fallback = source[0];
+const size = fallback.params?.cover || fallback.params?.resize;
+
+// Build fallback source
+const fallbackSrc = BuildURL(fallback.url, { ...fallback.params, output: 'png' }, 1);
+
+// Resolve all source sets (avif and webp)
+const resolvedSources = source.map(({ media, url, params }) => {
+    const avifSet = [1, 2, 3]
+        .map((dpr) =>
+            `${BuildURL(url, { ...params, output: 'avif' }, dpr)} ${dpr}x`
+        )
+        .join(", ");
+    const webpSet = [1, 2, 3]
+        .map((dpr) =>
+            `${BuildURL(url, { ...params, output: 'webp' }, dpr)} ${dpr}x`
+        )
+        .join(", ");
+    return { media, avif: avifSet, webp: webpSet };
+});
+---
+
+<picture class={classNamePicture}>
+    {resolvedSources.map(({ media, avif, webp }) => (
+        <source type="image/avif" media={media} srcset={avif} />
+        <source type="image/webp" media={media} srcset={webp} />
+    ))}
+    <img
+        src={fallbackSrc}
+        alt={alt || ""}
+        class={`${className} ${fallbackSrc ? "" : "opacity-0"} transition-all duration-500 text-transparent bg-background`}
+        style={{
+            '--background': color
+        }}
+        width={convertValue(size[0])}
+        height={convertValue(size[1])}
+        {...rest}
+    />
+</picture>

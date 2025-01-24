@@ -118,80 +118,168 @@ export async function blogQuery(first = null, after = null, slug = null, series 
             body: JSON.stringify({
                 query: `
                   query GetPaginatedPosts($first: Int!, $after: String, $slug: String, $series: String, $topic: String, $tag: [String], $search: String) {
-                    posts(first: $first, after: $after, where: { stickyPosts: true, name: $slug, seriesSlugIn: $series, categoryName: $topic, tagSlugIn: $tag, search: $search }) {
-                      pageInfo {
-                        endCursor
-                        hasNextPage
-                      }
-                      edges {
-                        node {
-                          title
-                          subtitle
-                          slug
-                          series
-                          shortlink
-                          excerpt
-                          content
-                          date
-                          dateGmt
-                          readingTime
-                          isSticky
-                          license
-                          toc
-                          author {
-                            node {
-                              name                            
-                            }
-                          }
-                          previousPost {
+                      posts(
+                        first: $first
+                        after: $after
+                        where: {stickyPosts: true, name: $slug, seriesSlugIn: $series, categoryName: $topic, tagSlugIn: $tag, search: $search}
+                      ) {
+                        pageInfo {
+                          endCursor
+                          hasNextPage
+                        }
+                        edges {
+                          node {
                             title
+                            subtitle
                             slug
                             series
-                          }
-                          nextPost {
-                            title
-                            slug
-                            series
-                          }
-                          featuredImage {
-                            node {
-                              mimeType
-                              sourceUrl
-                              sourceFile
-                              mediaDetails {
-                                width
-                                height
-                                x
-                                y
-                                color
+                            shortlink
+                            excerpt
+                            content
+                            date
+                            dateGmt
+                            readingTime
+                            isSticky
+                            license
+                            toc
+                            author {
+                              node {
+                                name
                               }
                             }
-                          }
-                          allSeries {
-                            nodes {
-                              name
+                            previousPost {
+                              title
                               slug
-                              count
+                              series
                             }
-                          }
-                          categories {
-                            nodes {
-                              name
+                            nextPost {
+                              title
                               slug
-                              count
+                              series
                             }
-                          }
-                          tags {
-                            nodes {
+                            featuredImage {
+                              node {
+                                mimeType
+                                sourceUrl
+                                sourceFile
+                                mediaDetails {
+                                  width
+                                  height
+                                  x
+                                  y
+                                  color
+                                }
+                              }
+                            }
+                            allSeries {
+                              nodes {
+                                name
+                                slug
+                                count
+                              }
+                            }
+                            categories {
+                              nodes {
+                                name
+                                slug
+                                count
+                              }
+                            }
+                            tags {
+                              nodes {
+                                name
+                                slug
+                                count
+                              }
+                            }
+                            editorBlocks(flat: false) {
+                              clientId
+                              blockEditorCategoryName
+                              cssClassNames
+                              isDynamic
                               name
-                              slug
-                              count
+                              renderedHtml
+                              type
+                              ... on CoreParagraph {
+                                attributes {
+                                  cssClassName
+                                  content
+                                }
+                                renderedHtml
+                              }
+                              ... on CoreEmbed {
+                                attributes {
+                                  url
+                                  type
+                                  className
+                                  caption
+                                  align
+                                }
+                              }
+                              ... on CoreImage {
+                                attributes {
+                                  src
+                                  width
+                                  height
+                                  aspectRatio
+                                  className
+                                  cssClassName
+                                  alt
+                                  align
+                                  caption
+                                  href
+                                  linkClass
+                                  linkDestination
+                                  linkTarget
+                                  metadata
+                                  scale
+                                  sizeSlug
+                                  style
+                                  title
+                                  url
+                                }
+                              }
+                              ... on CoreQuote {
+                                attributes {
+                                  align
+                                  citation
+                                  className
+                                  cssClassName
+                                  metadata
+                                  textColor
+                                  value
+                                }
+                              }
+                              ... on AcfAlert {
+                                name
+                                attributes {
+                                  data
+                                }
+                                innerBlocks {
+                                  renderedHtml
+                                  name
+                                }
+                              }
+                              ... on CoreList {
+                                attributes {
+                                  cssClassName
+                                  className
+                                  metadata
+                                  ordered
+                                  start
+                                  values
+                                }
+                              }
+                              ... on AcfBookmark {
+                                name
+                                renderedHtml
+                                clientId
+                              }
                             }
                           }
                         }
                       }
                     }
-                  }
                 `,
                 variables
             })
@@ -202,6 +290,7 @@ export async function blogQuery(first = null, after = null, slug = null, series 
         }
 
         const { data } = await response.json();
+
         return data;
     } catch (error) {
         console.error('Error fetching paginated posts:', error);
@@ -234,7 +323,91 @@ export async function pagesQuery(first = null, after = null, slug = null) {
                           slug
                           content
                           date
-                          dateGmt
+                          dateGmt,
+                          editorBlocks(flat: false) {
+                              clientId
+                              blockEditorCategoryName
+                              cssClassNames
+                              isDynamic
+                              name
+                              renderedHtml
+                              type
+                              ... on CoreParagraph {
+                                attributes {
+                                  cssClassName
+                                  content
+                                }
+                                renderedHtml
+                              }
+                              ... on CoreEmbed {
+                                attributes {
+                                  url
+                                  type
+                                  className
+                                  caption
+                                  align
+                                }
+                              }
+                              ... on CoreImage {
+                                attributes {
+                                  src
+                                  width
+                                  height
+                                  aspectRatio
+                                  className
+                                  cssClassName
+                                  alt
+                                  align
+                                  caption
+                                  href
+                                  linkClass
+                                  linkDestination
+                                  linkTarget
+                                  metadata
+                                  scale
+                                  sizeSlug
+                                  style
+                                  title
+                                  url
+                                }
+                              }
+                              ... on CoreQuote {
+                                attributes {
+                                  align
+                                  citation
+                                  className
+                                  cssClassName
+                                  metadata
+                                  textColor
+                                  value
+                                }
+                              }
+                              ... on AcfAlert {
+                                name
+                                attributes {
+                                  data
+                                }
+                                innerBlocks {
+                                  renderedHtml
+                                  name
+                                }
+                              }
+                              ... on CoreList {
+                                attributes {
+                                  cssClassName
+                                  className
+                                  metadata
+                                  ordered
+                                  start
+                                  values
+                                }
+                              }
+                              ... on AcfBookmark {
+                                name
+                                renderedHtml
+                                clientId
+                              }
+                            }
                         }
                       }
                     }
@@ -1025,6 +1198,90 @@ export async function singleChapterQuery(slug) {
                           }
                         }
                       }
+                      editorBlocks(flat: false) {
+                              clientId
+                              blockEditorCategoryName
+                              cssClassNames
+                              isDynamic
+                              name
+                              renderedHtml
+                              type
+                              ... on CoreParagraph {
+                                attributes {
+                                  cssClassName
+                                  content
+                                }
+                                renderedHtml
+                              }
+                              ... on CoreEmbed {
+                                attributes {
+                                  url
+                                  type
+                                  className
+                                  caption
+                                  align
+                                }
+                              }
+                              ... on CoreImage {
+                                attributes {
+                                  src
+                                  width
+                                  height
+                                  aspectRatio
+                                  className
+                                  cssClassName
+                                  alt
+                                  align
+                                  caption
+                                  href
+                                  linkClass
+                                  linkDestination
+                                  linkTarget
+                                  metadata
+                                  scale
+                                  sizeSlug
+                                  style
+                                  title
+                                  url
+                                }
+                              }
+                              ... on CoreQuote {
+                                attributes {
+                                  align
+                                  citation
+                                  className
+                                  cssClassName
+                                  metadata
+                                  textColor
+                                  value
+                                }
+                              }
+                              ... on AcfAlert {
+                                name
+                                attributes {
+                                  data
+                                }
+                                innerBlocks {
+                                  renderedHtml
+                                  name
+                                }
+                              }
+                              ... on CoreList {
+                                attributes {
+                                  cssClassName
+                                  className
+                                  metadata
+                                  ordered
+                                  start
+                                  values
+                                }
+                              }
+                              ... on AcfBookmark {
+                                name
+                                renderedHtml
+                                clientId
+                              }
+                            }
                     }
                   }
                 }

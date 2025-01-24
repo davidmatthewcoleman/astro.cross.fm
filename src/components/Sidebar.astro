@@ -1,6 +1,6 @@
 ---
 import SearchForm from "./Search.astro";
-import Picture from "./Picture.jsx";
+import Picture from "./Picture.astro";
 import Status from "./StatusAlt.jsx";
 import Location from "./Location.jsx";
 import { getContent } from "cross:content";
@@ -52,18 +52,15 @@ const { show = true, overlap = false, search = null } = Astro.props;
                 <Picture
                     alt={profile.name}
                     className="bio__photo"
-                    source={
+                    source={[
                         {
-                            null: {
-                                media: profile.photo,
-                                params: {
-                                    'width': 225,
-                                    'height': 150,
-                                    'fit': 'crop'
-                                }
+                            url: profile.photo.source,
+                            params: {
+                                cover: [225, 150],
+                                focus: profile.photo.focalPoint
                             }
                         }
-                    }
+                    ]}
                 />
             </div>
             <hr class="hr-slash bio-hr"/>

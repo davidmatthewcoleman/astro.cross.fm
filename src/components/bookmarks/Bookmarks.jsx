@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Tweet } from "react-tweet";
-import Picture from "../Picture.jsx";
+import Picture from "../picture/Remote.jsx";
 import Parse from "html-react-parser";
 import { format } from "date-fns";
 
@@ -48,32 +48,16 @@ export default function Bookmarks() {
                                 <a href={item.link} target={'_blank'} className={`w-full h-full flex flex-col gap-2.5 text-base w-full bg-[#1D1F2E] !text-white hover:!text-[#D2C100] rounded-[6px] !no-underline overflow-hidden px-5 py-3`}>
                                     {item.cover && (
                                         <Picture
-                                            remote={true}
                                             alt={Parse(item.title)}
                                             className="w-full rounded-[4px] aspect-video object-cover mb-2"
-                                            source={
+                                            source={[
                                                 {
-                                                    null: {
-                                                        media: {
-                                                            filename: new URL(item.cover).pathname,
-                                                            source: item.cover,
-                                                            dominantColor: null,
-                                                            dimensions: {
-                                                                width: 256,
-                                                                height: 256
-                                                            },
-                                                            focalPoint: {
-                                                                x: 0.5,
-                                                                y: 0.5
-                                                            }
-                                                        },
-                                                        params: {
-                                                            'width': 256,
-                                                            'fit': 'cover'
-                                                        }
+                                                    url: item.cover,
+                                                    params: {
+                                                        resize: [256]
                                                     }
                                                 }
-                                            }
+                                            ]}
                                         />
                                     )}
                                     <strong className={'line-clamp-2'}>{Parse(item.title)}</strong>
@@ -88,29 +72,14 @@ export default function Bookmarks() {
                                                 remote={true}
                                                 alt={Parse(new URL(item.link).hostname)}
                                                 className="block w-[14px] h-[14px] rounded"
-                                                source={
+                                                source={[
                                                     {
-                                                        null: {
-                                                            media: {
-                                                                filename: new URL(`https://s2.googleusercontent.com/s2/favicons?domain_url=${encodeURIComponent(item.link)}`).pathname,
-                                                                source: `https://s2.googleusercontent.com/s2/favicons?domain_url=${encodeURIComponent(item.link)}`,
-                                                                dominantColor: null,
-                                                                dimensions: {
-                                                                    width: 32,
-                                                                    height: 32
-                                                                },
-                                                                focalPoint: {
-                                                                    x: 0.5,
-                                                                    y: 0.5
-                                                                }
-                                                            },
-                                                            params: {
-                                                                'width': 14,
-                                                                'height': 14
-                                                            }
+                                                        url: `https://s2.googleusercontent.com/s2/favicons?domain_url=${encodeURIComponent(item.link)}`,
+                                                        params: {
+                                                            cover: [32, 32]
                                                         }
                                                     }
-                                                }
+                                                ]}
                                             />
                                         </span>
                                     </div>

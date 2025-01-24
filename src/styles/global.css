@@ -14948,18 +14948,18 @@ table:not(.lntable) td code {
     }
 }
 
-.wp-block-image figcaption {
+.image-block figcaption {
     position: relative;
-    color: #fff;
+    color: rgba(255,255,255,0.5);
     z-index: 10;
 }
 
-.wp-block-image.alignleft {
+.image-block.alignleft {
     margin-right: 1em;
     float: left;
 }
 
-.wp-block-image.alignright {
+.image-block.alignright {
     margin-left: 1em;
     float: right;
 }

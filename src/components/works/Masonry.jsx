@@ -1,4 +1,4 @@
-import Picture from "../../components/Picture.jsx";
+import Picture from "../Picture.astro";
 import React from "react";
 
 export default function Masonry({ data }) {

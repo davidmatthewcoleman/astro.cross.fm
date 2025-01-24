@@ -1,4 +1,4 @@
-import Picture from "../Picture.jsx";
+import Picture from "../picture/Remote.jsx";
 import Parse from "html-react-parser";
 import { Check, Bookmark, BookmarkSimple, Star } from "@phosphor-icons/react/dist/ssr";
 import { format } from "date-fns";
@@ -52,38 +52,36 @@ export function BookGrid({ book }) {
                         remote={true}
                         alt={title}
                         className="cover__img block !w-full !max-w-max pointer-events-auto"
-                        source={
+                        source={[
                             {
-                                '(min-width: 960px)': {
-                                    media: cover,
-                                    params: {
-                                        'width': 196,
-                                        'fit': 'scale-down'
-                                    }
-                                },
-                                '(max-width: 959px) and (min-width: 768px)': {
-                                    media: cover,
-                                    params: {
-                                        'width': 298,
-                                        'fit': 'scale-down'
-                                    }
-                                },
-                                '(max-width: 767px) and (min-width: 640px)': {
-                                    media: cover,
-                                    params: {
-                                        'width': 350,
-                                        'fit': 'scale-down'
-                                    }
-                                },
-                                '(max-width: 639px)': {
-                                    media: cover,
-                                    params: {
-                                        'width': 600,
-                                        'fit': 'scale-down'
-                                    }
+                                media: '(min-width: 960px)',
+                                url: cover,
+                                params: {
+                                    resize: [196]
+                                }
+                            },
+                            {
+                                media: '(max-width: 959px) and (min-width: 768px)',
+                                url: cover,
+                                params: {
+                                    resize: [298]
+                                }
+                            },
+                            {
+                                media: '(max-width: 767px) and (min-width: 640px)',
+                                url: cover,
+                                params: {
+                                    resize: [350]
+                                }
+                            },
+                            {
+                                media: '(max-width: 639px)',
+                                url: cover,
+                                params: {
+                                    resize: [600]
                                 }
                             }
-                        }
+                        ]}
                     />
                     <div className={`absolute inset-0 w-full h-full ${description && 'group-hover:opacity-0'} transition-opacity`}>
                         <div
@@ -102,17 +100,14 @@ export function BookGrid({ book }) {
                                     remote={true}
                                     alt={Parse(site.domain)}
                                     className="w-[18px] h-[18px] rounded"
-                                    source={
+                                    source={[
                                         {
-                                            null: {
-                                                media: site.icon,
-                                                params: {
-                                                    'width': 18,
-                                                    'height': 18
-                                                }
+                                            url: site.icon,
+                                            params: {
+                                                cover: [18, 18]
                                             }
                                         }
-                                    }
+                                    ]}
                                 />
                             </span>
                         </div>
@@ -135,17 +130,14 @@ export function BookGrid({ book }) {
                                     remote={true}
                                     alt={Parse(site.domain)}
                                     className="w-[18px] h-[18px] rounded"
-                                    source={
+                                    source={[
                                         {
-                                            null: {
-                                                media: site.icon,
-                                                params: {
-                                                    'width': 18,
-                                                    'height': 18
-                                                }
+                                            url: site.icon,
+                                            params: {
+                                                cover: [18, 18]
                                             }
                                         }
-                                    }
+                                    ]}
                                 />
                             </span>
                                 </div>
@@ -206,33 +198,30 @@ export function BookCard({book}) {
         <>
             <a href={url} target={`_blank`}
                className={`block bg-[#1D1F2E] !text-white hover:!text-[#D2C100] rounded-[6px] !no-underline overflow-hidden px-5 py-3`}>
-                <div className={`flex flex-row gap-4`}>
-                    <div
-                        className="thumb flex items-center justify-center min-w-[72px] w-[72px] break:min-w-[100px] break:w-[100px] min-h-[100px] rounded-[6px] overflow-hidden">
-                            <Picture
-                                remote={true}
-                                alt={Parse(title)}
-                                className="m-auto !max-w-full !max-h-full rounded-[6px]"
-                                source={
-                                    {
-                                        null: {
-                                            media: cover,
-                                            params: {
-                                                'width': 196,
-                                                'fit': 'scale-down'
-                                            }
-                                        }
-                                    }
+                <div
+                    className={`grid grid-cols-[auto_1fr] auto-rows-min gap-4 max-h-min items-stretch mb-auto after:hidden`}>
+                    <Picture
+                        alt={Parse(title)}
+                        className="absolute inset-0 w-full h-full object-cover rounded-[6px]"
+                        classNamePicture="thumb relative min-w-[72px] w-[72px] break:min-w-[100px] break:w-[100px] h-full rounded-[6px] overflow-hidden"
+                        source={[
+                            {
+                                url: cover.source,
+                                params: {
+                                    resize: [196]
                                 }
-                            />
-                    </div>
-                    <div className={`flex flex-col gap-2 flex-grow`}>
+                            }
+                        ]}
+                    />
+                    <div className={`flex flex-col gap-2 flex-grow max-h-min`}>
                         <div className="flex flex-row items-center gap-2">
-                        <strong className={`text-inherit line-clamp-2 md:line-clamp-1 text-sm md:text-base`}>{Parse(title)}</strong>
+                            <strong
+                                className={`text-inherit line-clamp-2 md:line-clamp-1 text-sm md:text-base`}>{Parse(title)}</strong>
                             {status && <span
-                                className={`py-0.5 px-1 text-xs uppercase flex flex-row items-center backdrop-blur rounded pointer-events-none ${status === 'reviewed' ? 'text-black bg-yellow-500' : 'text-black bg-white'}`}><ReadStatus /></span>}
+                                className={`py-0.5 px-1 text-xs uppercase flex flex-row items-center backdrop-blur rounded pointer-events-none ${status === 'reviewed' ? 'text-black bg-yellow-500' : 'text-black bg-white'}`}><ReadStatus/></span>}
                         </div>
-                        <div className={`text-white text-sm line-clamp-4 md:text-base md:line-clamp-3`}>{Parse(description)}</div>
+                        <div
+                            className={`text-white text-sm line-clamp-4 md:text-base md:line-clamp-3`}>{Parse(description)}</div>
                         <div className={`flex flex-row gap-1.5 text-white/50 text-xxs md:text-xs items-center mt-auto`}>
                             <span>Published {format(new Date(published), 'yyyy')}</span>
                             <span className={"-translate-y-px opacity-50 max-md:hidden"}>|</span>
@@ -242,20 +231,16 @@ export function BookCard({book}) {
                             <span className={`flex flex-row gap-1.5 items-center max-md:hidden`}>
                                 {site.domain}
                                 <Picture
-                                    remote={true}
                                     alt={Parse(site.domain)}
                                     className="block w-[14px] h-[14px] rounded"
-                                    source={
+                                    source={[
                                         {
-                                            null: {
-                                                media: site.icon,
-                                                params: {
-                                                    'width': 14,
-                                                    'height': 14
-                                                }
+                                            url: site.icon.source,
+                                            params: {
+                                                cover: [14, 14]
                                             }
                                         }
-                                    }
+                                    ]}
                                 />
                             </span>
                         </div>
@@ -271,7 +256,7 @@ export function BookCardLoader() {
         <>
             <SkeletonTheme baseColor="transparent" highlightColor="rgba(255,255,255,0.25)">
                 <div
-                   className={`block bg-[#1D1F2E] !text-white rounded-[6px] !no-underline overflow-hidden px-5 py-3 [&_span]:block [&_span]:w-full`}>
+                    className={`block bg-[#1D1F2E] !text-white rounded-[6px] !no-underline overflow-hidden px-5 py-3 [&_span]:block [&_span]:w-full`}>
                     <div className={`flex flex-row gap-4`}>
                         <div
                             className="thumb flex items-center justify-center min-w-[72px] break:min-w-[100px] min-h-[100px] rounded-[6px] [&_span]:h-full">

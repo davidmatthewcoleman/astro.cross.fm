@@ -1,11 +1,12 @@
 ---
 import Sidebar from "../../../components/Sidebar.astro";
-import Picture from "../../../components/Picture";
+import Picture from "../../../components/Picture.astro";
 import MainLayout from "../../../layouts/MainLayout.astro";
 import Parse from "html-react-parser";
 import { getContent } from "cross:content";
 import Icon from "../../../components/Icon.astro";
 import Mentions from "../../../components/Mentions.jsx";
+import Blocks from "../../../components/Blocks.jsx";
 
 const post = await getContent('posts', {
     first: 1,
@@ -32,28 +33,26 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
         post?.content.thumbnail && (
             <div class="banner summary-blur__image-wrapper">
                 <Picture
-                        alt={post?.title}
-                        className="summary-blur__image"
-                        source={
-                            {
-                                '(max-width: 959px)': {
-                                    media: post?.content.thumbnail,
-                                    params: {
-                                        'width': 360,
-                                        'height': 196,
-                                        'fit': 'cover'
-                                    }
-                                },
-                                '(min-width: 960px)': {
-                                    media: post?.content.thumbnail,
-                                    params: {
-                                        'width': 960,
-                                        'height': 196,
-                                        'fit': 'cover'
-                                    }
-                                }
+                    alt={post?.title}
+                    className="summary-blur__image"
+                    source={[
+                        {
+                            media: '(max-width: 959px)',
+                            url: post.content.thumbnail.source,
+                            params: {
+                                cover: [360, 196],
+                                focus: post.content.thumbnail.focalPoint
+                            }
+                        },
+                        {
+                            media: '(min-width: 960px)',
+                            url: post.content.thumbnail.source,
+                            params: {
+                                cover: [960, 196],
+                                focus: post.content.thumbnail.focalPoint
                             }
                         }
+                    ]}
                 />
                 <style>
                     .summary-blur__image {
@@ -114,7 +113,9 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                         )
                     }
             </div>
-            <article class="single__contents" data-dir="ltr" set:html={post?.content.full}></article>
+            <article class="single__contents" data-dir="ltr">
+                <Blocks data={post?.content?.full.blocks} client:load />
+            </article>
             <footer class="single__footer">
                 {
                     post?.taxonomies.tags.length > 0 && (

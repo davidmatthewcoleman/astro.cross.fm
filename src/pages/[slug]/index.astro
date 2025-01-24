@@ -2,6 +2,7 @@
 import Sidebar from "../../components/Sidebar.astro";
 import MainLayout from "../../layouts/MainLayout.astro";
 import { getContent } from "cross:content";
+import Blocks from "../../components/Blocks.jsx";
 
 const page = await getContent('pages', {
     first: 1,
@@ -34,7 +35,9 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
         </nav>
         <section class="page main">
             <h2 class="single__title" set:html={page?.title}></h2>
-            <article class="single__contents" data-dir="ltr" set:html={page?.content.full}></article>
+            <article class="single__contents" data-dir="ltr">
+                <Blocks data={page?.content?.full.blocks} client:load />
+            </article>
             <footer class="single__footer"></footer>
         </section>
     </div>
