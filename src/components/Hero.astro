@@ -15,7 +15,7 @@ const hero = await getContent('hero');
                     media: '(max-width: 959px)',
                     url: hero.banner.source,
                     params: {
-                        cover: [360, 246],
+                        cover: [780, 246],
                         focus: {
                             x: hero.banner.focalPoint.x,
                             y: Math.min( Math.max( hero.banner.focalPoint.y - 0.25, 100 ), 0 )
@@ -26,7 +26,7 @@ const hero = await getContent('hero');
                     media: '(min-width: 960px)',
                     url: hero.banner.source,
                     params: {
-                        cover: [960, 246],
+                        cover: [780, 246],
                         focus: {
                             x: hero.banner.focalPoint.x,
                             y: Math.min( Math.max( hero.banner.focalPoint.y - 0.25, 100 ), 0 )
