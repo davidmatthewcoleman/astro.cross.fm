@@ -15,7 +15,7 @@ const spinner = name === 'spinner' ? 'svg {\n' +
     '            }\n' : '';
 ---
 
-<inline-icon class={`icon icon__normal ${className || ''}`} width={size || '100%'} height={size || '100%'} role="img">
+<inline-icon class={`icon icon__normal icon__${name} ${className || ''}`} width={size || '100%'} height={size || '100%'} role="img">
     <template shadowrootmode="open">
         <i set:html={innerHTML}/>
         <style is:inline set:html=`

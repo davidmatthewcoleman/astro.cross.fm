@@ -73,7 +73,7 @@ export default function Icon({ name, size = 24, className = '' }) {
     }
 
     return (
-        <inline-icon key={name} ref={iconRef} className={`icon icon__normal ${className}`} width={size} height={size} role="img" />
+        <inline-icon key={name} ref={iconRef} className={`icon icon__normal icon__${name} ${className}`} width={size} height={size} role="img" />
     );
 };
 
@@ -143,6 +143,6 @@ export function Flag({ region, size = 24, className = '', children = null }) {
     }
 
     return (
-        <inline-flag key={region} ref={flagRef} className={`icon icon__flag ${className}`} width={size} height={size} role="img" />
+        <inline-flag key={region} ref={flagRef} className={`icon icon__flag icon__${region} ${className}`} width={size} height={size} role="img" />
     );
 };

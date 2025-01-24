@@ -14849,12 +14849,15 @@ table:not(.lntable) td code {
 }
 
 .footer .social {
-    display: grid;
-    grid-template-columns: repeat(8, 1fr);
-    grid-gap: 0.25em;
+    display: flex;
+    flex-direction: row;
+    column-gap: 0.25em;
 }
-.footer .social a > svg {
+.footer .social a > .icon {
     display: block;
+}
+.footer .social a > .icon.icon__deviantart-duo {
+    margin: 0 -0.25em;
 }
 
 .footer__poweredby .powers {
