@@ -65,8 +65,8 @@ const sidebar = async () => {
                     height: data.sidebar.profile.mediaDetails.height ? Number(data.sidebar.profile.mediaDetails.height) : 0
                 },
                 focalPoint: {
-                    x: data.sidebar.profile.mediaDetails.x * 100 ? String(data.sidebar.profile.mediaDetails.x * 100) : String('50'),
-                    y: data.sidebar.profile.mediaDetails.y * 100 ? String(data.sidebar.profile.mediaDetails.y * 100) : String('50')
+                    x: data.sidebar.profile.mediaDetails.x ? String(data.sidebar.profile.mediaDetails.x) : String('0.5'),
+                    y: data.sidebar.profile.mediaDetails.y ? String(data.sidebar.profile.mediaDetails.y) : String('0.5')
                 }
             } : null
         },
@@ -189,8 +189,8 @@ const posts = async (first = null, after = null, slug = null, series = null, top
                         height: post.featuredImage.node.mediaDetails.height ? Number(post.featuredImage.node.mediaDetails.height) : 0
                     },
                     focalPoint: {
-                        x: post.featuredImage.node.mediaDetails.x * 100 ? String(post.featuredImage.node.mediaDetails.x * 100) : String('50'),
-                        y: post.featuredImage.node.mediaDetails.y * 100 ? String(post.featuredImage.node.mediaDetails.y * 100) : String('50')
+                        x: post.featuredImage.node.mediaDetails.x ? String(post.featuredImage.node.mediaDetails.x) : String('0.5'),
+                        y: post.featuredImage.node.mediaDetails.y ? String(post.featuredImage.node.mediaDetails.y) : String('0.5')
                     }
                 } : null
             }
@@ -275,8 +275,8 @@ const stories = async (first = 10, after = null, slug = null) => {
                             height: story.images[0].cover.mediaDetails.height ? Number(story.images[0].cover.mediaDetails.height) : 0
                         },
                         focalPoint: {
-                            x: story.images[0].cover.mediaDetails.x * 100 ? String(story.images[0].cover.mediaDetails.x * 100) : String('50'),
-                            y: story.images[0].cover.mediaDetails.y * 100 ? String(story.images[0].cover.mediaDetails.y * 100) : String('50')
+                            x: story.images[0].cover.mediaDetails.x ? String(story.images[0].cover.mediaDetails.x) : String('0.5'),
+                            y: story.images[0].cover.mediaDetails.y ? String(story.images[0].cover.mediaDetails.y) : String('0.5')
                         }
                     },
                     banner: {
@@ -288,8 +288,8 @@ const stories = async (first = 10, after = null, slug = null) => {
                             height: story.images[0].banner.mediaDetails.height ? Number(story.images[0].banner.mediaDetails.height) : 0
                         },
                         focalPoint: {
-                            x: story.images[0].banner.mediaDetails.x * 100 ? String(story.images[0].banner.mediaDetails.x * 100) : String('50'),
-                            y: story.images[0].banner.mediaDetails.y * 100 ? String(story.images[0].banner.mediaDetails.y * 100) : String('50')
+                            x: story.images[0].banner.mediaDetails.x ? String(story.images[0].banner.mediaDetails.x) : String('0.5'),
+                            y: story.images[0].banner.mediaDetails.y ? String(story.images[0].banner.mediaDetails.y) : String('0.5')
                         }
                     },
                     background: {
@@ -301,8 +301,8 @@ const stories = async (first = 10, after = null, slug = null) => {
                             height: story.images[0].background.mediaDetails.height ? Number(story.images[0].background.mediaDetails.height) : 0
                         },
                         focalPoint: {
-                            x: story.images[0].background.mediaDetails.x * 100 ? String(story.images[0].background.mediaDetails.x * 100) : String('50'),
-                            y: story.images[0].background.mediaDetails.y * 100 ? String(story.images[0].background.mediaDetails.y * 100) : String('50')
+                            x: story.images[0].background.mediaDetails.x ? String(story.images[0].background.mediaDetails.x) : String('0.5'),
+                            y: story.images[0].background.mediaDetails.y ? String(story.images[0].background.mediaDetails.y) : String('0.5')
                         }
                     }
                 }
@@ -348,8 +348,8 @@ const chapters = async (slug = null) => {
                                 height: chapter.story[0].images[0].cover.mediaDetails.height ? Number(chapter.story[0].images[0].cover.mediaDetails.height) : 0
                             },
                             focalPoint: {
-                                x: chapter.story[0].images[0].cover.mediaDetails.x * 100 ? String(chapter.story[0].images[0].cover.mediaDetails.x * 100) : String('50'),
-                                y: chapter.story[0].images[0].cover.mediaDetails.y * 100 ? String(chapter.story[0].images[0].cover.mediaDetails.y * 100) : String('50')
+                                x: chapter.story[0].images[0].cover.mediaDetails.x ? String(chapter.story[0].images[0].cover.mediaDetails.x) : String('0.5'),
+                                y: chapter.story[0].images[0].cover.mediaDetails.y ? String(chapter.story[0].images[0].cover.mediaDetails.y) : String('0.5')
                             }
                         },
                         banner: {
@@ -361,8 +361,8 @@ const chapters = async (slug = null) => {
                                 height: chapter.story[0].images[0].banner.mediaDetails.height ? Number(chapter.story[0].images[0].banner.mediaDetails.height) : 0
                             },
                             focalPoint: {
-                                x: chapter.story[0].images[0].banner.mediaDetails.x * 100 ? String(chapter.story[0].images[0].banner.mediaDetails.x * 100) : String('50'),
-                                y: chapter.story[0].images[0].banner.mediaDetails.y * 100 ? String(chapter.story[0].images[0].banner.mediaDetails.y * 100) : String('50')
+                                x: chapter.story[0].images[0].banner.mediaDetails.x ? String(chapter.story[0].images[0].banner.mediaDetails.x) : String('0.5'),
+                                y: chapter.story[0].images[0].banner.mediaDetails.y ? String(chapter.story[0].images[0].banner.mediaDetails.y) : String('0.5')
                             }
                         },
                         background: {
@@ -374,8 +374,8 @@ const chapters = async (slug = null) => {
                                 height: chapter.story[0].images[0].background.mediaDetails.height ? Number(chapter.story[0].images[0].background.mediaDetails.height) : 0
                             },
                             focalPoint: {
-                                x: chapter.story[0].images[0].background.mediaDetails.x * 100 ? String(chapter.story[0].images[0].background.mediaDetails.x * 100) : String('50'),
-                                y: chapter.story[0].images[0].background.mediaDetails.y * 100 ? String(chapter.story[0].images[0].background.mediaDetails.y * 100) : String('50')
+                                x: chapter.story[0].images[0].background.mediaDetails.x ? String(chapter.story[0].images[0].background.mediaDetails.x) : String('0.5'),
+                                y: chapter.story[0].images[0].background.mediaDetails.y ? String(chapter.story[0].images[0].background.mediaDetails.y) : String('0.5')
                             }
                         }
                     }
@@ -424,8 +424,8 @@ const hero = async () => {
                     height: data.profileImage.mediaDetails.height ? Number(data.profileImage.mediaDetails.height) : 0
                 },
                 focalPoint: {
-                    x: data.profileImage.mediaDetails.x * 100 ? String(data.profileImage.mediaDetails.x * 100) : String('50'),
-                    y: data.profileImage.mediaDetails.y * 100 ? String(data.profileImage.mediaDetails.y * 100) : String('50')
+                    x: data.profileImage.mediaDetails.x ? String(data.profileImage.mediaDetails.x) : String('0.5'),
+                    y: data.profileImage.mediaDetails.y ? String(data.profileImage.mediaDetails.y) : String('0.5')
                 }
             }
         },
@@ -438,8 +438,8 @@ const hero = async () => {
                 height: data.bannerImage.mediaDetails.height ? Number(data.bannerImage.mediaDetails.height) : 0
             },
             focalPoint: {
-                x: data.bannerImage.mediaDetails.x * 100 ? String(data.bannerImage.mediaDetails.x * 100) : String('50'),
-                y: data.bannerImage.mediaDetails.y * 100 ? String(data.bannerImage.mediaDetails.y * 100) : String('50')
+                x: data.bannerImage.mediaDetails.x ? String(data.bannerImage.mediaDetails.x) : String('0.5'),
+                y: data.bannerImage.mediaDetails.y ? String(data.bannerImage.mediaDetails.y) : String('0.5')
             }
         }
     }
