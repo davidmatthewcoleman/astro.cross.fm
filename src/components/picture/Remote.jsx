@@ -51,7 +51,7 @@ export default function Picture({ source = [], alt = null, className = null, cla
             <img
                 src={fallbackSrc}
                 alt={alt || ""}
-                className={`${className} ${fallbackSrc ? "" : "opacity-0"} transition-all duration-500 text-transparent bg-background`}
+                className={`${className} ${fallbackSrc ? "" : "opacity-0"} transition-all duration-500 text-transparent`}
                 width={convertValue(size[0])}
                 height={convertValue(size[1])}
                 {...rest}

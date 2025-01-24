@@ -16082,3 +16082,13 @@ body {
 .theme__hacker .taxo-root {
     background: transparent !important;
 }
+
+
+img {
+    opacity: 0;
+    transition: opacity 0.25s ease-in-out;
+}
+img[src^="http"],
+img[src^="/"] {
+    opacity: 100;
+}
