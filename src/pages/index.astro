@@ -209,8 +209,8 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
 		<section class="page main">
 			<div class="home__content">
 				<div>
-					<h1 set:html={page.title} style="margin-bottom:1rem;"></h1>
-					<div set:html={page.content.full}></div>
+					<h1 set:html={page.title} style="margin-bottom:1rem;" />
+					<div set:html={page.content.full.raw} />
 				</div>
 				<img src="/assets/images/hero__logo.svg" alt="cross logo" class="description__logo" />
 			</div>

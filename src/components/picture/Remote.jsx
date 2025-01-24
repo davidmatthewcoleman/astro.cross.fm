@@ -83,8 +83,10 @@ function BuildURL(src, params, dpr = 1) {
             .join("x");
     }
 
+    const sortedParams = sortObjectByCustomOrder(clonedParams, ['focus', 'resize', 'cover', 'output']);
+
     // Build transformation string
-    const transforms = Object.keys(clonedParams)
+    const transforms = Object.keys(sortedParams)
         .map((prop) => `${prop.replace(/([a-z])([A-Z])/g, (_, lower, upper) => `${lower}-${upper.toLowerCase()}`)}=${clonedParams[prop]}`)
         .join("/");
 
@@ -93,4 +95,13 @@ function BuildURL(src, params, dpr = 1) {
 
 function convertValue(value) {
     return value === "auto" || value === null || value === undefined ? "auto" : parseInt(value, 10);
+}
+
+function sortObjectByCustomOrder(obj, keyOrder) {
+    return keyOrder.reduce((sortedObj, key) => {
+        if (key in obj) {
+            sortedObj[key] = obj[key];
+        }
+        return sortedObj;
+    }, {});
 }
