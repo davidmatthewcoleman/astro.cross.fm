@@ -107,13 +107,13 @@ function renderBlock(block, index) {
         )
     } else if (block.name === 'acf/citation') {
         let align
-        if (block.attrs.align === 'left') {
+        if (block.attributes.align === 'left') {
             align =
                 '2xl:py-3 2xl:px-5 2xl:float-left mb-4 text-sm 2xl:w-80 2xl:ml-[-22rem] w-full ml-auto 2xl:border-none   py-4 border-dashed border-y border-gray-400'
-        } else if (block.attrs.align === 'right') {
+        } else if (block.attributes.align === 'right') {
             align =
                 '2xl:py-3 2xl:px-5 2xl:float-right mb-4 text-sm 2xl:w-80 2xl:mr-[-22rem] w-full mr-auto 2xl:border-none   py-4 border-dashed border-y border-gray-400'
-        } else if (block.attrs.align === 'full') {
+        } else if (block.attributes.align === 'full') {
             align = 'mb-4 -mx-8 float-none mb-4 py-4 text-sm border-dashed border-y border-gray-400'
         } else {
             align = 'float-none mb-4 py-4 text-sm border-dashed border-y border-gray-400'
@@ -143,7 +143,7 @@ function renderBlock(block, index) {
         // Remove "www" subdomain if it exists
         domain = domain.replace(/^www\./, '')
 
-        const classString = block.attrs.className || ''
+        const classString = block.attributes.className || ''
         const className = 'wp-embed-aspect'
         const regex = new RegExp(`${className}-(\\d+)-(\\d+)`)
         const match = classString.match(regex)
@@ -164,7 +164,7 @@ function renderBlock(block, index) {
                 videoResult = ''
                 break
             case 'vimeo.com':
-                videoUrl = block.attrs.url
+                videoUrl = block.attributes.url
                 videoRegex =
                     /(?:https?:\/\/)?(?:www\.)?(?:vimeo\.com\/(?:channels\/[\w]+\/)?|player\.vimeo\.com\/video\/)?(\d+)(?:\S+)?/
                 videoMatch = videoUrl.match(regex)
