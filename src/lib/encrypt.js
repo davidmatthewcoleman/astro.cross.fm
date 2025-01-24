@@ -1,5 +1,8 @@
 import NodeCache from 'node-cache';
-import { createCipheriv } from 'crypto';
+let createCipheriv;
+if (import.meta.env.SSR) {
+    createCipheriv = (await import('crypto')).createCipheriv;
+}
 
 const encryptionKey = import.meta.env.TWICPICS_ENCRYPTION_KEY;
 
