@@ -12,7 +12,6 @@ import {
     headQuery,
     wpVersionQuery
 } from './api';
-import HTMLReactParser from "html-react-parser";
 import { format } from "date-fns";
 import { formatInteger } from "./utils.js";
 
