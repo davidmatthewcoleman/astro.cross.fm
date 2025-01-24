@@ -202,8 +202,8 @@ export function BookCard({book}) {
                     className={`grid grid-cols-[auto_1fr] auto-rows-min gap-4 max-h-min items-stretch mb-auto after:hidden`}>
                     <Picture
                         alt={Parse(title)}
-                        className="absolute inset-0 w-full h-full object-cover rounded-[6px]"
-                        classNamePicture="thumb relative min-w-[72px] w-[72px] break:min-w-[100px] break:w-[100px] h-full rounded-[6px] overflow-hidden"
+                        className="absolute inset-0 w-full max-h-full object-cover rounded-[6px] m-auto"
+                        classNamePicture="thumb relative min-w-[72px] w-[72px] break:min-w-[100px] break:w-[100px] max-h-full rounded-[6px] overflow-hidden"
                         source={[
                             {
                                 url: cover.source,
