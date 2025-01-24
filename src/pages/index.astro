@@ -182,12 +182,12 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
 			font-size: 1.75rem;
 			font-weight: 700;
 		}
-		.home__content {
-			display: grid;
-			grid-template-columns: 1fr 128px;
-			gap: 1.25rem;
-			align-items: center;
-		}
+		//.home__content {
+		//	display: grid;
+		//	grid-template-columns: 1fr 128px;
+		//	gap: 1.25rem;
+		//	align-items: center;
+		//}
 		@media screen and (max-width: 959px) {
 			h1 {
 				font-size: 1.75rem;
@@ -204,15 +204,20 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
 				display: none !important;
 			}
 		}
+		.main.inner.hero {
+			position: relative;
+			z-index: 4;
+		}
 	</style>
 	<div class="page__wrapper lmr">
 		<section class="page main">
 			<div class="home__content">
 				<div>
-					<h1 set:html={page.title} style="margin-bottom:1rem;" />
-					<div set:html={page.content.full.raw} />
+					<h1 style="margin-bottom:1rem;">Welcome to CROSSRAMBLES!</h1>
+					<div>
+						<p>I am the Adventurer of Pixels, the Architect of Code, and the Dreamer Behind the Keyboard. From “<a href="https://www.goodreads.com/series/44866-the-inheritance-cycle" target="_blank" rel="noreferrer noopener">Inheritance</a>” to “<a href="https://www.goodreads.com/series/66175-the-lord-of-the-rings" target="_blank" rel="noreferrer noopener">LOTR</a>” and “<a href="https://open.spotify.com/artist/2NPduAUeLVsfIauhRwuft1" target="_blank" rel="noreferrer noopener">Nightwish</a>“, I paint digital realms on&nbsp;<a href="/blog" data-type="link" data-id="https://crossrambles.com/blog">my blog</a>.&nbsp;<a href="https://mlp.fandom.com/wiki/Twilight_Sparkle" target="_blank" rel="noreferrer noopener">Twilight Sparkle</a>&nbsp;fan, gaming in&nbsp;<a href="https://www.giantbomb.com/the-elder-scrolls-v-skyrim/3030-33394/" target="_blank" rel="noreferrer noopener">Skyrim</a> &amp; <a href="https://www.giantbomb.com/fallout-4/3030-49833/" target="_blank" rel="noreferrer noopener">Fallout</a>. Welcome to my vivid journey. 🌌✨ #DigitalDreamer</p>
+					</div>
 				</div>
-				<img src="/assets/images/hero__logo.svg" alt="cross logo" class="description__logo" />
 			</div>
 			<div id="jumpin">
 				<div class="left">

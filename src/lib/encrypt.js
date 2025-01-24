@@ -73,7 +73,7 @@ export function BuildURL(src, params, dpr = 1) {
             .join("x");
     }
 
-    const sortedParams = sortObjectByCustomOrder(clonedParams, ['focus', 'resize', 'cover', 'output']);
+    const sortedParams = sortObjectByCustomOrder(clonedParams, ['focus', 'zoom', 'resize', 'cover', 'output']);
 
     // Build transformation string
     const transforms = Object.keys(sortedParams).map((prop) => `${prop.replace(/([a-z])([A-Z])/g, (_, lower, upper) => `${lower}-${upper.toLowerCase()}`)}=${clonedParams[prop]}`).join("/");
