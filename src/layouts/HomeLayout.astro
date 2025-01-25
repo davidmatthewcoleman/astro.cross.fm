@@ -8,6 +8,7 @@ import HomeHero from "../components/HomeHero.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import { getContent, getHead } from "cross:content";
 import Analytics from "@vercel/analytics/astro";
+import SpeedInsights from "@vercel/speed-insights/astro";
 
 const head = await getHead(Astro.url.pathname);
 const primaryMenu = await getContent('navigation');
@@ -94,5 +95,6 @@ const primaryMenu = await getContent('navigation');
     </div>
 </div>
 <Analytics />
+<SpeedInsights />
 </body>
 </html>
