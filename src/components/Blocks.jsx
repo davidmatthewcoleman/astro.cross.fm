@@ -2,7 +2,6 @@ import React from 'react';
 import Parse from "html-react-parser";
 import Picture from "./picture/Storage.jsx";
 import {Tweet} from "react-tweet";
-import {format} from "date-fns";
 
 function renderBlock(block, index) {
     if (block.name === 'core/image') {

@@ -1,0 +1,56 @@
+---
+import Picture from "./Picture.astro";
+import Icon from "./Icon.astro";
+const { data } = Astro.props;
+---
+
+<article class="summary-classic">
+    <div class={`summary-classic__flex-box`}>
+        {
+            data.content.thumbnail && (
+                <div class="summary-classic__image-container summary-classic__image-wrapper" data-position="right">
+                    <a href={data.path}>
+                        <Picture
+                            alt={data?.title}
+                            className="summary-classic__image"
+                            source={[
+                                {
+                                    url: data.content.thumbnail.source,
+                                    params: {
+                                        cover: [640, 270],
+                                        focus: data.content.thumbnail.focalPoint
+                                    }
+                                }
+                            ]}
+                        />
+                    </a>
+                </div>
+            )
+        }
+        <div class="summary-classic__content">
+            <header>
+                <h5 class="title h5">
+                    <a href={data.path} set:html={data.title}></a>
+                </h5>
+                <h6 class="subtitle caption">
+                    {
+                        data.pinned && (
+                                    <span dir="ltr">
+                                <Icon name={'pin'} size={15} />
+                                Pinned
+                            </span>
+                        )
+                    }
+                    <time dir="ltr">
+                        <Icon name={'calendar'} size={15} />
+                        {data.date.formatted}
+                    </time>
+                </h6>
+            </header>
+            <div>
+                <div class="summary-classic__text p2" set:html={data.content.excerpt}></div>
+            </div>
+        </div>
+    </div>
+    <hr>
+</article>

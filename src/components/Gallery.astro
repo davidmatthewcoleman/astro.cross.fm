@@ -1,0 +1,30 @@
+---
+import Picture from "./Picture.astro";
+import Parse from "html-react-parser";
+const { images, imageWidth } = Astro.props;
+---
+
+<div id="gallery" class="glide">
+    <link rel="stylesheet" href="https://assets.cross.fm/assets/css/glide.core.min.css" />
+    <script src="https://assets.cross.fm/assets/js/helper/glide.min.js" is:inline />
+    <div class="glide__track" data-glide-el="track">
+        <ul class="glide__slides">
+            {images.map(image => (
+                <li class="glide__slide">
+                    <Picture
+                        alt={Parse(image?.content?.caption)}
+                        className="glide__slide-img"
+                        source={[
+                            {
+                                url: image.source,
+                                params: {
+                                    resize: [imageWidth]
+                                }
+                            }
+                        ]}
+                    />
+                </li>
+            ))}
+        </ul>
+    </div>
+</div>

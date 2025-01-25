@@ -1,0 +1,225 @@
+---
+import Sidebar from "../../../components/Sidebar.astro";
+import Picture from "../../../components/Picture.astro";
+import MainLayout from "../../../layouts/MainLayout.astro";
+import { getContent } from "cross:content";
+import Icon from "../../../components/Icon.astro";
+import Mentions from "../../../components/Mentions.jsx";
+import Blocks from "../../../components/Blocks.jsx";
+import Gallery from "../../../components/Gallery.astro";
+import Parse from "html-react-parser";
+
+const post = await getContent('projects', {
+    first: 1,
+    slug: Astro.params.project
+});
+
+export async function getStaticPaths() {
+    const data = await getContent('projects');
+    const paths = data.projects.map(post => ({
+        params: { project: post.slug }
+    }));
+
+    return paths;
+}
+
+const galleryCount = post?.content?.gallery.length;
+let galleryColumns = 3, imageWidth = 300;
+switch (galleryCount) {
+    case 1:
+        galleryColumns = 1;
+        imageWidth = 928;
+        break;
+    case 2:
+        galleryColumns = 2;
+        imageWidth = 464;
+        break;
+    default:
+        galleryColumns = 3;
+        imageWidth = 300;
+}
+
+Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
+---
+
+<MainLayout title={`${post?.title} – CROSS`} description={post?.content.excerpt}>
+    {
+        post?.content.thumbnail && (
+            <div class="banner summary-blur__image-wrapper">
+                <Picture
+                    alt={post?.title}
+                    className="summary-blur__image"
+                    source={[
+                        {
+                            media: '(max-width: 959px)',
+                            url: post.content.thumbnail.source,
+                            params: {
+                                cover: [360, 196],
+                                focus: post.content.thumbnail.focalPoint
+                            }
+                        },
+                        {
+                            media: '(min-width: 960px)',
+                            url: post.content.thumbnail.source,
+                            params: {
+                                cover: [960, 196],
+                                focus: post.content.thumbnail.focalPoint
+                            }
+                        }
+                    ]}
+                />
+                <style>
+                    .summary-blur__image {
+                        filter: blur(64px) saturate(2) contrast(2);
+                    }
+                </style>
+            </div>
+        )
+    }
+    <div class="post__wrapper lm">
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+            <ol>
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                <li>
+                    <a href="/projects">Projects</a>
+                </li>
+                <li class="is-active">
+                    <span set:html={post?.title}></span>
+                </li>
+            </ol>
+        </nav>
+        <section class="post main">
+            {post?.content?.gallery && post?.content?.gallery.length > 1 ? (
+                <Gallery images={post?.content?.gallery} imageWidth={imageWidth} />
+            ) : (
+                <Picture
+                    alt={Parse(post?.content?.gallery[0]?.content?.caption)}
+                    className="glide__slide-img isolated"
+                    source={[
+                        {
+                            url: post?.content?.gallery[0].source,
+                            params: {
+                                resize: [imageWidth]
+                            }
+                        }
+                    ]}
+                />
+            )}
+            <div class="single__title-wrapper">
+                <h2 class="single__title" set:html={post?.title}></h2>
+                {post?.content?.gallery.length > 1 && (
+                    <div class="gallery__controls" data-glide-el="controls">
+                        <button class="gallery__controls-btn--prev"><Icon name={'caret-left'} size={22} /></button>
+                        <button class="gallery__controls-btn--next"><Icon name={'caret-right'} size={22} /></button>
+                        <script define:vars={{galleryColumns}} is:inline>
+                            var glide = new Glide('.glide', {
+                                peak: 128,
+                                gap: 12,
+                                focusAt: 'center',
+                                autoplay: 10000,
+                                hoverpause: true,
+                                type: 'carousel',
+                                perView: galleryColumns
+                            }).mount();
+
+                            document.querySelector('.gallery__controls-btn--prev').addEventListener('click', () => {glide.go('<')});
+                            document.querySelector('.gallery__controls-btn--next').addEventListener('click', () => {glide.go('>')});
+                        </script>
+                    </div>
+                )}
+            </div>
+            <style is:inline>
+                .post__wrapper {
+                    grid-area: 1/1/2/4 !important;
+                }
+
+                .glide {
+                    margin-top: 1rem;
+                    margin-bottom: 1.25rem;
+                    border-radius: 8px;
+                    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
+                    overflow: clip;
+                }
+                .glide__slide-img {
+                    display: block;
+                    width: 512px;
+                    border-radius: 8px;
+                }
+                .glide__slide-img.isolated {
+                    margin-top: 1rem;
+                    margin-bottom: 1.25rem;
+                    width: 100%;
+                    height: auto;
+                    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
+                }
+                .single__title-wrapper {
+                    display: grid;
+                    grid-template-columns: 1fr auto;
+                    column-gap: 0.5rem;
+                    align-items: start;
+                }
+                .single__title {
+                    margin-top: 0;
+                }
+                .gallery__controls {
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                    column-gap: 0.5rem;
+                    margin-top: 0.25rem;
+                }
+                .gallery__controls button {
+                    color: #e08c48;
+                    width: 24px;
+                    height: 24px;
+                    aspect-ratio: 1/1;
+                    //padding: 0.5em;
+                    border: 1px solid currentColor;
+                    border-radius: 4px;
+                    background-color: rgba(255,255,255,0.075);
+                    cursor: pointer;
+                }
+                .gallery__controls button:hover {
+                    color: #c7ba00;
+                }
+                .gallery__controls button .icon {
+                    padding: 2px;
+                }
+            </style>
+            <div class="single__meta">
+                <div class="single__infos">
+                    <time class="single__info">
+                        <Icon name={'calendar'} size={15} />
+                        {post?.date.formatted}
+                    </time>
+                </div>
+            </div>
+            <article class="single__contents" data-dir="ltr">
+                <Blocks data={post?.content?.full.blocks} client:load />
+            </article>
+            <footer class="single__footer">
+                <Mentions path={post?.path} client:load />
+            </footer>
+            <div class="comments__section">
+                <script src="https://giscus.app/client.js"
+                        data-repo="davidmatthewcoleman/cross.fm-commments"
+                        data-repo-id="R_kgDOMD62Mw"
+                        data-category="General"
+                        data-category-id="DIC_kwDOMD62M84CfzOQ"
+                        data-mapping="pathname"
+                        data-strict="1"
+                        data-reactions-enabled="0"
+                        data-emit-metadata="1"
+                        data-input-position="top"
+                        data-theme="https://assets.cross.fm/assets/css/comments.css"
+                        data-lang="en"
+                        data-loading="lazy"
+                        crossorigin="anonymous"
+                        async>
+                </script>
+            </div>
+        </section>
+    </div>
+    <Sidebar show={false} />
+</MainLayout>

@@ -4,6 +4,7 @@ import {
     blogQuery,
     storiesQuery,
     pagesQuery,
+    projectQuery,
     heroQuery,
     singleSeriesQuery,
     singleTopicQuery,
@@ -202,6 +203,69 @@ const posts = async (first = null, after = null, slug = null, series = null, top
     };
 
     return first === 1 ? output.posts[0] : output;
+}
+
+const projects = async (first = null, after = null, slug = null) => {
+    const data = (await projectQuery(first, after, slug)).projects;
+
+    const output = {
+        projects: data.edges.map(({node: post}) => ({
+            title: post.title ? Parse(post.title) : null,
+            slug: post.slug ? String(post.slug) : null,
+            path: post.slug ? String(`/projects/${post.slug}`) : null,
+            date: {
+                raw: new Date(post.date),
+                formatted: format(new Date(post.date), 'MMM. d, yyyy')
+            },
+            content: {
+                excerpt: post.excerpt ? Parse(post.excerpt) : null,
+                full: {
+                    raw: post.content ? Parse(post.content) : null,
+                    blocks: post.editorBlocks || null
+                },
+                thumbnail: post.featuredImage && post.featuredImage.node ? {
+                    mimeType: String(post.featuredImage.node.mimeType),
+                    filename: post.featuredImage.node.sourceUrl ? String(new URL(post.featuredImage.node.sourceUrl).pathname.split('/').at(-1)) : null,
+                    source: post.featuredImage.node.sourceUrl ? String(post.featuredImage.node.sourceUrl) : null,
+                    dominantColor: post.featuredImage.node.mediaDetails.color ? String(post.featuredImage.node.mediaDetails.color) : null,
+                    dimensions: {
+                        width: post.featuredImage.node.mediaDetails.width ? Number(post.featuredImage.node.mediaDetails.width) : 0,
+                        height: post.featuredImage.node.mediaDetails.height ? Number(post.featuredImage.node.mediaDetails.height) : 0
+                    },
+                    focalPoint: {
+                        x: post.featuredImage.node.mediaDetails.x ? String(post.featuredImage.node.mediaDetails.x) : String('0.5'),
+                        y: post.featuredImage.node.mediaDetails.y ? String(post.featuredImage.node.mediaDetails.y) : String('0.5')
+                    }
+                } : null,
+                gallery: post.gallery && post.gallery.length ? post.gallery.map((image) => {
+                    return {
+                        content: {
+                            caption: image?.caption ? String(image?.caption) : ""
+                        },
+                        mimeType: String(image.mimeType),
+                        filename: image.sourceUrl ? String(new URL(image.sourceUrl).pathname.split('/').at(-1)) : null,
+                        source: image.sourceUrl ? String(image.sourceUrl) : null,
+                        dominantColor: image.mediaDetails.color ? String(image.mediaDetails.color) : null,
+                        dimensions: {
+                            width: image.mediaDetails.width ? Number(image.mediaDetails.width) : 0,
+                            height: image.mediaDetails.height ? Number(image.mediaDetails.height) : 0
+                        },
+                        focalPoint: {
+                            x: image.mediaDetails.x ? String(image.mediaDetails.x) : String('0.5'),
+                            y: image.mediaDetails.y ? String(image.mediaDetails.y) : String('0.5')
+                        }
+                    }
+                }) : []
+            }
+        })),
+        paginate: {
+            totalPosts: data.edges.length,
+            nextPage: Boolean(data.pageInfo.hasNextPage),
+            cursor: data.pageInfo.endCursor ? String(data.pageInfo.endCursor) : null
+        }
+    };
+
+    return first === 1 ? output.projects[0] : output;
 }
 
 const pages = async (first = null, after = null, slug = null) => {
@@ -547,6 +611,9 @@ const getContent = async (collection, query = {
             break;
         case 'posts':
             result = await posts(query.first, query.after, query.slug, query.series, query.topic, query.tag, query.search);
+            break;
+        case 'projects':
+            result = await projects(query.first, query.after, query.slug);
             break;
         case 'pages':
             result = await pages(query.first, query.after, query.slug);

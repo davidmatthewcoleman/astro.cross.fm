@@ -1,0 +1,139 @@
+---
+import Sidebar from "../../components/Sidebar.astro";
+import MainLayout from "../../layouts/MainLayout.astro";
+import ProjectSummary from "../../components/ProjectSummary.astro";
+import { getContent } from "cross:content";
+import Icon from "../../components/Icon.astro";
+
+// Define the number of posts per page
+const postsPerPage = 10;
+const pageNum = parseInt(Astro.params.pageNum) || 1;
+
+// Fetch the initial page of posts
+const initialData = await getContent('projects', {
+    first: postsPerPage
+});
+let projects = initialData.projects;
+let endCursor = initialData.paginate.cursor;
+let hasNextPage = initialData.paginate.nextPage;
+
+// If there are more pages, fetch additional posts using the endCursor
+if (pageNum > 1) {
+    for (let i = 1; i < pageNum; i++) {
+        if (hasNextPage) {
+            const data = await getContent('projects', {
+                first: postsPerPage,
+                after: endCursor
+            });
+            projects = data.projects;
+            endCursor = data.paginate.cursor;
+            hasNextPage = data.paginate.nextPage;
+        }
+    }
+}
+
+function splitEvenOddIndexes(arr) {
+    const evenIndexes = [];
+    const oddIndexes = [];
+
+    arr.forEach((item, index) => {
+        if (index % 2 === 0) {
+            evenIndexes.push(item);
+        } else {
+            oddIndexes.push(item);
+        }
+    });
+
+    return { evenIndexes, oddIndexes };
+}
+
+const { evenIndexes, oddIndexes } = splitEvenOddIndexes(projects);
+
+Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
+---
+
+<MainLayout title="Projects – CROSS" description="">
+    <div class="list__main lm">
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+            <ol>
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                <li class="is-active">
+                    <span>Projects</span>
+                </li>
+            </ol>
+        </nav>
+        <style is:inline>
+            .list__main {
+                grid-area: 1/1/2/4 !important;
+            }
+            @media screen and (min-width: 960px) {
+                .desktop__masonry {
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                }
+                .mobile__list {
+                    display: none;
+                }
+            }
+            @media screen and (max-width: 959px) {
+                .desktop__masonry {
+                    display: none;
+                }
+                .mobile__list {
+                    display: block;
+                }
+            }
+            .summary-classic__flex-box {
+                flex-direction: column;
+            }
+            .summary-classic__image-wrapper {
+                width: 100%;
+                max-width: 100%;
+                margin: 0 0 0.5rem 0 !important;
+                aspect-ratio: 21/9;
+            }
+        </style>
+        <div class="summary__container" data-display="block">
+            <div class="desktop__masonry">
+                <div>
+                    {evenIndexes.map((project) => (
+                        <ProjectSummary data={project}></ProjectSummary>
+                    ))}
+                </div>
+                <div>
+                    {oddIndexes.map((project) => (
+                        <ProjectSummary data={project}></ProjectSummary>
+                    ))}
+                </div>
+            </div>
+            <div class="mobile__list">
+                {projects.map((project) => (
+                    <ProjectSummary data={project}></ProjectSummary>
+                ))}
+            </div>
+            <hr class="hr-slash nav-hr">
+            <nav class="pagination-single">
+                {pageNum > 1 && (
+                    <a href={pageNum - 1 === 1 ? '/project' : `/project/page/${pageNum - 1}`} class="pagination-single__left">
+                        <div class="pagination-single__icon">
+                            <Icon name={'nav-left'} size={25} />
+                        </div>
+                        <div class="pagination-single__left-title">Newer Entries</div>
+                    </a>
+                )}
+                <div class="grow"></div>
+                {hasNextPage && (
+                    <a href={`/project/page/${pageNum + 1}`} class="pagination-single__right">
+                        <div class="pagination-single__right-title">Older Entries</div>
+                        <div class="pagination-single__icon">
+                            <Icon name={'nav-right'} size={25} />
+                        </div>
+                    </a>
+                )}
+            </nav>
+        </div>
+    </div>
+    <Sidebar show={false} />
+</MainLayout>

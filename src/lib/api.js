@@ -104,6 +104,170 @@ export async function sidebarQuery(){
     return data;
 }
 
+export async function projectQuery(first = null, after = null, slug = null) {
+    first = first || 9999;
+    const variables = { first, after, slug };
+
+    try {
+        const response = await fetch(import.meta.env.WORDPRESS_API_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
+            },
+            body: JSON.stringify({
+                query: `
+                  query GetPaginatedProjects($first: Int!, $after: String, $slug: String) {
+                      projects(
+                        first: $first
+                        after: $after
+                        where: {name: $slug}
+                      ) {
+                        pageInfo {
+                          endCursor
+                          hasNextPage
+                        }
+                        edges {
+                          node {
+                            title
+                            slug
+                            excerpt
+                            content
+                            date
+                            dateGmt
+                            featuredImage {
+                              node {
+                                mimeType
+                                sourceUrl
+                                sourceFile
+                                mediaDetails {
+                                  width
+                                  height
+                                  x
+                                  y
+                                  color
+                                }
+                              }
+                            }
+                            gallery {
+                                caption
+                                mimeType
+                                sourceFile
+                                sourceUrl
+                                mediaDetails {
+                                  width
+                                  height
+                                  x
+                                  y
+                                  color
+                                }
+                              }
+                            editorBlocks(flat: false) {
+                              clientId
+                              blockEditorCategoryName
+                              cssClassNames
+                              isDynamic
+                              name
+                              renderedHtml
+                              type
+                              ... on CoreParagraph {
+                                attributes {
+                                  cssClassName
+                                  content
+                                }
+                                renderedHtml
+                              }
+                              ... on CoreEmbed {
+                                attributes {
+                                  url
+                                  type
+                                  className
+                                  caption
+                                  align
+                                }
+                              }
+                              ... on CoreImage {
+                                attributes {
+                                  src
+                                  width
+                                  height
+                                  aspectRatio
+                                  className
+                                  cssClassName
+                                  alt
+                                  align
+                                  caption
+                                  href
+                                  linkClass
+                                  linkDestination
+                                  linkTarget
+                                  metadata
+                                  scale
+                                  sizeSlug
+                                  style
+                                  title
+                                  url
+                                }
+                              }
+                              ... on CoreQuote {
+                                attributes {
+                                  align
+                                  citation
+                                  className
+                                  cssClassName
+                                  metadata
+                                  textColor
+                                  value
+                                }
+                              }
+                              ... on AcfAlert {
+                                name
+                                attributes {
+                                  data
+                                }
+                                innerBlocks {
+                                  renderedHtml
+                                  name
+                                }
+                              }
+                              ... on CoreList {
+                                attributes {
+                                  cssClassName
+                                  className
+                                  metadata
+                                  ordered
+                                  start
+                                  values
+                                }
+                              }
+                              ... on AcfBookmark {
+                                name
+                                renderedHtml
+                                clientId
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                `,
+                variables
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const { data } = await response.json();
+
+        return data;
+    } catch (error) {
+        console.error('Error fetching paginated projects:', error);
+        throw error;
+    }
+}
+
 export async function blogQuery(first = null, after = null, slug = null, series = null, topic = null, tag = null, search = null) {
     first = first || 9999;
     const variables = { first, after, slug, series, topic, tag, search };

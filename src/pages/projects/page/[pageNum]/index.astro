@@ -1,0 +1,89 @@
+---
+import Sidebar from "../../../../components/Sidebar.astro";
+import MainLayout from "../../../../layouts/MainLayout.astro";
+import PostSummary from "../../../../components/PostSummary.astro";
+import { getContent } from "../../../../lib/content-layer";
+import Icon from "../../../../components/Icon.astro";
+
+// Define the number of posts per page
+const postsPerPage = 10;
+const pageNum = parseInt(Astro.params.pageNum) || 1;
+
+// Fetch the initial page of posts
+const initialData = await getContent('posts', {
+    first: postsPerPage
+});
+let posts = initialData.posts;
+let endCursor = initialData.paginate.cursor;
+let hasNextPage = initialData.paginate.nextPage;
+
+// If there are more pages, fetch additional posts using the endCursor
+if (pageNum > 1) {
+    for (let i = 1; i < pageNum; i++) {
+        if (hasNextPage) {
+            const data = await getContent('posts', {
+                first: postsPerPage,
+                after: endCursor
+            });
+            posts = data.posts;
+            endCursor = data.paginate.cursor;
+            hasNextPage = data.paginate.nextPage;
+        }
+    }
+}
+
+export async function getStaticPaths() {
+    const data = await getContent('posts');
+    const totalPosts = data?.paginate.totalPosts;
+    const totalPages = Math.ceil(totalPosts / 10);
+
+    const paths = Array.from({ length: totalPages }, (_, i) => ({
+        params: { pageNum: `${i + 1}` }
+    }));
+
+    return paths.filter((path) => path.params.pageNum !== '1');
+}
+
+Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
+---
+
+<MainLayout title="Blog – CROSS" description="I write quite infrequently, when ideas need expressing. If you want to read some of my ramblings, this is my latest. I’ve also got an RSS feed for those of you it interests.">
+    <div class="list__main lm">
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+            <ol>
+                <li>
+                    <a href="/public">Home</a>
+                </li>
+                <li class="is-active">
+                    <span>Blog</span>
+                </li>
+            </ol>
+        </nav>
+        <div class="summary__container" data-display="block">
+            {posts.map((post) => (
+                    <PostSummary data={post}></PostSummary>
+            ))}
+            <hr class="hr-slash nav-hr">
+            <nav class="pagination-single">
+                {pageNum > 1 && (
+                    <a href={pageNum - 1 === 1 ? '/blog' : `/blog/page/${pageNum - 1}`} class="pagination-single__left">
+                        <div class="pagination-single__icon">
+                            <Icon name={'nav-left'} size={25} />
+                        </div>
+                        <div class="pagination-single__left-title">Newer Entries</div>
+                    </a>
+                )}
+                <div class="grow"></div>
+                {hasNextPage && (
+                    <a href={`/blog/page/${pageNum + 1}`} class="pagination-single__right">
+                        <div class="pagination-single__right-title">Older Entries</div>
+                        <div class="pagination-single__icon">
+                            <Icon name={'nav-right'} size={25} />
+                        </div>
+                    </a>
+                )}
+            </nav>
+        </div>
+    </div>
+    <Sidebar />
+</MainLayout>
