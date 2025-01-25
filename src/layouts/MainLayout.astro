@@ -6,6 +6,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 import SiteNav from "../components/SiteNav.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import { getContent, getHead } from "cross:content";
+import Analytics from "@vercel/analytics/astro";
 
 const head = await getHead(Astro.url.pathname);
 const primaryMenu = await getContent('navigation');
@@ -90,5 +91,6 @@ const primaryMenu = await getContent('navigation');
 		<SiteFooter/>
 	</div>
 </div>
+<Analytics />
 </body>
 </html>
