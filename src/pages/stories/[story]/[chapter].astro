@@ -97,7 +97,7 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
         <section class="post main">
             <h2 class="single__title" set:html={post?.title}></h2>
             <article class="single__contents" data-dir="ltr">
-                <Blocks data={post?.content?.full.blocks} client:load />
+                <Blocks data={post?.content?.full.blocks} />
             </article>
             <footer class="single__footer"></footer>
             <nav class="pagination-single">

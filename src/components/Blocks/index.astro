@@ -12,31 +12,33 @@ const { data } = Astro.props;
 const blocks = Array.isArray(data) ? data : [];
 ---
 
-{blocks.map((block) => {
-    switch (block.name) {
-        case 'core/image':
-            return <Image data={block} />;
-        case 'core/quote':
-            return <Quote data={block} />;
-        case 'core/separator':
-            return <hr />;
-        case 'core/paragraph':
-            return <Paragraph data={block} />;
-        case 'core/embed':
-            return <Embed data={block} />;
-        case 'acf/alert':
-            return <Alert data={block} />;
-        case 'acf/citation':
-            return <Citation data={block} />;
-        case 'acf/bookmark':
-            return <Bookmark data={block} />;
-        case 'core/more':
-            return null;
-        case 'core/group':
-            return <Blocks data={block} />;
-        case 'core/list':
-            return <List data={block} />;
-        default:
-            return <Fragment set:html={block.renderedHtml} />;
+<div>
+    {blocks.map((block) => {
+        switch (block.name) {
+            case 'core/image':
+                return <Image data={block} />;
+            case 'core/quote':
+                return <Quote data={block} />;
+            case 'core/separator':
+                return <hr />;
+            case 'core/paragraph':
+                return <Paragraph data={block} />;
+            case 'core/embed':
+                return <Embed data={block} />;
+            case 'acf/alert':
+                return <Alert data={block} />;
+            case 'acf/citation':
+                return <Citation data={block} />;
+            case 'acf/bookmark':
+                return <Bookmark data={block} />;
+            case 'core/more':
+                return null;
+            case 'core/group':
+                return <Blocks data={block} />;
+            case 'core/list':
+                return <List data={block} />;
+            default:
+                return <Fragment set:html={block.renderedHtml} />;
         }
     })}
+</div>

@@ -43,7 +43,7 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
         <section class="page main">
             <h2 class="single__title" set:html={page?.title}></h2>
             <article class="single__contents" data-dir="ltr">
-                <Blocks data={page?.content?.full.blocks} client:load />
+                <Blocks data={page?.content?.full.blocks} />
             </article>
             <footer class="single__footer"></footer>
         </section>

@@ -4,11 +4,11 @@ const { scopedPreflightStyles, isolateInsideOfContainer } = require('tailwindcss
 module.exports = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{js,jsx}',
-    './components/**/*.{js,jsx}',
-    './components/ui/*.{js,jsx}',
-    './app/**/*.{js,jsx}',
-    './src/**/*.{js,jsx}',
+    './pages/**/*.{js,jsx,astro}',
+    './components/**/*.{js,jsx,astro}',
+    './components/ui/*.{js,jsx,astro}',
+    './app/**/*.{js,jsx,astro}',
+    './src/**/*.{js,jsx,astro}',
   ],
   prefix: "",
   theme: {

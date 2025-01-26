@@ -1,5 +1,4 @@
 export default function Embed({data: block}) {
-    // Extract the hostname from the URL
     const url = new URL(block.attributes.url)
     let domain = url.hostname
 
