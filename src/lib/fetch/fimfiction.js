@@ -51,7 +51,7 @@ async function fetchFimfictionBookshelfData(url) {
 
     const bookshelfId = url.split('/')[4];
 
-    const response = await fetch(`https://www.fimfiction.net/api/v2/bookshelves/${bookshelfId}/items`, {
+    const response = await fetch(`https://www.fimfiction.net/api/v2/bookshelves/${bookshelfId}/items?page[size]=100`, {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${FIMFICTION_API_KEY}`,
