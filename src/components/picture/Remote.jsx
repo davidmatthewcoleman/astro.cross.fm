@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 export default function Picture({ source = [], alt = null, className = null, classNamePicture = null, color = null, ...rest }) {
     const [encryptedSource, setEncryptedSource] = useState(null);
+    const [loaded, setLoaded] = useState(false);
     // Build fallback source
     const fallback = source[0];
 
@@ -17,6 +18,7 @@ export default function Picture({ source = [], alt = null, className = null, cla
                 .then((res) => res.json())
                 .then((data) => data.data);
 
+            setLoaded(true);
             setEncryptedSource(encrypted);
         };
 
@@ -51,7 +53,7 @@ export default function Picture({ source = [], alt = null, className = null, cla
             <img
                 src={fallbackSrc}
                 alt={alt || ""}
-                className={`${className} ${fallbackSrc ? "" : "opacity-0"} transition-all duration-500 text-transparent`}
+                className={`${className} ${loaded ? "" : "opacity-0"} transition-all duration-500 text-transparent`}
                 width={convertValue(size[0])}
                 height={convertValue(size[1])}
                 {...rest}

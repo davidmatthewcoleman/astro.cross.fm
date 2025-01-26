@@ -16083,17 +16083,6 @@ body {
     background: transparent !important;
 }
 
-
-img {
-    opacity: 0;
-    transition: opacity 0.25s ease-in-out;
-}
-img[src^="http"],
-img[src^="/"] {
-    opacity: 100;
-}
-
-
 .bookmark {
     min-width: 100%;
 }
