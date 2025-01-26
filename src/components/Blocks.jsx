@@ -200,10 +200,11 @@ function renderBlock(block, index) {
 
         return videoResult
     } else if (block.name === 'acf/bookmark') {
-        const { data: bookmark } = JSON.parse(block.renderedHtml.replace(/\\/g, ""));
+        const { data: bookmark } = JSON.parse(block.renderedHtml);
+        console.log('DATA?:', bookmark);
         return <figure className={'bookmark tw-app'} key={block.clientId}>
             <a href={bookmark.source} target={`_blank`}
-               className={`block bg-[#1D1F2E] !text-white hover:!text-[#D2C100] rounded-[6px] !no-underline overflow-hidden px-5 py-3 my-2.5`}>
+               className={`block bg-[#1D1F2E] !text-white hover:!text-[#D2C100] rounded-[6px] !no-underline overflow-hidden px-5 py-3 my-2.5 w-full`}>
                 <div
                     className={`grid grid-cols-[auto_1fr] auto-rows-min gap-4 max-h-min items-stretch mb-auto after:hidden`}>
                     <Picture
@@ -219,7 +220,7 @@ function renderBlock(block, index) {
                             }
                         ]}
                     />
-                    <div className={`flex flex-col gap-2 flex-grow`}>
+                    <div className={`flex flex-col gap-2 flex-grow w-full`}>
                         <div className="flex flex-row items-center gap-2">
                             <strong
                                 className={`text-inherit line-clamp-2 md:line-clamp-1 text-sm md:text-base`}>{Parse(bookmark.title)}</strong>

@@ -197,7 +197,7 @@ export function BookCard({book}) {
     return (
         <>
             <a href={url} target={`_blank`}
-               className={`block bg-[#1D1F2E] !text-white hover:!text-[#D2C100] rounded-[6px] !no-underline overflow-hidden px-5 py-3`}>
+               className={`block bg-[#1D1F2E] !text-white hover:!text-[#D2C100] rounded-[6px] !no-underline overflow-hidden px-5 py-3 min-w-full`}>
                 <div
                     className={`grid grid-cols-[auto_1fr] auto-rows-min gap-4 max-h-min items-stretch mb-auto after:hidden`}>
                     <Picture
@@ -213,7 +213,7 @@ export function BookCard({book}) {
                             }
                         ]}
                     />
-                    <div className={`flex flex-col gap-2 flex-grow max-h-min`}>
+                    <div className={`flex flex-col gap-2 flex-grow w-full max-h-min`}>
                         <div className="flex flex-row items-center gap-2">
                             <strong
                                 className={`text-inherit line-clamp-2 md:line-clamp-1 text-sm md:text-base`}>{Parse(title)}</strong>

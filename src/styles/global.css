@@ -16092,3 +16092,8 @@ img[src^="http"],
 img[src^="/"] {
     opacity: 100;
 }
+
+
+.bookmark {
+    min-width: 100%;
+}
