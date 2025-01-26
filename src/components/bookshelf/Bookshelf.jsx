@@ -1,55 +1,75 @@
 import { BookCard, BookCardLoader } from "./Book.jsx";
-import { useEffect, useState } from "react";
+import { useState, useCallback } from "react";
+import useSWR from "swr";
+import useInfiniteScroll from "react-infinite-scroll-hook";
+
+const fetchBooks = async (url) => {
+    const response = await fetch(url, { method: "GET" });
+    if (!response.ok) {
+        throw new Error("Failed to fetch books");
+    }
+    return response.json();
+};
 
 export default function Bookshelf() {
-    const [bookshelf, setBookshelf] = useState(null);
+    const [page, setPage] = useState(1);
+    const [bookshelf, setBookshelf] = useState([]);
+    const [hasMore, setHasMore] = useState(true);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch('/api/bookshelf', {
-                    method: "GET"
-                });
-                const data = await response.json();
-                setBookshelf(data);
-            } catch (error) {
-                console.error("Error fetching data:", error);
-            }
-        };
+    // Fetch books using SWR
+    const { data, error, isLoading } = useSWR(
+        `/api/bookshelf?page=${page}&pageSize=10`, // Adjust `pageSize` as needed
+        fetchBooks,
+        {
+            onSuccess: (newBooks) => {
+                if (newBooks.length === 0) {
+                    setHasMore(false);
+                } else {
+                    setBookshelf((prev) => [...prev, ...newBooks]);
+                }
+            },
+        }
+    );
 
-        fetchData();
-    }, []);
+    const loadMore = useCallback(() => {
+        if (!hasMore) return;
+        setPage((prevPage) => prevPage + 1);
+    }, [hasMore]);
 
-    if (!bookshelf) {
-        return (
-            <div className={"tw-app"}>
-                <div id={"bookshelf"} className={`min-h-max py-1 mx-auto`}>
-                    <div className="book-list flex flex-col gap-4">
-                        <BookCardLoader />
-                        <BookCardLoader />
-                        <BookCardLoader />
-                        <BookCardLoader />
-                        <BookCardLoader />
-                        <BookCardLoader />
-                        <BookCardLoader />
-                        <BookCardLoader />
-                        <BookCardLoader />
-                        <BookCardLoader />
-                        <BookCardLoader />
-                        <BookCardLoader />
-                    </div>
-                </div>
-            </div>
-        );
+    const [infiniteRef] = useInfiniteScroll({
+        loading: isLoading,
+        hasNextPage: hasMore,
+        onLoadMore: loadMore,
+        disabled: !!error || isLoading,
+        rootMargin: "0px 0px 50px 0px",
+    });
+
+    if (error) {
+        return <div>Error loading books: {error.message}</div>;
     }
 
     return (
-        <div className={"tw-app"}>
-            <div id={"bookshelf"} className={`min-h-max py-1 mx-auto`}>
-                <div className="book-list flex flex-col gap-4">
+        <div className="tw-app">
+            <div id="bookshelf" className="min-h-max py-1 mx-auto">
+                <div className="book-list flex flex-col gap-4" ref={infiniteRef}>
                     {bookshelf.map((book, index) => (
-                        <BookCard key={index} book={book}/>
+                        <BookCard key={index} book={book} />
                     ))}
+                    {isLoading && (
+                        <>
+                            <BookCardLoader />
+                            <BookCardLoader />
+                            <BookCardLoader />
+                            <BookCardLoader />
+                            <BookCardLoader />
+                            <BookCardLoader />
+                            <BookCardLoader />
+                            <BookCardLoader />
+                            <BookCardLoader />
+                            <BookCardLoader />
+                        </>
+                    )}
+                    {!hasMore && <p className="text-center text-sm mt-0.5 mb-1">end of the line</p>}
                 </div>
             </div>
         </div>

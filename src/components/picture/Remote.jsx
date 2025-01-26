@@ -1,43 +1,46 @@
 import React, { useEffect, useState } from "react";
+import useSWR from "swr";
 
 export default function Picture({ source = [], alt = null, className = null, classNamePicture = null, color = null, ...rest }) {
     const [encryptedSource, setEncryptedSource] = useState(null);
-    const [loaded, setLoaded] = useState(false);
-    // Build fallback source
     const fallback = source[0];
 
-    // Render loading state while encrypted sources are being fetched
-    if (!fallback.url) {
-        return;
+    // If fallback doesn't have a URL, return early
+    if (!fallback?.url) {
+        return null;
     }
 
+    const { data, error, isLoading } = useSWR(
+        `/api/encryptImage?src=${encodeURIComponent(fallback.url)}`,
+        fetchImage,
+        {
+            onSuccess: ({ data }) => {
+                setEncryptedSource(data);
+                // console.log("Encrypted Data Received:", JSON.stringify(data, null, 2));
+            },
+        }
+    );
+
+    // Log when the encryptedSource is updated
     useEffect(() => {
-        // Fetch encrypted URLs for all sources
-        const fetchEncryptedSource = async () => {
-            const encrypted = await fetch(`/api/encryptImage?src=${encodeURIComponent(fallback.url)}`, { method: "GET" })
-                .then((res) => res.json())
-                .then((data) => data.data);
+        // console.log("Encrypted Source Updated:", encryptedSource);
+    }, [encryptedSource]);
 
-            setLoaded(true);
-            setEncryptedSource(encrypted);
-        };
-
-        fetchEncryptedSource();
-    }, [source]);
-
-    const fallbackSrc = BuildURL(encryptedSource, { ...fallback.params, output: "png" }, 1);
+    const fallbackSrc = encryptedSource ? BuildURL(encryptedSource, { ...fallback.params, output: "png" }, 1) : fallback.url;
     const size = fallback.params?.cover || fallback.params?.resize;
 
-    // Resolve all source sets (avif and webp)
+    // Resolve all source sets (avif and webp) based on encryptedSource
     const resolvedSources = source.map(({ media, params }, index) => {
-        // const encryptedSource = encryptedSources[index];
-        const avifSet = [1, 2, 3]
-            .map((dpr) => `${BuildURL(encryptedSource, { ...params, output: "avif" }, dpr)} ${dpr}x`)
-            .join(", ");
-
-        const webpSet = [1, 2, 3]
-            .map((dpr) => `${BuildURL(encryptedSource, { ...params, output: "webp" }, dpr)} ${dpr}x`)
-            .join(", ");
+        const avifSet = encryptedSource
+            ? [1, 2, 3]
+                .map((dpr) => `${BuildURL(encryptedSource, { ...params, output: "avif" }, dpr)} ${dpr}x`)
+                .join(", ")
+            : '';
+        const webpSet = encryptedSource
+            ? [1, 2, 3]
+                .map((dpr) => `${BuildURL(encryptedSource, { ...params, output: "webp" }, dpr)} ${dpr}x`)
+                .join(", ")
+            : '';
 
         return { media, avif: avifSet, webp: webpSet };
     });
@@ -53,7 +56,7 @@ export default function Picture({ source = [], alt = null, className = null, cla
             <img
                 src={fallbackSrc}
                 alt={alt || ""}
-                className={`${className} ${loaded ? "" : "opacity-0"} transition-all duration-500 text-transparent`}
+                className={`${className} ${isLoading ? "opacity-0" : ""} transition-all duration-500 text-transparent`}
                 width={convertValue(size[0])}
                 height={convertValue(size[1])}
                 {...rest}
@@ -62,7 +65,7 @@ export default function Picture({ source = [], alt = null, className = null, cla
     );
 }
 
-// Pure function for building URL with params
+// Utility functions for URL building and other processing
 function BuildURL(src, params, dpr = 1) {
     const clonedParams = { ...params };
 
@@ -71,14 +74,13 @@ function BuildURL(src, params, dpr = 1) {
         clonedParams.focus = `${Math.round(clonedParams.focus.x * 100)}px${Math.round(clonedParams.focus.y * 100)}p`;
     }
 
-    // Format cover
+    // Format cover and resize
     if (clonedParams?.cover && Array.isArray(clonedParams.cover)) {
         clonedParams.cover = clonedParams.cover
             .map((val) => (convertValue(val) === "auto" ? "-" : convertValue(val) * dpr))
             .join("x");
     }
 
-    // Format resize
     if (clonedParams?.resize && Array.isArray(clonedParams.resize)) {
         clonedParams.resize = clonedParams.resize
             .map((val) => (convertValue(val) === "auto" ? "-" : convertValue(val) * dpr))
@@ -87,7 +89,6 @@ function BuildURL(src, params, dpr = 1) {
 
     const sortedParams = sortObjectByCustomOrder(clonedParams, ['focus', 'resize', 'cover', 'output']);
 
-    // Build transformation string
     const transforms = Object.keys(sortedParams)
         .map((prop) => `${prop.replace(/([a-z])([A-Z])/g, (_, lower, upper) => `${lower}-${upper.toLowerCase()}`)}=${clonedParams[prop]}`)
         .join("/");
@@ -107,3 +108,11 @@ function sortObjectByCustomOrder(obj, keyOrder) {
         return sortedObj;
     }, {});
 }
+
+const fetchImage = async (url) => {
+    const response = await fetch(url, { method: "GET" });
+    if (!response.ok) {
+        throw new Error("Failed to fetch image");
+    }
+    return response.json();
+};

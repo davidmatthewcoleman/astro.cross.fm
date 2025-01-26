@@ -221,7 +221,7 @@ export function BookCard({book}) {
                                 className={`py-0.5 px-1 text-xs uppercase flex flex-row items-center backdrop-blur rounded pointer-events-none ${status === 'reviewed' ? 'text-black bg-yellow-500' : 'text-black bg-white'}`}><ReadStatus/></span>}
                         </div>
                         <div
-                            className={`text-white text-sm line-clamp-4 md:text-base md:line-clamp-3`}>{Parse(description)}</div>
+                            className={`text-white/75 text-sm line-clamp-4 md:text-base md:line-clamp-3`}>{Parse(description)}</div>
                         <div className={`flex flex-row gap-1.5 text-white/50 text-xxs md:text-xs items-center mt-auto`}>
                             <span>Published {format(new Date(published), 'yyyy')}</span>
                             <span className={"-translate-y-px opacity-50 max-md:hidden"}>|</span>

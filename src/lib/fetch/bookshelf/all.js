@@ -3,10 +3,10 @@ import { fetchCurrentGoodreadsBooks, fetchCurrentFanfictionBooks, fetchCurrentFi
 import { fetchFinishedGoodreadsBooks, fetchFinishedFanfictionBooks, fetchFinishedFimfictionBooks } from "./finished"
 import { fetchLaterGoodreadsBooks, fetchLaterFanfictionBooks, fetchLaterFimfictionBooks } from "./later"
 
-async function fetchAllBooks() {
+async function fetchAllBooks(page = 1, pageSize = 10) {
     const reviewedBooksPromise = fetchReviewedBooks();
 
-    // Consolidate all book-fetching operations into one
+    // Consolidate all book-fetching operations
     const allBooksPromise = Promise.all([
         fetchCurrentGoodreadsBooks(),
         fetchCurrentFanfictionBooks(),
@@ -16,21 +16,24 @@ async function fetchAllBooks() {
         fetchFinishedFimfictionBooks(),
         fetchLaterGoodreadsBooks(),
         fetchLaterFanfictionBooks(),
-        fetchLaterFimfictionBooks()
+        fetchLaterFimfictionBooks(),
     ]).then(results => results.flat());
 
     // Wait for all data to resolve
     const [reviewedBooks, allBooks] = await Promise.all([reviewedBooksPromise, allBooksPromise]);
 
     // Update statuses and sort
-    const output = allBooks
+    const sortedBooks = allBooks
         .map(obj => ({
             ...obj,
-            status: reviewedBooks.includes(obj.url) ? 'reviewed' : obj.status
+            status: reviewedBooks.includes(obj.url) ? 'reviewed' : obj.status,
         }))
         .sort((b, a) => new Date(a.added) - new Date(b.added));
 
-    return output;
+    // Paginate the result
+    const start = (page - 1) * pageSize;
+    const end = page * pageSize;
+    return sortedBooks.slice(start, end);
 }
 
 export { fetchAllBooks };

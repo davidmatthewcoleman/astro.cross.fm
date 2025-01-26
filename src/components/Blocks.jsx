@@ -201,7 +201,6 @@ function renderBlock(block, index) {
         return videoResult
     } else if (block.name === 'acf/bookmark') {
         const { data: bookmark } = JSON.parse(block.renderedHtml);
-        console.log('DATA?:', bookmark);
         return <figure className={'bookmark tw-app'} key={block.clientId}>
             <a href={bookmark.source} target={`_blank`}
                className={`block bg-[#1D1F2E] !text-white hover:!text-[#D2C100] rounded-[6px] !no-underline overflow-hidden px-5 py-3 my-2.5 w-full`}>
@@ -226,7 +225,7 @@ function renderBlock(block, index) {
                                 className={`text-inherit line-clamp-2 md:line-clamp-1 text-sm md:text-base`}>{Parse(bookmark.title)}</strong>
                         </div>
                         <div
-                            className={`text-white text-sm line-clamp-4 md:text-base md:line-clamp-3`}>{Parse(bookmark.excerpt)}</div>
+                            className={`text-white/75 text-sm line-clamp-4 md:text-base md:line-clamp-3`}>{Parse(bookmark.excerpt)}</div>
                         <div
                             className={`flex flex-row gap-1.5 text-white/50 text-xxs md:text-xs items-center justify-between mt-auto`}>
                             <span>{Parse(bookmark.author)}</span>
