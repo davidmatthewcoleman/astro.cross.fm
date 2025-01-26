@@ -6,7 +6,7 @@ import Picture from "../../../components/Picture.astro";
 import ChapterSelector from "../../../components/ChapterSelector.jsx";
 import Icon from "../../../components/Icon.astro";
 import Parse from "html-react-parser";
-import Blocks from "../../../components/Blocks.jsx";
+import Blocks from "../../../components/Blocks/index.astro";
 
 const post = await getContent('chapters', {
     slug: Astro.params.chapter

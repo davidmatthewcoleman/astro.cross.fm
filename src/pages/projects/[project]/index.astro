@@ -5,7 +5,7 @@ import MainLayout from "../../../layouts/MainLayout.astro";
 import { getContent } from "cross:content";
 import Icon from "../../../components/Icon.astro";
 import Mentions from "../../../components/Mentions.jsx";
-import Blocks from "../../../components/Blocks.jsx";
+import Blocks from "../../../components/Blocks/index.astro";
 import Gallery from "../../../components/Gallery.astro";
 import Parse from "html-react-parser";
 
@@ -185,6 +185,9 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                 }
                 .gallery__controls button .icon {
                     padding: 2px;
+                }
+                .single__contents {
+                    margin-bottom: 0.75rem;
                 }
             </style>
             <div class="single__meta">

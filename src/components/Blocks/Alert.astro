@@ -1,0 +1,14 @@
+---
+import Blocks from "../Blocks/index.astro";
+const { data: block } = Astro.props;
+const { alert } = JSON.parse(block.attributes.data);
+---
+
+<div
+    class="alert"
+    style={`--color:${alert.color};`}
+>
+    {block.innerBlocks && block.innerBlocks.map((innerBlock) => (
+        <Blocks data={innerBlock} />
+    ))}
+</div>

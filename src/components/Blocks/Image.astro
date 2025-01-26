@@ -1,0 +1,71 @@
+---
+import Picture from "../Picture.astro";
+const { data: block } = Astro.props;
+
+let blockClass = 'image-block ', blockImgClass, blockWidth;
+if (block.attributes.align) {
+    switch (block.attributes.align) {
+        case 'left':
+            blockClass += 'float-left !my-2 !mr-4 w-full md:w-auto'
+            blockImgClass = 'mx-auto 2xl:!m-0 w-full'
+            blockWidth = block.attributes.width ? block.attributes.width : 256
+            break
+        case 'center':
+            blockClass += 'float-none !my-2 w-full md:w-auto'
+            blockImgClass = '!m-0 w-full'
+            blockWidth = block.attributes.width ? block.attributes.width : 1200
+            break
+        case 'wide':
+            blockClass += 'float-none !my-2 max-w-5xl mx-auto md:w-auto'
+            blockImgClass = '!m-0 w-full'
+            blockWidth = 1200
+            break
+        case 'full':
+            blockClass += 'float-none !my-2 max-w-full mx-auto md:w-auto'
+            blockImgClass = '!m-0 w-full'
+            blockWidth = 1920
+            break
+        case 'right':
+            blockClass += 'float-right !my-2 !ml-4 w-full md:w-auto'
+            blockImgClass = 'mx-auto 2xl:!m-0 w-full'
+            blockWidth = block.attributes.width ? block.attributes.width : 256
+            break
+        default:
+            blockClass += 'float-none !my-2 max-w-5xl mx-auto md:w-auto'
+            blockImgClass = '!m-0 w-full'
+            blockWidth = block.attributes.width ? block.attributes.width : 1200
+            break
+    }
+} else {
+    blockWidth = block.attributes.width ? block.attributes.width : 736
+}
+
+let blockCaptionClass;
+switch (block.attributes.align) {
+    case 'left':
+        blockCaptionClass = 'text-black/50 text-sm mt-2 text-left'
+        break;
+    case 'right':
+        blockCaptionClass = 'text-black/50 text-sm mt-2 text-right'
+        break;
+    default:
+        blockCaptionClass = 'text-black/50 text-sm mt-2 text-center'
+        break;
+}
+---
+
+<figure class={blockClass}>
+    <Picture
+            source={[
+                {
+                    url: block.attributes.src,
+                    params: {
+                        cover: [block.attributes.width || 646, block.attributes.height || 'auto'],
+                    }
+                }
+            ]}
+            alt={block.attributes.title}
+            className={blockImgClass}
+    />
+    {block.attributes.caption && <figcaption class={blockCaptionClass} set:html={block.attributes.caption} />}
+</figure>

@@ -1,0 +1,10 @@
+---
+import Blocks from '../Blocks/index.astro';
+const { data: block } = Astro.props;
+---
+
+<ul class={`list-disc`}>
+    {block.values && block.values.map((innerBlock) => (
+        <Blocks data={innerBlock} />
+    ))}
+</ul>

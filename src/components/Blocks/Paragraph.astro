@@ -1,0 +1,5 @@
+---
+const { data: block } = Astro.props;
+---
+
+<p set:html={block.attributes.content} />

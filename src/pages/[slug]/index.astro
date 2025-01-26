@@ -2,7 +2,7 @@
 import Sidebar from "../../components/Sidebar.astro";
 import MainLayout from "../../layouts/MainLayout.astro";
 import { getContent } from "cross:content";
-import Blocks from "../../components/Blocks.jsx";
+import Blocks from "../../components/Blocks/index.astro";
 
 const page = await getContent('pages', {
     first: 1,

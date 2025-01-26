@@ -1,0 +1,10 @@
+---
+const { data: block } = Astro.props;
+---
+
+<blockquote class="quote prose-quoteless relative my-4 border-none pl-4" style={`--border-color:${block.attributes.borderColor};`}>
+    <Fragment set:html={block.attributes.value} />
+    {block.attributes.citation && block.attributes.citation.length > 0 && (
+        <cite set:html={block.attributes.citation} />
+    )}
+</blockquote>

@@ -6,7 +6,7 @@ import Parse from "html-react-parser";
 import { getContent } from "cross:content";
 import Icon from "../../../components/Icon.astro";
 import Mentions from "../../../components/Mentions.jsx";
-import Blocks from "../../../components/Blocks.jsx";
+import Blocks from "../../../components/Blocks/index.astro";
 
 const post = await getContent('posts', {
     first: 1,
@@ -114,7 +114,7 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                     }
             </div>
             <article class="single__contents" data-dir="ltr">
-                <Blocks data={post?.content?.full.blocks} client:load />
+                <Blocks data={post?.content?.full.blocks} />
             </article>
             <footer class="single__footer">
                 {
