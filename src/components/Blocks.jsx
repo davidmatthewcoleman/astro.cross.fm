@@ -230,7 +230,7 @@ function renderBlock(block, index) {
                         <div
                             className={`flex flex-row gap-1.5 text-white/50 text-xxs md:text-xs items-center justify-between mt-auto`}>
                             <span>{Parse(bookmark.author)}</span>
-                            <span className={`flex flex-row gap-1.5 items-center max-md:hidden`}>
+                            <span className={`flex flex-row gap-1.5 items-center ml-auto`}>
                                 {bookmark.site}
                                 <Picture
                                     alt={Parse(bookmark.site)}
