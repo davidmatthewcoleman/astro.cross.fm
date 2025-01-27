@@ -13,10 +13,10 @@
   ],
   "functions": {
     "api/*.js": {
-      "runtime": "vercel-edge"
+      "runtime": "edge"
     },
     "api/**/*.js": {
-      "runtime": "vercel-edge"
+      "runtime": "edge"
     }
   }
 }
