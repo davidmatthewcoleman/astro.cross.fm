@@ -8,7 +8,6 @@ const { alert } = JSON.parse(block.attributes.data);
     class="alert"
     style={`--color:${alert.color};`}
 >
-    <Fragment set:html={block.innerBlocks.renderedHtml} />
     {block.innerBlocks && block.innerBlocks.map((innerBlock) => (
         <Fragment set:html={innerBlock.renderedHtml} />
     ))}
