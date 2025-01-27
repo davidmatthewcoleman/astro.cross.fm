@@ -1,6 +1,10 @@
 import { fetchAllBooks } from "../../lib/fetch/bookshelf/all.js";
 export const prerender = false;
 
+export const config = {
+    runtime: 'edge'
+}
+
 export const GET = async ({request}) => {
     const url = new URL(request.url);
     const page = url.searchParams.get('page');

@@ -10,13 +10,5 @@
       "destination": "/:path*",
       "permanent": true
     }
-  ],
-  "functions": {
-    "api/*.js": {
-      "runtime": "edge"
-    },
-    "api/**/*.js": {
-      "runtime": "edge"
-    }
-  }
+  ]
 }
