@@ -6,8 +6,7 @@ export async function navQuery(){
         method: 'post',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`,
-            'User-Agent': 'CROSS-FETCH'
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
         },
         body: JSON.stringify({
             query: `{
@@ -37,8 +36,7 @@ export async function sidebarQuery(){
         method: 'post',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`,
-            'User-Agent': 'CROSS-FETCH'
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
         },
         body: JSON.stringify({
             query: `{
@@ -115,8 +113,7 @@ export async function projectQuery(first = null, after = null, slug = null) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`,
-            'User-Agent': 'CROSS-FETCH'
+                'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
             },
             body: JSON.stringify({
                 query: `
@@ -280,8 +277,7 @@ export async function blogQuery(first = null, after = null, slug = null, series 
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`,
-            'User-Agent': 'CROSS-FETCH'
+                'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
             },
             body: JSON.stringify({
                 query: `
@@ -475,8 +471,7 @@ export async function pagesQuery(first = null, after = null, slug = null) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`,
-            'User-Agent': 'CROSS-FETCH'
+                'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
             },
             body: JSON.stringify({
                 query: `
@@ -606,8 +601,7 @@ export async function blogSearchQuery(search, first, after = null) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`,
-            'User-Agent': 'CROSS-FETCH'
+                'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
             },
             body: JSON.stringify({
                 query: `
@@ -669,8 +663,7 @@ export async function storiesQuery(first, after = null, slug = null) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`,
-            'User-Agent': 'CROSS-FETCH'
+                'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
             },
             body: JSON.stringify({
                 query: `
@@ -758,8 +751,7 @@ export async function seriesQuery(series = null, first, after = null) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`,
-            'User-Agent': 'CROSS-FETCH'
+                'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
             },
             body: JSON.stringify({
                 query: `
@@ -824,8 +816,7 @@ export async function topicQuery(category = null, first, after = null) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`,
-            'User-Agent': 'CROSS-FETCH'
+                'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
             },
             body: JSON.stringify({
                 query: `
@@ -888,8 +879,7 @@ export async function tagQuery(tag = null, first, after = null) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`,
-            'User-Agent': 'CROSS-FETCH'
+                'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
             },
             body: JSON.stringify({
                 query: `
@@ -951,8 +941,7 @@ export async function homepageQuery(){
         method: 'post',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`,
-            'User-Agent': 'CROSS-FETCH'
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
         },
         body: JSON.stringify({
             query: `{
@@ -983,8 +972,7 @@ export async function heroQuery(){
         method: 'post',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`,
-            'User-Agent': 'CROSS-FETCH'
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
         },
         body: JSON.stringify({
             query: `{
@@ -1033,8 +1021,7 @@ export async function singleSeriesQuery(series = null) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`,
-            'User-Agent': 'CROSS-FETCH'
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
         },
         body: JSON.stringify({
             query: `
@@ -1066,8 +1053,7 @@ export async function singleTopicQuery(category) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`,
-            'User-Agent': 'CROSS-FETCH'
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
         },
         body: JSON.stringify({
             query: `
@@ -1099,8 +1085,7 @@ export async function singleTagQuery(tag) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`,
-            'User-Agent': 'CROSS-FETCH'
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
         },
         body: JSON.stringify({
             query: `
@@ -1132,8 +1117,7 @@ export async function singleStoryQuery(story) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`,
-            'User-Agent': 'CROSS-FETCH'
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
         },
         body: JSON.stringify({
             query: `
@@ -1206,8 +1190,7 @@ export async function singlePageQuery(slug) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`,
-            'User-Agent': 'CROSS-FETCH'
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
         },
         body: JSON.stringify({
             query: `
@@ -1238,8 +1221,7 @@ export async function singlePostQuery(slug) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`,
-            'User-Agent': 'CROSS-FETCH'
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
         },
         body: JSON.stringify({
             query: `
@@ -1320,8 +1302,7 @@ export async function singleChapterQuery(slug) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`,
-            'User-Agent': 'CROSS-FETCH'
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
         },
         body: JSON.stringify({
             query: `
@@ -1483,8 +1464,7 @@ export async function allTagsQuery(){
         method: 'post',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`,
-            'User-Agent': 'CROSS-FETCH'
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
         },
         body: JSON.stringify({
             query: `
@@ -1509,8 +1489,7 @@ export async function allCategoriesQuery(){
         method: 'post',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`,
-            'User-Agent': 'CROSS-FETCH'
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
         },
         body: JSON.stringify({
             query: `
@@ -1535,8 +1514,7 @@ export async function allSeriesQuery(){
         method: 'post',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`,
-            'User-Agent': 'CROSS-FETCH'
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
         },
         body: JSON.stringify({
             query: `
@@ -1561,8 +1539,7 @@ export async function wpVersionQuery(){
         method: 'post',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`,
-            'User-Agent': 'CROSS-FETCH'
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
         },
         body: JSON.stringify({
             query: `{
@@ -1595,8 +1572,7 @@ export async function allStorySlugsQuery() {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`,
-            'User-Agent': 'CROSS-FETCH'
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
         },
         body: JSON.stringify({ query }),
     });
@@ -1623,8 +1599,7 @@ export async function allChapterSlugsQuery() {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`,
-            'User-Agent': 'CROSS-FETCH'
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
         },
         body: JSON.stringify({ query }),
     });
@@ -1648,8 +1623,7 @@ export async function allSeriesSlugsQuery() {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`,
-            'User-Agent': 'CROSS-FETCH'
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
         },
         body: JSON.stringify({ query }),
     });
@@ -1674,8 +1648,7 @@ export async function allPostSlugsQuery() {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`,
-            'User-Agent': 'CROSS-FETCH'
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
         },
         body: JSON.stringify({ query }),
     });
@@ -1699,8 +1672,7 @@ export async function allPageSlugsQuery() {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`,
-            'User-Agent': 'CROSS-FETCH'
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
         },
         body: JSON.stringify({ query }),
     });
@@ -1724,8 +1696,7 @@ export async function allTagSlugsQuery() {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`,
-            'User-Agent': 'CROSS-FETCH'
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
         },
         body: JSON.stringify({ query }),
     });
@@ -1749,8 +1720,7 @@ export async function allTopicSlugsQuery() {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`,
-            'User-Agent': 'CROSS-FETCH'
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
         },
         body: JSON.stringify({ query }),
     });
@@ -1783,8 +1753,7 @@ export async function portfolioQuery() {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`,
-            'User-Agent': 'CROSS-FETCH'
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
         },
         body: JSON.stringify({ query }),
     });
@@ -1840,8 +1809,7 @@ export async function bookshelfQuery() {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`,
-            'User-Agent': 'CROSS-FETCH'
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
         },
         body: JSON.stringify({ query }),
     });
@@ -1857,8 +1825,7 @@ export async function headQuery(url) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`,
-            'User-Agent': 'CROSS-FETCH'
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
         },
         body: JSON.stringify({
             query: `
