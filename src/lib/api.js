@@ -1,6 +1,54 @@
 import NodeCache from "node-cache";
 import fetch from "node-fetch";
 
+export async function reviewedStories(){
+    const query = await fetch(import.meta.env.WORDPRESS_API_URL, {
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
+        },
+        body: JSON.stringify({
+            query: `
+                query reviewedQuery {
+                  reviewedStories
+                }
+            `
+        })
+    });
+    const { data } = await query.json();
+
+    return data;
+}
+
+export async function locationData(){
+    const query = await fetch(import.meta.env.WORDPRESS_API_URL, {
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
+        },
+        body: JSON.stringify({
+            query: `
+                query locationQuery {
+                  locationData {
+                    city
+                    state
+                    country {
+                      name
+                      code
+                    }
+                    timestamp
+                  }
+                }
+            `
+        })
+    });
+    const { data } = await query.json();
+
+    return data;
+}
+
 export async function navQuery(){
     const siteNavQueryRes = await fetch(import.meta.env.WORDPRESS_API_URL, {
         method: 'post',

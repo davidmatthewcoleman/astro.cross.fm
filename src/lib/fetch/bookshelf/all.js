@@ -1,10 +1,10 @@
-import { fetchReviewedBooks } from "./reviewed"
+import {reviewedStories} from "../../../lib/api.js";
 import { fetchCurrentGoodreadsBooks, fetchCurrentFanfictionBooks, fetchCurrentFimfictionBooks } from "./current"
 import { fetchFinishedGoodreadsBooks, fetchFinishedFanfictionBooks, fetchFinishedFimfictionBooks } from "./finished"
 import { fetchLaterGoodreadsBooks, fetchLaterFanfictionBooks, fetchLaterFimfictionBooks } from "./later"
 
 async function fetchAllBooks(page = 1, pageSize = 10) {
-    const reviewedBooksPromise = fetchReviewedBooks();
+    const reviewedBooksPromise = (await reviewedStories()).reviewedStories;
 
     // Consolidate all book-fetching operations
     const allBooksPromise = Promise.all([

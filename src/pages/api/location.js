@@ -1,11 +1,9 @@
+import {locationData} from "../../lib/api.js";
+
 export const prerender = false;
 
 export const GET = async () => {
-    const response = await fetch(`https://api.crossrambles.com/v1/location`, {
-        method: 'GET'
-    });
-
-    const data = await response.json();
+    const { locationData: data } = await locationData();
 
     return new Response(
         JSON.stringify(data), {
