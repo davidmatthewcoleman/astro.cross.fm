@@ -18,7 +18,7 @@ export default function Bookshelf() {
 
     // Fetch books using SWR
     const { data, error, isLoading } = useSWR(
-        `/api/bookshelf?page=${page}&pageSize=10`, // Adjust `pageSize` as needed
+        `/api/bookshelf?page=${page}&pageSize=5`, // Adjust `pageSize` as needed
         fetchBooks,
         {
             onSuccess: (newBooks) => {
@@ -57,16 +57,15 @@ export default function Bookshelf() {
                     ))}
                     {isLoading && (
                         <>
-                            <BookCardLoader />
-                            <BookCardLoader />
-                            <BookCardLoader />
-                            <BookCardLoader />
-                            <BookCardLoader />
-                            <BookCardLoader />
-                            <BookCardLoader />
-                            <BookCardLoader />
-                            <BookCardLoader />
-                            <BookCardLoader />
+                            {page === 1 ? (
+                                <>
+                                    <BookCardLoader />
+                                    <BookCardLoader />
+                                    <BookCardLoader />
+                                </>
+                            ) : (
+                                <BookCardLoader />
+                            )}
                         </>
                     )}
                     {!hasMore && <p className="text-center text-sm mt-0.5 mb-1">end of the line</p>}
