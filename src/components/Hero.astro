@@ -64,8 +64,8 @@ const hero = await getContent('hero');
                 <div>
                     <strong>{hero.profile.name}</strong>
                     <span>
-                        <Icon name={'bluesky-alt'} size={16} />
-                        <a href={`https://bsky.app/profile/crossrambles.com`} target="_blank" title="Bluesky">crossrambles.com</a>
+                        <Icon name={'mastodon-alt'} size={16} />
+                        <a class="mastodon__link" href={`https://elk.zone/${hero.profile.mastodon.instance}/@${hero.profile.mastodon.handle}`} target="_blank" title={`Mastodon via Elk.zone`}>{hero.profile.mastodon.handle}</a>
                     </span>
                 </div>
             </div>
@@ -73,6 +73,9 @@ const hero = await getContent('hero');
     </div>
 </header>
 <style is:inline>
+    .mastodon__link {
+        text-transform: uppercase;
+    }
     .main.inner.hero {
         pointer-events: none !important;
     }
