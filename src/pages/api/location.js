@@ -1,7 +1,7 @@
 export const prerender = false;
 
 export const GET = async () => {
-    const response = await fetch(`https://cross.fm/wp-json/wp/v2/location`, {
+    const response = await fetch(`https://api.crossrambles.com/v1/location`, {
         method: 'GET'
     });
 

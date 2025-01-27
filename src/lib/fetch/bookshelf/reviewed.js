@@ -1,5 +1,5 @@
 async function fetchReviewedBooks() {
-    const response = await fetch('https://cross.fm/wp-json/wp/v2/reviewed', {
+    const response = await fetch('https://api.crossrambles.com/v1/reviewed', {
         method: 'GET'
     });
     const data = await response.json();
