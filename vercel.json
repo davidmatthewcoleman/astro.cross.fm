@@ -10,5 +10,13 @@
       "destination": "/:path*",
       "permanent": true
     }
-  ]
+  ],
+  "functions": {
+    "api/*.js": {
+      "runtime": "vercel-edge"
+    },
+    "api/**/*.js": {
+      "runtime": "vercel-edge"
+    }
+  }
 }
