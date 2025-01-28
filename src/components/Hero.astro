@@ -3,6 +3,20 @@ import Picture from "./Picture.astro";
 import { getContent } from "cross:content";
 import Icon from "./Icon.astro";
 const hero = await getContent('hero');
+
+function wrapText(text) {
+    return text.replace(
+        /([A-Z]+)|([a-z]+)/g, // Match groups of uppercase or lowercase letters
+        (_, upper, lower) => {
+            if (upper) {
+                return `<span class="uppercase">${upper}</span>`;
+            } else if (lower) {
+                return `<span class="lowercase">${lower}</span>`;
+            }
+            return _;
+        }
+    );
+}
 ---
 
 <header class="header">
@@ -62,7 +76,7 @@ const hero = await getContent('hero');
                     </div>
                 </div>
                 <div>
-                    <strong>{hero.profile.name}</strong>
+                    <strong class="about__name" set:html={wrapText(hero.profile.name)} />
                     <span>
                         <Icon name={'mastodon-alt'} size={16} />
                         <a class="mastodon__link" href={`https://elk.zone/${hero.profile.mastodon.instance}/@${hero.profile.mastodon.handle}`} target="_blank" title={`Mastodon via Elk.zone`}>{hero.profile.mastodon.handle}</a>
@@ -73,6 +87,15 @@ const hero = await getContent('hero');
     </div>
 </header>
 <style is:inline>
+    .about__name {
+        font-variant: small-caps;
+    }
+    .about__name .uppercase {
+        font-weight: 600;
+    }
+    .about__name .lowercase {
+        font-weight: 700;
+    }
     .mastodon__link {
         text-transform: uppercase;
     }
@@ -177,9 +200,6 @@ const hero = await getContent('hero');
         justify-content: center;
         color: #fff;
     }
-    .site-header__contents > div:not(.avatar_wrapper) strong {
-        font-size: 1.5rem;
-    }
     .site-header__contents > div:not(.avatar_wrapper) span {
         font-size: 1rem;
         opacity: 0.75;
@@ -191,6 +211,11 @@ const hero = await getContent('hero');
     .site-header__contents > div:not(.avatar_wrapper) span a {
         color: inherit;
         text-decoration: none;
+    }
+    .site-header__contents > div:not(.avatar_wrapper) strong,
+    .site-header__contents > div:not(.avatar_wrapper) strong span {
+        color: #fff;
+        font-size: 1.5rem;
     }
     .single__contents {
         padding-bottom: 1em !important;

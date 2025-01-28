@@ -92,6 +92,10 @@ export async function sidebarQuery(){
                     name
                     bio
                     birthdate
+                    mastodon {
+                      instance
+                      handle
+                    }
                     location
                     email
                     profile {

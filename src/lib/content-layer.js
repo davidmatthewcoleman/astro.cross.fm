@@ -44,6 +44,10 @@ const sidebar = async () => {
         profile: {
             name: data.sidebar.name,
             bio: data.sidebar.bio,
+            mastodon: data.sidebar.mastodon ? {
+                instance: data.sidebar.mastodon.instance,
+                handle: data.sidebar.mastodon.handle
+            } : null,
             birthdate: data.sidebar.birthdate ? {
                 raw: new Date(data.sidebar.birthdate).toISOString(),
                 formatted: format(new Date(data.sidebar.birthdate), 'MMM. d, yyyy')
