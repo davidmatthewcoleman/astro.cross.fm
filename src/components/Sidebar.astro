@@ -91,7 +91,7 @@ const { show = true, overlap = false, search = null } = Astro.props;
                 <div class="bio__info--icon">
                     <Icon name={'mastodon-alt'} size={16} />
                 </div>
-                <a href={`https://elk.zone/${profile.mastodon.instance}/@${profile.mastodon.handle}`} target="_blank">{profile.mastodon.handle}</a>
+                <a href={`https://elk.zone/${profile.mastodon.instance}/@${profile.mastodon.handle}`} target="_blank">{profile.mastodon.instance}</a>
             </div>
             <Location client:load/>
             <div class="bio__info" title="Email me">
