@@ -9,6 +9,7 @@ module.exports = {
     './components/ui/*.{js,jsx,astro}',
     './app/**/*.{js,jsx,astro}',
     './src/**/*.{js,jsx,astro}',
+    "./node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
   prefix: "",
   theme: {

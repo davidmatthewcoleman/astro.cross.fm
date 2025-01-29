@@ -16091,3 +16091,10 @@ body {
     margin-right: 0.125rem;
     transform: translateY(1px);
 }
+
+
+.mask-squircle {
+    aspect-ratio: 1 / 1;
+    -webkit-mask-image: url(/assets/images/squircle.svg);
+    mask-image: url(/assets/images/squircle.svg);
+}

@@ -57,13 +57,16 @@ export default function AboutSelector({about}) {
                     About Me
                 </option>
             )}
-            <option key={1} value={'/about/bookmarks'}>
+            <option key={1} value={'/about/interests'}>
+                Interests
+            </option>
+            <option key={2} value={'/about/bookmarks'}>
                 Bookmarks
             </option>
-            <option key={2} value={'/about/bookshelf'}>
+            <option key={3} value={'/about/bookshelf'}>
                 Bookshelf
             </option>
-            <option key={3} value={'/about/uses'}>
+            <option key={4} value={'/about/uses'}>
                 Uses
             </option>
         </select>

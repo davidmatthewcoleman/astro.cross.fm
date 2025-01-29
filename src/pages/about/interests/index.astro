@@ -1,0 +1,50 @@
+---
+import Sidebar from "../../../components/Sidebar.astro";
+import MainLayout from "../../../layouts/MainLayout.astro";
+import AboutSelector from "../../../components/AboutSelector.jsx";
+import { getContent } from "cross:content";
+import Icon from "../../../components/Icon.astro";
+import Interests from "../../../components/Interests.jsx";
+import Blocks from "../../../components/Blocks/index.astro";
+
+const page = await getContent('pages', {
+    first: 1,
+    slug: 'interests'
+});
+
+Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
+---
+
+<MainLayout title={`${page?.title} – CROSS`}>
+    <div class="post__wrapper lm">
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+            <ol>
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                <li>
+                    <a href="/about">About Me</a>
+                </li>
+                <li class="is-active">
+                    <span>
+                        <AboutSelector about={false} server:defer client:load />
+                        <Icon name="caret-down" size={12} />
+                    </span>
+                </li>
+            </ol>
+        </nav>
+        <section class="page main">
+            <h2 class="single__title" set:html={page?.title}></h2>
+            <article class="single__contents" data-dir="ltr">
+                <Blocks data={page?.content?.full.blocks} />
+                <interests-block id={'interests'}>
+                    <template shadowrootmode="open">
+                        <Interests client:load />
+                    </template>
+                </interests-block>
+            </article>
+            <footer class="single__footer"></footer>
+        </section>
+    </div>
+    <Sidebar overlap={true} />
+</MainLayout>
