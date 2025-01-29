@@ -6,7 +6,7 @@ const hero = await getContent('hero');
 
 function wrapText(text) {
     return text.replace(
-        /([A-Z]+)|([a-z]+)/g, // Match groups of uppercase or lowercase letters
+        /([A-Z]+)|([a-z-]+)/g, // Match groups of uppercase or lowercase letters
         (_, upper, lower) => {
             if (upper) {
                 return `<span class="uppercase">${upper}</span>`;
