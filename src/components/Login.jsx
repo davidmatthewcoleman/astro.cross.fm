@@ -41,7 +41,7 @@ export default function Login() {
 
                         return (
                             <ModalBody>
-                                <iframe src={'https://cms.crossrambles.com/dashboard/login/'} onLoad={() => setIsLoaded(true)} className={'block w-full h-full'} sandbox="allow-top-navigation allow-scripts allow-forms" />
+                                <iframe src={'https://cms.crossrambles.com/dashboard/login/'} onLoad={() => setIsLoaded(true)} className={'block w-full h-full'} />
                             </ModalBody>
                         )
                     }}
