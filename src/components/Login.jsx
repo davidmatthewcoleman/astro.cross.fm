@@ -13,7 +13,7 @@ export default function Login() {
 
     return (
         <>
-            <Button onPress={onOpen} className={'login-btn'} disableRipple={true} disableAnimation={true}>Sign In</Button>
+            <Button onPress={onOpen} className={'login-btn'} disableRipple={true} disableAnimation={true}>Dashboard</Button>
             <Modal
                 disableAnimation={true}
                 isDismissable={false}
@@ -41,7 +41,7 @@ export default function Login() {
 
                         return (
                             <ModalBody>
-                                <iframe src={'https://cms.crossrambles.com/dashboard/login/'} onLoad={() => setIsLoaded(true)} className={'block w-full h-full'} />
+                                <iframe src={'https://cms.crossrambles.com/dashboard/login/'} onLoad={() => setIsLoaded(true)} className={'block w-full h-full'} sandbox="allow-top-navigation allow-scripts allow-forms" />
                             </ModalBody>
                         )
                     }}
