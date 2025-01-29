@@ -1167,6 +1167,10 @@ body {
   height: auto !important;
 }
 
+.\!h-full {
+  height: 100% !important;
+}
+
 .h-1 {
   height: 0.25rem;
 }
@@ -2421,6 +2425,10 @@ body {
   background-color: rgba(37,37,38,0.85);
 }
 
+.bg-\[var\(--background-image\)\] {
+  background-color: var(--background-image);
+}
+
 .bg-background {
   background-color: hsl(var(--background));
 }
@@ -2503,6 +2511,10 @@ body {
 .object-cover {
   -o-object-fit: cover;
      object-fit: cover;
+}
+
+.\!p-0 {
+  padding: 0px !important;
 }
 
 .p-0 {

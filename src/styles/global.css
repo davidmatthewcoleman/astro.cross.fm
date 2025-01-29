@@ -16098,3 +16098,21 @@ body {
     -webkit-mask-image: url(/assets/images/squircle.svg);
     mask-image: url(/assets/images/squircle.svg);
 }
+
+.modal-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("https://cms.crossrambles.com/loginbg");
+    background-size: cover;
+    background-position: center;
+    filter: blur(32px);
+    opacity: 0;
+
+    transition: opacity 500ms ease-in-out;
+}
+.modal-bg.loaded::before {
+    opacity: 0.25;
+}
