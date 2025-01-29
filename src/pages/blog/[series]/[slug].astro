@@ -7,6 +7,7 @@ import { getContent } from "cross:content";
 import Icon from "../../../components/Icon.astro";
 import Mentions from "../../../components/Mentions.jsx";
 import Blocks from "../../../components/Blocks/index.astro";
+import ViewCount from "../../../components/ViewCount.jsx";
 
 const post = await getContent('posts', {
     first: 1,
@@ -95,6 +96,10 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                     <span class="single__info">
                         <Icon name={'coffee'} size={15} />
                         {Parse(post?.readingTime.formatted)}
+                    </span>
+                    <span class="single__info">
+                        <Icon name={'trend-up'} size={15} />
+                        <ViewCount slug={post?.slug} client:only />
                     </span>
                 </div>
                     {

@@ -16086,3 +16086,8 @@ body {
 .bookmark {
     min-width: 100%;
 }
+
+.single__info .icon.icon__trend-up {
+    margin-right: 0.125rem;
+    transform: translateY(1px);
+}
