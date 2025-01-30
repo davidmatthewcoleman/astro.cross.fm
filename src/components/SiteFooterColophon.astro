@@ -16,7 +16,7 @@ if ( Astro.generator.toLowerCase().includes('alpha') ) {
 ---
 
 <div class="footer__poweredby">
-    <p class="caption">© 2016 - {new Date().getFullYear()} <a href="/">CROSS</a>. All rights reserved. <Login client:load />.</p>
+    <p class="caption">© 2016 - {new Date().getFullYear()} <a href="/">CROSS</a>. All rights reserved.<span class="login-btn-wrapper"> <Login client:load />.</span></p>
     <p class="caption powers">
         <a href="https://wordpress.org/" target="_blank" rel="noreferrer"><img src={`https://img.shields.io/badge/wordpress-${wp}-informational?logo=wordpress&style=flat-square`} style="display:block;" /></a>
         <a href="https://astro.build/" target="_blank" rel="noreferrer"><img src={`https://img.shields.io/badge/astro-${ver}-informational?logo=astro&logoColor=white&style=flat-square&color=%23E63BAE`} style="display:block;" /></a>

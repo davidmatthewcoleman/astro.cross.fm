@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 export default function AboutSelector({about}) {
-    const [currentPage, setCurrentPage] = useState(about ? '/about' : '/about/bookmarks');
+    const [currentPage, setCurrentPage] = useState(about ? '/about' : '/about/interests');
     const [currentWidth, setCurrentWidth] = useState(0);
     const [initialized, setInitialized] = useState(false);
 

@@ -3,6 +3,7 @@ import Sidebar from "../components/Sidebar.astro";
 import HomeLayout from "../layouts/HomeLayout.astro";
 import { getContent } from "cross:content";
 import Icon from "../components/Icon.astro";
+import AboutSelectorButton from "../components/AboutSelectorButton.jsx";
 
 const page = await getContent('pages', {
 	first: 1,
@@ -83,7 +84,8 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
 			}
 		}
 		#jumpin .card,
-		#jumpin .btn {
+		#jumpin .btn,
+		#jumpin .select {
 			background-color: #070A07;
 		}
 		.heading {
@@ -138,7 +140,8 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
 			padding-top: 0.4em;
 		}
 		#blog .card,
-		#blog .btn {
+		#blog .btn,
+		#blog .select {
 			background-color: rgba(255,255,255,0.075);
 		}
 		#blog .card div {
@@ -158,18 +161,32 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
 			gap: 0.75rem;
 			align-items: center;
 		}
-		.btn {
+		.btn, .select {
 			padding: 0.25em 0.5em;
 			border: 1px solid currentColor;
 			border-radius: 4px;
 		}
 		.card + .bottom {
-			margin-top: 1em;
+			margin-top: 0.5em;
+		}
+
+		#jumpin .bottom .btn {
+			display: none;
+		}
+
+		#jumpin .icon.icon__down-right-arrow {
+			transform: translateY(-0.25rem);
 		}
 
 		@media screen and (min-width: 960px) {
 			.main {
 				margin-top: -2rem;
+			}
+			#jumpin .bottom .btn {
+				display: inline-flex;
+			}
+			.bottom .select-wrapper {
+				display: none;
 			}
 		}
 
@@ -208,6 +225,61 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
 			position: relative;
 			z-index: 4;
 		}
+
+		.select {
+			box-sizing: content-box !important;
+			width: var(--width) !important;
+			color: #e08c48 !important;
+			font-size: inherit !important;
+			text-decoration: none !important;
+			padding: 0.25em 0.5em !important;
+			border: 1px solid currentColor !important;
+			border-radius: 4px !important;
+			cursor: pointer !important;
+
+			-webkit-appearance: none !important;
+			-moz-appearance: none !important;
+			appearance: none !important;
+
+			pointer-events: auto !important;
+		}
+		.select:hover {
+			color: #c7ba00 !important;
+			text-decoration: underline !important;
+			text-decoration-line: underline !important;
+		}
+		.select-wrapper {
+			position: relative;
+			width: max-content;
+		}
+		.select-wrapper button {
+			padding: 0 !important;
+		}
+		.select-wrapper svg {
+			display: none !important;
+		}
+		.select-wrapper .btn {
+			display: inline-block !important;
+			box-sizing: content-box !important;
+			width: var(--width) !important;
+			color: #e08c48 !important;
+			font-size: inherit !important;
+			text-decoration: none !important;
+			padding: 0.25em 0.5em !important;
+			border: 1px solid currentColor !important;
+			border-radius: 4px !important;
+			cursor: pointer !important;
+
+			-webkit-appearance: none !important;
+			-moz-appearance: none !important;
+			appearance: none !important;
+
+			pointer-events: auto !important;
+		}
+		.select-wrapper .btn:hover {
+			color: #c7ba00 !important;
+			text-decoration: underline !important;
+		}
 	</style>
 	<div class="page__wrapper lmr">
 		<section class="page main">
@@ -227,11 +299,12 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
 						<p>Explore the eclectic world of CROSS: an autistic brony, and furry dreamer crafting digital realms and dreaming of roaming the Americas in a Volkswagen Vanagon Westfalia Syncro.</p>
 					</a>
 					<div class="bottom">
-						<Icon name={'add'} size={24} />
+						<Icon name={'down-right-arrow'} size={24} />
 						<a href="/about/interests" class="btn">Interests</a>
 						<a href="/about/bookmarks" class="btn">Bookmarks</a>
 						<a href="/about/bookshelf" class="btn">Bookshelf</a>
 						<a href="/about/uses" class="btn">Uses</a>
+						<AboutSelectorButton client:load />
 					</div>
 				</div>
 				<div class="right">

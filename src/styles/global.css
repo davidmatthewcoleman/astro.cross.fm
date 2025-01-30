@@ -16116,3 +16116,9 @@ body {
 .modal-bg.loaded::before {
     opacity: 0.25;
 }
+
+@media screen and (max-width: 959px) {
+    .login-btn-wrapper {
+        display: none;
+    }
+}
