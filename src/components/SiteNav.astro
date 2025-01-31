@@ -1,11 +1,25 @@
 ---
+import Picture from './Picture.astro'
 const { menu } = Astro.props;
 ---
 
 <nav class="navbar scrolling navbar--show" role="navigation" aria-label="main navigation" data-dir="ltr">
     <div class={`navbar__brand`}>
         <a href="/" title="Home" rel="home" class="navbar__title-link">
-            <img class="navbar__logo" src="/assets/images/8BIT_logo.png" alt="CROSS" />
+            <Picture
+                alt="CROSS"
+                source={[
+                    {
+                        url: "https://assets.cross-cdn.com/assets/images/8BIT_logo.png",
+                        params: {
+                            resize: ['auto', 24],
+                            quality: 100
+                        }
+                    }
+                ]}
+                dpr={1}
+                className="navbar__logo"
+            />
         </a>
         <style>
             .navbar__logo {
@@ -15,8 +29,34 @@ const { menu } = Astro.props;
         </style>
     </div>
     <a id="menuToggle" role="button" class="navbar__burger" aria-label="menu" aria-expanded="false">
-        <img class="navbar__menu-icon closed" src="/assets/images/menu.png" alt="toggle menu" />
-        <img class="navbar__menu-icon open" src="/assets/images/menu_open.png" alt="toggle menu" />
+        <Picture
+            alt="toggle menu"
+            source={[
+                {
+                    url: "https://assets.cross-cdn.com/assets/images/menu.png",
+                    params: {
+                        resize: ['auto', 24],
+                        quality: 100
+                    }
+                }
+            ]}
+            dpr={1}
+            className="navbar__menu-icon closed"
+        />
+        <Picture
+            alt="toggle menu"
+            source={[
+                {
+                    url: "https://assets.cross-cdn.com/assets/images/menu_open.png",
+                    params: {
+                        resize: ['auto', 24],
+                        quality: 100
+                    }
+                }
+            ]}
+            dpr={1}
+            className="navbar__menu-icon open"
+        />
     </a>
     <div class="navbar__menu">
         {menu.map(menuItem => {

@@ -1,7 +1,7 @@
 ---
 import { BuildURL, convertValue } from '../lib/fetch/encrypt.js';
 
-const { source, alt, className, classNamePicture, color, ...rest } = Astro.props;
+const { source, alt, className, classNamePicture, color, dpr = 3, ...rest } = Astro.props;
 const fallback = source[0];
 const size = fallback.params?.cover || fallback.params?.resize;
 
@@ -10,12 +10,12 @@ const fallbackSrc = BuildURL(fallback.url, { ...fallback.params, output: 'png' }
 
 // Resolve all source sets (avif and webp)
 const resolvedSources = source.map(({ media, url, params }) => {
-    const avifSet = [1, 2, 3]
+    const avifSet = Array.from({ length: dpr }, (_, i) => i + 1)
         .map((dpr) =>
             `${BuildURL(url, { ...params, output: 'avif' }, dpr)} ${dpr}x`
         )
         .join(", ");
-    const webpSet = [1, 2, 3]
+    const webpSet = Array.from({ length: dpr }, (_, i) => i + 1)
         .map((dpr) =>
             `${BuildURL(url, { ...params, output: 'webp' }, dpr)} ${dpr}x`
         )
