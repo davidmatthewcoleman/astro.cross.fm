@@ -38,7 +38,7 @@ export default function Uptime() {
                         <circle className="duo-front" fill="currentColor" cx="128" cy="128" r="104"/>
                     </svg>
                 </i>
-                <span>{status ? "Something's wrong" : "Everything's optimal"}</span>
+                <span className={'mr-0.5'}>{status ? "Something's wrong" : "Everything's optimal"}</span>
             </a>
         </span>
     );
