@@ -1,6 +1,7 @@
 ---
 import { getFooter } from "cross:content";
 import Login from "./Login.jsx";
+
 const { wp } = await getFooter();
 
 let ver = Astro.generator.replace('Astro v', '').split('-')[0];

@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+    <circle class="duo-back" fill="currentColor" transform="scale(0.675) translate(4 4)" transform-origin="center center" cx="128" cy="128" r="104" />
+    <circle class="duo-front" fill="currentColor" transform="scale(0.675) translate(4 4)" transform-origin="center center" cx="128" cy="128" r="104" />
+</svg>

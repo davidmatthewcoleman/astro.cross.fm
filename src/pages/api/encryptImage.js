@@ -1,5 +1,5 @@
 import fetch from "node-fetch";
-import UseEncryptedImage from "../../lib/encrypt.js";
+import UseEncryptedImage from "../../lib/fetch/encrypt.js";
 export const prerender = false;
 
 export const GET = async ({ request }) => {

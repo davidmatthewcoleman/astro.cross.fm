@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import UseEncryptedImage from "../../lib/encrypt.js";
+import UseEncryptedImage from "../../lib/fetch/encrypt.js";
 
 export default function Picture({ source = [], alt = null, className = null, classNamePicture = null, color = null, ...rest }) {
     // Build fallback source

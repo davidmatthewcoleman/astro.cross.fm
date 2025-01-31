@@ -1,10 +1,12 @@
 ---
 import Icon from "./Icon.astro";
 import Colophon from "./SiteFooterColophon.astro";
+import Uptime from "../components/Uptime.jsx";
 ---
 
 <footer class="footer">
     <div class="footer__social">
+        <Uptime client:load />
         <div class="social">
             <a href="mailto:howdy@crossrambles.com" rel="me" target="_blank" title="Email" aria-label="Email">
                 <Icon name={'email-duo'} size={32} />
@@ -97,6 +99,10 @@ import Colophon from "./SiteFooterColophon.astro";
 </footer>
 
 <style>
+    .footer__social {
+        position: relative;
+        bottom: 0;
+    }
     .mobile-search__btn, .navbar__burger, .mobile-search__top--input, .navbar__menu-item, .navbar__slide-down, .theme__hacker .navbar__menu-item, .theme__hacker .navbar__slide-down {
         background-color: transparent !important;
     }

@@ -1,4 +1,5 @@
 const { scopedPreflightStyles, isolateInsideOfContainer } = require('tailwindcss-scoped-preflight');
+const plugin = require("tailwindcss");
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -77,11 +78,31 @@ module.exports = {
           '0%': { transform: 'translateX(-100%)' },
           '100%': { transform: 'translateX(100%)' },
         },
+        completePulse: {
+          "0%": {
+            opacity: 1,
+          },
+          "50%": {
+            opacity: 0,
+          },
+          "100%": {
+            opacity: 1,
+          },
+        },
+        subtlePulse: {
+          '0%': { transform: 'scale(1)', opacity: '0' },
+          '25%': { opacity: '0.25' },
+          '50%': { transform: 'scale(2.75)', opacity: '0' },
+          '75%': { opacity: '0' },
+          '100%': { opacity: '0' },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         shimmer: 'shimmer 4s infinite',
+        completePulse: "completePulse ease-in-out 2.5s infinite",
+        subtlePulse: 'subtlePulse ease-in-out 4.5s 3s infinite',
       },
       backgroundImage: {
         'gradient-skeleton': `linear-gradient(90deg, transparent 600px, white 50%, transparent calc(100% - 600px))`
@@ -95,6 +116,23 @@ module.exports = {
       require("tailwindcss-animate"),
       scopedPreflightStyles({
         isolationStrategy: isolateInsideOfContainer([".tw-app", "#tw-app"]),
+      }),
+      plugin(function ({ addVariant, e }) {
+        addVariant('duo', ({ modifySelectors, separator }) => {
+          modifySelectors(({ className }) => {
+            return `.${e(`duo${separator}${className}`)} .duo`;
+          });
+        });
+        addVariant('duo-front', ({ modifySelectors, separator }) => {
+          modifySelectors(({ className }) => {
+            return `.${e(`duo-front${separator}${className}`)} .duo-front`;
+          });
+        });
+        addVariant('duo-back', ({ modifySelectors, separator }) => {
+          modifySelectors(({ className }) => {
+            return `.${e(`duo-back${separator}${className}`)} .duo-back`;
+          });
+        });
       }),
   ],
 }

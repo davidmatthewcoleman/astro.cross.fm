@@ -1,0 +1,168 @@
+---
+import Icon from "./Icon.astro";
+import { getContent } from "cross:content";
+import Picture from "./Picture.astro";
+
+const allSeries = await getContent('series');
+const { stories } = await getContent('stories' ,{
+    first: 6
+});
+---
+
+<footer class="footer tw-app">
+    <div class="top grid grid-cols-12 gap-x-4 py-2">
+        <Picture
+            alt="logo"
+            className={'footer__logo-img block bg-black'}
+            classNamePicture={'col-span-3'}
+            source={[
+                {
+                    media: '(min-width: 960px)',
+                    url: 'https://static.crossrambles.com/images/logos/logo_alpha.svg',
+                    params: {
+                        resize: [96]
+                    }
+                },
+                {
+                    media: '(max-width: 959px)',
+                    url: 'https://static.crossrambles.com/images/logos/logo_alpha.svg',
+                    params: {
+                        resize: [1,1]
+                    }
+                }
+            ]}
+        />
+        <div class="col-span-3 text-[1rem]">
+            <ul>
+                <li class="px-1.5">
+                    <a href="/blog" class="max-w-max">Blog</a>
+                </li>
+                <hr class="my-0.5 border-0 h-px bg-white/15" />
+                {allSeries.slice(0, 5).map(series => (
+                    <li class="px-1.5">
+                       <a href={series.path} class="!text-[#A5B457] hover:!text-[#c7ba00] line-clamp-1 max-w-max">{series.label}</a>
+                    </li>
+                ))}
+            </ul>
+        </div>
+        <div class="col-span-3 text-[1rem]">
+            <ul>
+                <li class="px-1.5">
+                    <a href="/stories" class="max-w-max">Stories</a>
+                </li>
+                <hr class="my-0.5 border-0 h-px bg-white/15" />
+                {stories.map(story => (
+                    <li class="px-1.5">
+                        <a href={story.path} class="!text-[#A5B457] hover:!text-[#c7ba00] line-clamp-1 max-w-max">{story.title}</a>
+                    </li>
+                ))}
+            </ul>
+        </div>
+        <div class="col-span-3 text-[1rem]">
+            <ul>
+                <li class="px-1.5">
+                    <span class="text-[#e08c48]">Follow Me</span>
+                </li>
+                <hr class="my-0.5 border-0 h-px bg-white/15" />
+                <li class="px-1.5">
+                    <a href="https://elk.zone/mstdn.games/@cross" target="_blank" class="!text-[#A5B457] hover:!text-[#c7ba00] line-clamp-1 max-w-max">Mastodon</a>
+                </li>
+                <li class="px-1.5">
+                    <a href="https://instagram.com/@crossrambles" target="_blank" class="!text-[#A5B457] hover:!text-[#c7ba00] line-clamp-1 max-w-max">Instagram</a>
+                </li>
+                <li class="px-1.5">
+                    <a href="https://youtube.com/@crossrambles" target="_blank" class="!text-[#A5B457] hover:!text-[#c7ba00] line-clamp-1 max-w-max">YouTube</a>
+                </li>
+            </ul>
+            <ul class="mt-2">
+                <li class="px-1.5">
+                    <span class="text-[#e08c48]">Colophon</span>
+                </li>
+                <hr class="my-0.5 border-0 h-px bg-white/15" />
+                <li class="px-1.5">
+                    <a href="https://wordpress.org" target="_blank" class="!text-[#A5B457] hover:!text-[#c7ba00] line-clamp-1 max-w-max">WordPress</a>
+                </li>
+                <li class="px-1.5">
+                    <a href="https://astro.build" target="_blank" class="!text-[#A5B457] hover:!text-[#c7ba00] line-clamp-1 max-w-max">Astro</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</footer>
+
+<style>
+    .mobile-search__btn, .navbar__burger, .mobile-search__top--input, .navbar__menu-item, .navbar__slide-down, .theme__hacker .navbar__menu-item, .theme__hacker .navbar__slide-down {
+        background-color: transparent !important;
+    }
+    .theme__hacker .search,
+    .theme__hacker .breadcrumb {
+        background-color: rgba(37, 37, 38, 0.9) !important;
+        -webkit-backdrop-filter: blur(4px) saturate(1.5) !important;
+        backdrop-filter: blur(4px) saturate(1.5) !important;
+    }
+    .theme__hacker .search .input {
+        background-color: transparent !important;
+    }
+    .theme__hacker .footer {
+        position: relative !important;
+    }
+    .theme__hacker .footer .loona {
+        content: '' !important;
+        position: absolute !important;
+        right: 0 !important;
+        bottom: 100% !important;
+        width: auto !important;
+        height: 72px !important;
+        aspect-ratio: 43/64 !important;
+        z-index: 9 !important;
+        pointer-events: none !important;
+    }
+    .summary-blur__image {
+        -webkit-filter: unset !important;
+        filter: unset !important;
+    }
+    @media screen and (max-width: 720px) {
+        .wp-block-image img {
+            width: 100% !important;
+            height: auto !important;
+        }
+        .alignleft,
+        .alignright {
+            margin-left: auto !important;
+            margin-right: auto !important;
+            float: none !important;
+        }
+    }
+    .dropdown-content {
+        width: max-content;
+    }
+    .dropdown-content span {
+        cursor: pointer;
+    }
+    .dropdown-content small {
+        font-size: 0.75rem;
+        padding: 0 0.5rem;
+    }
+</style>
+
+<script src="https://static.crossrambles.com/assets/js/footer.min.js" defer is:inline></script>
+
+<style>
+.search-open {
+    overflow: hidden !important;
+    }
+.alignleft {
+    float: left;
+    margin-right: 1rem;
+    }
+.alignright {
+    float: right;
+    margin-left: 1rem;
+    }
+.avatar__wrapper .status {
+    display: none !important;
+    }
+
+</style>
+
+<div class="scanlines"></div>
