@@ -78,7 +78,7 @@ function wrapText(text) {
                 <div>
                     <strong class="about__name" set:html={wrapText(hero.profile.name)} />
                     <span>
-                        <Icon name={'mastodon-alt'} size={16} />
+                        <Icon name={'mastodon'} size={16} />
                         <a class="mastodon__link" href={`https://elk.zone/${hero.profile.mastodon.instance}/@${hero.profile.mastodon.handle}`} target="_blank" title={`Mastodon via Elk.zone`}>{hero.profile.mastodon.handle}</a>
                     </span>
                 </div>
