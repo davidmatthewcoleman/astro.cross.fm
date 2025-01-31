@@ -72,7 +72,7 @@ const interests = [
             "A7X"
         ],
         subLabel: "My favorite music artist",
-        thumbnail: "https://static.crossrambles.com/images/avenged-sevenfold.png",
+        thumbnail: "https://static.cross-cdn.com/images/avenged-sevenfold.png",
         content: (
             <>
                 <p>I first discovered them while listening to the radio in Corpus Christi, circa 2010. The song was "<a href="https://www.youtube.com/watch?v=iJ-WsnaYDCg" target="_blank">Welcome to the Family</a>" and I was hooked. A later rediscovered Need for Speed: Most Wanted (2005) and realized I'd heard them before, as the song "<a href="https://www.youtube.com/watch?v=TYgxM_suaUw" target="_blank">Blinded in Chains</a>" is on the soundtrack.</p>
@@ -82,7 +82,7 @@ const interests = [
     {
         label: "Nightwish",
         subLabel: "My second favorite music artist",
-        thumbnail: "https://static.crossrambles.com/images/nightwish.jpg",
+        thumbnail: "https://static.cross-cdn.com/images/nightwish.jpg",
         content: (
             <>
                 <p>I discovered them in a strange way. I had never heard of symphonic metal and wasn't sure it even existed, so I decided to search on YouTube for "Symphonic Metal Instrumental Playlist" and the first track was the promo disc instrumental version of "<a href="https://www.youtube.com/watch?v=4fjhQkJfcOQ" target="_blank">Dark Chest of Wonders</a>". This was maybe 2017.</p>
@@ -93,7 +93,7 @@ const interests = [
     {
         label: "Almanac",
         subLabel: "Another of my favorite music artists",
-        thumbnail: "https://static.crossrambles.com/images/almanac.jpg",
+        thumbnail: "https://static.cross-cdn.com/images/almanac.jpg",
         content: (
             <>
                 <p>I found these guys back in 2018 while perusing the metal archives. They{"'"}re classified as "Neoclassical Metal", and I actually quite enjoy their music. The first two albums had a whopping three singers, neither of which played an instrument.</p>
@@ -107,7 +107,7 @@ const interests = [
             "MLP:FiM"
         ],
         subLabel: "The show that changed my life",
-        thumbnail: "https://static.crossrambles.com/images/mlp.png",
+        thumbnail: "https://static.cross-cdn.com/images/mlp.png",
         content: (
             <>
                 <p>I "joined the herd" back in October, 2014 and haven{"'"}t look back.</p>
@@ -117,7 +117,7 @@ const interests = [
     {
         label: "Helluva Boss",
         subLabel: "Just a casual fan",
-        thumbnail: "https://static.crossrambles.com/images/helluva-boss.png",
+        thumbnail: "https://static.cross-cdn.com/images/helluva-boss.png",
         content: (
             <>
                 <p>I{"'"}m a casual fan. I also watched Hazbin Hotel, and while it was alright, I am more interested in Helluva.</p>
@@ -127,7 +127,7 @@ const interests = [
     {
         label: "The Lord of the Rings",
         subLabel: "I make sure to binge the entire 12 hours at least once a year",
-        thumbnail: "https://static.crossrambles.com/images/lotr.jpg",
+        thumbnail: "https://static.cross-cdn.com/images/lotr.jpg",
         content: (
             <>
                 <p>Yeah, I said it right. Twelve hours. That{"'"}s the runtime of the entire extended edition.</p>
@@ -147,7 +147,7 @@ const interests = [
     {
         label: "FALLOUT",
         subLabel: "I've really only played FO3 & FO4",
-        thumbnail: "https://static.crossrambles.com/images/fallout.png",
+        thumbnail: "https://static.cross-cdn.com/images/fallout.png",
         content: (
             <>
                 <p>I like FALLOUT. Pretty fun. The TV show is amazing.</p>

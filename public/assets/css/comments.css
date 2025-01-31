@@ -123,6 +123,8 @@ main .gsc-loading-image {
     background-color: #1b1c1b !important;
     border-radius: 6px !important;
     overflow: hidden !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
 }
 .gsc-comment-box-textarea,
 .gsc-comment-box-textarea-extras {
@@ -140,6 +142,14 @@ main .gsc-loading-image {
 }
 .gsc-comment-box-markdown-hint:hover {
     color: #D3C300 !important;
+}
+.gsc-comment-box-bottom,
+.gsc-timeline {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+.gsc-comment-box-tabs > div:first-of-type {
+    margin-left: 0 !important;
 }
 .btn-primary {
     color: #F68C36 !important;
