@@ -111,7 +111,7 @@ export default function Location() {
                     height: 100%;
                 }
                 .bio__info .bio__info--icon > i:last-of-type {
-                    transform: translateY(-1px);
+                    transform: translateY(-1px) scale(1.05);
                 }
                 .bio__info .bio__info--icon > i:first-of-type,
                 .bio__info:hover .bio__info--icon > i:last-of-type {

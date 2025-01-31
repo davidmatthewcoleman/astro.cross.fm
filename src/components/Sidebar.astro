@@ -22,6 +22,11 @@ const { show = true, overlap = false, search = null } = Astro.props;
             </style>
         )
     }
+    <style is:inline>
+        .bio__info--icon {
+            transform: scale(0.95);
+        }
+    </style>
     <div class="sidebar">
         <SearchForm search={search} />
         <nav class="sidebar__nav">
@@ -70,7 +75,7 @@ const { show = true, overlap = false, search = null } = Astro.props;
             <div class="bio__desc">{profile.bio}</div>
             <div class="bio__info" title="When was I born?">
                 <div class="bio__info--icon">
-                    <Icon name={'candle'} size={16} />
+                    <Icon name={'cake'} size={16} />
                 </div>
                 <time datetime={profile.birthdate.raw} itemprop="birthday">{profile.birthdate.formatted}</time>
             </div>
@@ -89,7 +94,7 @@ const { show = true, overlap = false, search = null } = Astro.props;
             <!--</div>-->
             <div class="bio__info" title="Where to follow me?">
                 <div class="bio__info--icon">
-                    <Icon name={'mastodon-alt'} size={16} />
+                    <Icon name={'mastodon'} size={16} />
                 </div>
                 <a href={`https://elk.zone/${profile.mastodon.instance}/@${profile.mastodon.handle}`} target="_blank">{profile.mastodon.instance}</a>
             </div>
