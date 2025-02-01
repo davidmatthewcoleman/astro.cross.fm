@@ -80,30 +80,38 @@ const { show = true, overlap = false, search = null } = Astro.props;
                 <time datetime={profile.birthdate.raw} itemprop="birthday">{profile.birthdate.formatted}</time>
             </div>
             <Status client:load/>
-            <!--<div class="bio__info" title="Who am I?">-->
-            <!--    <div class="bio__info&#45;&#45;icon"><?php wolfhead_icon( 'about', 20 ); ?></div>-->
-            <!--    <a href="<?php echo get_the_permalink( get_field( 'page', 'wp_settings' )->ID ); ?>"><?php echo get_the_title( get_field( 'page', 'wp_settings' )->ID ); ?></a>-->
-            <!--</div>-->
-            <!--<div class="bio__info" title="Where am I?">-->
-            <!--    <div class="bio__info&#45;&#45;icon">-->
-            <!--        <svg class="icon" width="20" height="20" role="img">-->
-            <!--            <use href="#icon-marker"></use>-->
-            <!--        </svg>-->
-            <!--    </div>-->
-            <!--    <a href={profile.location.url} target="_blank">{profile.location.string}</a>-->
-            <!--</div>-->
-            <div class="bio__info" title="Where to follow me?">
+            {/*<div class="bio__info" title="Where to follow me?">
                 <div class="bio__info--icon">
                     <Icon name={'mastodon'} size={16} />
                 </div>
                 <a href={`https://elk.zone/${profile.mastodon.instance}/@${profile.mastodon.handle}`} target="_blank">{profile.mastodon.instance}</a>
-            </div>
+            </div>*/}
             <Location client:load/>
             <div class="bio__info" title="Email me">
                 <div class="bio__info--icon">
                     <Icon name={'mailbox'} size={16} />
                 </div>
                 <a href={profile.email.url} target="_blank">{profile.email.string}</a>
+            </div>
+            <div class="bio__social">
+                <a href={`https://elk.zone/${profile.mastodon.instance}/@${profile.mastodon.handle}`} target="_blank" rel="noreferrer" aria-label="Mastodon" title="Mastodon (via Elk.zone)">
+                    <Icon name={'mastodon-duo'} size={25} />
+                </a>
+                <a href="https://bsky.app/profile/crossrambles.com" target="_blank" rel="noreferrer" aria-label="Bluesky" title="Bluesky">
+                    <Icon name={'bluesky-duo'} size={25} />
+                </a>
+                <a href="https://instagram.com/crossrambles" target="_blank" rel="noreferrer" aria-label="Instagram" title="Instagram">
+                    <Icon name={'instagram-duo'} size={25} />
+                </a>
+                <a href="https://youtube.com/@crossrambles" target="_blank" rel="noreferrer" aria-label="YouTube" title="YouTube">
+                    <Icon name={'youtube-duo'} size={25} />
+                </a>
+                <a href="https://deviantart.com/crossrambles" target="_blank" rel="noreferrer" aria-label="DeviantART" title="DeviantART (AI Art)">
+                    <Icon name={'deviantart-duo'} size={25} />
+                </a>
+                <a href="https://buymeacoffee.com/crossrambles" target="_blank" rel="noreferrer" aria-label="Buy me a coffee" title="Buy me a coffee">
+                    <Icon name={'coffee-duo'} size={25} />
+                </a>
             </div>
         </section>
     </div>

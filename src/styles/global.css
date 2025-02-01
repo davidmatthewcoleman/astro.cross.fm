@@ -4328,7 +4328,8 @@ li.sidebar-recent::before {
 }
 .bio__social {
     width: 100%;
-    margin-top: 0.5rem;
+    max-width: max-content;
+    margin: 0.5rem auto 0;
     display: -webkit-box;
     display: -moz-box;
     display: -ms-flexbox;
@@ -4812,6 +4813,9 @@ li.sidebar-recent::before {
 .hr-fade {
     height: 1px;
     width: 100%;
+}
+.hr-fade:first-of-type {
+    margin-top: 0.75rem;
 }
 .theme__dark .hr-fade {
     color: #595b5c;

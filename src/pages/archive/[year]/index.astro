@@ -37,7 +37,11 @@ export async function getStaticPaths() {
         params: { year: new Date(post.date.raw).getFullYear() },
     }));
 
-    return paths;
+    const uniquePaths = paths.filter((obj, index, self) =>
+        index === self.findIndex(o => JSON.stringify(o) === JSON.stringify(obj))
+    );
+
+    return uniquePaths;
 }
 
 Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
