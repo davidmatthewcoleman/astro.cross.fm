@@ -21,6 +21,26 @@ export async function reviewedStories(){
     return data;
 }
 
+export async function archiveCalendar(){
+    const query = await fetch(import.meta.env.WORDPRESS_API_URL, {
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${import.meta.env.WORDPRESS_API_TOKEN}`
+        },
+        body: JSON.stringify({
+            query: `
+                query calendarQuery {
+                  archiveCalendar
+                }
+            `
+        })
+    });
+    const { data } = await query.json();
+
+    return data.archiveCalendar;
+}
+
 export async function locationData(){
     const query = await fetch(import.meta.env.WORDPRESS_API_URL, {
         method: 'post',
@@ -320,9 +340,9 @@ export async function projectQuery(first = null, after = null, slug = null) {
     }
 }
 
-export async function blogQuery(first = null, after = null, slug = null, series = null, topic = null, tag = null, search = null) {
+export async function blogQuery(first = null, after = null, slug = null, series = null, topic = null, tag = null, year = null, search = null) {
     first = first || 9999;
-    const variables = { first, after, slug, series, topic, tag, search };
+    const variables = { first, after, slug, series, topic, tag, year, search };
 
     try {
         const response = await fetch(import.meta.env.WORDPRESS_API_URL, {
@@ -333,11 +353,11 @@ export async function blogQuery(first = null, after = null, slug = null, series 
             },
             body: JSON.stringify({
                 query: `
-                  query GetPaginatedPosts($first: Int!, $after: String, $slug: String, $series: String, $topic: String, $tag: [String], $search: String) {
+                  query GetPaginatedPosts($first: Int!, $after: String, $slug: String, $series: String, $topic: String, $tag: [String], $year: Int, $search: String) {
                       posts(
                         first: $first
                         after: $after
-                        where: {stickyPosts: true, name: $slug, seriesSlugIn: $series, categoryName: $topic, tagSlugIn: $tag, search: $search}
+                        where: {stickyPosts: true, name: $slug, seriesSlugIn: $series, categoryName: $topic, tagSlugIn: $tag, search: $search, dateQuery: {year: $year}}
                       ) {
                         pageInfo {
                           endCursor

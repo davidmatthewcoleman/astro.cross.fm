@@ -5,6 +5,7 @@ import PostSummary from "../../../../../components/PostSummary.astro";
 import { getContent } from "../../../../../lib/content-layer";
 import Parse from "html-react-parser";
 import Icon from "../../../../../components/Icon.astro";
+import Calendar from "../../../../../components/Calendar.astro";
 
 const series = await getContent('series', {
     slug: Astro.params.series
@@ -119,6 +120,7 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                     </a>
                 )}
             </nav>
+            <Calendar />
         </div>
     </div>
     <Sidebar />

@@ -1,0 +1,103 @@
+---
+import { getCalendar } from 'cross:content';
+import Icon from "./Icon.astro";
+const calendar = await getCalendar();
+---
+
+<hr class="hr-slash nav-hr">
+<div id="archive" class="entry-archive">
+    <div class="archive-header">
+        <h3>
+            <Icon name="calendar-duo" size={24} />
+            Entry Archives
+        </h3>
+        <span>for the history buffs – may contain "inappropriate" content</span>
+    </div>
+    <Fragment set:html={calendar} />
+</div>
+
+<style is:inline>
+    .entry-archive {
+        color: #3c3c39;
+        font-size: .9rem;
+        *width: max-content;
+        margin: 0 1rem .75rem;
+    }
+    .entry-archive .archive-header {
+        color: #fcfcfa;
+        display: grid;
+        grid-template-columns: 1fr max-content;
+        grid-gap: .5rem;
+    }
+    .entry-archive .archive-header h3 {
+        padding: .5rem 0;
+    }
+    .entry-archive .archive-header h3 .icon {
+        margin-right: .25rem;
+        float: left;
+    }
+    .entry-archive .archive-header span {
+        color: #5f5f5d;
+        font-style: italic;
+        line-height: 1;
+        padding: .8rem 0;
+    }
+    .entry-archive .archive-wrapper {
+        max-width: calc(100vw - 2rem);
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+    .entry-archive .archive-wrapper div {
+        display: table;
+        width: 100%;
+        border-top: 1px dashed #3c3c39;
+    }
+    .entry-archive .archive-wrapper div:last-of-type {
+        border-bottom: 1px dashed #3c3c39;
+    }
+    .entry-archive .archive-wrapper strong {
+        background-color: #21211d;
+    }
+    .entry-archive .archive-wrapper strong, .entry-archive .archive-wrapper span {
+        font-weight: 400;
+        text-align: center;
+        display: table-cell;
+        padding: .25rem .5rem;
+    }
+    .entry-archive .archive-wrapper a {
+        color: #a1ad64;
+    }
+    .entry-archive .archive-wrapper a:hover {
+        color: #c7ba00;
+    }
+    .entry-archive .archive-wrapper span.emptymonth {
+        user-select: none;
+        pointer-events: none;
+    }
+
+    @media screen and (max-width: 959px) {
+        .entry-archive .archive-header {
+            grid-template-columns: 100%;
+            grid-template-rows: repeat(2, auto);
+            grid-gap: 0;
+        }
+        .entry-archive .archive-header h3 {
+            padding-bottom: 0;
+        }
+        .entry-archive .archive-header h3 .icon {
+            width: 40px;
+            height: 40px;
+        }
+        .entry-archive .archive-header span {
+            font-size: .75rem;
+            padding: 0 0 .75rem;
+            margin-top: -1rem;
+            margin-left: calc(40px + 0.25rem);
+        }
+        .entry-archive .archive-wrapper::after {
+            content: "";
+            display: block;
+            margin-top: 0.5rem;
+        }
+    }
+</style>

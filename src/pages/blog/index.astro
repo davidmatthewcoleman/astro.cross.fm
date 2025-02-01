@@ -4,6 +4,8 @@ import MainLayout from "../../layouts/MainLayout.astro";
 import PostSummary from "../../components/PostSummary.astro";
 import { getContent } from "cross:content";
 import Icon from "../../components/Icon.astro";
+import Parse from "html-react-parser";
+import Calendar from "../../components/Calendar.astro";
 
 // Define the number of posts per page
 const postsPerPage = 10;
@@ -71,6 +73,7 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                     </a>
                 )}
             </nav>
+            <Calendar />
         </div>
     </div>
     <Sidebar />

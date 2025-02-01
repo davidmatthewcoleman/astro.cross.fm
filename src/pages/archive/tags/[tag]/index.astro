@@ -4,6 +4,7 @@ import MainLayout from "../../../../layouts/MainLayout.astro";
 import PostSummary from "../../../../components/PostSummary.astro";
 import { getContent } from "cross:content";
 import Icon from "../../../../components/Icon.astro";
+import Calendar from "../../../../components/Calendar.astro";
 
 const tag = await getContent('tags', {
     slug: Astro.params.tag
@@ -110,6 +111,7 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
                     </a>
                 )}
             </nav>
+            <Calendar />
         </div>
     </div>
     <Sidebar />

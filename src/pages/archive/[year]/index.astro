@@ -1,0 +1,148 @@
+---
+import Sidebar from "../../../components/Sidebar.astro";
+import MainLayout from "../../../layouts/MainLayout.astro";
+import { format } from "date-fns";
+import { getContent } from "cross:content";
+
+const { year } = Astro.params;
+
+// Fetch the initial page of posts
+const { posts } = await getContent('posts', {
+    year: parseInt(year, 10)
+});
+
+// Function to group posts by year
+function groupPostsByMonth(posts) {
+    const groupedPosts = {};
+    posts.forEach((post) => {
+        const month = format(new Date(post.date.raw), 'MM');
+        if (!groupedPosts[month]) {
+            groupedPosts[month] = [];
+        }
+        groupedPosts[month].push(post);
+    });
+    return groupedPosts;
+}
+
+// Separate sticky posts from regular posts
+const stickyPosts = posts.filter((post) => post.pinned);
+const regularPosts = posts.filter((post) => !post.pinned);
+
+// Group regular posts by year
+const groupedPosts = groupPostsByMonth(regularPosts);
+
+export async function getStaticPaths() {
+    const data = await getContent('posts');
+    const paths = data.posts.map(post => ({
+        params: { year: new Date(post.date.raw).getFullYear() },
+    }));
+
+    return paths;
+}
+
+Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
+---
+
+<MainLayout title={`${year} Archive – CROSS`} description="I write quite infrequently, when ideas need expressing. If you want to read some of my ramblings, this is my latest. I’ve also got an RSS feed for those of you it interests.">
+    <style>
+        .archive__month {
+            color: #fff !important;
+            font-family: monospace !important;
+        }
+        .archive__list {
+            margin: 0.25em 0 1em !important;
+            border-top: 1px solid rgba(255,255,255,0.25) !important;
+        }
+        .archive__list li {
+            display: grid !important;
+            grid-template-columns: 1fr auto !important;
+            gap: 1rem !important;
+            padding: 0.125em 0.25em !important;
+            color: #fff !important;
+            border-bottom: 1px solid rgba(255,255,255,0.25) !important;
+        }
+        .archive__list li:nth-child(even) {
+            background-color: rgba(255,255,255,0.05) !important;
+        }
+        .archive__list li a {
+            display: block !important;
+            max-width: max-content !important;
+            text-overflow: ellipsis !important;
+            overflow: hidden !important;
+            white-space: nowrap !important;
+        }
+        .archive__list li .post__date {
+            font-size: 0.85rem !important;
+            opacity: 0.65 !important;
+        }
+        .archive__list li .post__meta {
+            display: inline-flex !important;
+            flex-direction: row !important;
+            align-items: center !important;
+            gap: 0.5em !important;
+            margin-left: auto !important;
+        }
+
+        @media screen and (max-width: 600px) {
+            .archive__list li {
+                grid-template-columns: auto !important;
+                grid-template-rows: repeat(2, auto) !important;
+                gap: 0 !important;
+            }
+            .archive__list li .post__meta {
+                margin-left: 0 !important;
+            }
+        }
+    </style>
+    <div class="archive__container lm">
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+            <ol>
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                <li>
+                    <a href="/archive">Archive</a>
+                </li>
+                <li class="is-active">
+                    <span>{year}</span>
+                </li>
+            </ol>
+        </nav>
+        <header class="list__header">
+            <h5 class="list__header--title capitalize h5">{year}</h5>
+        </header>
+        <section class="archive__inner">
+            {/* Group sticky posts */}
+            {stickyPosts.length > 0 && (
+                    <div class="archive__month" key="sticky">
+                        <h4 id="pinned" class="archive__month">Pinned</h4>
+                        <ul class="archive__list">
+                            {stickyPosts.map(post => (
+                                    <li key={post.slug}>
+                                        <a href={post.path}>{post.title}</a>
+                                        <span class="post__date">{format(new Date(post.date.raw), 'do')}</span>
+                                    </li>
+                            ))}
+                        </ul>
+                    </div>
+            )}
+            {/* Group regular posts by month */}
+            {Object.keys(groupedPosts).reverse().map(month => (
+                    <div class="archive__month" key={month}>
+                        <h4 id={format(new Date(month), 'MMM').toLowerCase()} class="archive__month">{format(new Date(month), 'MMMM')}</h4>
+                        <ul class="archive__list">
+                            {groupedPosts[month].map(post => (
+                                    <li key={post.slug}>
+                                        <a href={post.path}>{post.title}</a>
+                                        <span class="post__meta">
+                                    <span class="post__date">{format(new Date(post.date.raw), 'do')}</span>
+                                </span>
+                                    </li>
+                            ))}
+                        </ul>
+                    </div>
+            ))}
+        </section>
+    </div>
+    <Sidebar />
+</MainLayout>

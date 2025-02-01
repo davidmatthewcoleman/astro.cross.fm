@@ -11,7 +11,8 @@ import {
     singleTagQuery,
     singleChapterQuery,
     headQuery,
-    wpVersionQuery
+    wpVersionQuery,
+    archiveCalendar
 } from './api';
 import { format } from "date-fns";
 import { formatInteger } from "./utils.js";
@@ -118,8 +119,8 @@ const sidebar = async () => {
     return output;
 }
 
-const posts = async (first = null, after = null, slug = null, series = null, topic = null, tag = null, search = null) => {
-    const data = (await blogQuery(first, after, slug, series, topic, tag, search)).posts;
+const posts = async (first = null, after = null, slug = null, series = null, topic = null, tag = null, year = null, search = null) => {
+    const data = (await blogQuery(first, after, slug, series, topic, tag, year, search)).posts;
 
     let output = {
         posts: data.edges.map(({node: post}) => ({
@@ -587,6 +588,11 @@ const footer = async () => {
     return data;
 }
 
+const calendar = async () => {
+    const data = await archiveCalendar();
+    return data;
+}
+
 /**
  * @param {string} collection
  * @param {{
@@ -596,7 +602,8 @@ const footer = async () => {
  *   series?: string | null,
  *   topic?: string | null,
  *   tag?: string | null,
- *   search?: string | null
+ *   search?: string | null,
+ *   year?: string | null
  * }} [query]
  */
 const getContent = async (collection, query = {
@@ -614,7 +621,7 @@ const getContent = async (collection, query = {
             result = await sidebar();
             break;
         case 'posts':
-            result = await posts(query.first, query.after, query.slug, query.series, query.topic, query.tag, query.search);
+            result = await posts(query.first, query.after, query.slug, query.series, query.topic, query.tag, query.year, query.search);
             break;
         case 'projects':
             result = await projects(query.first, query.after, query.slug);
@@ -653,4 +660,8 @@ const getFooter = async () => {
     return await footer();
 }
 
-export { getContent, getHead, getFooter }
+const getCalendar = async () => {
+    return await calendar();
+}
+
+export { getContent, getHead, getFooter, getCalendar }
