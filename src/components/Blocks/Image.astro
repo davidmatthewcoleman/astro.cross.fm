@@ -6,32 +6,32 @@ let blockClass = 'image-block ', blockImgClass, blockWidth;
 if (block.attributes.align) {
     switch (block.attributes.align) {
         case 'left':
-            blockClass += 'float-left !my-2 !mr-4 w-full md:w-auto'
+            blockClass += 'float-none break-sm:float-left !my-2 break-sm:!mr-4 w-full break-sm:w-auto'
             blockImgClass = 'mx-auto 2xl:!m-0 w-full'
             blockWidth = block.attributes.width ? block.attributes.width : 256
             break
         case 'center':
-            blockClass += 'float-none !my-2 w-full md:w-auto'
+            blockClass += 'float-none !my-2 w-full break-sm:w-auto'
             blockImgClass = '!m-0 w-full'
             blockWidth = block.attributes.width ? block.attributes.width : 1200
             break
         case 'wide':
-            blockClass += 'float-none !my-2 max-w-5xl mx-auto md:w-auto'
+            blockClass += 'float-none !my-2 max-w-5xl mx-auto break-sm:w-auto'
             blockImgClass = '!m-0 w-full'
             blockWidth = 1200
             break
         case 'full':
-            blockClass += 'float-none !my-2 max-w-full mx-auto md:w-auto'
+            blockClass += 'float-none !my-2 max-w-full mx-auto break-sm:w-auto'
             blockImgClass = '!m-0 w-full'
             blockWidth = 1920
             break
         case 'right':
-            blockClass += 'float-right !my-2 !ml-4 w-full md:w-auto'
+            blockClass += 'float-none break-sm:float-right !my-2 break-sm:!ml-4 w-full break-sm:w-auto'
             blockImgClass = 'mx-auto 2xl:!m-0 w-full'
             blockWidth = block.attributes.width ? block.attributes.width : 256
             break
         default:
-            blockClass += 'float-none !my-2 max-w-5xl mx-auto md:w-auto'
+            blockClass += 'float-none !my-2 max-w-5xl mx-auto break-sm:w-auto'
             blockImgClass = '!m-0 w-full'
             blockWidth = block.attributes.width ? block.attributes.width : 1200
             break
@@ -43,24 +43,39 @@ if (block.attributes.align) {
 let blockCaptionClass;
 switch (block.attributes.align) {
     case 'left':
-        blockCaptionClass = 'text-black/50 text-sm mt-2 text-left'
+        blockCaptionClass = 'text-black/50 text-sm mt-2 text-center break-sm:text-left'
         break;
     case 'right':
-        blockCaptionClass = 'text-black/50 text-sm mt-2 text-right'
+        blockCaptionClass = 'text-black/50 text-sm mt-2 text-center break-sm:text-right'
         break;
     default:
         blockCaptionClass = 'text-black/50 text-sm mt-2 text-center'
         break;
 }
+
+function scaleImage(originalWidth, originalHeight, newWidth) {
+    const newHeight = (originalHeight * newWidth) / originalWidth;
+    return { width: newWidth, height: newHeight };
+}
+
+const dimensions = scaleImage(blockWidth || 646, block.attributes.height, 720);
 ---
 
 <figure class={blockClass}>
     <Picture
             source={[
                 {
+                    media: '(max-width: 719px)',
                     url: block.attributes.src,
                     params: {
-                        cover: [block.attributes.width || 646, block.attributes.height || 'auto'],
+                        cover: [dimensions.width, dimensions.height || 'auto'],
+                    }
+                },
+                {
+                    media: '(min-width: 720px)',
+                    url: block.attributes.src,
+                    params: {
+                        cover: [blockWidth || 646, block.attributes.height || 'auto'],
                     }
                 }
             ]}

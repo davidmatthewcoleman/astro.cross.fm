@@ -11912,10 +11912,16 @@ input:checked + .slider:before {
     margin-bottom: 0.5rem;
 }
 .single__contents hr {
-    margin: 0 0 calc(1.25rem - 1px);
+    /*margin: 0 0 calc(1.25rem - 1px);*/
+    margin: -0.5rem 0 1.25rem -1rem;
     padding: 0;
     border: none;
-    height: 1px;
+    height: 3px;
+}
+@media screen and (max-width: 959px) {
+    .single__contents hr {
+        margin: -0.5rem -1rem 1.25rem;
+    }
 }
 .theme__dark .single__contents hr {
     background: #595b5c;
@@ -11924,7 +11930,8 @@ input:checked + .slider:before {
     background: #bdbdbd;
 }
 .theme__hacker .single__contents hr {
-    background: #e08c48;
+    /*background: #e08c48;*/
+    background: #3b3d3b;
 }
 .theme__solarized .single__contents hr {
     background: #bdbdbd;

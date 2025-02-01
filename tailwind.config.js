@@ -108,7 +108,8 @@ module.exports = {
         'gradient-skeleton': `linear-gradient(90deg, transparent 600px, white 50%, transparent calc(100% - 600px))`
       },
       screens: {
-        break: '960px'
+        break: '960px',
+        'break-sm': '720px'
       }
     },
   },
