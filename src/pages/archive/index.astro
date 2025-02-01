@@ -39,6 +39,10 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
             margin: 0.25em 0 1em !important;
             border-top: 1px solid rgba(255,255,255,0.25) !important;
         }
+        .archive__year > a:not(:hover):not(:active) {
+            color: #fff !important;
+            text-decoration: none !important;
+        }
         .archive__list li {
             display: grid !important;
             grid-template-columns: 1fr auto !important;
@@ -112,7 +116,9 @@ Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
             {/* Group regular posts by year */}
             {Object.keys(groupedPosts).reverse().map(year => (
                 <div class="archive__year" key={year}>
-                    <h4 class="archive__year">{year}</h4>
+                    <h4 class="archive__year">
+                        <a href={`/archive/${year}`}>{year}</a>
+                    </h4>
                     <ul class="archive__list">
                         {groupedPosts[year].map(post => (
                             <li key={post.slug}>
