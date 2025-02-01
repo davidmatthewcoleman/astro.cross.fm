@@ -11,24 +11,23 @@ import Picture from "./Picture.astro";---
                 source={[
                     {
                         media: '(max-width: 959px)',
-                        url: 'https://static.cross-cdn.com/images/banners/banner_002.jpg',
+                        url: 'https://static.cross-cdn.com/images/banners/banner_005.jpg',
                         params: {
                             cover: [780, 256],
                             focus: {
-                                x: 0.5,
-                                y: 0.63
-                            },
-                            zoom: 1.5
+                                x: 0.75,
+                                y: 0.55
+                            }
                         }
                     },
                     {
                         media: '(min-width: 960px)',
-                        url: 'https://static.cross-cdn.com/images/banners/banner_002.jpg',
+                        url: 'https://static.cross-cdn.com/images/banners/banner_005.jpg',
                         params: {
                             cover: [960, 256],
                             focus: {
-                                x: 0.5,
-                                y: 0.63
+                                x: 0.75,
+                                y: 0.6
                             }
                         }
                     }
@@ -50,36 +49,45 @@ import Picture from "./Picture.astro";---
                     media: '(min-width: 960px)',
                     url: 'https://static.cross-cdn.com/images/logos/logo_alpha.svg',
                     params: {
-                        resize: [128]
+                        resize: [72]
                     }
                 }
             ]}
         />
+        <div class="home__content">
+            <div>
+                <h1 style="margin-bottom:1rem;">Welcome to CROSSRAMBLES!</h1>
+                <div>
+                    <p>I am the Adventurer of Pixels, the Architect of Code, and the Dreamer Behind the Keyboard. From “<a href="https://www.goodreads.com/series/44866-the-inheritance-cycle" target="_blank" rel="noreferrer noopener">Inheritance</a>” to “<a href="https://www.goodreads.com/series/66175-the-lord-of-the-rings" target="_blank" rel="noreferrer noopener">LOTR</a>” and “<a href="https://open.spotify.com/artist/2NPduAUeLVsfIauhRwuft1" target="_blank" rel="noreferrer noopener">Nightwish</a>“, I paint digital realms on&nbsp;<a href="/blog" data-type="link" data-id="https://crossrambles.com/blog">my blog</a>.&nbsp;<a href="https://mlp.fandom.com/wiki/Twilight_Sparkle" target="_blank" rel="noreferrer noopener">Twilight Sparkle</a>&nbsp;fan, gaming in&nbsp;<a href="https://www.giantbomb.com/the-elder-scrolls-v-skyrim/3030-33394/" target="_blank" rel="noreferrer noopener">Skyrim</a> &amp; <a href="https://www.giantbomb.com/fallout-4/3030-49833/" target="_blank" rel="noreferrer noopener">Fallout</a>. Welcome to my vivid journey. 🌌✨ #DigitalDreamer</p>
+                </div>
+            </div>
+        </div>
     </div>
 </header>
 <style is:inline>
     .site-header {
         overflow: unset !important;
         margin-top: -50px;
+        max-height: 256px;
     }
     .site-header .banner__img-mask {
         display: block;
         width: 100%;
-        height: auto;
+        height: 100%;
         max-height: 256px;
     }
     .site-header .banner__img-mask img.banner__img {
         display: block;
         width: 100%;
-        height: auto;
-        max-height: 256px;
+        height: 100%;
+        max-height: 100%;
         object-fit: cover;
     }
     .site-header .banner__logo-img--normal {
         display: block;
         position: absolute;
-        inset: 50px 0 0 auto;
-        width: 128px;
+        inset: 50px 0 auto auto;
+        width: 72px;
         margin: 0.5rem;
         aspect-ratio: 80/113;
         z-index: 3;
@@ -88,11 +96,11 @@ import Picture from "./Picture.astro";---
         content: '';
         display: block;
         position: absolute;
-        inset: 50px 0 0 auto;
-        width: 128px;
+        inset: 50px 0 auto auto;
+        width: 72px;
         margin: 0.5rem;
         aspect-ratio: 80/113;
-        background-color: rgba(0,0,0,0.25);
+        background-color: rgba(0,0,0,0.375);
         box-shadow: 0 2px 6px rgba(0,0,0,0.5);
         -webkit-backdrop-filter: blur(8px);
         backdrop-filter: blur(8px);
@@ -139,6 +147,50 @@ import Picture from "./Picture.astro";---
         .site-header img.banner__img {
             max-height: 148px;
             object-position: center;
+        }
+    }
+
+    .home__content {
+        position: absolute;
+        inset: 50px calc(74px + 0.5rem) 0 0;
+        z-index: 10;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        padding: 0.5rem 1rem;
+
+        color: #fff;
+        text-shadow: 0 0 12px #151715, 0 0 12px #151715, 0 0 12px #151715;
+    }
+    .home__content h1 {
+        font-size: 1.5rem;
+        margin-bottom: 0.125rem !important;
+    }
+    .home__content p {
+        font-size: 1rem;
+    }
+
+    @media screen and (max-width: 959px) {
+        .site-header .banner__img-mask img.banner__img {
+            position: absolute;
+            inset: 0;
+            filter: brightness(0.65);
+        }
+        .site-header,
+        .site-header .banner__img-mask,
+        .site-header .banner__img-mask img.banner__img,
+        .site-header .banner__img-mask::after {
+            height: 100%;
+            max-height: 100%;
+        }
+        .home__content {
+            position: relative;
+            inset: unset;
+        }
+        #jumpin {
+            margin-top: 0 !important;
         }
     }
 </style>

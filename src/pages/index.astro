@@ -179,8 +179,21 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
 		}
 
 		@media screen and (min-width: 960px) {
-			.main {
-				margin-top: -2rem;
+			.site-header {
+				margin-bottom: -6.5rem;
+			}
+			#jumpin {
+				position: relative;
+				backdrop-filter: brightness(0.75) blur(4px);
+			}
+			#jumpin::before {
+				content: '';
+				position: absolute;
+				inset: auto 0 100% 0;
+				width: 100%;
+				height: 8px;
+				background-image: linear-gradient(to bottom, transparent 0%, black 100%);
+				opacity: 0.15;
 			}
 			#jumpin .bottom .btn {
 				display: inline-flex;
@@ -280,17 +293,15 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
 			color: #c7ba00 !important;
 			text-decoration: underline !important;
 		}
+		.excerpt {
+			overflow: hidden;
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: 4;
+		}
 	</style>
 	<div class="page__wrapper lmr">
 		<section class="page main">
-			<div class="home__content">
-				<div>
-					<h1 style="margin-bottom:1rem;">Welcome to CROSSRAMBLES!</h1>
-					<div>
-						<p>I am the Adventurer of Pixels, the Architect of Code, and the Dreamer Behind the Keyboard. From “<a href="https://www.goodreads.com/series/44866-the-inheritance-cycle" target="_blank" rel="noreferrer noopener">Inheritance</a>” to “<a href="https://www.goodreads.com/series/66175-the-lord-of-the-rings" target="_blank" rel="noreferrer noopener">LOTR</a>” and “<a href="https://open.spotify.com/artist/2NPduAUeLVsfIauhRwuft1" target="_blank" rel="noreferrer noopener">Nightwish</a>“, I paint digital realms on&nbsp;<a href="/blog" data-type="link" data-id="https://crossrambles.com/blog">my blog</a>.&nbsp;<a href="https://mlp.fandom.com/wiki/Twilight_Sparkle" target="_blank" rel="noreferrer noopener">Twilight Sparkle</a>&nbsp;fan, gaming in&nbsp;<a href="https://www.giantbomb.com/the-elder-scrolls-v-skyrim/3030-33394/" target="_blank" rel="noreferrer noopener">Skyrim</a> &amp; <a href="https://www.giantbomb.com/fallout-4/3030-49833/" target="_blank" rel="noreferrer noopener">Fallout</a>. Welcome to my vivid journey. 🌌✨ #DigitalDreamer</p>
-					</div>
-				</div>
-			</div>
 			<div id="jumpin">
 				<div class="left">
 					<h2 class="heading">Jump right in&hellip;</h2>
@@ -324,7 +335,7 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
 					<a href={post.path} class="card">
 						<span>{post.date.formatted}</span><br/>
 						<strong>{post.title}</strong>
-						<div set:html={post.content.excerpt}></div>
+						<div class="excerpt" set:html={post.content.excerpt}></div>
 					</a>
 				</div>
 				<div class="right">
