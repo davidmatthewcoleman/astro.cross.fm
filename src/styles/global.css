@@ -15394,15 +15394,15 @@ body::after {
     inset: 0 !important;
     width: 100vw !important;
     height: 100vh !important;
-    -webkit-backdrop-filter: contrast(1.125) saturate(1.125) !important;
-    backdrop-filter: contrast(1.125) saturate(1.125) !important;
+    -webkit-backdrop-filter: contrast(1.075) saturate(1.075) !important;
+    backdrop-filter: contrast(1.075) saturate(1.075) !important;
     z-index: 9999 !important;
     pointer-events: none !important;
 }
 @media (dynamic-range: high) {
     body::after {
-        -webkit-backdrop-filter: contrast(1.25) saturate(1.25) !important;
-        backdrop-filter: contrast(1.25) saturate(1.25) !important;
+        -webkit-backdrop-filter: contrast(1.125) saturate(1.125) !important;
+        backdrop-filter: contrast(1.125) saturate(1.125) !important;
     }
 }
 
@@ -16125,4 +16125,18 @@ body {
     .login-btn-wrapper {
         display: none;
     }
+}
+
+@media screen and (min-width: 960px) {
+    body {
+        background-color: #000 !important;
+        background-image: url("https://static.cross-cdn.com/assets/images/bg-pattern.png") !important;
+        background-position: center bottom !important;
+        background-repeat: repeat-x !important;
+        background-blend-mode: hard-light !important;
+    }
+}
+
+#container {
+    background: transparent !important;
 }
