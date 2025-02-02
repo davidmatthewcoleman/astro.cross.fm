@@ -1,0 +1,328 @@
+[
+  {
+    "section": "Apps",
+    "icon": "compassTool",
+    "color": "text-violet-600 dark:text-violet-400",
+    "items": [
+      {
+        "label": "SigmaOS",
+        "summary": "Web Browser",
+        "link": "https://sigmaos.com",
+        "icon": "sigmaos.png",
+        "description": "Don't let the name full you, this WebKit+ browser packs a punch!",
+        "platforms": [
+          "MacOS"
+        ]
+      },
+      {
+        "label": "Missive",
+        "summary": "Email App",
+        "link": "https://missiveapp.com",
+        "icon": "missive.png",
+        "description": "My email client of choice since late 2023.",
+        "platforms": [
+          "iOS", "iPadOS", "MacOS"
+        ]
+      },
+      {
+        "label": "Raycast",
+        "summary": "Command Bar",
+        "link": "https://www.raycast.com",
+        "icon": "raycast.png",
+        "description": "My preferred command bar / app launcher / spotlight alternative.",
+        "platforms": [
+          "MacOS"
+        ]
+      },
+      {
+        "label": "Discord",
+        "summary": "Chat App",
+        "link": "https://discord.com",
+        "icon": "discord.png",
+        "description": "This app needs no introduction.",
+        "platforms": [
+          "iOS", "iPadOS", "MacOS"
+        ]
+      },
+      {
+        "label": "Eagle",
+        "summary": "Image Library",
+        "link": "https://en.eagle.cool",
+        "icon": "eagle.png",
+        "description": "Just a simple image organizer.",
+        "platforms": [
+          "MacOS"
+        ]
+      },
+      {
+        "label": "Raindrop.io",
+        "summary": "Bookmarks Manager",
+        "link": "https://raindrop.io",
+        "icon": "raindrop.io.png",
+        "description": "What I use for storing links.",
+        "platforms": [
+          "Web", "iOS", "iPadOS", "MacOS"
+        ]
+      },
+      {
+        "label": "Deliveries",
+        "summary": "Package Tracker",
+        "link": "https://deliveries.app",
+        "icon": "deliveries.png",
+        "description": "A simple parcel tracker.",
+        "platforms": [
+          "iOS", "iPadOS", "MacOS"
+        ]
+      },
+      {
+        "label": "Craft",
+        "summary": "Rich Document Editor",
+        "link": "https://craft.do",
+        "icon": "craft.png",
+        "description": "I don't use this too often, but I do find it a better alternative to Notion.",
+        "platforms": [
+          "iOS", "iPadOS", "MacOS"
+        ]
+      },
+      {
+        "label": "Numi",
+        "summary": "Calculator",
+        "link": "https://numi.app",
+        "icon": "numi.png",
+        "description": "Not much to say; it's a calculator.",
+        "platforms": [
+          "MacOS"
+        ]
+      },
+      {
+        "label": "iTerm2",
+        "summary": "Terminal Emulator",
+        "link": "https://iterm2.com",
+        "icon": "iterm2.png",
+        "description": "It's a terminal.",
+        "platforms": [
+          "MacOS"
+        ]
+      },
+      {
+        "label": "Final Cut Pro",
+        "summary": "Video Editor",
+        "link": "https://www.apple.com/final-cut-pro/",
+        "icon": "final-cut-pro.png",
+        "description": "My video editor of choice.",
+        "platforms": [
+          "MacOS"
+        ]
+      },
+      {
+        "label": "RAW Power",
+        "summary": "RAW Photo Editor",
+        "link": "https://www.gentlemencoders.com/raw-power-for-macos/",
+        "icon": "raw-power.png",
+        "description": "A pretty decent RAW editor.",
+        "platforms": [
+          "MacOS"
+        ]
+      },
+      {
+        "label": "Affinity Photo 2",
+        "summary": "Photo Editor",
+        "link": "https://affinity.serif.com/en-us/photo",
+        "icon": "affinity-photo.png",
+        "description": "It's still not quite as powerful as a certain other program, but at least you don't have to sell your soul.",
+        "platforms": [
+          "iOS", "iPadOS", "MacOS"
+        ]
+      },
+      {
+        "label": "Affinity Designer 2",
+        "summary": "Graphic Editor",
+        "link": "https://affinity.serif.com/en-us/designer/",
+        "icon": "affinity-designer.png",
+        "description": "Refer to Affinity Photo's tooltip.",
+        "platforms": [
+          "iOS", "iPadOS", "MacOS"
+        ]
+      },
+      {
+        "label": "WebStorm",
+        "summary": "JavaScript IDE",
+        "link": "https://www.jetbrains.com/webstorm/",
+        "icon": "jetbrains-webstorm.png",
+        "description": "JetBrains™ (in my opinion) makes the best IDEs in the business, and WebStorm is no different. As of October 2024, there's a free non-commercial plan available.",
+        "platforms": [
+          "MacOS"
+        ]
+      },
+      {
+        "label": "PhpStorm",
+        "summary": "PHP IDE",
+        "link": "https://www.jetbrains.com/phpstorm/",
+        "icon": "jetbrains-phpstorm.png",
+        "description": "JetBrains™ (in my opinion) makes the best IDEs in the business, and PhpStorm is no different.",
+        "platforms": [
+          "MacOS"
+        ]
+      }
+    ]
+  },
+  {
+    "section": "Games",
+    "icon": "controller",
+    "color": "text-red-800 dark:text-red-600",
+    "items": [
+      {
+        "id": "489830",
+        "label": "The Elder Scrolls V: Skyrim",
+        "genre": "Fantasy RPG",
+        "link": "https://store.steampowered.com/app/489830/The_Elder_Scrolls_V_Skyrim_Special_Edition/",
+        "cover": "skyrim.png",
+        "publisher": "Bethesda Game Studios™"
+      },
+      {
+        "id": "377160",
+        "label": "Fallout 4",
+        "genre": "Post-Apocalyptic RPG",
+        "link": "https://store.steampowered.com/app/377160/Fallout_4/",
+        "cover": "fallout4.png",
+        "publisher": "Bethesda Game Studios™"
+      },
+      {
+        "id": "550",
+        "label": "Left 4 Dead 2",
+        "genre": "Co-Op Action Horror",
+        "link": "https://store.steampowered.com/app/550/Left_4_Dead_2/",
+        "cover": "l4d2.png",
+        "publisher": "Valve Software™"
+      },
+      {
+        "id": "1086940",
+        "label": "Baldur's Gate III",
+        "genre": "Fantasy RPG",
+        "link": "https://store.steampowered.com/app/1086940/Baldurs_Gate_3/",
+        "cover": "bg3.png",
+        "publisher": "Larian Studios™"
+      }
+    ]
+  },
+  {
+    "section": "Devices",
+    "icon": "devices",
+    "color": "text-amber-600 dark:text-amber-400",
+    "items": [
+      {
+        "label": "iPhone 15 Pro Max",
+        "category": "Phone",
+        "colors": [
+          "Natural Titanium"
+        ],
+        "specs": [
+          "256GB Storage"
+        ],
+        "thumb": "iphone-15-pro-max.jpg"
+      },
+      {
+        "label": "iPad Pro",
+        "category": "Tablet",
+        "colors": [
+          "Space Grey"
+        ],
+        "specs": [
+          "256GB Storage", "8GB RAM", "11\" Screen"
+        ],
+        "thumb": "m2-ipad-pro-11.jpg"
+      },
+      {
+        "label": "MacBook Pro",
+        "category": "Laptop Computer",
+        "colors": [
+          "Space Grey"
+        ],
+        "specs": [
+          "Apple M2 Chip w/ 12-core CPU | 16-core GPU | 16-core neural engine",
+          "2TB Internal Storage", "32GB Memory", "1TB MicroSD Card"
+        ],
+        "thumb": "m2-pro-14-macbook-pro.jpg"
+      },
+      {
+        "label": "LG UltraWide Monitor",
+        "category": "Computer Monitor",
+        "colors": null,
+        "specs": [
+          "34\" Display", "3440×1440 Resolution", "75Hz Refresh Rate"
+        ],
+        "thumb": "lg-monitor.jpg"
+      },
+      {
+        "label": "Dell Monitor",
+        "category": "Computer Monitor",
+        "colors": null,
+        "specs": [
+          "24\" Display", "1920×1080 Resolution", "60Hz Refresh Rate", "Vertical Orientation"
+        ],
+        "thumb": "dell-monitor.jpg"
+      }
+    ]
+  },
+  {
+    "section": "Accessories",
+    "icon": "watch",
+    "color": "text-lime-700 dark:text-lime-400",
+    "items": [
+      {
+        "label": "Apple Watch Ultra 2",
+        "category": "Smart Watch",
+        "colors": [
+          "Natural Titanium"
+        ],
+        "thumb": "apple-watch.jpg"
+      },
+      {
+        "label": "Logitech MX Master 3S",
+        "category": "Computer Mouse",
+        "colors": [
+          "Space Grey"
+        ],
+        "thumb": "mx-master-3s.jpg"
+      },
+      {
+        "label": "Apple Magic Keyboard w/ Numpad & TouchID",
+        "category": "Keyboard",
+        "colors": [
+          "Black Keys"
+        ],
+        "thumb": "magic-keyboard.jpg"
+      },
+      {
+        "label": "HyperX Quadcast S",
+        "category": "USB Microphone",
+        "colors": [
+          "Black"
+        ],
+        "thumb": "quadcast-s.jpg"
+      },
+      {
+        "label": "Petino 3 in 1 Charging Station for Apple Devices",
+        "category": "Wireless Charger",
+        "colors": [
+          "Black", "Alpine Green"
+        ],
+        "thumb": "charging-station.jpg"
+      },
+      {
+        "label": "Sony WH-1000XM4",
+        "category": "Bluetooth ANC Headphones",
+        "colors": [
+          "Black"
+        ],
+        "thumb": "sony-headphones.jpg"
+      },
+      {
+        "label": "Apple AirPods Pro 2",
+        "category": "True Wireless Earbuds",
+        "colors": null,
+        "thumb": "airpods-pro.jpg"
+      }
+    ]
+  }
+]

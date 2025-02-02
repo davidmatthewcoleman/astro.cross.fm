@@ -66,8 +66,8 @@ export default function AboutSelector({about}) {
             <option key={3} value={'/about/bookshelf'}>
                 Bookshelf
             </option>
-            <option key={4} value={'/about/uses'}>
-                Uses
+            <option key={4} value={'/about/things'}>
+                Things
             </option>
         </select>
     );

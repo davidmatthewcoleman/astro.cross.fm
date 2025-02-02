@@ -1,0 +1,69 @@
+---
+import Sidebar from "../../../components/Sidebar.astro";
+import MainLayout from "../../../layouts/MainLayout.astro";
+import AboutSelector from "../../../components/AboutSelector.jsx";
+import { getContent } from "cross:content";
+import Icon from "../../../components/Icon.astro";
+import { AppCard, DeviceCard, AccessoryCard } from "../../../components/Things.jsx";
+import GameCard from "../../../components/Things/Game.astro";
+import Blocks from "../../../components/Blocks/index.astro";
+
+const things = await getContent('things');
+const page = await getContent('pages', {
+    first: 1,
+    slug: 'things'
+})
+
+Astro.response.headers.set('Cache-Control', 'max-age=600, must-revalidate');
+---
+
+<MainLayout title={`Things – CROSS`}>
+    <div class="post__wrapper lm">
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+            <ol>
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                <li>
+                    <a href="/about">About Me</a>
+                </li>
+                <li class="is-active">
+                    <span>
+                        <AboutSelector about={false} server:defer client:load />
+                        <Icon name="caret-down" size={12} />
+                    </span>
+                </li>
+            </ol>
+        </nav>
+        <section class="page main">
+            <h2 class="single__title">Things</h2>
+            <article class="single__contents tw-app" data-dir="ltr">
+                <Blocks data={page?.content?.full.blocks} />
+                <hr />
+                {things.map((group) => {
+                    return (
+                        <>
+                            <h3 class="!-mt-2 !mb-2.5">{group.section}</h3>
+                            <div class={`${['Devices', 'Accessories'].includes(group.section) ? 'grid break:grid-cols-2 gap-2.5' : 'flex flex-col gap-y-2.5'} mb-8 last-of-type:mb-3`}>
+                                {group.items.map((item) => {
+                                    if ( group.section === 'Apps' ) {
+                                        return <AppCard {...item} />;
+                                    } else if ( group.section === 'Games' ) {
+                                        return <GameCard {...item} server:defer />;
+                                    } else if ( group.section === 'Devices' ) {
+                                        return <DeviceCard {...item} />;
+                                    } else if ( group.section === 'Accessories' ) {
+                                        return <AccessoryCard {...item} />;
+                                    }
+                                })}
+                            </div>
+                            <hr class="last-of-type:hidden" />
+                        </>
+                    );
+                })}
+            </article>
+            <footer class="single__footer"></footer>
+        </section>
+    </div>
+    <Sidebar />
+</MainLayout>

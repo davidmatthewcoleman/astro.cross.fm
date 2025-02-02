@@ -1,0 +1,60 @@
+---
+import Parse from "html-react-parser";
+import CountUp from "react-countup";
+import React from "react";
+import { fetchSteamGames } from "../../lib/steam";
+import Picture from "../Picture.astro";
+
+const {id, label, genre, link, cover, publisher} = Astro.props;
+
+const { response } = await fetchSteamGames();
+const steamData = response.games.find(game => game.appid === parseInt(id, 10));
+
+const convertMinutesToHours = (minutes) => {
+    if (minutes > 59) {
+        return {
+            number: Math.round(minutes / 60),
+            suffix: " hours"
+        };
+    } else {
+        return {
+            number: minutes,
+            suffix: " minutes"
+        };
+    }
+};
+
+const playTime = steamData?.playtime_forever
+const stats = convertMinutesToHours(playTime)
+---
+
+<a href={link} target={`_blank`}
+   class={`block bg-[#1D1F2E] !text-white hover:!text-[#D2C100] rounded-[6px] !no-underline overflow-hidden px-5 py-3 min-w-full`}>
+    <div class={`grid grid-cols-[1fr_auto] auto-rows-min gap-4 max-h-min items-stretch mb-auto after:hidden`}>
+        <div class={`flex flex-col gap-1.5 flex-grow w-full max-h-min`}>
+            <strong
+                    class={`text-inherit line-clamp-2 md:line-clamp-1 text-sm md:text-base -mb-1`}>{Parse(label)}</strong>
+            <div
+                    class={`text-white/75 text-sm line-clamp-4 md:text-base md:line-clamp-3`}>{Parse(publisher)}</div>
+            <div class={`flex flex-row gap-0.5 text-white/50 text-xxs md:text-xs items-center mt-auto`}>
+                <span>
+                    {stats.number + stats.suffix}
+                    {" played"}
+                </span>
+            </div>
+        </div>
+        <Picture
+            alt={Parse(label)}
+            className="w-full rounded-[6px] m-auto"
+            classNamePicture="thumb max-h-full rounded-[6px] overflow-hidden"
+            source={[
+                {
+                    url: `https://static.cross-cdn.com/content/things/games/covers/${cover}`,
+                    params: {
+                        resize: ['auto', 72]
+                    }
+                }
+            ]}
+        />
+    </div>
+</a>

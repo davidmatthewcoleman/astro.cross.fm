@@ -18,8 +18,8 @@ export const options = [
         label: 'Bookshelf'
     },
     {
-        key: 'about/uses',
-        label: 'Uses'
+        key: 'about/things',
+        label: 'Things'
     }
 ];
 

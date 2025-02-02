@@ -16,6 +16,7 @@ import {
 } from './api';
 import { format } from "date-fns";
 import { formatInteger } from "./utils.js";
+import { things } from "./content.js";
 
 const Parse = (html = null) => {
     return html.length > 0 ? String(html) : null;
@@ -646,6 +647,9 @@ const getContent = async (collection, query = {
             break;
         case 'tags':
             result = await tags(query.slug);
+            break;
+        case 'things':
+            result = await things();
             break;
     }
 
