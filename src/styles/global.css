@@ -11918,18 +11918,9 @@ input:checked + .slider:before {
     border: none;
     height: 3px;
 }
-#container hr {
-    margin: 0 0 0 -1rem;
-    padding: 0;
-    border: none;
-    height: 3px;
-}
 @media screen and (max-width: 959px) {
     .single__contents hr {
         margin: -0.5rem -1rem 1.25rem;
-    }
-    #container hr {
-        margin: 0 -1rem;
     }
 }
 .theme__dark .single__contents hr {
@@ -16155,4 +16146,19 @@ body {
 
 #container {
     background: transparent !important;
+}
+
+
+
+.summary-classic hr {
+    margin: 0 0 0 -1rem !important;
+    padding: 0 !important;
+    border: none !important;
+    height: 3px !important;
+    background: #3b3d3b !important;
+}
+@media screen and (max-width: 959px) {
+    .summary-classic hr {
+        margin: 0 -1rem !important;
+    }
 }
