@@ -170,6 +170,25 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
 			margin-top: 0.5em;
 		}
 
+		.bottom.scrollable {
+			display: grid;
+			grid-template-columns: auto 1fr;
+		}
+		.bottom > .scroll {
+			--mask-width: 24px;
+
+			display: flex;
+			flex-direction: row;
+			flex-grow: 1;
+			column-gap: 0.625rem;
+			overflow-x: scroll;
+
+			scrollbar-width: none;
+		}
+		.bottom > .scroll::-webkit-scrollbar {
+			display: none;
+		}
+
 		#jumpin h2 {
 			line-height: 1.5rem;
 			margin-bottom: 0.75em !important;
@@ -181,6 +200,24 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
 
 		#jumpin .icon.icon__down-right-arrow {
 			transform: translateY(-0.25rem);
+		}
+
+		/* Left fade effect */
+		.mask-left {
+			mask-image: linear-gradient(to right, transparent 0px, black var(--mask-width), black 100%);
+			-webkit-mask-image: linear-gradient(to right, transparent 0px, black var(--mask-width), black 100%);
+		}
+
+		/* Right fade effect */
+		.mask-right {
+			mask-image: linear-gradient(to left, transparent 0px, black var(--mask-width), black 100%);
+			-webkit-mask-image: linear-gradient(to left, transparent 0px, black var(--mask-width), black 100%);
+		}
+
+		/* Both sides fade effect */
+		.mask-both {
+			mask-image: linear-gradient(to right, transparent 0px, black var(--mask-width), black calc(100% - var(--mask-width)), transparent 100%);
+			-webkit-mask-image: linear-gradient(to right, transparent 0px, black var(--mask-width), black calc(100% - var(--mask-width)), transparent 100%);
 		}
 
 		@media screen and (min-width: 960px) {
@@ -237,6 +274,10 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
 			}
 			.home__content .description__logo {
 				display: none !important;
+			}
+
+			.bottom.scrollable > .scroll {
+				display: none;
 			}
 		}
 		.main.inner.hero {
@@ -314,13 +355,49 @@ Astro.response.headers.set('Cache-Control','max-age=600, must-revalidate');
 						<strong>Way too much about myself.</strong>
 						<p>Explore the eclectic world of CROSS: an autistic brony, and furry dreamer crafting digital realms and dreaming of roaming the Americas in a Volkswagen Vanagon Westfalia Syncro.</p>
 					</a>
-					<div class="bottom">
+					<div class="bottom scrollable">
 						<Icon name={'down-right-arrow'} size={24} />
-						<a href="/about/interests" class="btn">Interests</a>
-						<a href="/about/bookmarks" class="btn">Bookmarks</a>
-						<a href="/about/bookshelf" class="btn">Bookshelf</a>
-						<a href="/about/uses" class="btn">Uses</a>
+						<div class="scroll mask-right">
+							<a href="/about/interests" class="btn">Interests</a>
+							<a href="/about/bookmarks" class="btn">Bookmarks</a>
+							<a href="/about/bookshelf" class="btn">Bookshelf</a>
+							<a href="/about/uses" class="btn">Uses</a>
+						</div>
 						<AboutSelectorButton client:load />
+						<script is:inline>
+							document.addEventListener("DOMContentLoaded", function () {
+								const container = document.querySelector(".scroll");
+
+								function updateMask() {
+									const canScrollLeft = container.scrollLeft > 0;
+									const canScrollRight = container.scrollLeft + container.clientWidth < container.scrollWidth;
+
+									container.classList.remove("mask-left", "mask-right", "mask-both");
+
+									if (canScrollLeft && canScrollRight) {
+										container.classList.add("mask-both");
+									} else if (canScrollLeft) {
+										container.classList.add("mask-left");
+									} else if (canScrollRight) {
+										container.classList.add("mask-right");
+									}
+								}
+
+								container.addEventListener("scroll", updateMask);
+								window.addEventListener("resize", updateMask);
+
+								updateMask(); // Initial call
+							});
+
+							document.addEventListener("DOMContentLoaded", function () {
+								const container = document.querySelector(".scroll");
+
+								container.addEventListener("wheel", function (event) {
+									event.preventDefault(); // Prevent vertical scrolling
+									container.scrollLeft += event.deltaY; // Move horizontally
+								});
+							});
+						</script>
 					</div>
 				</div>
 				<div class="right">

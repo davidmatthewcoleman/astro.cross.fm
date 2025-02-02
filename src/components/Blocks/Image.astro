@@ -6,12 +6,12 @@ let blockClass = 'image-block ', blockImgClass, blockWidth;
 if (block.attributes.align) {
     switch (block.attributes.align) {
         case 'left':
-            blockClass += 'float-none break-sm:float-left !my-2 break-sm:!mr-4 w-full break-sm:w-auto'
+            blockClass += 'float-none break-sm:float-left !my-2 !mx-auto break-sm:!ml-0 break-sm:!mr-4 w-full break-sm:w-auto'
             blockImgClass = 'mx-auto 2xl:!m-0 w-full'
             blockWidth = block.attributes.width ? block.attributes.width : 256
             break
         case 'center':
-            blockClass += 'float-none !my-2 w-full break-sm:w-auto'
+            blockClass += 'float-none !my-2 !mx-auto w-full break-sm:w-auto'
             blockImgClass = '!m-0 w-full'
             blockWidth = block.attributes.width ? block.attributes.width : 1200
             break
@@ -26,7 +26,7 @@ if (block.attributes.align) {
             blockWidth = 1920
             break
         case 'right':
-            blockClass += 'float-none break-sm:float-right !my-2 break-sm:!ml-4 w-full break-sm:w-auto'
+            blockClass += 'float-none break-sm:float-right !my-2 !mx-auto break-sm:!ml-4 break-sm:!mr-0 w-full break-sm:w-auto'
             blockImgClass = 'mx-auto 2xl:!m-0 w-full'
             blockWidth = block.attributes.width ? block.attributes.width : 256
             break
