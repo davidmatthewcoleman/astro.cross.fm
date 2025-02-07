@@ -6,6 +6,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 import SiteNav from "../components/SiteNav.astro";
 import HomeHero from "../components/HomeHero.astro";
 import SiteFooter from "../components/SiteFooter.astro";
+import Announcement from "../components/Announcement.astro";
 import { getContent, getHead } from "cross:content";
 import Analytics from "@vercel/analytics/astro";
 import SpeedInsights from "@vercel/speed-insights/astro";
@@ -90,6 +91,7 @@ const { profile } = await getContent('hero');
 </script>
 <div id="container">
     <div class="wrapper">
+        <Announcement />
         <SiteNav menu={primaryMenu}/>
         <HomeHero/>
         <main class="main inner hero" data-sidebar-position="right">

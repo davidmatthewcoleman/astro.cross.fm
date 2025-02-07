@@ -377,7 +377,6 @@ export async function blogQuery(first = null, after = null, slug = null, series 
                             readingTime
                             isSticky
                             license
-                            toc
                             author {
                               node {
                                 name
@@ -1310,7 +1309,6 @@ export async function singlePostQuery(slug) {
                       series
                       license
                       excerpt
-                      toc
                       author {
                         node {
                           name
@@ -1890,8 +1888,8 @@ export async function bookshelfQuery() {
     return result.data.bookshelf.nodes;
 }
 
-export async function headQuery(url) {
-    const variables = { url };
+export async function headQuery(path) {
+    const variables = { path };
 
     const response = await fetch(import.meta.env.WORDPRESS_API_URL, {
         method: 'POST',
@@ -1901,8 +1899,8 @@ export async function headQuery(url) {
         },
         body: JSON.stringify({
             query: `
-                query GetHead($url: String!) {
-                  head(url: $url)
+                query GetHead($path: String!) {
+                  head(path: $path)
                 }
             `,
             variables

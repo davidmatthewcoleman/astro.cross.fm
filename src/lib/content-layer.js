@@ -148,10 +148,10 @@ const posts = async (first = null, after = null, slug = null, series = null, top
             },
             taxonomies: {
                 series: {
-                    label: post.allSeries.nodes[0].name ? Parse(post.allSeries.nodes[0].name) : null,
-                    slug: post.allSeries.nodes[0].slug ? String(post.allSeries.nodes[0].slug) : null,
-                    path: post.allSeries.nodes[0].slug ? String(`/blog/${post.allSeries.nodes[0].slug}`) : null,
-                    count: post.allSeries.nodes[0].count ? Number(post.allSeries.nodes[0].count) : 0
+                    label: post.allSeries.nodes[0] ? Parse(post.allSeries.nodes[0].name) : 'Journal',
+                    slug: post.allSeries.nodes[0] ? String(post.allSeries.nodes[0].slug) : 'journal',
+                    path: post.allSeries.nodes[0] ? String(`/blog/${post.allSeries.nodes[0].slug}`) : '/blog/journal',
+                    count: post.allSeries.nodes[0] ? Number(post.allSeries.nodes[0].count) : 0
                 },
                 topics: post.categories.nodes.length > 0 ? post.categories.nodes.map((topic) => ({
                     label: topic.name ? Parse(topic.name) : null,
@@ -184,7 +184,6 @@ const posts = async (first = null, after = null, slug = null, series = null, top
                     raw: post.content ? Parse(post.content) : null,
                     blocks: post.editorBlocks || null
                 },
-                toc: post.toc ? Parse(post.toc) : false,
                 thumbnail: post.featuredImage && post.featuredImage.node ? {
                     mimeType: String(post.featuredImage.node.mimeType),
                     filename: post.featuredImage.node.sourceUrl ? String(new URL(post.featuredImage.node.sourceUrl).pathname.split('/').at(-1)) : null,
@@ -580,7 +579,7 @@ const tags = async (tag = null) => {
 }
 
 const head = async (path) => {
-    const data = await headQuery(`https://crossrambles.com${path}`);
+    const data = await headQuery(path);
     return data.head;
 }
 

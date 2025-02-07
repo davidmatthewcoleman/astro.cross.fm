@@ -1938,7 +1938,7 @@ pre {
     position: fixed;
     left: 0;
     right: 0;
-    top: 0;
+    top: 2rem;
     -webkit-transition: all 0.2s ease;
     -moz-transition: all 0.2s ease;
     -ms-transition: all 0.2s ease;
@@ -1990,7 +1990,7 @@ pre {
     top: -50px;
 }
 .navbar--show {
-    top: 0;
+    top: 2rem;
 }
 .navbar__slide-down svg {
     margin: auto;
@@ -3211,6 +3211,8 @@ pre {
     grid-template-rows: 50px auto 1fr auto;
     grid-column-gap: 32px;
     grid-row-gap: 0;
+
+    padding-top: 2rem !important;
 }
 .header-main {
     grid-area: 2/1/3/2;
@@ -15603,7 +15605,7 @@ figure {
 }
 @media screen and (max-width: 959px) {
     .menuOpen .navbar {
-        top: 0 !important;
+        top: 2rem !important;
     }
     .sidebar {
         margin-top: 0.875rem !important;
